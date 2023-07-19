@@ -5,7 +5,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(
+  const [user, setUser] = useState(() =>
     localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user"))
       : null
@@ -13,14 +13,25 @@ export const AuthProvider = ({ children }) => {
 
   let navigate = useNavigate();
 
-  const [authTokens, setAuthTokens] = useState(
+  const [authTokens, setAuthTokens] = useState(() =>
     localStorage.getItem("authTokens")
       ? JSON.parse(localStorage.getItem("authTokens"))
       : null
   );
+
   useEffect(() => {
-    setLoading(false);
-  }, []);
+    if (loading) {
+      updateToken();
+    }
+    let fourMins = 1000 * 60 * 4;
+    let interval = setInterval(() => {
+      if (authTokens) {
+        updateToken();
+      }
+    }, fourMins);
+
+    return () => clearInterval(interval);
+  }, [authTokens, loading]);
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -47,20 +58,54 @@ export const AuthProvider = ({ children }) => {
       alert("Something went wrong");
     }
   };
-  const logoutUser = () => {};
+  const logoutUser = () => {
+    setAuthTokens(null);
+    setUser(null);
+    localStorage.removeItem("authTokens");
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
+
   const registerUser = (userInfo) => {};
   const checkUserStatus = () => {};
 
+  let updateToken = async () => {
+    console.log("Update Token Called");
+    let response = await fetch("http://localhost:8000/api/token/refresh/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        refresh: authTokens?.refresh,
+      }),
+    });
+    let data = await response.json();
+    if (response.status === 200) {
+      setAuthTokens(data);
+      setUser(jwt_decode(data.access));
+      localStorage.setItem("authTokens", JSON.stringify(data));
+      localStorage.setItem("user", JSON.stringify(jwt_decode(data.access)));
+    } else {
+      logoutUser();
+    }
+
+    if (loading) {
+      setLoading(false);
+    }
+  };
+
   const contextData = {
     user: user,
+    authTokens: authTokens,
     loginUser: loginUser,
-    logoutUser,
+    logoutUser: logoutUser,
     registerUser,
   };
 
   return (
     <AuthContext.Provider value={contextData}>
-      {loading ? <p>Loading....</p> : children}
+      {loading ? null : children}
     </AuthContext.Provider>
   );
 };

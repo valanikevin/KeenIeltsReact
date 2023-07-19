@@ -4,9 +4,8 @@ import AuthContext, { useAuth } from "../utils/AuthContext";
 
 const Header = () => {
   const navigate = useNavigate();
-  const logoutClick = null;
 
-  let { user } = useContext(AuthContext);
+  let { user, logoutUser } = useContext(AuthContext);
 
   return (
     <div>
@@ -15,7 +14,7 @@ const Header = () => {
           <h1>Helllo {user.email}</h1>
           <Link to={"/"}>Home Page</Link>
           <span> | </span>
-          <button onClick={logoutClick}>Logout</button>
+          <button onClick={logoutUser}>Logout</button>
         </>
       ) : (
         <>
