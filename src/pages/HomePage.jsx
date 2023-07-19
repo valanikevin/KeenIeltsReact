@@ -1,24 +1,29 @@
-import React, { useContext, useEffect, useState } from "react";
-import axiosInstance from "../utils/axiosInstance";
+import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../utils/AuthContext";
+import useAxios from "../utils/useAxios";
 
 const HomePage = () => {
   let [notes, setNotes] = useState([]);
   let { authTokens, logoutUser } = useContext(AuthContext);
+
+  let api = useAxios();
 
   useEffect(() => {
     getNotes();
   }, []);
 
   let getNotes = async () => {
-    let response = await axiosInstance.get("/api/notes/");
+    let response = await api.get("/api/notes/");
+
     if (response.status === 200) {
       setNotes(response.data);
     }
   };
+
   return (
     <div>
-      Notes:
+      <p>You are logged to the home page!</p>
+
       <ul>
         {notes.map((note) => (
           <li key={note.id}>{note.body}</li>
