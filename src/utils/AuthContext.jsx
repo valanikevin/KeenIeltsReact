@@ -20,17 +20,10 @@ export const AuthProvider = ({ children }) => {
   );
 
   useEffect(() => {
-    if (loading) {
-      updateToken();
+    if (authTokens) {
+      setUser(jwt_decode(authTokens.access));
     }
-    let fourMins = 1000 * 60 * 4;
-    let interval = setInterval(() => {
-      if (authTokens) {
-        updateToken();
-      }
-    }, fourMins);
-
-    return () => clearInterval(interval);
+    setLoading(false);
   }, [authTokens, loading]);
 
   const loginUser = async (e) => {
@@ -69,31 +62,31 @@ export const AuthProvider = ({ children }) => {
   const registerUser = (userInfo) => {};
   const checkUserStatus = () => {};
 
-  let updateToken = async () => {
-    console.log("Update Token Called");
-    let response = await fetch("http://localhost:8000/api/token/refresh/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        refresh: authTokens?.refresh,
-      }),
-    });
-    let data = await response.json();
-    if (response.status === 200) {
-      setAuthTokens(data);
-      setUser(jwt_decode(data.access));
-      localStorage.setItem("authTokens", JSON.stringify(data));
-      localStorage.setItem("user", JSON.stringify(jwt_decode(data.access)));
-    } else {
-      logoutUser();
-    }
+  //   let updateToken = async () => {
+  //     console.log("Update Token Called");
+  //     let response = await fetch("http://localhost:8000/api/token/refresh/", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         refresh: authTokens?.refresh,
+  //       }),
+  //     });
+  //     let data = await response.json();
+  //     if (response.status === 200) {
+  //       setAuthTokens(data);
+  //       setUser(jwt_decode(data.access));
+  //       localStorage.setItem("authTokens", JSON.stringify(data));
+  //       localStorage.setItem("user", JSON.stringify(jwt_decode(data.access)));
+  //     } else {
+  //       logoutUser();
+  //     }
 
-    if (loading) {
-      setLoading(false);
-    }
-  };
+  //     if (loading) {
+  //       setLoading(false);
+  //     }
+  //   };
 
   const contextData = {
     user: user,
