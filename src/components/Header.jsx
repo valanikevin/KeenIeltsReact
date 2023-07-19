@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../utils/AuthContext";
+import AuthContext, { useAuth } from "../utils/AuthContext";
 
 const Header = () => {
-  const { user } = useAuth();
   const navigate = useNavigate();
   const logoutClick = null;
+
+  let { user } = useContext(AuthContext);
+
   return (
     <div>
       {user ? (
         <>
+          <h1>Helllo {user.email}</h1>
           <Link to={"/"}>Home Page</Link>
           <span> | </span>
           <button onClick={logoutClick}>Logout</button>
