@@ -1,0 +1,25 @@
+//
+// Extended from bootstrap
+//
+// Type scss
+h1,
+h2,
+h3,
+.h1,
+.h2,
+.h3 {
+  letter-spacing: -0.022rem;
+}
+
+// Type display classes
+.display-1,
+.display-2,
+.display-3,
+.display-4 {
+  letter-spacing: -0.05rem;
+}
+
+// Lead
+.lead {
+  letter-spacing: -0.03rem;
+}

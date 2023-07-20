@@ -1,0 +1,63 @@
+:root {
+
+  // body bg
+
+  --#{$prefix}body-bg: #{map-get($grays, "100")};
+  --#{$prefix}body-color: #{$body-color};
+  --#{$prefix}headings-color: #{$gray-800};
+  --#{$prefix}navbar-vertical-bg: #{$white};
+  --#{$prefix}navbar-bg: #{$white};
+
+  // card
+  --#{$prefix}card-background: #{$white};
+
+  // form
+  --#{$prefix}input-bg: #{$white};
+  --#{$prefix}input-disabled-bg: #{$gray-200};
+  --#{$prefix}input-focus-border: #{tint-color($component-active-bg, 50%)};
+  --#{$prefix}input-border: #{$gray-300};
+  --#{$prefix}input-placeholder-color: #{$gray-500};
+  --#{$prefix}input-focus-box-shadow: 0px 0px 0px 3px rgba(231, 225, 253, 0.75);
+
+  //check
+  --#{$prefix}input-check-border: var(--#{$prefix}input-border);
+
+  // input-group-addon
+  --#{$prefix}input-group-addon-bg: #{$gray-200};
+  --#{$prefix}form-text-color: #{$gray-400};
+  --#{$prefix}form-label-color: #{$gray-700};
+
+  // border
+  --#{$prefix}border-color: #{$gray-200};
+
+  // dropdown
+  --#{$prefix}dropdown-background: #{$white};
+  --#{$prefix}dropdown-link-color: #{$gray-900};
+  --#{$prefix}dropdown-link-hover-color: #{shade-color($gray-900, 10%)};
+  --#{$prefix}dropdown-link-hover-bg: #{$gray-100};
+  --#{$prefix}dropdown-border-width: 0px;
+  --#{$prefix}dropdown-shadow: 0 10px 30px 0 rgba(31, 45, 61, 0.1);
+
+  // modal
+  --#{$prefix}modal-bg: #{$gray-100};
+
+  // progress
+  --#{$prefix}progress-background: #{$gray-300};
+
+  // btn ghost
+  --#{$prefix}btn-ghost-bg: #{$gray-300};
+
+  // Tagify
+  --#{$prefix}tagify-border-color: #{$gray-300};
+
+  // navbar
+  --#{$prefix}navbar-vertical-bg: #{$gray-800};
+  --#{$prefix}navbar-vertical-link: #{$gray-400};
+  --#{$prefix}navbar-vertical-link-hover: #{$gray-300};
+  // Accordion
+  // --#{$prefix}accordion-bg: #{$white};
+  .bg-dark {
+    background-color: $gray-900;
+  }
+ 
+}

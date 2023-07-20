@@ -1,0 +1,23 @@
+// Collapse
+
+.chevron-arrow {
+  display: inline-block;
+  transition: 0.5s ease-in-out;
+}
+
+// Expanded
+[aria-expanded="true"] .chevron-arrow {
+  transform: rotate(-180deg);
+}
+
+// Collapse Toggle
+
+.collapse-toggle {
+  display: inline-block;
+  transition: 0.5s ease-in-out;
+}
+
+// Expanded
+[aria-expanded="true"] .collapse-toggle {
+  transform: rotate(180deg);
+}

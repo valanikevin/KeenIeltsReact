@@ -1,0 +1,26 @@
+// IE scss
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  /* Put your IE-only styles here. Works for IS 10 & IE 11*/
+  .dropdown {
+    .dropdown-toggle {
+      &::after {
+        display: none;
+      }
+
+      /* IE11 */
+    }
+  }
+  .search-icon {
+    margin-top: -10px;
+    /* IE11 */
+  }
+  .avatar-indicators::before {
+    right: 16%;
+    /* IE11 */
+  }
+  .navbar-vertical .navbar-nav .nav-item .nav-link[data-bs-toggle="collapse"]:after {
+    top: 0.5rem;
+    /* IE11 */
+  }
+}

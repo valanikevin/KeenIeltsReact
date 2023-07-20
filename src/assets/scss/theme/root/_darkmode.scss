@@ -1,0 +1,257 @@
+// dark mode
+
+[data-theme="dark"] {
+  // Color system - Dark Mode only
+  
+  $gray-100: #0b1324;
+  $gray-200: #0f172a;
+  $gray-300: #1e293b;
+  $gray-400: #334155;
+  $gray-500: #475569;
+  $gray-600: #64748b;
+  $gray-700: #94a3b8;
+  $gray-800: #cbd5e1;
+  $gray-900: #e2e8f0;
+  $gray-1000: #f1f5f9;
+  $light-primary: #312b4d;
+  $light-info: #184457;
+  $light-danger: #442626;
+$light-success:#25483e;
+$light-warning: #5a4327;
+
+
+  $grays: (
+    "100": $gray-100,
+    "200": $gray-200,
+    "300": $gray-300,
+    "400": $gray-400,
+    "500": $gray-500,
+    "600": $gray-600,
+    "700": $gray-700,
+    "800": $gray-800,
+    "900": $gray-900,
+    "1000": $gray-1000,
+  );
+
+  $theme-colors: () !default;
+  $theme-colors: (
+    "primary": $primary,
+    "secondary": $secondary,
+    "success": $success,
+    "info": $info,
+    "warning": $warning,
+    "danger": $danger,
+    "light": $gray-200,
+    "dark": $white,
+    "white": $gray-100,
+    "light-primary": $light-primary,
+    "light-danger": $light-danger,
+    "light-info": $light-info,
+    "light-success": $light-success,
+    "light-warning": $light-warning,
+  );
+
+  // Button
+  @each $color, $value in $theme-colors {
+    .btn-#{$color} {
+      @include button-variant($value, $value);
+    }
+  }
+  @each $color, $value in $theme-colors {
+    .btn-outline-#{$color} {
+      @include button-outline-variant($value);
+    }
+  }
+
+  // Prefix for :root CSS variables
+  @each $color, $value in $grays {
+    --#{$prefix}gray-#{$color}: #{$value};
+  }
+
+  // Color
+  @each $color, $value in $theme-colors {
+    --#{$prefix}#{$color}: #{$value};
+  }
+
+
+// color
+
+  @each $color, $value in $theme-colors {
+    $color-rgb: to-rgb($value);
+    .text-bg-#{$color} {
+      color: color-contrast($value) if($enable-important-utilities, !important, null);
+      background-color: RGBA($color-rgb, var(--#{$prefix}bg-opacity, 1))
+        if($enable-important-utilities, !important, null);
+    }
+    .bg-#{$color} {
+      // color: color-contrast($value) if($enable-important-utilities, !important, null);
+      background-color: RGBA($color-rgb, var(--#{$prefix}bg-opacity, 1))
+        if($enable-important-utilities, !important, null);
+    }
+    .text-#{$color} {
+      color: $value !important;
+     
+    }
+  }
+  // Color
+  @each $color, $value in $grays {
+    .bg-gray-#{$color} {
+      background-color: $value !important;
+    }
+    .text-gray-#{$color} {
+      color: $value !important;
+    }
+  }
+
+  // selections
+  ::selection {
+    background-color: $warning;
+    color: $gray-100;
+  }
+
+  // body
+  --#{$prefix}body: #{$gray-200}; // 200
+  --#{$prefix}body-bg: #{$gray-200}; // 200
+  --#{$prefix}body-color: #{$gray-600}; // 600
+  --#{$prefix}headings-color: #{$gray-800}; // 800
+
+  --#{$prefix}navbar-vertical-bg: #{$gray-300}; // 300
+  --#{$prefix}navbar-bg: #{$gray-300}; // 300
+
+  // card
+  --#{$prefix}card-background: #{$gray-300}; // 300
+
+  // input
+  --#{$prefix}input-bg: #{$gray-100}; // 200
+  --#{$prefix}input-disabled-bg: #{$gray-300}; // 300
+  --#{$prefix}input-focus-border: #{tint-color($component-active-bg, 10%)};
+  --#{$prefix}input-placeholder-color: #{$gray-600}; // 600
+  --#{$prefix}input-border: #{$gray-300}; // 300
+  --#{$prefix}form-text-color: #{$gray-600}; // 600
+  --#{$prefix}form-label-color: #{$gray-600}; // 600
+  --#{$prefix}input-focus-box-shadow: 0px 0px 0px 3px rgba(131, 97, 254, 0.5);
+
+  // check
+  --#{$prefix}input-check-border: var(--#{$prefix}input-border);
+
+  // border
+  --#{$prefix}border-color: #{$gray-400}; // 400
+
+  // dropdown
+  --#{$prefix}dropdown-background: #{$gray-300}; // 300
+  --#{$prefix}dropdown-link-color: #{$gray-600}; // 600
+  --#{$prefix}dropdown-link-hover-color: #{shade-color($gray-800, 10%)}; // 800
+  --#{$prefix}dropdown-link-hover-bg: #{lighten($gray-400, 2%)}; // 400
+  --#{$prefix}dropdown-border-width: 1px;
+  --#{$prefix}dropdown-shadow: 0 8px 12px 1px rgba(11, 9, 36, 0.29);
+
+  // modal
+  --#{$prefix}modal-bg: #{$gray-400}; // 400
+
+  // progress bar
+  --#{$prefix}progress-background: #{$gray-400}; // 200
+
+  --#{$prefix}btn-ghost-bg: #{$gray-400};
+
+  // table
+  .table-light {
+    background-color: #{$gray-400}; // 400
+    color: var(--#{$prefix}body-color);
+    th,
+    td {
+      background-color: #{$gray-400}; // 400
+      border-color: #{$gray-400}; // 400
+    }
+  }
+  // Tagify
+  --#{$prefix}tagify-border-color: #{$gray-100};
+
+  // input
+  .input-group-text {
+    background-color: $gray-100; // 200
+  }
+
+  // navbar
+  --#{$prefix}navbar-vertical-bg: #{$gray-300};
+  --#{$prefix}navbar-vertical-link: #{$gray-600};
+  --#{$prefix}navbar-vertical-link-hover: #{$gray-800};
+
+  // Accordion
+  // --#{$prefix}accordion-bg: #{$gray-300};
+
+  // popover
+  .popover {
+    background-color: $gray-200; // 200
+    border-color: $gray-300; // 300
+  }
+  .bs-popover-bottom > .popover-arrow::after,
+  .bs-popover-auto[data-popper-placement^="bottom"] > .popover-arrow::after,
+  .bs-popover-bottom > .popover-arrow::before,
+  .bs-popover-auto[data-popper-placement^="bottom"] > .popover-arrow::before {
+    border-bottom-color: $gray-400; // 400
+  }
+  .bs-popover-top > .popover-arrow::after,
+  .bs-popover-auto[data-popper-placement^="top"] > .popover-arrow::after,
+  .bs-popover-top > .popover-arrow::before,
+  .bs-popover-auto[data-popper-placement^="top"] > .popover-arrow::before {
+    border-top-color: $gray-400; // 400
+  }
+  .bs-popover-start > .popover-arrow::after,
+  .bs-popover-auto[data-popper-placement^="start"] > .popover-arrow::after,
+  .bs-popover-start > .popover-arrow::before,
+  .bs-popover-auto[data-popper-placement^="start"] > .popover-arrow::before {
+    border-left-color: $gray-400; // 400
+  }
+  .bs-popover-end > .popover-arrow::after,
+  .bs-popover-auto[data-popper-placement^="end"] > .popover-arrow::after,
+  .bs-popover-end > .popover-arrow::before,
+  .bs-popover-auto[data-popper-placement^="end"] > .popover-arrow::before {
+    border-right-color: $gray-400; // 400
+  }
+  .popover-header {
+    background-color: $gray-200; // 200
+    border-bottom-color: $gray-400; // 400
+  }
+  :not(pre) > code[class*="language-"],
+  pre[class*="language-"] {
+    background: $gray-200 !important; // 200
+  }
+
+  .navbar .navbar-brand {
+    -webkit-filter: brightness(0) invert(1);
+    filter: brightness(0) invert(1);
+  }
+  .navbar-dark .navbar-brand {
+    -webkit-filter: brightness(0) invert(1);
+    filter: brightness(0) invert(1);
+  }
+
+
+  .logo-inverse {
+    -webkit-filter: brightness(0) invert(1);
+    filter: brightness(0) invert(1);
+  }
+
+  .tagify__tag > div {
+    color: var(--#{$prefix}gray-800) !important;
+  }
+  .tagify__tag__removeBtn {
+    color: var(--#{$prefix}gray-800) !important;
+  }
+
+  input[type=file]::file-selector-button {
+   
+    background-color: var(--#{$prefix}input-bg);
+    
+    
+  }
+  // hero image
+.hero-graphics{
+  background-image: url(../../../../assets/images/hero/hero-icon-bg-dark.svg); 
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+ 
+}
+  
+}

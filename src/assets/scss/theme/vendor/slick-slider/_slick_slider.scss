@@ -1,0 +1,330 @@
+ @import "slick.scss";
+ @import "slick-theme.scss";
+
+ /** slick custom style */
+ .carousel-indicators li {
+ 	box-sizing: content-box;
+ 	flex: 0 1 auto;
+ 	width: 30px;
+ 	height: 3px;
+ 	padding: 0;
+ 	margin-right: 3px;
+ 	margin-left: 3px;
+ 	text-indent: -999px;
+ 	cursor: pointer;
+ 	background-color: var(--#{$prefix}white);
+ 	background-clip: padding-box;
+ 	border: 0;
+ 	border-top: 10px solid transparent;
+ 	border-bottom: 10px solid transparent;
+ 	opacity: .5;
+ 	transition: opacity .6s ease;
+ }
+
+ .slick-initialized {
+ 	.slick-slide {
+ 		padding: auto 20px !important;
+ 	}
+ }
+
+ .slick-next {
+ 	background-color: var(--#{$prefix}white)!important;
+ 	height: 40px;
+ 	width: 40px;
+ 	border-radius: 50%;
+ 	line-height: 40px;
+ 	text-align: center;
+ 	border: 1px solid var(--#{$prefix}border-color);
+ 	transition: .2s ease-in;
+ 	color: var(--#{$prefix}gray-400);
+ 	margin-left: -2%;
+ 	margin-right: -2%;
+
+ 	&:hover {
+ 		background: var(--#{$prefix}primary) !important;
+
+ 		&::before {
+ 			color: var(--#{$prefix}white) !important;
+ 		}
+ 	}
+
+ 	&:before {
+ 		font-family: 'Feather' !important;
+ 		content: "\e930";
+ 		color: var(--#{$prefix}gray-400);
+ 		font-size: 19px;
+ 		top: 22%;
+ 		position: absolute;
+ 		left: 22%;
+ 	}
+ }
+
+ .slick-prev {
+ 	background-color: var(--#{$prefix}white) !important;
+ 	height: 40px;
+ 	width: 40px;
+ 	border-radius: 50%;
+ 	line-height: 40px;
+ 	text-align: center;
+ 	border: 1px solid var(--#{$prefix}border-color);
+ 	transition: .2s ease-in;
+ 	color: var(--#{$prefix}gray-400);
+ 	margin-left: -2%;
+ 	margin-right: -2%;
+
+ 	&:hover {
+ 		background: var(--#{$prefix}primary) !important;
+
+ 		&::before {
+ 			color: var(--#{$prefix}white) !important;
+ 		}
+ 	}
+
+ 	&:before {
+ 		font-family: 'Feather' !important;
+ 		content: "\e92f";
+ 		color: var(--#{$prefix}gray-400);
+ 		font-size: 19px;
+ 		top: 22%;
+ 		position: absolute;
+ 		left: 22%;
+ 	}
+ }
+
+ // Testimonials for request access page
+ .slider-arrow-left{
+	.slick-next {
+		top: 100%;
+		margin-right: 92%;
+		z-index: 9;
+		border: 1px solid var(--#{$prefix}border-color);
+	}
+
+	.slick-prev {
+		top: 100%;
+		margin-left: 3%;
+		z-index: 9;
+		border: 1px solid var(--#{$prefix}border-color);
+	} 
+ }
+ .testimonials {
+ 	.slick-next {
+ 		top: 100%;
+ 		margin-right: 47%;
+ 		z-index: 9;
+		 border: 1px solid var(--#{$prefix}border-color);
+ 	}
+
+ 	.slick-prev {
+ 		top: 100%;
+ 		margin-left: 48%;
+ 		z-index: 9;
+		 border: 1px solid var(--#{$prefix}border-color);
+ 	}
+ }
+
+ @media (min-width: 541px) and (max-width: 768px) {
+ 	.slick-next {
+ 		top: 100%;
+ 		margin-right: 47%;
+ 		z-index: 9;
+ 	}
+
+ 	.slick-prev {
+ 		top: 100%;
+ 		margin-left: 47%;
+ 		z-index: 9;
+ 	}
+
+ 	.testimonials {
+ 		.slick-next {
+ 			margin-right: 47%;
+ 		}
+
+ 		.slick-prev {
+ 			margin-left: 47%;
+ 		}
+ 	}
+ }
+
+ @media (min-width: 321px) and (max-width: 540px) {
+ 	.slick-next {
+ 		top: 100%;
+ 		margin-right: 44%;
+ 		margin-top: 20px;
+ 		z-index: 9;
+ 	}
+
+ 	.slick-prev {
+ 		top: 100%;
+ 		margin-left: 45%;
+ 		margin-top: 20px;
+ 		z-index: 9;
+ 	}
+
+ 	.testimonials {
+ 		.slick-next {
+ 			margin-right: 44%;
+ 		}
+
+ 		.slick-prev {
+ 			margin-left: 45%;
+ 		}
+ 	}
+ }
+
+ @media (min-width: 0px) and (max-width: 320px) {
+ 	.slick-next {
+ 		top: 100%;
+ 		margin-left: 44%;
+ 		margin-right: 44%;
+ 		z-index: 9;
+ 	}
+
+ 	.slick-prev {
+ 		top: 100%;
+ 		margin-left: 44%;
+ 		margin-right: 44%;
+ 		z-index: 9;
+ 	}
+
+ 	.testimonials {
+ 		.slick-next {
+ 			margin-right: 43%;
+ 		}
+
+ 		.slick-prev {
+ 			margin-left: 44%;
+ 		}
+ 	}
+ }
+
+ .testimonialslider {
+ 	.rec-slider-container {
+ 		margin: -35px !important;
+ 	}
+
+ 	.rec-carousel {
+ 		.rec-arrow-left {
+ 			position: relative !important;
+ 			bottom: -55% !important;
+ 			right: -46% !important;
+ 			z-index: 9;
+ 		}
+
+ 		.rec-arrow-right {
+ 			position: relative !important;
+ 			bottom: -55% !important;
+ 			left: -46% !important;
+ 			z-index: 9;
+ 		}
+ 	}
+
+ 	.rec-arrow-left {
+ 		width: 40px !important;
+ 		height: 40px !important;
+ 		min-width: 40px !important;
+ 		line-height: 40px !important;
+ 		background: var(--#{$prefix}white) !important;
+ 		color: darkgrey !important;
+
+ 		&:hover {
+ 			background: var(--#{$prefix}primary) !important;
+ 			color: var(--#{$prefix}white) !important;
+ 		}
+ 	}
+
+ 	.rec-arrow-right {
+ 		width: 40px !important;
+ 		height: 40px !important;
+ 		min-width: 40px !important;
+ 		line-height: 40px !important;
+ 		background: var(--#{$prefix}white) !important;
+ 		color: darkgrey !important;
+
+ 		&:hover {
+ 			background: var(--#{$prefix}primary) !important;
+ 			color: var(--#{$prefix}white) !important;
+ 		}
+ 	}
+
+ 	.rec-pagination {
+ 		display: none !important;
+ 	}
+ }
+
+ .courses-slider {
+ 	.rec-slider-container {
+ 		margin: 0px !important;
+ 	}
+
+ 	.rec-carousel {
+ 		.rec-arrow-left {
+ 			position: absolute !important;
+ 			left: -60px;
+ 		}
+
+ 		.rec-arrow-right {
+ 			position: absolute !important;
+ 			right: -60px;
+ 		}
+ 	}
+
+ 	.rec-arrow-left {
+ 		width: 40px !important;
+ 		height: 40px !important;
+ 		min-width: 40px !important;
+ 		line-height: 40px !important;
+ 		background: var(--#{$prefix}white) !important;
+ 		color: darkgrey !important;
+
+ 		&:hover {
+ 			background: var(--#{$prefix}primary) !important;
+ 			color: var(--#{$prefix}white) !important;
+ 		}
+ 	}
+
+ 	.rec-arrow-right {
+ 		width: 40px !important;
+ 		height: 40px !important;
+ 		min-width: 40px !important;
+ 		line-height: 40px !important;
+ 		background: var(--#{$prefix}white) !important;
+ 		color: darkgrey !important;
+
+ 		&:hover {
+ 			background: var(--#{$prefix}primary) !important;
+ 			color: var(--#{$prefix}white) !important;
+ 		}
+ 	}
+
+ 	.rec-pagination {
+ 		display: none !important;
+ 	}
+ }
+
+ .testimonialslider-style2 {
+ 	.rec-carousel {
+ 		.rec-arrow-left {
+ 			right: 0% !important;
+ 		}
+
+ 		.rec-arrow-right {
+ 			left: -88% !important;
+ 		}
+ 	}
+ }
+
+ @media (min-width: 280px) and (max-width: 1024px) {
+ 	.courses-slider {
+ 		.rec-carousel {
+ 			.rec-arrow-left {
+ 				position: unset !important;
+ 			}
+
+ 			.rec-arrow-right {
+ 				position: unset !important;
+ 			}
+ 		}
+ 	}
+ }

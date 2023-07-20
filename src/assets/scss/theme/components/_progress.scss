@@ -1,0 +1,23 @@
+// Extend from bootstrap
+
+// Progress bar
+
+.progress-tooltip {
+  overflow: visible;
+  .progress-bar {
+    overflow: visible;
+    position: relative;
+    border-radius: 0.5rem;
+    span {
+      position: absolute;
+      top: -20px;
+      font-size: 13px;
+      line-height: 10px;
+      padding: 2px 3px 2px 4px;
+      right: -1.4em;
+      border-radius: 2px;
+      color: var(--#{$prefix}dark);
+      font-weight: $font-weight-medium;
+    }
+  }
+}

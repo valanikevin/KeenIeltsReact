@@ -1,0 +1,13 @@
+//
+// Extend Overflow from bootstrap
+//
+
+// Overflow
+
+$overflow-y: auto, hidden !default;
+
+@each $value in $overflow-y {
+    .overflow-y-#{$value} {
+        overflow-y: $value !important;
+    }
+}

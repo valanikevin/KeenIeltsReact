@@ -1,0 +1,27 @@
+// Theme Switch dark/light mode
+
+.theme-switch {
+    .form-check-input {
+        background-image: url(../../../../assets/images/svg/sun.svg);
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        margin: 0;
+        padding: 18px;
+        background-size: 22px;
+        background-position: center;
+
+        &:checked {
+            background-size: 22px;
+            background-position: center;
+            background-color: transparent;
+            background-image: url(../../../../assets/images/svg/moon.svg) !important;
+        }
+        &:focus {
+            background-image: url(../../../../assets/images/svg/sun.svg);
+            box-shadow: none;
+            background-size: 22px;
+            background-position: center;
+        }
+    }
+}

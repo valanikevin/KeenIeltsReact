@@ -1,0 +1,16 @@
+//
+// Extend from bootstrap
+//
+
+// Grid
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+    @for $index from 0 through $grid-columns {
+      .offset-right#{$infix}-#{$index} {
+        margin-right: percentage(($index * $grid-columns));
+      }
+    }
+  }
+}

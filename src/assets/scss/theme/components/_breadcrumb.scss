@@ -1,0 +1,40 @@
+//
+// Extend from bootstrap
+//
+
+// Breadcrumb
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin-bottom: 0rem;
+  @include font-size($breadcrumb-font-size);
+  list-style: none;
+  background-color: transparent;
+  border-radius: 0rem;
+}
+
+.breadcrumb-item {
+  display: flex;
+  + .breadcrumb-item {
+    padding-left: 0.3rem;
+    &::before {
+      display: inline-block;
+      padding-right: 0.3rem;
+      color: $breadcrumb-divider-color;
+      content: "\e930";
+      font-family: "Feather" !important;
+      font-size: 0.75rem;
+    }
+  }
+  + .breadcrumb-item:hover::before {
+    text-decoration: underline;
+  }
+  + .breadcrumb-item:hover::before {
+    text-decoration: none;
+  }
+  &.active {
+    color: $breadcrumb-active-color;
+  }
+}

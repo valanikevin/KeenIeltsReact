@@ -1,0 +1,13 @@
+//
+// Extended From Typography
+//
+
+// Blockquote
+
+.blockquote-left {
+    border-left: 4px solid var(--#{$prefix}gray-200);
+}
+
+.font-size-inherit {
+    font-size: inherit !important;
+}

@@ -1,0 +1,40 @@
+//
+// Extended from Bootstrap
+//
+
+// Form label
+
+.form-label {
+  color: var(--#{$prefix}gray-700);
+}
+
+// Form control simple
+
+.form-control-simple {
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+// No Resize for textarea
+.no-resize {
+  resize: none;
+}
+
+.form-focus-none {
+  &.form-control {
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+}
+
+
+
+// webkit apperence
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

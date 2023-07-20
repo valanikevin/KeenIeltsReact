@@ -1,0 +1,105 @@
+//
+// Extend from Bootstrap
+//
+
+// Border
+
+.rounded-top-left-0 {
+  border-top-left-radius: 0px !important;
+}
+.rounded-top-end-0 {
+  border-top-right-radius: 0px !important;
+}
+
+// Responsive breakpoint for rounded none
+
+@media (max-width: 576px) {
+  .rounded-none.rounded-bottom-md {
+    border-bottom-right-radius: 0rem !important;
+    border-bottom-left-radius: 0rem !important;
+  }
+}
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .rounded-none.rounded-bottom-md {
+    border-bottom-right-radius: 0rem !important;
+    border-bottom-left-radius: 0rem !important;
+  }
+}
+
+// Border dashed
+
+.border-dashed {
+  border: 2px dashed var(--#{$prefix}gray-300) !important;
+}
+
+// Border timeline activity line
+
+.list-timeline-activity {
+  position: relative;
+  z-index: 1;
+  .list-group-item:not(:last-child) {
+    &::before {
+      content: "";
+      position: absolute;
+      top: 1rem;
+      left: 1.25rem;
+      height: 100%;
+      border-left: 1px solid var(--#{$prefix}border-color);
+    }
+  }
+}
+
+// Border for process line
+
+.process-line {
+  position: relative;
+  z-index: 1;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 1rem;
+    left: 0;
+    right: 0;
+    margin: 0 80px;
+    width: 200px;
+    border-bottom: 2px solid var(--#{$prefix}primary);
+    @media (max-width: 420px) {
+      display: none;
+    }
+    @media (max-width: 990px) {
+      width: 120px;
+    }
+  }
+}
+
+// small divider
+
+.small-divider {
+  height: 0.125rem;
+  width: 2.25rem;
+}
+
+.step-line {
+  position: relative;
+  &::after {
+    content: "";
+    background-color: var(--#{$prefix}gray-200);
+    min-width: 13rem;
+    height: 2px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    z-index: -1;
+    @media (max-width: 1200px) {
+      min-width: 10rem;
+    }
+    @media (max-width: 768px) {
+      min-width: 6.9rem;
+    }
+  }
+}
+
+.active .step-line::after {
+  background-color: var(--#{$prefix}primary);
+}

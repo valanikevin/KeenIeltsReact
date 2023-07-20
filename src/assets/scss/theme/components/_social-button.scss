@@ -1,0 +1,77 @@
+// Social buttons
+.btn-social {
+    display: inline-block;
+    width: $social-btn-size;
+    height: $social-btn-size;
+    padding: 0;
+    border: 1px solid transparent;
+    transition: $social-btn-transition;
+    border-radius: $border-radius;
+    background-color: var(--#{$prefix}gray-200);
+    color: var(--#{$prefix}gray-500);
+    font-size: $h5-font-size;
+    text-align: center;
+    line-height: 2.25rem;
+    &:hover {
+        color: var(--#{$prefix}white);
+    }
+    &:focus {
+        outline: none;
+    }
+    &:active {
+        transition: none;
+        box-shadow: none !important;
+    }
+}
+
+// Outline variant
+.btn-social-outline {
+    border-color: var(--#{$prefix}gray-400);
+    background-color: transparent;
+    &:hover {
+        border-color: transparent;
+    }
+}
+
+// Social Brand colors
+.btn-facebook:hover {
+    background-color: $facebook-hover-bg;
+}
+
+.btn-twitter:hover {
+    background-color: $twitter-hover-bg;
+}
+
+.btn-instagram:hover {
+    background-color: $instagram-hover-bg;
+}
+
+.btn-google:hover {
+    background-color: $google-hover-bg;
+    color: var(--#{$prefix}white);
+    border-color: $google-hover-bg;
+}
+
+.btn-linkedin:hover {
+    background-color: $linkedin-hover-bg;
+}
+
+.btn-github:hover {
+    background-color: $github-hover-bg;
+}
+
+.color-facebook {
+    color: $facebook;
+}
+
+.color-twitter {
+    color: $twitter;
+}
+
+.color-github {
+    color: $github;
+}
+
+.color-google {
+    color: $google;
+}

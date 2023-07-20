@@ -1,0 +1,253 @@
+//
+// Extended From Bootstrap
+//
+
+// nav x padding
+
+.nav-x-0 {
+	.nav-link {
+		padding-right: 0 !important;
+		padding-left: 0 !important;
+	}
+}
+
+.text-link {
+	color: var(--#{$prefix}body-color);
+	&:hover {
+		color: var(--#{$prefix}primary);
+	}
+}
+
+// Nav line bottom tab (.nav-lb-tab)
+.nav-lb-tab {
+	border-bottom: 1px solid var(--#{$prefix}border-color);
+	@media (max-width: 576px) {
+		overflow-x: scroll;
+		flex-wrap: nowrap;
+		overflow-y: hidden;
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
+	.nav-item {
+		margin: 0rem 1.5rem;
+		.nav-link {
+			border-bottom: 2px solid transparent;
+			border-radius: 0px;
+			padding: 16px 0px;
+			margin-bottom: -1px;
+			font-weight: 500;
+			color: var(--#{$prefix}gray-500);
+			white-space: nowrap;
+			&.active {
+				background-color: transparent;
+				border-bottom: 2px solid var(--#{$prefix}primary);
+				color: var(--#{$prefix}primary);
+			}
+			&:hover {
+				background-color: transparent;
+				border-bottom: 2px solid var(--#{$prefix}primary);
+				color: var(--#{$prefix}primary);
+			}
+		}
+	}
+}
+
+
+
+// Nav line top tab. (.nav-lt-tab)
+.nav-lt-tab {
+	border-top: 1px solid var(--#{$prefix}border-color);
+	@media (max-width: 576px) {
+		overflow-x: scroll;
+		flex-wrap: nowrap;
+		overflow-y: hidden;
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
+	.nav-item {
+		margin: 0rem 1rem;
+		margin-top: -0.0625rem;
+		.nav-link {
+			border-top: 2px solid transparent;
+			border-radius: 0px;
+			padding: 1rem 0rem;
+			font-weight: 500;
+			color: var(--#{$prefix}gray-600);
+			&.active {
+				background-color: transparent;
+				border-top: 2px solid var(--#{$prefix}primary);
+				color: var(--#{$prefix}primary);
+			}
+			&:hover {
+				background-color: transparent;
+				border-top: 2px solid var(--#{$prefix}primary);
+				color: var(--#{$prefix}primary);
+			}
+		}
+	}
+}
+
+
+
+// Flush nav
+.flush-nav {
+	.nav {
+		.nav-link {
+			color: var(--#{$prefix}gray-600);
+			padding: 1.5rem;
+			font-weight: 500;
+
+			&.active {
+				color: var(--#{$prefix}primary);
+			}
+			&:hover {
+				color: var(--#{$prefix}primary);
+			}
+		}
+		@media (max-width: 576px) {
+			overflow-x: scroll;
+			flex-wrap: nowrap;
+			overflow-y: hidden;
+			&::-webkit-scrollbar {
+				display: none;
+			}
+		}
+	}
+}
+
+
+
+// Bottom line nav
+.nav-line-bottom {
+	border-bottom: 1px solid var(--#{$prefix}border-color);
+	@media (max-width: 576px) {
+		overflow-x: scroll;
+		flex-wrap: nowrap;
+		overflow-y: hidden;
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
+	.nav-item {
+		.nav-link {
+			color: var(--#{$prefix}gray-600);
+			border-radius: 0px;
+			margin-bottom: -1px;
+			padding: 1.2rem;
+			font-weight: 500;
+			white-space: nowrap;
+			@media (max-width: 576px) {
+				padding: 0.8rem;
+			}
+			&.active {
+				color: var(--#{$prefix}primary);
+				background-color: transparent;
+				border-bottom: 1px solid var(--#{$prefix}primary);
+				@media (max-width: 576px) {
+					padding: 0.747rem;
+				}
+			}
+			&:hover {
+				color: var(--#{$prefix}primary);
+				background-color: transparent;
+				border-bottom: 1px solid var(--#{$prefix}primary);
+			}
+			.badge {
+				line-height: 1.4;
+			}
+		}
+	}
+}
+
+
+
+// Top line-nav
+.nav-top-line-tab.nav {
+	border-top: 1px solid var(--#{$prefix}border-color);
+	.nav-item {
+		.nav-link {
+			color: var(--#{$prefix}gray-600);
+			border-radius: 0px;
+			border: 1px solid transparent;
+			margin-top: -1px;
+			padding: 1.2rem 1.5rem;
+			font-weight: 500;
+			@media (max-width: 576px) {
+				padding: 0.8rem;
+			}
+			&.active {
+				color: var(--#{$prefix}primary);
+				background-color: transparent;
+				border-top: 1px solid var(--#{$prefix}primary);
+				@media (max-width: 576px) {
+					padding: 0.747rem;
+				}
+			}
+			&:hover {
+				color: var(--#{$prefix}primary);
+				background-color: transparent;
+				border-top: 1px solid var(--#{$prefix}primary);
+			}
+			.badge {
+				line-height: 1.4;
+			}
+		}
+	}
+	@media (max-width: 576px) {
+		overflow-x: scroll;
+		flex-wrap: nowrap;
+		overflow-y: hidden;
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
+}
+
+
+
+// Btn group (grid/list view)
+.nav.btn-group {
+	.btn-outline-white.active {
+		background-color: var(--#{$prefix}primary);
+		border-color: var(--#{$prefix}primary);
+		color: var(--#{$prefix}white);
+	}
+}
+
+
+
+// Btn group (grid/list view)
+
+// .nav {
+// 	.btn-group {
+// 		.active {
+// 			.btn-outline-white {
+// 				background-color: $primary;
+// 				border-color: $primary;
+// 				color: $white;
+// 			}
+// 		}
+// 	}
+// }
+
+// TAB CONTROL FOR GRID AND LIST VIEW
+.nav-lt-tab a,
+.nav-lb-tab a {
+	cursor: pointer !important;
+}
+.previous .page-link,
+.btn-tab-left {
+	border-top-left-radius: 0.25rem;
+	border-bottom-left-radius: 0.25rem;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+.next .page-link,
+.btn-tab-right {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	border-top-right-radius: 0.25rem;
+	border-bottom-right-radius: 0.25rem;
+}

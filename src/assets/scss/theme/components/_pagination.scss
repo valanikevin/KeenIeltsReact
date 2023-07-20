@@ -1,0 +1,29 @@
+// paginations
+
+.page-item:first-child .page-link {
+    margin-right: $pagination-margin-x-first-last;
+  }
+  .page-item {
+    &:not(:first-child) .page-link {
+      margin-left: $pagination-margin-start;
+      margin-right: $pagination-margin-x-first-last;
+    }
+    @if $pagination-margin-start == (calc($pagination-border-width * -1)) {
+      &:first-child {
+        .page-link {
+          @include border-start-radius(var(--#{$prefix}pagination-border-radius));
+        }
+      }
+  
+      &:last-child {
+        .page-link {
+          @include border-end-radius(var(--#{$prefix}pagination-border-radius));
+        }
+      }
+    } @else {
+      // Add border-radius to all pageLinks in case they have left margin
+      .page-link {
+        @include border-radius(var(--#{$prefix}pagination-border-radius));
+      }
+    }
+  }

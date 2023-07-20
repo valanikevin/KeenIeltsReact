@@ -1,0 +1,88 @@
+//
+// Extended from bootstrap
+//
+
+// Background
+
+// bg cover
+
+.bg-cover {
+    background: no-repeat center center / cover;
+}
+
+// bg grayscale
+
+.bg-grayscale {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+.bg-colors-gradient {
+    background: linear-gradient(280.04deg, #baa9fb 0%, #dbbeff 48.96%, #ffe0e0 100%);
+}
+
+// bg auto
+
+.bg-auto {
+    @media (max-width: 1200px) {
+        background-size: auto !important;
+    }
+}
+
+// dot pattern
+
+.dot-pattern {
+    position: relative;
+    &:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        background: url(../../../../assets/images/pattern/dots-pattern.svg) no-repeat;
+        top: 0;
+        right: 0;
+    }
+}
+
+// image overlay
+
+.img-overlay {
+    position: relative;
+    transition: 0.5s ease;
+    .img-color {
+        img {
+            border-radius: 0.75rem;
+        }
+        position: relative;
+        background-color: var(--#{$prefix}primary);
+        transition: 0.5s ease;
+        border-radius: 1rem;
+        &:hover img {
+            mix-blend-mode: multiply;
+            opacity: 0.4;
+            transition: 0.2s ease;
+        }
+    }
+    .caption {
+        left: 50%;
+        position: absolute;
+        text-align: center;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transition: 0.5s ease;
+        opacity: 0;
+    }
+    &:hover .caption {
+        opacity: 1;
+    }
+}
+
+// hero image
+.hero-graphics{
+    background-image: url(../../../../assets/images/hero/hero-graphics.svg); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+   
+}

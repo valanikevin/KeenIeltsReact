@@ -1,0 +1,67 @@
+// Sidenav navbar
+
+.sidenav.navbar {
+  background-color: var(--#{$prefix}card-background);
+  padding: 0rem;
+  border-radius: 0.5rem;
+  @media (max-width: 576px) {
+    border-radius: 0rem 0rem 0.5rem 0.5rem;
+    border-top: 1px solid var(--#{$prefix}gray-200);
+    padding: 1rem 1.5rem;
+  }
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    border-radius: 0rem 0rem 0.5rem 0.5rem;
+    border-top: 1px solid var(--#{$prefix}gray-200);
+    padding: 1rem 1.5rem;
+  }
+  .navbar-header {
+    color: var(--#{$prefix}gray-500);
+    padding: 0.3rem 0.4rem;
+    margin-bottom: 0.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.6875rem;
+    font-weight: 500;
+  }
+  .navbar-nav {
+    padding: 1.5rem;
+    width: 100%;
+
+    @media (max-width: 576px) {
+      padding: 0rem;
+    }
+    .nav-item {
+      margin-bottom: 0.125rem;
+      &.active {
+        background-color: var(--#{$prefix}gray-200);
+        border-radius: 0.5rem;
+        color: var(--#{$prefix}gray-500) !important;
+      }
+      .nav-link {
+        padding: 0.3rem 0rem 0.3rem 0.7rem;
+        font-weight: 500;
+        background-color: transparent;
+        border-radius: 0.5rem;
+        color: var(--#{$prefix}gray-600) !important;
+        position: relative;
+        .nav-icon {
+          opacity: 0.5;
+          margin-right: 0.5rem;
+        }
+        &:hover {
+          background-color: var(--#{$prefix}gray-200) !important;
+          color: var(--#{$prefix}gray-500) !important;
+          .nav-icon {
+            opacity: 1;
+          }
+        }
+      }
+    }
+    .active > .nav-link {
+      color: var(--#{$prefix}gray-500) !important;
+      .nav-icon {
+        opacity: 1;
+      }
+    }
+  }
+}
