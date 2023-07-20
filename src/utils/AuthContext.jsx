@@ -3,6 +3,7 @@ import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 const AuthContext = createContext();
 
+// eslint-disable-next-line react/prop-types
 export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(() =>
@@ -10,6 +11,7 @@ export const AuthProvider = ({ children }) => {
       ? JSON.parse(localStorage.getItem("user"))
       : null
   );
+  const [error, setError] = useState(null);
 
   let navigate = useNavigate();
 
@@ -48,7 +50,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("user", JSON.stringify(jwt_decode(data.access)));
       navigate("/");
     } else {
-      alert("Something went wrong");
+      setError("Something went wrong, please try again later.");
     }
   };
   const logoutUser = () => {
@@ -59,43 +61,14 @@ export const AuthProvider = ({ children }) => {
     navigate("/login");
   };
 
-  const registerUser = (userInfo) => {};
-  const checkUserStatus = () => {};
-
-  //   let updateToken = async () => {
-  //     console.log("Update Token Called");
-  //     let response = await fetch("http://localhost:8000/api/token/refresh/", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         refresh: authTokens?.refresh,
-  //       }),
-  //     });
-  //     let data = await response.json();
-  //     if (response.status === 200) {
-  //       setAuthTokens(data);
-  //       setUser(jwt_decode(data.access));
-  //       localStorage.setItem("authTokens", JSON.stringify(data));
-  //       localStorage.setItem("user", JSON.stringify(jwt_decode(data.access)));
-  //     } else {
-  //       logoutUser();
-  //     }
-
-  //     if (loading) {
-  //       setLoading(false);
-  //     }
-  //   };
-
   const contextData = {
     user: user,
     authTokens: authTokens,
+    error: error,
     setAuthTokens: setAuthTokens,
     setUser: setUser,
     loginUser: loginUser,
     logoutUser: logoutUser,
-    registerUser,
   };
 
   return (

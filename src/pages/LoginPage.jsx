@@ -1,10 +1,9 @@
-import React, { useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import AuthContext, { useAuth } from "../utils/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Col, Row, Card, Form, Button, Image } from "react-bootstrap";
-// import media files
-import Logo from "../assets/images/brand/logo/logo.svg";
+import { Col, Row, Card, Form, Button, Alert } from "react-bootstrap";
+
 const LoginPage = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -15,18 +14,18 @@ const LoginPage = () => {
     }
   }, []);
 
-  let { loginUser } = useContext(AuthContext);
+  let { loginUser, error } = useContext(AuthContext);
 
   return (
     <>
-      <Row className="align-items-center justify-content-center g-0 min-vh-100">
-        <Col lg={5} md={5} className="py-8 py-xl-0">
+      <Row className="align-items-center justify-content-center g-0 ">
+        <Col lg={12} md={12} className=" pt-4 pb-2 py-xl-0">
+          {error && <Alert color="error">{error}</Alert>}
+        </Col>
+        <Col lg={5} md={5} className=" ">
           <Card>
             <Card.Body className="p-6">
               <div className="mb-4">
-                <Link to="/">
-                  <Image src={Logo} className="mb-4" alt="" />
-                </Link>
                 <h1 className="mb-1 fw-bold">Sign in</h1>
                 <span>
                   Don’t have an account?{" "}
