@@ -22,7 +22,7 @@ const LoginPage = () => {
         <Col lg={12} md={12} className=" pt-4 pb-2 py-xl-0">
           {error && <Alert color="error">{error}</Alert>}
         </Col>
-        <Col lg={5} md={5} className=" ">
+        <Col lg={5} md={8} className=" ">
           <Card>
             <Card.Body className="p-6">
               <div className="mb-4">
