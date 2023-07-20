@@ -51,7 +51,13 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("user", JSON.stringify(jwt_decode(data.access)));
       navigate("/");
     } else {
-      setNotification("Invalid credentials.");
+      let error = {
+        title: "Login Error",
+        message: "Invalid Credentials.",
+        color: "danger",
+      };
+      console.log(notification);
+      setNotification(error);
     }
   };
   const logoutUser = () => {

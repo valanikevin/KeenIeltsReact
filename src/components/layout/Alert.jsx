@@ -5,20 +5,23 @@ import NotificationContext from "../../context/layout/NotificationContext";
 
 const Alert = ({ children, color = "primary" }) => {
   const [notification, setNotification] = useContext(NotificationContext);
-  if (notification === null) {
+  if (notification.message === "") {
     return null;
   }
 
   const clearNotification = () => {
-    setNotification(null);
+    setNotification({ ...notification, message: "" });
   };
 
   return (
     <Row>
       <Col>
-        <div className={`bg-${color} py-2 px-3 text-white`}>
+        <div
+          className={`bg-${notification.color} py-2 px-3 text-white`}
+          style={{ fontSize: "15px" }}
+        >
           <Stack direction="horizontal" gap={3}>
-            <div className="p-2">{notification}</div>
+            <div className="p-2">{notification.message}</div>
             <div className="p-2 ms-auto">
               <BsXCircleFill
                 onClick={clearNotification}
