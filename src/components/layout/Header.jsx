@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import AuthContext from "../utils/AuthContext";
+import AuthContext from "../../utils/AuthContext";
 import { Row, Col, Nav, Navbar, Image } from "react-bootstrap";
-import Logo from "../assets/images/brand/logo/logo.svg";
+import Logo from "../../assets/images/brand/logo/logo.svg";
+import Alert from "./Alert";
 
 const Header = () => {
   let { user, logoutUser } = useContext(AuthContext);
@@ -34,6 +35,9 @@ const Header = () => {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
+      </Col>
+      <Col>
+        <Alert>This is a test</Alert>
       </Col>
     </Row>
   );
