@@ -1,55 +1,42 @@
-import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import AuthContext, { useAuth } from "../utils/AuthContext";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import AuthContext from "../utils/AuthContext";
+import { Row, Col, Nav, Navbar, Image } from "react-bootstrap";
+import Logo from "../assets/images/brand/logo/logo.svg";
 
 const Header = () => {
-  const navigate = useNavigate();
-
   let { user, logoutUser } = useContext(AuthContext);
 
   return (
-    <div>
-      <Navbar expand="lg">
-        <Navbar.Brand href="#home">
-          <Image src={Logo} alt="" loading="lazy" />
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown>
-            <Nav.Link href="#link" disabled>
-              Disabled
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
-      {user ? (
-        <>
-          <h1>Helllo {user.email}</h1>
-          <Link to={"/"}>Home Page</Link>
-          <span> | </span>
-          <button onClick={logoutUser}>Logout</button>
-        </>
-      ) : (
-        <>
-          <Link to={"/"}>Home Page</Link>
-          <span> | </span>
-          <Link to={"/login"}>Login</Link>
-        </>
-      )}
-    </div>
+    <Row>
+      <Col xl={12} lg={12} md={12} sm={12}>
+        <Navbar
+          expand="lg"
+          className="border-bottom"
+          bg="white"
+          variant="light"
+        >
+          <Navbar.Brand href="#home">
+            <Image src={Logo} alt="" loading="lazy" />
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link>Home</Nav.Link>
+              <Nav.Link href="#link">Link</Nav.Link>
+
+              {user ? (
+                <Nav.Link onClick={logoutUser}>Logout</Nav.Link>
+              ) : (
+                <Link to={"/login"}>
+                  <Nav.Link>Login</Nav.Link>
+                </Link>
+              )}
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+      </Col>
+    </Row>
   );
 };
 
