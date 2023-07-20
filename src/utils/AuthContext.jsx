@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect, createContext } from "react";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import NotificationContext from "../context/layout/NotificationContext";
 const AuthContext = createContext();
 
 // eslint-disable-next-line react/prop-types
@@ -11,7 +12,7 @@ export const AuthProvider = ({ children }) => {
       ? JSON.parse(localStorage.getItem("user"))
       : null
   );
-  const [error, setError] = useState(null);
+  const [notification, setNotification] = useContext(NotificationContext);
 
   let navigate = useNavigate();
 
@@ -50,7 +51,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("user", JSON.stringify(jwt_decode(data.access)));
       navigate("/");
     } else {
-      setError("Something went wrong, please try again later.");
+      setNotification("Invalid credentials.");
     }
   };
   const logoutUser = () => {
@@ -64,7 +65,6 @@ export const AuthProvider = ({ children }) => {
   const contextData = {
     user: user,
     authTokens: authTokens,
-    error: error,
     setAuthTokens: setAuthTokens,
     setUser: setUser,
     loginUser: loginUser,

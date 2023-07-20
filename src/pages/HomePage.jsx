@@ -1,11 +1,9 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import useAxios from "../utils/useAxios";
-import { ErrorContext } from "../App";
 
 const HomePage = () => {
   let [notes, setNotes] = useState([]);
   let api = useAxios();
-  const [error, setError] = useContext(ErrorContext);
 
   useEffect(() => {
     getNotes();
@@ -18,10 +16,6 @@ const HomePage = () => {
       setNotes(response.data);
     }
   };
-
-  useEffect(() => {
-    setError("Login Error");
-  });
 
   return (
     <div>

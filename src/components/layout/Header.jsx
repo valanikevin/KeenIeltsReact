@@ -37,7 +37,12 @@ const Header = () => {
         </Navbar>
       </Col>
       <Col>
-        <Alert>This is a test</Alert>
+        <Alert>
+          Stacks are vertical by default and stacked items are full-width by
+          default. Use the gap prop to add space between items. Stacks are
+          vertical by default and stacked items are full-width by default. Use
+          the gap prop to add space between items.
+        </Alert>
       </Col>
     </Row>
   );

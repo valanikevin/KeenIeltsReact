@@ -8,18 +8,17 @@ import PrivateRoutes from "./utils/PrivateRoutes";
 import { AuthProvider } from "./utils/AuthContext";
 import { Container } from "react-bootstrap";
 import { createContext, useState } from "react";
+import NotificationState from "./context/layout/NotificationState";
 
 export const ErrorContext = createContext();
 
 function App() {
-  const [error, setError] = useState(null);
-
   return (
     <>
-      <AuthProvider>
-        <ErrorContext.Provider value={[error, setError]}>
+      <NotificationState>
+        <AuthProvider>
           <Header />
-          <h3>Error: {error}</h3>
+          <h3>Error:</h3>
           <Container>
             <Routes>
               <Route element={<PrivateRoutes />}>
@@ -30,8 +29,8 @@ function App() {
               <Route path="/register" element={<RegisterPage />} />
             </Routes>
           </Container>
-        </ErrorContext.Provider>
-      </AuthProvider>
+        </AuthProvider>
+      </NotificationState>
     </>
   );
 }
