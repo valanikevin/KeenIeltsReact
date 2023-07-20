@@ -7,25 +7,30 @@ import Header from "./components/Header";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import { AuthProvider } from "./utils/AuthContext";
 import { Container } from "react-bootstrap";
-import { useState } from "react";
+import { createContext, useState } from "react";
+
+export const ErrorContext = createContext();
 
 function App() {
-
+  const [error, setError] = useState(null);
 
   return (
     <>
       <AuthProvider>
-        <Header />
-        <Container>
-          <Routes>
-            <Route element={<PrivateRoutes />}>
-              <Route path="/" element={<HomePage />} />
-            </Route>
+        <ErrorContext.Provider value={[error, setError]}>
+          <Header />
+          <h3>Error: {error}</h3>
+          <Container>
+            <Routes>
+              <Route element={<PrivateRoutes />}>
+                <Route path="/" element={<HomePage />} />
+              </Route>
 
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-          </Routes>
-        </Container>
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+            </Routes>
+          </Container>
+        </ErrorContext.Provider>
       </AuthProvider>
     </>
   );
