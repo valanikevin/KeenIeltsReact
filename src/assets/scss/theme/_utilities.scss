@@ -3,13 +3,13 @@
 // Extended from Bootstrap
 //
 
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/variables-dark";
-@import "~bootstrap/scss/maps";
-@import "~bootstrap/scss/mixins";
-@import "~bootstrap/scss/utilities";
-@import "~bootstrap/scss/utilities/api";
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+@import "bootstrap/scss/utilities/api";
 
 $utilities: () !default;
 
@@ -260,12 +260,13 @@ $utilities: map-merge(
     // scss-docs-end utils-color
     "background-color":
       (
-        property: background-color,        
+        property: background-color,
         class: bg,
         // responsive: true,
-        local-vars: (
-          "bg-opacity": 1,
-        ),
+        local-vars:
+          (
+            "bg-opacity": 1,
+          ),
         values:
           map-merge(
             $theme-colors,
@@ -339,7 +340,8 @@ $utilities: map-merge(
       property: border,
       responsive: true,
       values: (
-        null: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color),
+        null: var(--#{$prefix}border-width) var(--#{$prefix}border-style)
+          var(--#{$prefix}border-color),
         0: 0,
       ),
     ),
@@ -348,7 +350,8 @@ $utilities: map-merge(
       class: border-start,
       responsive: true,
       values: (
-        null: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color),
+        null: var(--#{$prefix}border-width) var(--#{$prefix}border-style)
+          var(--#{$prefix}border-color),
         0: 0,
       ),
     ),
@@ -357,7 +360,8 @@ $utilities: map-merge(
       class: border-end,
       responsive: true,
       values: (
-        null: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color),
+        null: var(--#{$prefix}border-width) var(--#{$prefix}border-style)
+          var(--#{$prefix}border-color),
         0: 0,
       ),
     ),
@@ -366,7 +370,8 @@ $utilities: map-merge(
       class: border-top,
       responsive: true,
       values: (
-        null: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color),
+        null: var(--#{$prefix}border-width) var(--#{$prefix}border-style)
+          var(--#{$prefix}border-color),
         0: 0,
       ),
     ),
@@ -375,7 +380,8 @@ $utilities: map-merge(
       class: border-bottom,
       responsive: true,
       values: (
-        null: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color),
+        null: var(--#{$prefix}border-width) var(--#{$prefix}border-style)
+          var(--#{$prefix}border-color),
         0: 0,
       ),
     ),
