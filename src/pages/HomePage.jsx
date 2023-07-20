@@ -3,7 +3,6 @@ import useAxios from "../utils/useAxios";
 
 const HomePage = () => {
   let [notes, setNotes] = useState([]);
-
   let api = useAxios();
 
   useEffect(() => {

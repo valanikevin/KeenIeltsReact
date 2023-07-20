@@ -6,7 +6,6 @@ import Logo from "../assets/images/brand/logo/logo.svg";
 
 const Header = () => {
   let { user, logoutUser } = useContext(AuthContext);
-
   return (
     <Row>
       <Col xl={12} lg={12} md={12} sm={12}>

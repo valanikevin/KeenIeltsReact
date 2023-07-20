@@ -7,8 +7,11 @@ import Header from "./components/Header";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import { AuthProvider } from "./utils/AuthContext";
 import { Container } from "react-bootstrap";
+import { useState } from "react";
 
 function App() {
+
+
   return (
     <>
       <AuthProvider>
