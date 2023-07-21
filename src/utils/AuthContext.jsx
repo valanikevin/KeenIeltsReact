@@ -2,11 +2,13 @@ import { useContext, useState, useEffect, createContext } from "react";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import NotificationContext from "../context/layout/NotificationContext";
+import useAxios from "./useAxios";
 const AuthContext = createContext();
+import axios from "axios";
 
-// eslint-disable-next-line react/prop-types
 export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
+  const [registrationError, setRegistrationError] = useState(null);
   const [user, setUser] = useState(() =>
     localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user"))
@@ -69,13 +71,36 @@ export const AuthProvider = ({ children }) => {
     navigate("/login");
   };
 
+  const registerUser = async (e) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:8000/api/register/", {
+        first_name: e.target.first_name.value,
+        last_name: e.target.last_name.value,
+        email: e.target.email.value,
+        password1: e.target.password1.value,
+        password2: e.target.password2.value,
+      })
+      .then(
+        (response) => {
+          navigate("/login");
+        },
+        (error) => {
+          console.log(error.response.data.errors);
+          setRegistrationError(error.response.data.errors);
+        }
+      );
+  };
+
   const contextData = {
     user: user,
     authTokens: authTokens,
+    registrationError: registrationError,
     setAuthTokens: setAuthTokens,
     setUser: setUser,
     loginUser: loginUser,
     logoutUser: logoutUser,
+    registerUser: registerUser,
   };
 
   return (

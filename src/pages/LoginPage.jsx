@@ -20,17 +20,14 @@ const LoginPage = () => {
   return (
     <>
       <Row className="align-items-center justify-content-center g-0 ">
-        <Col lg={12} md={12} className=" pt-4 pb-2 py-xl-0">
-          {error && <Alert color="error">{error}</Alert>}
-        </Col>
-        <Col lg={5} md={8} className=" ">
+        <Col lg={5} md={8} className="py-4 ">
           <Card>
             <Card.Body className="p-6">
               <div className="mb-4">
                 <h1 className="mb-1 fw-bold">Sign in</h1>
                 <span>
                   Don’t have an account?{" "}
-                  <Link to="/authentication/sign-up" className="ms-1">
+                  <Link to="/register/" className="ms-1">
                     Sign up
                   </Link>
                 </span>

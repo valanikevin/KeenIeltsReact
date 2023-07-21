@@ -18,9 +18,11 @@ const Header = () => {
           variant="light"
           expanded={expanded}
         >
-          <Navbar.Brand href="#home">
-            <Image src={Logo} alt="" loading="lazy" />
-          </Navbar.Brand>
+          <LinkContainer to={"/"}>
+            <Navbar.Brand>
+              <Image src={Logo} alt="" loading="lazy" />
+            </Navbar.Brand>
+          </LinkContainer>
           <Navbar.Toggle
             aria-controls="basic-navbar-nav"
             onClick={() => setExpanded(!expanded)}
@@ -40,9 +42,18 @@ const Header = () => {
                   Logout
                 </Nav.Link>
               ) : (
-                <LinkContainer to={"/login"}>
-                  <Nav.Link onClick={() => setExpanded(false)}>Login</Nav.Link>
-                </LinkContainer>
+                <>
+                  <LinkContainer to={"/login"}>
+                    <Nav.Link onClick={() => setExpanded(false)}>
+                      Login
+                    </Nav.Link>
+                  </LinkContainer>
+                  <LinkContainer to={"/register"}>
+                    <Nav.Link onClick={() => setExpanded(false)}>
+                      Register
+                    </Nav.Link>
+                  </LinkContainer>
+                </>
               )}
             </Nav>
           </Navbar.Collapse>
