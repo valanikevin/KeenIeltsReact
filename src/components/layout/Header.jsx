@@ -4,7 +4,7 @@ import AuthContext from "../../utils/AuthContext";
 import { Row, Col, Nav, Navbar, Image } from "react-bootstrap";
 import Logo from "../../assets/images/brand/logo/logo.svg";
 import Alert from "./Alert";
-
+import { LinkContainer } from "react-router-bootstrap";
 const Header = () => {
   let { user, logoutUser } = useContext(AuthContext);
   const [expanded, setExpanded] = useState(false);
@@ -40,9 +40,9 @@ const Header = () => {
                   Logout
                 </Nav.Link>
               ) : (
-                <Link to={"/login"}>
+                <LinkContainer to={"/login"}>
                   <Nav.Link onClick={() => setExpanded(false)}>Login</Nav.Link>
-                </Link>
+                </LinkContainer>
               )}
             </Nav>
           </Navbar.Collapse>
