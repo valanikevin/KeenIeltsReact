@@ -18,8 +18,7 @@ function App() {
       <NotificationState>
         <AuthProvider>
           <Header />
-          <h3>Error:</h3>
-          <Container>
+          <Container className="p-3">
             <Routes>
               <Route element={<PrivateRoutes />}>
                 <Route path="/" element={<HomePage />} />

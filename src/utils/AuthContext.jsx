@@ -49,6 +49,7 @@ export const AuthProvider = ({ children }) => {
       setUser(jwt_decode(data.access));
       localStorage.setItem("authTokens", JSON.stringify(data));
       localStorage.setItem("user", JSON.stringify(jwt_decode(data.access)));
+      setNotification({ ...notification, message: "" });
       navigate("/");
     } else {
       let error = {
@@ -56,7 +57,7 @@ export const AuthProvider = ({ children }) => {
         message: "Invalid Credentials.",
         color: "danger",
       };
-      console.log(notification);
+
       setNotification(error);
     }
   };

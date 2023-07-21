@@ -3,7 +3,7 @@ import { Col, Row, Stack } from "react-bootstrap";
 import { BsXCircleFill } from "react-icons/bs";
 import NotificationContext from "../../context/layout/NotificationContext";
 
-const Alert = ({ children, color = "primary" }) => {
+const Alert = () => {
   const [notification, setNotification] = useContext(NotificationContext);
   if (notification.message === "") {
     return null;

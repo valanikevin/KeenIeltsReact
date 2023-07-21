@@ -3,11 +3,12 @@ import AuthContext, { useAuth } from "../utils/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Col, Row, Card, Form, Button, Alert } from "react-bootstrap";
+import NotificationContext from "../context/layout/NotificationContext";
 
 const LoginPage = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-
+  const { notification, setNotification } = useContext(NotificationContext);
   useEffect(() => {
     if (user) {
       navigate("/");
