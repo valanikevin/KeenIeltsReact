@@ -12,8 +12,7 @@ import {
 } from "react-bootstrap";
 import NotificationContext from "../../context/layout/NotificationContext";
 
-const BaseForm = ({ form_fields, submit_label, on_submit }) => {
-  let { registerUser, registrationError } = useContext(AuthContext);
+const BaseForm = ({ form_fields, submit_label, on_submit, errors }) => {
   const [validated, setValidated] = useState(false);
 
   const handleSubmit = (e) => {
@@ -39,6 +38,11 @@ const BaseForm = ({ form_fields, submit_label, on_submit }) => {
               placeholder={field.placeholder}
               required
             />
+            {errors &&
+              errors[field.id] &&
+              errors[field.id].map((error, index) => (
+                <p key={index}>{error.message}</p>
+              ))}
             <Form.Control.Feedback type="invalid">
               {field.invalid_feedback}
             </Form.Control.Feedback>

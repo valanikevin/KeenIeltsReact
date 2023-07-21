@@ -15,19 +15,6 @@ import BaseForm from "../components/layout/BaseForm";
 
 const RegisterPage = () => {
   let { registerUser, registrationError } = useContext(AuthContext);
-  const [validated, setValidated] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.stopPropagation();
-    } else {
-      registerUser(e);
-    }
-
-    setValidated(true);
-  };
 
   const form_fields = [
     {
@@ -82,14 +69,13 @@ const RegisterPage = () => {
                   </Link>
                 </span>
               </div>
-              {registrationError && (
-                <div>{JSON.stringify(registrationError)}</div>
-              )}
+
               {/* Form */}
               <BaseForm
                 form_fields={form_fields}
                 submit_label={"Sign up"}
                 on_submit={registerUser}
+                errors={registrationError}
               />
               <div className="mb-4" />
             </Card.Body>
