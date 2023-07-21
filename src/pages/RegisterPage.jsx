@@ -11,6 +11,7 @@ import {
   FormGroup,
 } from "react-bootstrap";
 import NotificationContext from "../context/layout/NotificationContext";
+import BaseForm from "../components/layout/BaseForm";
 
 const RegisterPage = () => {
   let { registerUser, registrationError } = useContext(AuthContext);
@@ -85,31 +86,11 @@ const RegisterPage = () => {
                 <div>{JSON.stringify(registrationError)}</div>
               )}
               {/* Form */}
-              <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                <Row>
-                  {form_fields.map((field) => (
-                    <FormGroup as={Col} lg={12} md={12} className="mb-3">
-                      <Form.Label>{field.label}</Form.Label>
-                      <Form.Control
-                        type={field.type}
-                        id={field.id}
-                        placeholder={field.placeholder}
-                        required
-                      />
-                      <Form.Control.Feedback type="invalid">
-                        {field.invalid_feedback}
-                      </Form.Control.Feedback>
-                    </FormGroup>
-                  ))}
-
-                  <Col lg={12} md={12} className="mb-0 mt-4 d-grid gap-2">
-                    {/* Button */}
-                    <Button variant="primary" type="submit">
-                      Sign up
-                    </Button>
-                  </Col>
-                </Row>
-              </Form>
+              <BaseForm
+                form_fields={form_fields}
+                submit_label={"Sign up"}
+                on_submit={registerUser}
+              />
               <div className="mb-4" />
             </Card.Body>
           </Card>
