@@ -1,6 +1,6 @@
 import { useEffect, useContext, useState } from "react";
 import AuthContext, { useAuth } from "../utils/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Col, Row, Card, Button, Alert, FormGroup } from "react-bootstrap";
 import NotificationContext from "../context/layout/NotificationContext";
 import BaseForm from "../components/layout/BaseForm";
@@ -10,7 +10,14 @@ import YupPassword from "yup-password";
 YupPassword(Yup);
 
 const RegisterPage = () => {
-  let { registerUser, registrationError } = useContext(AuthContext);
+  const navigate = useNavigate();
+  let { registerUser, registrationError, user } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, []);
 
   const form_fields = [
     {
