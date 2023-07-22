@@ -36,16 +36,16 @@ const BaseForm = ({ form_fields, submit_label, on_submit, errors }) => {
               type={field.type}
               id={field.id}
               placeholder={field.placeholder}
+              isInvalid={true}
               required
             />
             {errors &&
               errors[field.id] &&
               errors[field.id].map((error, index) => (
-                <p key={index}>{error.message}</p>
+                <Form.Control.Feedback type="invalid" key={index}>
+                  {error.message}
+                </Form.Control.Feedback>
               ))}
-            <Form.Control.Feedback type="invalid">
-              {field.invalid_feedback}
-            </Form.Control.Feedback>
           </FormGroup>
         ))}
 
