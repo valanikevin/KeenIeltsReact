@@ -4,7 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Col, Row, Card, Form, Button, Alert } from "react-bootstrap";
 import NotificationContext from "../context/layout/NotificationContext";
+import BaseForm from "../components/layout/BaseForm";
+import * as Yup from "yup";
+import YupPassword from "yup-password";
 
+YupPassword(Yup);
 const LoginPage = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -16,7 +20,25 @@ const LoginPage = () => {
   }, []);
 
   let { loginUser, error } = useContext(AuthContext);
+  const form_fields = [
+    {
+      type: "email",
+      label: "Email",
+      id: "email",
+      placeholder: "Enter your Email Address",
+    },
+    {
+      type: "password",
+      label: "Password",
+      id: "password",
+      placeholder: "*************",
+    },
+  ];
 
+  const SignInSchema = Yup.object().shape({
+    email: Yup.string().email("Invalid email").required("Required"),
+    password: Yup.string().required("Password is required"),
+  });
   return (
     <>
       <Row className="align-items-center justify-content-center g-0 ">
@@ -33,50 +55,13 @@ const LoginPage = () => {
                 </span>
               </div>
               {/* Form */}
-              <Form onSubmit={loginUser}>
-                <Row>
-                  <Col lg={12} md={12} className="mb-3">
-                    {/* Username or email */}
-                    <Form.Label>Username or email </Form.Label>
-                    <Form.Control
-                      type="email"
-                      id="email"
-                      placeholder="Email address here"
-                      required
-                    />
-                  </Col>
-                  <Col lg={12} md={12} className="mb-3">
-                    {/* Password */}
-                    <Form.Label>Password </Form.Label>
-                    <Form.Control
-                      type="password"
-                      id="password"
-                      placeholder="**************"
-                      required
-                    />
-                  </Col>
-                  <Col lg={12} md={12} className="mb-3">
-                    {/* Checkbox */}
-                    <div className="d-md-flex justify-content-between align-items-center">
-                      <Form.Group
-                        className="mb-3 mb-md-0"
-                        controlId="formBasicCheckbox"
-                      >
-                        <Form.Check type="checkbox" label="Remember me" />
-                      </Form.Group>
-                      <Link to="/authentication/forget-password">
-                        Forgot your password?
-                      </Link>
-                    </div>
-                  </Col>
-                  <Col lg={12} md={12} className="mb-0 mt-4 d-grid gap-2">
-                    {/* Button */}
-                    <Button variant="primary" type="submit">
-                      Sign in
-                    </Button>
-                  </Col>
-                </Row>
-              </Form>
+              <BaseForm
+                form_fields={form_fields}
+                validation_schema={SignInSchema}
+                on_submit={loginUser}
+                submit_label={"Sign in"}
+                serverErrors={error}
+              />
               <div className="mb-4" />
             </Card.Body>
           </Card>

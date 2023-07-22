@@ -32,8 +32,8 @@ const BaseForm = ({
     <>
       <Formik
         initialValues={initialValues}
-        onSubmit={async (values) => {
-          on_submit(values);
+        onSubmit={async (values, { resetForm }) => {
+          on_submit(values, resetForm, initialValues);
         }}
         validationSchema={validation_schema}
       >

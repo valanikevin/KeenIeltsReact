@@ -31,16 +31,15 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, [authTokens, loading]);
 
-  const loginUser = async (e) => {
-    e.preventDefault();
+  const loginUser = async (values) => {
     let response = await fetch("http://localhost:8000/api/token/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: e.target.email.value,
-        password: e.target.password.value,
+        email: values.email,
+        password: values.password,
       }),
     });
 
@@ -71,9 +70,7 @@ export const AuthProvider = ({ children }) => {
     navigate("/login");
   };
 
-  const registerUser = async (values) => {
-    console.log(values);
-
+  const registerUser = async (values, resetForm, initialValues) => {
     axios
       .post("http://localhost:8000/api/register/", {
         first_name: values.first_name,
@@ -84,6 +81,16 @@ export const AuthProvider = ({ children }) => {
       })
       .then(
         (response) => {
+          resetForm(initialValues);
+          let message = {
+            title: "Registration Successful",
+            message:
+              "You have successfully registered your account. Please login now.",
+            color: "success",
+          };
+
+          setNotification(message);
+
           navigate("/login");
         },
         (error) => {
