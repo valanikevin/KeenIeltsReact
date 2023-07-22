@@ -19,7 +19,7 @@ const BaseForm = ({
   form_fields,
   submit_label,
   on_submit,
-  errors,
+  serverErrors,
   validation_schema,
 }) => {
   let initialValues = {};
@@ -33,8 +33,7 @@ const BaseForm = ({
       <Formik
         initialValues={initialValues}
         onSubmit={async (values) => {
-          await new Promise((r) => setTimeout(r, 500));
-          alert(JSON.stringify(values, null, 2));
+          on_submit(values);
         }}
         validationSchema={validation_schema}
       >
@@ -50,15 +49,20 @@ const BaseForm = ({
               >
                 <Form.Label htmlFor={field.id}>{field.label}</Form.Label>
                 <Field
+                  type={field.type}
                   as={Form.Control}
                   id={field.id}
                   name={field.id}
                   placeholder={field.placeholder}
                   isInvalid={
-                    errors[field.id] && touched[field.id] ? true : false
+                    (errors[field.id] && touched[field.id]) ||
+                    (serverErrors && serverErrors[field.id])
+                      ? true
+                      : false
                   }
                   isValid={
-                    errors[field.id] === undefined && touched[field.id]
+                    (errors[field.id] === undefined && touched[field.id]) ||
+                    (serverErrors && serverErrors[field.id] === undefined)
                       ? true
                       : false
                   }
@@ -66,6 +70,13 @@ const BaseForm = ({
                 {errors[field.id] && touched[field.id] ? (
                   <Form.Control.Feedback type="invalid">
                     {errors[field.id]}
+                  </Form.Control.Feedback>
+                ) : null}
+                {serverErrors && serverErrors[field.id] ? (
+                  <Form.Control.Feedback type="invalid">
+                    {serverErrors[field.id].map((sError, index) => (
+                      <p key={index}>{sError.message}</p>
+                    ))}
                   </Form.Control.Feedback>
                 ) : null}
               </FormGroup>

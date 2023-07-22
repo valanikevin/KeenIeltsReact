@@ -96,7 +96,7 @@ const RegisterPage = () => {
                 form_fields={form_fields}
                 submit_label={"Sign up"}
                 on_submit={registerUser}
-                errors={registrationError}
+                serverErrors={registrationError}
                 validation_schema={SignupSchema}
               />
 

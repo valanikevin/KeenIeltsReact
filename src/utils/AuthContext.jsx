@@ -71,15 +71,16 @@ export const AuthProvider = ({ children }) => {
     navigate("/login");
   };
 
-  const registerUser = async (e) => {
-    e.preventDefault();
+  const registerUser = async (values) => {
+    console.log(values);
+
     axios
       .post("http://localhost:8000/api/register/", {
-        first_name: e.target.first_name.value,
-        last_name: e.target.last_name.value,
-        email: e.target.email.value,
-        password1: e.target.password1.value,
-        password2: e.target.password2.value,
+        first_name: values.first_name,
+        last_name: values.last_name,
+        email: values.email,
+        password1: values.password1,
+        password2: values.password2,
       })
       .then(
         (response) => {
