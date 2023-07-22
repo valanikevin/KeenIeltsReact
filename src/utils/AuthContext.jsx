@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, [authTokens, loading]);
 
-  const loginUser = async (values) => {
+  const loginUser = async (values, resetForm, initialValues) => {
     let response = await fetch("http://localhost:8000/api/token/", {
       method: "POST",
       headers: {
@@ -51,6 +51,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("authTokens", JSON.stringify(data));
       localStorage.setItem("user", JSON.stringify(jwt_decode(data.access)));
       setNotification({ ...notification, message: "" });
+      resetForm(initialValues);
       navigate("/");
     } else {
       let error = {
