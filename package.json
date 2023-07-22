@@ -69,6 +69,7 @@
     "web-vitals": "^3.3.1",
     "yet-another-react-lightbox": "^3.10.0",
     "yup": "^1.2.0",
+    "yup-password": "^0.2.2",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {

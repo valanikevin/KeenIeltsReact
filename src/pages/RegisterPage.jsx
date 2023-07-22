@@ -1,17 +1,13 @@
 import { useEffect, useContext, useState } from "react";
 import AuthContext, { useAuth } from "../utils/AuthContext";
 import { Link } from "react-router-dom";
-import {
-  Col,
-  Row,
-  Card,
-  Form,
-  Button,
-  Alert,
-  FormGroup,
-} from "react-bootstrap";
+import { Col, Row, Card, Button, Alert, FormGroup } from "react-bootstrap";
 import NotificationContext from "../context/layout/NotificationContext";
 import BaseForm from "../components/layout/BaseForm";
+import * as Yup from "yup";
+import YupPassword from "yup-password";
+
+YupPassword(Yup);
 
 const RegisterPage = () => {
   let { registerUser, registrationError } = useContext(AuthContext);
@@ -54,6 +50,32 @@ const RegisterPage = () => {
     },
   ];
 
+  const SignupSchema = Yup.object().shape({
+    first_name: Yup.string()
+      .min(2, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
+    last_name: Yup.string()
+      .min(2, "Too Short!")
+      .max(50, "Too Long!")
+      .required("Required"),
+    email: Yup.string().email("Invalid email").required("Required"),
+    password1: Yup.string()
+      .required("Password is required")
+      .min(
+        5,
+        "password must contain 5 or more characters with at least one of each: uppercase, lowercase, number and special"
+      )
+      .minLowercase(1, "password must contain at least 1 lower case letter")
+      .minUppercase(1, "password must contain at least 1 upper case letter")
+      .minNumbers(1, "password must contain at least 1 number")
+      .minSymbols(1, "password must contain at least 1 special character"),
+    password2: Yup.string().oneOf(
+      [Yup.ref("password1"), null],
+      "Passwords must match"
+    ),
+  });
+
   return (
     <>
       <Row className="align-items-center justify-content-center g-0 ">
@@ -70,13 +92,14 @@ const RegisterPage = () => {
                 </span>
               </div>
 
-              {/* Form */}
               <BaseForm
                 form_fields={form_fields}
                 submit_label={"Sign up"}
                 on_submit={registerUser}
                 errors={registrationError}
+                validation_schema={SignupSchema}
               />
+
               <div className="mb-4" />
             </Card.Body>
           </Card>
