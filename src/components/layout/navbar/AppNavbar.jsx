@@ -23,65 +23,75 @@ const AppNavbar = () => {
   const NavbarDefault = [
     {
       id: uuid(),
-      menuitem: "Landings",
+      menuitem: "Dashboard",
       link: "#",
       children: [
         {
           id: uuid(),
-          header: true,
-          header_text: "LANDINGS",
+          menuitem: "Your Dashboard",
+          link: "/dashboard/",
         },
         {
           id: uuid(),
-          menuitem: "Home Academy",
-          link: "/marketing/landings/home-academy/",
+          menuitem: "Your Performance",
+          link: "/performance/",
         },
       ],
     },
+
     {
       id: uuid(),
-      menuitem: "Browse",
+      menuitem: "Take Test",
       link: "#",
       children: [
         {
           id: uuid(),
-          menuitem: "Web Development",
+          menuitem: "Full Test",
+          link: "/grouptests/",
+        },
+        {
+          id: uuid(),
+          menuitem: "Individual Module",
           link: "#",
           children: [
             {
               id: uuid(),
-              menuitem: "Bootstrap",
-              link: "/marketing/course-category/",
+              menuitem: "Listening",
+              link: "#",
             },
             {
               id: uuid(),
-              menuitem: "React",
-              link: "/marketing/course-category/",
+              menuitem: "Reading",
+              link: "#",
+            },
+            {
+              id: uuid(),
+              menuitem: "Writing",
+              link: "#",
+            },
+            {
+              id: uuid(),
+              menuitem: "Speaking",
+              link: "#",
             },
           ],
         },
-
         {
           id: uuid(),
-          menuitem: "Mobile App",
-          link: "/marketing/course-category/",
+          menuitem: "Group Test",
+          link: "/grouptests/",
         },
       ],
     },
     {
       id: uuid(),
-      menuitem: "Landings",
+      menuitem: "Leaderboard",
       link: "#",
       children: [
         {
           id: uuid(),
-          header: true,
-          header_text: "LANDINGS",
-        },
-        {
-          id: uuid(),
-          menuitem: "Home Academy",
-          link: "/marketing/landings/home-academy/",
+          menuitem: "Leaderboard",
+          link: "/leaderboard/",
         },
       ],
     },
@@ -135,7 +145,7 @@ const AppNavbar = () => {
                 type="Search"
                 id="formSearch"
                 className="ps-6"
-                placeholder="Search Courses"
+                placeholder="Search Tests, Schools"
               />
             </Form>
             {/* Right side quick / shortcut menu  */}
