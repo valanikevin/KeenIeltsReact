@@ -1,8 +1,6 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import HomePage from "./pages/base/HomePage";
-import LoginPage from "./pages/base/LoginPage";
-import RegisterPage from "./pages/base/RegisterPage";
+
 import Header from "./components/layout/Header";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import { AuthProvider } from "./utils/AuthContext";
@@ -13,30 +11,36 @@ import AppNavbar from "./components/layout/navbar/AppNavbar";
 import LoadingBar from "./components/layout/LoadingBar/LoadingBar";
 import LoadingState from "./context/layout/LoadingState";
 import Footer from "./components/layout/Footer";
+import AllRoutes from "./AllRoutes";
 export const ErrorContext = createContext();
 
 function App() {
+  const compose = (providers) =>
+    providers.reduce((Prev, Curr) => ({ children }) => (
+      <Prev>
+        <Curr>{children}</Curr>
+      </Prev>
+    ));
+
+  const GlobalProvider = compose([
+    NotificationState,
+    LoadingState,
+    AuthProvider,
+  ]);
+
   return (
     <>
-      <NotificationState>
-        <LoadingState>
-          <AuthProvider>
-            <AppNavbar />
-            <LoadingBar />
-            <Container className="p-3 app">
-              <Routes>
-                <Route element={<PrivateRoutes />}>
-                  <Route path="/" element={<HomePage />} />
-                </Route>
-
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
-              </Routes>
-            </Container>
-            <Footer />
-          </AuthProvider>
-        </LoadingState>
-      </NotificationState>
+      <GlobalProvider>
+        {/* Website Layout */}
+        <AppNavbar />
+        <LoadingBar />
+        <Container className="p-3 app">
+          {/* All Routes */}
+          <AllRoutes />
+        </Container>
+        <Footer />
+        {/* Website Layout Ends */}
+      </GlobalProvider>
     </>
   );
 }
