@@ -12,6 +12,7 @@ import NotificationState from "./context/layout/NotificationState";
 import AppNavbar from "./components/layout/navbar/AppNavbar";
 import LoadingBar from "./components/layout/LoadingBar/LoadingBar";
 import LoadingState from "./context/layout/LoadingState";
+import Footer from "./components/layout/Footer";
 export const ErrorContext = createContext();
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
           <AuthProvider>
             <AppNavbar />
             <LoadingBar />
-            <Container className="p-3">
+            <Container className="p-3 app">
               <Routes>
                 <Route element={<PrivateRoutes />}>
                   <Route path="/" element={<HomePage />} />
@@ -32,6 +33,7 @@ function App() {
                 <Route path="/register" element={<RegisterPage />} />
               </Routes>
             </Container>
+            <Footer />
           </AuthProvider>
         </LoadingState>
       </NotificationState>
