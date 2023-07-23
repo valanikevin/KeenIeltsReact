@@ -7,7 +7,8 @@ import { v4 as uuid } from "uuid";
 import Logo from "../../../assets/images/brand/logo/logo.svg";
 import NavDropdownMain from "./NavDropdownMain";
 import AuthContext from "../../../utils/AuthContext";
-const AppNavbar = ({ headerstyle }) => {
+
+const AppNavbar = () => {
   const isDesktop = useMediaQuery({
     query: "(min-width: 1224px)",
   });
@@ -22,7 +23,7 @@ const AppNavbar = ({ headerstyle }) => {
   const NavbarDefault = [
     {
       id: uuid(),
-      menuitem: "Dashboard",
+      menuitem: "Landings",
       link: "#",
       children: [
         {
