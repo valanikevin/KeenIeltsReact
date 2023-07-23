@@ -1,9 +1,8 @@
 import { useEffect, useContext, useState } from "react";
-import AuthContext, { useAuth } from "../utils/AuthContext";
+import AuthContext, { useAuth } from "../../utils/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import { Col, Row, Card, Button, Alert, FormGroup } from "react-bootstrap";
-import NotificationContext from "../context/layout/NotificationContext";
-import BaseForm from "../components/layout/BaseForm";
+import { Col, Row, Card } from "react-bootstrap";
+import BaseForm from "../../components/layout/BaseForm";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
 

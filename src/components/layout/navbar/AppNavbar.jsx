@@ -130,6 +130,7 @@ const AppNavbar = ({ headerstyle }) => {
                   to={"/login"}
                   bsPrefix="btn"
                   className="btn btn-white shadow-sm me-2"
+                  onClick={(value) => setExpandedMenu(false)}
                 >
                   Sign In
                 </Nav.Link>
@@ -138,6 +139,7 @@ const AppNavbar = ({ headerstyle }) => {
                   to={"/register"}
                   bsPrefix="btn"
                   className="btn btn-primary shadow-sm"
+                  onClick={(value) => setExpandedMenu(false)}
                 >
                   Sign Up
                 </Nav.Link>
@@ -148,6 +150,7 @@ const AppNavbar = ({ headerstyle }) => {
                   as={Link}
                   onClick={(e) => {
                     logoutUser(e);
+                    setExpandedMenu(false);
                   }}
                   bsPrefix="btn"
                   className="btn btn-primary shadow-sm"

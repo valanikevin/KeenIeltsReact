@@ -97,7 +97,6 @@ export const AuthProvider = ({ children }) => {
           navigate("/login");
         },
         (error) => {
-          console.log(error.response.data.errors);
           setRegistrationError(error.response.data.errors);
         }
       )

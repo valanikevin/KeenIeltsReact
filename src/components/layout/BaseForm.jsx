@@ -90,7 +90,7 @@ const BaseForm = ({
               <Button
                 variant="primary"
                 type="submit"
-                disabled={!(isValid && dirty)}
+                disabled={!(isValid && dirty) || loadingBar}
               >
                 {submit_label}
               </Button>

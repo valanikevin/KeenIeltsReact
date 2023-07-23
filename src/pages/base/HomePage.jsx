@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import useAxios from "../utils/useAxios";
+import useAxios from "../../utils/useAxios";
 
 const HomePage = () => {
   let api = useAxios();
