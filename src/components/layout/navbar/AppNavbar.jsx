@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Image, Navbar, Nav, Container, Form } from "react-bootstrap";
 import { useMediaQuery } from "react-responsive";
@@ -21,6 +20,23 @@ const AppNavbar = ({ headerstyle }) => {
   const login = user ? true : false;
 
   const NavbarDefault = [
+    {
+      id: uuid(),
+      menuitem: "Dashboard",
+      link: "#",
+      children: [
+        {
+          id: uuid(),
+          header: true,
+          header_text: "LANDINGS",
+        },
+        {
+          id: uuid(),
+          menuitem: "Home Academy",
+          link: "/marketing/landings/home-academy/",
+        },
+      ],
+    },
     {
       id: uuid(),
       menuitem: "Browse",

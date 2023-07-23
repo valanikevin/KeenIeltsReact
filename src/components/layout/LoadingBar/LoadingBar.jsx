@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import "./LoadingBar.css";
-import LoadingContext from "../../context/layout/LoadingContext";
+import LoadingContext from "../../../context/layout/LoadingContext";
 
 const LoadingBar = () => {
   const [loadingBar, setLoadingBar] = useContext(LoadingContext);

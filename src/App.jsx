@@ -10,7 +10,7 @@ import { Container } from "react-bootstrap";
 import { createContext, useState } from "react";
 import NotificationState from "./context/layout/NotificationState";
 import AppNavbar from "./components/layout/navbar/AppNavbar";
-import LoadingBar from "./components/layout/LoadingBar";
+import LoadingBar from "./components/layout/LoadingBar/LoadingBar";
 import LoadingState from "./context/layout/LoadingState";
 export const ErrorContext = createContext();
 
