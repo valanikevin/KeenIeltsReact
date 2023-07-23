@@ -1,14 +1,13 @@
 import React from "react";
-
 import { useState } from "react";
-import LoadingState from "./Context";
+import LoadingContext from "./LoadingContext";
 
 const LoadingState = ({ children }) => {
-  const [loading, setLoading] = useState(false);
+  const [loadingBar, setLoadingBar] = useState(false);
   return (
-    <LoadingState.Provider value={[loading, setLoading]}>
+    <LoadingContext.Provider value={[loadingBar, setLoadingBar]}>
       {children}
-    </LoadingState.Provider>
+    </LoadingContext.Provider>
   );
 };
 

@@ -5,9 +5,11 @@ import NotificationContext from "../context/layout/NotificationContext";
 import useAxios from "./useAxios";
 const AuthContext = createContext();
 import axios from "axios";
+import LoadingContext from "../context/layout/LoadingContext";
 
 export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
+  const [loadingBar, setLoadingBar] = useContext(LoadingContext);
   const [registrationError, setRegistrationError] = useState(null);
   const [user, setUser] = useState(() =>
     localStorage.getItem("user")
@@ -28,7 +30,6 @@ export const AuthProvider = ({ children }) => {
     if (authTokens) {
       setUser(jwt_decode(authTokens.access));
     }
-    setLoading(false);
   }, [authTokens, loading]);
 
   const loginUser = async (values, resetForm, initialValues) => {
@@ -51,6 +52,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("authTokens", JSON.stringify(data));
       localStorage.setItem("user", JSON.stringify(jwt_decode(data.access)));
       setNotification({ ...notification, message: "" });
+      setLoadingBar(false);
       resetForm(initialValues);
       navigate("/");
     } else {
@@ -59,8 +61,8 @@ export const AuthProvider = ({ children }) => {
         message: "Invalid Credentials.",
         color: "danger",
       };
-
       setNotification(error);
+      setLoadingBar(false);
     }
   };
   const logoutUser = () => {
@@ -98,7 +100,10 @@ export const AuthProvider = ({ children }) => {
           console.log(error.response.data.errors);
           setRegistrationError(error.response.data.errors);
         }
-      );
+      )
+      .finally((response) => {
+        setLoadingBar(false);
+      });
   };
 
   const contextData = {
@@ -113,9 +118,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={contextData}>
-      {loading ? null : children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
   );
 };
 

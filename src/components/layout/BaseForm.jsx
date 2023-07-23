@@ -14,6 +14,7 @@ import {
   FormGroup,
 } from "react-bootstrap";
 import NotificationContext from "../../context/layout/NotificationContext";
+import LoadingContext from "../../context/layout/LoadingContext";
 
 const BaseForm = ({
   form_fields,
@@ -23,6 +24,7 @@ const BaseForm = ({
   validation_schema,
 }) => {
   let initialValues = {};
+  const [loadingBar, setLoadingBar] = useContext(LoadingContext);
 
   form_fields.forEach(function (field) {
     initialValues[field.id] = "";
@@ -33,6 +35,7 @@ const BaseForm = ({
       <Formik
         initialValues={initialValues}
         onSubmit={async (values, { resetForm }) => {
+          setLoadingBar(true);
           on_submit(values, resetForm, initialValues);
         }}
         validationSchema={validation_schema}

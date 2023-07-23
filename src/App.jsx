@@ -11,27 +11,29 @@ import { createContext, useState } from "react";
 import NotificationState from "./context/layout/NotificationState";
 import AppNavbar from "./components/layout/navbar/AppNavbar";
 import LoadingBar from "./components/layout/LoadingBar";
-
+import LoadingState from "./context/layout/LoadingState";
 export const ErrorContext = createContext();
 
 function App() {
   return (
     <>
       <NotificationState>
-        <AuthProvider>
-          <AppNavbar />
-          <LoadingBar />
-          <Container className="p-3">
-            <Routes>
-              <Route element={<PrivateRoutes />}>
-                <Route path="/" element={<HomePage />} />
-              </Route>
+        <LoadingState>
+          <AuthProvider>
+            <AppNavbar />
+            <LoadingBar />
+            <Container className="p-3">
+              <Routes>
+                <Route element={<PrivateRoutes />}>
+                  <Route path="/" element={<HomePage />} />
+                </Route>
 
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-            </Routes>
-          </Container>
-        </AuthProvider>
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+              </Routes>
+            </Container>
+          </AuthProvider>
+        </LoadingState>
       </NotificationState>
     </>
   );
