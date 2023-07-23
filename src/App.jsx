@@ -10,6 +10,7 @@ import { Container } from "react-bootstrap";
 import { createContext, useState } from "react";
 import NotificationState from "./context/layout/NotificationState";
 import AppNavbar from "./components/layout/navbar/AppNavbar";
+import LoadingBar from "./components/layout/LoadingBar";
 
 export const ErrorContext = createContext();
 
@@ -19,6 +20,7 @@ function App() {
       <NotificationState>
         <AuthProvider>
           <AppNavbar />
+          <LoadingBar />
           <Container className="p-3">
             <Routes>
               <Route element={<PrivateRoutes />}>
