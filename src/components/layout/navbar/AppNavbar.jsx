@@ -27,18 +27,18 @@ const AppNavbar = () => {
       id: uuid(),
       menuitem: "Dashboard",
       link: "#",
-      children: [
-        {
-          id: uuid(),
-          menuitem: "Your Dashboard",
-          link: "/dashboard/",
-        },
-        {
-          id: uuid(),
-          menuitem: "Your Performance",
-          link: "/performance/",
-        },
-      ],
+      // children: [
+      //   {
+      //     id: uuid(),
+      //     menuitem: "Your Dashboard",
+      //     link: "/dashboard/",
+      //   },
+      //   {
+      //     id: uuid(),
+      //     menuitem: "Your Performance",
+      //     link: "/performance/",
+      //   },
+      // ],
     },
     {
       id: uuid(),
@@ -80,9 +80,11 @@ const AppNavbar = () => {
               {NavbarDefaultRoutes.map((item, index) => {
                 if (item.children === undefined) {
                   return (
-                    <Nav.Link key={index} as={Link} to={item.link}>
-                      {item.menuitem}
-                    </Nav.Link>
+                    <div className="nav-item" key={index}>
+                      <Nav.Link as={Link} to={item.link}>
+                        {item.menuitem}
+                      </Nav.Link>
+                    </div>
                   );
                 } else {
                   return (
