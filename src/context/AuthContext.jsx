@@ -1,11 +1,11 @@
 import { useContext, useState, useEffect, createContext } from "react";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-import NotificationContext from "../context/layout/NotificationContext";
-import useAxios from "./useAxios";
+import NotificationContext from "./layout/NotificationContext";
+import useAxios from "../utils/useAxios";
 const AuthContext = createContext();
 import axios from "axios";
-import LoadingContext from "../context/layout/LoadingContext";
+import LoadingContext from "./layout/LoadingContext";
 
 export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);

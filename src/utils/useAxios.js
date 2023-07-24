@@ -1,7 +1,7 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import dayjs from "dayjs";
-import AuthContext from "./AuthContext";
+import AuthContext from "../context/AuthContext";
 import { useContext } from "react";
 import axiosInstance from "./axiosInstance";
 

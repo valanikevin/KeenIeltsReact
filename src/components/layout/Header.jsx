@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import AuthContext from "../../utils/AuthContext";
+import AuthContext from "../../context/AuthContext";
 import { Row, Col, Nav, Navbar, Image } from "react-bootstrap";
 import Logo from "../../assets/images/brand/logo/logo.svg";
 import Alert from "./Alert";

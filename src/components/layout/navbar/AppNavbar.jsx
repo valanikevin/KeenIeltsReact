@@ -6,7 +6,7 @@ import { v4 as uuid } from "uuid";
 // import media files
 import Logo from "../../../assets/images/brand/logo/logo.svg";
 import NavDropdownMain from "./NavDropdownMain";
-import AuthContext from "../../../utils/AuthContext";
+import AuthContext from "../../../context/AuthContext";
 
 const AppNavbar = () => {
   const isDesktop = useMediaQuery({

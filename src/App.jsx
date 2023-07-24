@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 
 import Header from "./components/layout/Header";
 import PrivateRoutes from "./utils/PrivateRoutes";
-import { AuthProvider } from "./utils/AuthContext";
+import { AuthProvider } from "./context/AuthContext";
 import { Container } from "react-bootstrap";
 import { createContext, useState } from "react";
 import NotificationState from "./context/layout/NotificationState";

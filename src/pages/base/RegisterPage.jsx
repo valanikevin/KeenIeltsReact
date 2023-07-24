@@ -1,5 +1,5 @@
 import { useEffect, useContext, useState } from "react";
-import AuthContext, { useAuth } from "../../utils/AuthContext";
+import AuthContext, { useAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { Col, Row, Card } from "react-bootstrap";
 import BaseForm from "../../components/layout/BaseForm";
