@@ -108,10 +108,18 @@ const AppNavbar = () => {
                   </>
                 ) : (
                   <>
-                    <Link to="/login/" className="btn btn-outline-dark ms-3">
+                    <Link
+                      to="/login/"
+                      onClick={(value) => setExpandedMenu(false)}
+                      className="btn btn-outline-dark ms-3"
+                    >
                       Sign in
                     </Link>
-                    <Link to="/register/" className="btn btn-dark ms-1">
+                    <Link
+                      to="/register/"
+                      onClick={(value) => setExpandedMenu(false)}
+                      className="btn btn-dark ms-1"
+                    >
                       Sign up
                     </Link>
                   </>
