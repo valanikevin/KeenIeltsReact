@@ -1,7 +1,6 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 
-import Header from "./components/layout/Header";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import { AuthProvider } from "./context/AuthContext";
 import { Container } from "react-bootstrap";
@@ -12,6 +11,7 @@ import LoadingBar from "./components/layout/LoadingBar/LoadingBar";
 import LoadingState from "./context/layout/LoadingState";
 import Footer from "./components/layout/Footer";
 import AllRoutes from "./AllRoutes";
+import ScrollToTop from "./utils/ScrollToTop";
 export const ErrorContext = createContext();
 
 function App() {
@@ -31,6 +31,7 @@ function App() {
   return (
     <>
       <GlobalProvider>
+        <ScrollToTop />
         {/* Website Layout */}
         <AppNavbar />
         <LoadingBar />
