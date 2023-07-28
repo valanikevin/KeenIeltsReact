@@ -3,3 +3,23 @@
 // Use this to write your custom SCSS
 //
 
+$listening: #008080;
+$reading: #808000;
+$writing: #a0522d;
+$speaking: #4169e1;
+
+.bg-listening {
+  background-color: $listening;
+}
+
+.bg-reading {
+  background-color: $reading;
+}
+
+.bg-writing {
+  background-color: $writing;
+}
+
+.bg-speaking {
+  background-color: $speaking;
+}

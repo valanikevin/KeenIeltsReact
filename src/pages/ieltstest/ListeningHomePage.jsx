@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import useAxios from "../../utils/useAxios";
 import { API_URLS } from "../../utils/urls";
+import PageHeadingBriefinfo from "../../components/layout/PageHeadingBriefInfo";
+import { Col, Container, Row } from "react-bootstrap";
+import { LISTENING_MODULE_VARIABLES } from "../../utils/variables";
+import BookCard from "../../components/ieltstest/BookCard";
 
 const ListeningHomePage = () => {
   const api = useAxios();
@@ -27,23 +31,40 @@ const ListeningHomePage = () => {
 
   return (
     <div>
-      <p>Listening Books:</p>
-      <ul>
-        {books.map((book) => (
-          <li key={book.slug}>
-            {book.name}
-            {book.tests_with_listening_module.length > 0 && (
-              <ul>
-                {book.tests_with_listening_module[0].listening_module.map(
-                  (module) => (
-                    <li key={module.slug}>{module.name}</li>
-                  )
-                )}
-              </ul>
-            )}
-          </li>
-        ))}
-      </ul>
+      <PageHeadingBriefinfo
+        pagetitle={LISTENING_MODULE_VARIABLES.LISTENING_1}
+        briefinfo={LISTENING_MODULE_VARIABLES.LISTENING_2}
+        color="bg-listening"
+      />
+      <Container className="p-3 app">
+        <Row>
+          {books.map((book, index) => (
+            <Col xs={12} md={6} lg={4} key={book.slug}>
+              <BookCard
+                test_type="Listening Test"
+                image_url={book.cover}
+                card_title={book.name}
+                card_description={book.description}
+                book_tests={
+                  book.tests_with_listening_module[index].listening_module
+                }
+              />
+            </Col>
+            // <li key={book.slug}>
+            //   {book.name}
+            //   {book.tests_with_listening_module.length > 0 && (
+            //     <ul>
+            //       {book.tests_with_listening_module[0].listening_module.map(
+            //         (module) => (
+            //           <li key={module.slug}>{module.name}</li>
+            //         )
+            //       )}
+            //     </ul>
+            //   )}
+            // </li>
+          ))}
+        </Row>
+      </Container>
     </div>
   );
 };

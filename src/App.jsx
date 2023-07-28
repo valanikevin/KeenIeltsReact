@@ -35,10 +35,10 @@ function App() {
         {/* Website Layout */}
         <AppNavbar />
         <LoadingBar />
-        <Container className="p-3 app">
-          {/* All Routes */}
+        <div className=" app">
           <AllRoutes />
-        </Container>
+        </div>
+
         <Footer />
         {/* Website Layout Ends */}
       </GlobalProvider>
