@@ -6,17 +6,25 @@ import { Route, Routes } from "react-router-dom";
 
 import PrivateRoutes from "./utils/PrivateRoutes";
 import DashboardPage from "./pages/student/DashboardPage";
+import ListeningHomePage from "./pages/ieltstest/ListeningHomePage";
+import TestHomePage from "./pages/ieltstest/TestHomePage";
 
 const AllRoutes = () => {
   return (
     <Routes>
       {/* Private Routes */}
-      <Route element={<PrivateRoutes />}>
-        <Route path="/dashboard" element={<DashboardPage />} />
+      <Route path="/dashboard" element={<PrivateRoutes />}>
+        <Route index element={<DashboardPage />} />
       </Route>
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+
+      {/* IELTS Tests */}
+      <Route path="/ieltstest">
+        <Route index element={<TestHomePage />} />
+        <Route path="listening" element={<ListeningHomePage />} />
+      </Route>
     </Routes>
   );
 };
