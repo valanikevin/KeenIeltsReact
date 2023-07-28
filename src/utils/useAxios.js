@@ -5,7 +5,7 @@ import AuthContext from "../context/AuthContext";
 import { useContext } from "react";
 import axiosInstance from "../services/axiosInstance";
 
-const baseURL = "http://127.0.0.1:8000";
+const baseURL = "http://127.0.0.1:8000/api";
 
 const useAxios = () => {
   const { authTokens, setUser, setAuthTokens } = useContext(AuthContext);
@@ -21,7 +21,7 @@ const useAxios = () => {
 
     if (!isExpired) return req;
 
-    const response = await axios.post(`${baseURL}/api/token/refresh/`, {
+    const response = await axios.post(`${baseURL}/token/refresh/`, {
       refresh: authTokens.refresh,
     });
 
