@@ -48,20 +48,10 @@ const ListeningHomePage = () => {
                 book_tests={
                   book.tests_with_listening_module[index].listening_module
                 }
+                color={"bg-listening"}
               />
             </Col>
-            // <li key={book.slug}>
-            //   {book.name}
-            //   {book.tests_with_listening_module.length > 0 && (
-            //     <ul>
-            //       {book.tests_with_listening_module[0].listening_module.map(
-            //         (module) => (
-            //           <li key={module.slug}>{module.name}</li>
-            //         )
-            //       )}
-            //     </ul>
-            //   )}
-            // </li>
+        
           ))}
         </Row>
       </Container>
