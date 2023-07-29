@@ -38,20 +38,17 @@ const ListeningHomePage = () => {
       />
       <Container className="p-3 app">
         <Row>
-          {books.map((book, index) => (
+          {books.map((book) => (
             <Col xs={12} md={6} lg={4} key={book.slug}>
               <BookCard
                 test_type="Listening Test"
                 image_url={book.cover}
                 card_title={book.name}
                 card_description={book.description}
-                book_tests={
-                  book.tests_with_listening_module[index].listening_module
-                }
+                book_tests={book.tests_with_listening_module}
                 color={"bg-listening"}
               />
             </Col>
-        
           ))}
         </Row>
       </Container>

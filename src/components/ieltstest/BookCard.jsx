@@ -63,7 +63,7 @@ const BookCard = ({
           )}
         </Offcanvas.Body>
       </Offcanvas>
-      <Card>
+      <Card className="mb-4">
         <Card.Img variant="top" src={image_url} />
         <Card.Body>
           <Card.Title className="text-dark">{card_title}</Card.Title>
