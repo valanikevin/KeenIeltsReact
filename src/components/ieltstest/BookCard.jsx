@@ -71,7 +71,9 @@ const BookCard = ({
       <Card className="mb-4">
         <Card.Img variant="top" src={image_url} />
         <Card.Body>
-          <Card.Title className="text-dark">{card_title}</Card.Title>
+          <Card.Title className="text-dark" style={{ fontSize: "1.0rem" }}>
+            {card_title}
+          </Card.Title>
           <Card.Text>{card_description}</Card.Text>
         </Card.Body>
         <Card.Footer>
@@ -87,10 +89,7 @@ const BookCard = ({
         <Card.Footer>
           <Stack direction="horizontal" gap={3}>
             <div className="p-2">
-              <span
-                className={`fw-bold text-${color}`}
-                style={{ fontSize: "1.0rem" }}
-              >
+              <span className={`fw-bold text-${color}`}>
                 Begin Smart {test_type}
               </span>
             </div>
