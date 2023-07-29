@@ -11,7 +11,7 @@ import {
   Badge,
 } from "react-bootstrap";
 
-import { BsArrowRight } from "react-icons/bs";
+import { FiList, FiArrowRight } from "react-icons/fi";
 
 const BookCard = ({
   test_type,
@@ -33,32 +33,37 @@ const BookCard = ({
         placement="end"
         show={show}
         onHide={handleClose}
-        className="bg-white"
+        className="bg-light"
       >
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>{card_title}</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <div className="mb-5">
+          <div className="mb-4">
             <Image width={"100%"} className="rounded" src={image_url} />
           </div>
           {book_tests && (
             <>
-              <h4 className=" my-3 text-center">Choose {test_type}</h4>
-              <ListGroup className="rounded-0 ">
+              <Card className="mb-4">
+                <Card.Header className={`bg-${color}`}>
+                  <h4 className={`text-white my-0`}>Choose {test_type}</h4>
+                </Card.Header>
+
                 {book_tests.map((test) => (
-                  <ListGroup.Item key={test.slug} className="text-black">
-                    <Stack direction="horizontal" gap={3}>
-                      <div className="p-2">{test.name}</div>
-                      <div className="p-2 ms-auto">
-                        <Badge bg="listening">
-                          <BsArrowRight size={20} fill="#fff" />
-                        </Badge>
-                      </div>
-                    </Stack>
-                  </ListGroup.Item>
+                  <Card.Footer key={test.slug}>
+                    <Card.Text>
+                      <Stack direction="horizontal" gap={3}>
+                        <div className="">
+                          <span className={` text-black`}>{test.name}</span>
+                        </div>
+                        <div className=" ms-auto">
+                          <FiArrowRight size={20} className="text-black" />
+                        </div>
+                      </Stack>
+                    </Card.Text>
+                  </Card.Footer>
                 ))}
-              </ListGroup>
+              </Card>
             </>
           )}
         </Offcanvas.Body>
@@ -70,11 +75,29 @@ const BookCard = ({
           <Card.Text>{card_description}</Card.Text>
         </Card.Body>
         <Card.Footer>
-          <Card.Text>
-            <span onClick={handleShow} className="text-primary">
-              Choose {test_type}
-            </span>
-          </Card.Text>
+          <Stack direction="horizontal" onClick={handleShow} gap={3}>
+            <div className="px-2">
+              <span className="text-primary">Choose {test_type}</span>
+            </div>
+            <div className="px-2 ms-auto">
+              <FiList size={20} className="text-black" />
+            </div>
+          </Stack>
+        </Card.Footer>
+        <Card.Footer>
+          <Stack direction="horizontal" gap={3}>
+            <div className="p-2">
+              <span
+                className={`fw-bold text-${color}`}
+                style={{ fontSize: "1.0rem" }}
+              >
+                Begin Smart {test_type}
+              </span>
+            </div>
+            <div className="p-2 ms-auto">
+              <FiArrowRight size={20} className="text-black" />
+            </div>
+          </Stack>
         </Card.Footer>
       </Card>
     </>

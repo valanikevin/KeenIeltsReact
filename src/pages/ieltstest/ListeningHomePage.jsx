@@ -46,7 +46,7 @@ const ListeningHomePage = () => {
                 card_title={book.name}
                 card_description={book.description}
                 book_tests={book.tests_with_listening_module}
-                color={"bg-listening"}
+                color={"listening"}
               />
             </Col>
           ))}
