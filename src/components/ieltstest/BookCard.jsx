@@ -12,13 +12,14 @@ import {
 } from "react-bootstrap";
 
 import { FiList, FiArrowRight } from "react-icons/fi";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const BookCard = ({
   test_type,
   image_url,
   card_title,
   card_description,
-  book_tests,
+  book,
   color,
 }) => {
   const [expanded, setExpanded] = useState(false);
@@ -26,6 +27,11 @@ const BookCard = ({
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const navigate = useNavigate();
+  const startBookSmartTest = () => {
+    const url = "smart_test/book/" + book.slug;
+    navigate(url);
+  };
 
   return (
     <>
@@ -42,14 +48,14 @@ const BookCard = ({
           <div className="mb-4">
             <Image width={"100%"} className="rounded" src={image_url} />
           </div>
-          {book_tests && (
+          {book.tests_with_listening_module && (
             <>
               <Card className="mb-4">
                 <Card.Header className={`bg-${color}`}>
                   <h4 className={`text-white my-0`}>Choose {test_type}</h4>
                 </Card.Header>
 
-                {book_tests.map((test) => (
+                {book.tests_with_listening_module.map((test) => (
                   <Card.Footer key={test.slug}>
                     <Stack direction="horizontal" gap={3}>
                       <div className="">
@@ -84,7 +90,7 @@ const BookCard = ({
             </div>
           </Stack>
         </Card.Footer>
-        <Card.Footer>
+        <Card.Footer onClick={startBookSmartTest}>
           <Stack direction="horizontal" gap={3}>
             <div className="p-2">
               <span className={`fw-bold text-${color}`}>

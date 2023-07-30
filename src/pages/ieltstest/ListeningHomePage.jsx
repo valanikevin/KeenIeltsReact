@@ -44,9 +44,9 @@ const ListeningHomePage = () => {
               <BookCard
                 test_type="Listening Test"
                 image_url={book.cover}
+                book={book}
                 card_title={book.name}
                 card_description={book.description}
-                book_tests={book.tests_with_listening_module}
                 color={"listening"}
               />
             </Col>
