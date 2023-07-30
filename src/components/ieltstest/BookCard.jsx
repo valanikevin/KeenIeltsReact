@@ -51,16 +51,14 @@ const BookCard = ({
 
                 {book_tests.map((test) => (
                   <Card.Footer key={test.slug}>
-                    <Card.Text>
-                      <Stack direction="horizontal" gap={3}>
-                        <div className="">
-                          <span className={` text-black`}>{test.name}</span>
-                        </div>
-                        <div className=" ms-auto">
-                          <FiArrowRight size={20} className="text-black" />
-                        </div>
-                      </Stack>
-                    </Card.Text>
+                    <Stack direction="horizontal" gap={3}>
+                      <div className="">
+                        <span className={` text-black`}>{test.name}</span>
+                      </div>
+                      <div className=" ms-auto">
+                        <FiArrowRight size={20} className="text-black" />
+                      </div>
+                    </Stack>
                   </Card.Footer>
                 ))}
               </Card>
@@ -79,7 +77,7 @@ const BookCard = ({
         <Card.Footer>
           <Stack direction="horizontal" onClick={handleShow} gap={3}>
             <div className="px-2">
-              <span className="text-primary">Choose {test_type}</span>
+              <span className="text-black">Choose {test_type}</span>
             </div>
             <div className="px-2 ms-auto">
               <FiList size={20} className="text-black" />
