@@ -5,9 +5,10 @@ import PageHeadingBriefinfo from "../../components/layout/PageHeadingBriefInfo";
 import { Col, Container, Row } from "react-bootstrap";
 import { LISTENING_MODULE_VARIABLES } from "../../utils/variables";
 import BookCard from "../../components/ieltstest/BookCard";
+import usePublicAxios from "../../utils/usePublicAxios";
 
 const ListeningHomePage = () => {
-  const api = useAxios();
+  const api = usePublicAxios();
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
