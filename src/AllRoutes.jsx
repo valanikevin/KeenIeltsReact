@@ -8,7 +8,7 @@ import PrivateRoutes from "./utils/PrivateRoutes";
 import DashboardPage from "./pages/student/DashboardPage";
 import ListeningHomePage from "./pages/ieltstest/ListeningHomePage";
 import TestHomePage from "./pages/ieltstest/TestHomePage";
-import StartBookSmartTest from "./components/ieltstest/StartBookSmartTest";
+import AttemptListeningModulePage from "./pages/ieltstest/AttemptListeningModulePage";
 
 const AllRoutes = () => {
   return (
@@ -25,11 +25,11 @@ const AllRoutes = () => {
       <Route path={"/ieltstest"}>
         <Route index element={<TestHomePage />} />
         <Route path={"listening"} element={<ListeningHomePage />} />
-        <Route
-          path=":test_type/smart_test/book/:slug"
-          element={<PrivateRoutes />}
-        >
-          <Route index element={<StartBookSmartTest />} />
+        <Route path="attempt" element={<PrivateRoutes />}>
+          <Route
+            path="listening/:module_slug"
+            element={<AttemptListeningModulePage />}
+          />
         </Route>
       </Route>
     </Routes>

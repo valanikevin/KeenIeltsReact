@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Card,
   Button,
@@ -13,9 +13,12 @@ import {
 
 import { FiList, FiArrowRight } from "react-icons/fi";
 import { Navigate, useNavigate } from "react-router-dom";
+import useAxios from "../../utils/useAxios";
+import AuthContext from "../../context/AuthContext";
 
 const BookCard = ({
   test_type,
+  module_type,
   image_url,
   card_title,
   card_description,
@@ -24,13 +27,28 @@ const BookCard = ({
 }) => {
   const [expanded, setExpanded] = useState(false);
   const [show, setShow] = useState(false);
-
+  const api = useAxios();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const navigate = useNavigate();
-  const startBookSmartTest = () => {
-    const url = "smart_test/book/" + book.slug;
-    navigate(url);
+  let { user, logoutUser } = useContext(AuthContext);
+
+  const getSmartTest = async () => {
+    if (user === null) {
+      navigate("/login");
+    } else {
+      const response = await api.options(
+        "/ieltstest/" + module_type + "/find_smart_test/" + book.slug + "/"
+      );
+      if (response.status === 200) {
+        navigate(
+          "/ieltstest/attempt/" +
+            response.data.module_type +
+            "/" +
+            response.data.selected_module
+        );
+      }
+    }
   };
 
   return (
@@ -90,7 +108,7 @@ const BookCard = ({
             </div>
           </Stack>
         </Card.Footer>
-        <Card.Footer onClick={startBookSmartTest}>
+        <Card.Footer onClick={getSmartTest}>
           <Stack direction="horizontal" gap={3}>
             <div className="p-2">
               <span className={`fw-bold text-${color}`}>

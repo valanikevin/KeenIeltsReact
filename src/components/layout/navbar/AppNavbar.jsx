@@ -104,7 +104,13 @@ const AppNavbar = () => {
                 {user ? (
                   <>
                     <QuickMenu />
-                    <Link onClick={logoutUser} className="btn btn-dark ms-3">
+                    <Link
+                      onClick={() => {
+                        logoutUser();
+                        setExpandedMenu(false);
+                      }}
+                      className="btn btn-dark ms-3"
+                    >
                       Logout
                     </Link>
                   </>
