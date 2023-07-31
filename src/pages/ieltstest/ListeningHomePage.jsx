@@ -43,6 +43,7 @@ const ListeningHomePage = () => {
             <Col xs={12} md={6} lg={4} key={book.slug}>
               <BookCard
                 test_type="Listening Test"
+                module_type="listening"
                 image_url={book.cover}
                 book={book}
                 card_title={book.name}
