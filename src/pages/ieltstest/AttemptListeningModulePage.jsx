@@ -38,7 +38,11 @@ const AttemptListeningModulePage = () => {
 
   return (
     <>
-      <Row className={`${scrollDirection === "up" ? "sticky-top" : ""} mx-0`}>
+      <Row
+        className={`${
+          scrollDirection === "up" ? "sticky-top" : ""
+        } mx-0 border-top border-bottom`}
+      >
         <Col sm={12} className="p-0">
           <ReactAudioPlayer
             audio_title={currentSection.section}
