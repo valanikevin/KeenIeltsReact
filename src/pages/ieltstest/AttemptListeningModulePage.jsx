@@ -6,12 +6,16 @@ import { Row, Col, Container, Card } from "react-bootstrap";
 
 import ReactAudioPlayer from "../../components/elements/audioplayer/ReactAudioPlayer";
 import ListeningSection from "../../components/ieltstest/listening/ListeningSection";
+import useScrollDirection from "../../utils/useScrollDirection";
 
 const AttemptListeningModulePage = () => {
   const { module_slug } = useParams();
   const api = useAxios();
   const [module, setModule] = useState(null);
   const [currentSection, setCurrentSection] = useState(null);
+  const scrollDirection = useScrollDirection();
+
+  console.log(scrollDirection);
 
   useEffect(() => {
     getModule();
@@ -35,7 +39,11 @@ const AttemptListeningModulePage = () => {
 
   return (
     <>
-      <Row className="sticky-top border-top justify-content-center">
+      <Row
+        className={`${
+          scrollDirection === "up" ? "sticky-top" : ""
+        } border-top justify-content-center`}
+      >
         <Col>
           <ReactAudioPlayer
             audio_title={currentSection.section}

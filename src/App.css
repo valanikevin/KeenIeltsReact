@@ -8,8 +8,24 @@
   flex-grow: 1;
 }
 
-.sticky-top {
-  position: sticky;
-  top: 100;
-  z-index: 999; /* Use a z-index value to ensure it's on top of other content */
+.visible {
+  /* display: flex; */
+  top: 0;
+  transition: top 0.4s ease-out;
+}
+
+.hidden {
+  /* display: none; */
+  top: -80px;
+  transition: top 0.4s ease-out;
+}
+
+header {
+  padding: 30px;
+  background-color: lime;
+  display: flex;
+  justify-content: center;
+  top: 0;
+  position: fixed;
+  width: 100%;
 }
