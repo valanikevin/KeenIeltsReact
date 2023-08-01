@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../../components/layout/ResizePanel/style.css";
 import SplitPane from "react-split-pane";
 
 const AttemptListeningModulePage = () => {
@@ -11,8 +12,8 @@ const AttemptListeningModulePage = () => {
     justifyContent: "center",
   };
   return (
-    <div style={{ height: "100vh", width: "100vw" }}>
-      <SplitPane split="horizontal" minSize={50} defaultSize={100}>
+    <div style={{ height: "100vh" }}>
+      <SplitPane split="horizontal" minSize={20} defaultSize={1000}>
         <div className="simulationDiv" style={{ overflow: "auto" }}>
           <h1>Kevin </h1>
           <h1>Kevin </h1>
@@ -25,7 +26,18 @@ const AttemptListeningModulePage = () => {
           <h1>Kevin </h1>
           <h1>Kevin </h1>
         </div>
-        <div className="statisticsDiv" />
+        <div className="statisticsDiv" style={{ overflow: "auto" }}>
+          <h1>Kevin </h1>
+          <h1>Kevin </h1>
+          <h1>Kevin </h1>
+          <h1>Kevin </h1>
+          <h1>Kevin </h1>
+          <h1>Kevin </h1>
+          <h1>Kevin </h1>
+          <h1>Kevin </h1>
+          <h1>Kevin </h1>
+          <h1>Kevin </h1>
+        </div>
       </SplitPane>
     </div>
   );
