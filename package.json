@@ -44,6 +44,7 @@
     "react-dropzone": "^14.2.3",
     "react-feather": "^2.0.10",
     "react-flatpickr": "^3.10.13",
+    "react-h5-audio-player": "^3.8.6",
     "react-icons": "^4.10.1",
     "react-input-mask": "^2.0.4",
     "react-modal-video": "^2.0.0",

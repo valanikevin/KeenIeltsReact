@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import useAxios from "../../utils/useAxios";
-import { async } from "q";
+import ReactAudioPlayer from "../../components/elements/audioplayer/ReactAudioPlayer";
 
 const AttemptListeningModulePage = () => {
   const { module_slug } = useParams();
@@ -21,7 +21,11 @@ const AttemptListeningModulePage = () => {
     }
   }
 
-  return <h1>Kevin</h1>;
+  return (
+    <div className="p-5">
+      <ReactAudioPlayer url="https://ielts-up.com/listening/1.2.mp3" />
+    </div>
+  );
 };
 
 export default AttemptListeningModulePage;
