@@ -58,6 +58,7 @@
     "react-simple-maps": "^3.0.0",
     "react-simple-typewriter": "^5.0.1",
     "react-slick": "^0.29.0",
+    "react-split-pane": "^2.0.3",
     "react-table": "^7.8.0",
     "react-to-print": "^2.14.12",
     "react-toastify": "^9.1.3",
