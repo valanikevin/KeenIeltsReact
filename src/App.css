@@ -7,3 +7,9 @@
 .main {
   flex-grow: 1;
 }
+
+.sticky-top {
+  position: sticky;
+  top: 0;
+  z-index: 999; /* Use a z-index value to ensure it's on top of other content */
+}

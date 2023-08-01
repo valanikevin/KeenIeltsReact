@@ -1,21 +1,8 @@
 /* your-custom-styles.css */
-.rhap_container {
-  /* This will change the background color of the player to the 'dark' color. */
-}
 
 .rhap_progress-filled {
   /* This will change the color of the progress bar to the 'primary' color. */
   background: #0052cc;
-}
-
-.rhap_time {
-  /* This will change the color of the time text to the 'light' color. */
-  color: #000;
-}
-
-.rhap_controls-section {
-  /* This will change the color of the controls section to the 'light' color. */
-  color: #ebecf0;
 }
 
 .rhap_play-pause-button {
@@ -26,6 +13,9 @@
 .rhap_additional-controls {
   /* This will change the color of the additional controls to the 'info' color. */
   color: #20b8da;
+}
+.rhap_volume-bar-filled {
+  background: #0052cc;
 }
 
 .rhap_progress-indicator {
