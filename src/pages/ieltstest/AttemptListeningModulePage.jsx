@@ -3,8 +3,9 @@ import { useParams } from "react-router";
 import useAxios from "../../utils/useAxios";
 
 import { Row, Col, Container, Card } from "react-bootstrap";
-import parse from "html-react-parser";
+
 import ReactAudioPlayer from "../../components/elements/audioplayer/ReactAudioPlayer";
+import ListeningSection from "../../components/ieltstest/listening/ListeningSection";
 
 const AttemptListeningModulePage = () => {
   const { module_slug } = useParams();
@@ -30,9 +31,11 @@ const AttemptListeningModulePage = () => {
     return null;
   }
 
+  function onStartAttempt() {}
+
   return (
     <>
-      <Row className="sticky-top border-top">
+      <Row className="sticky-top border-top justify-content-center">
         <Col>
           <ReactAudioPlayer
             audio_title={currentSection.section}
@@ -42,31 +45,26 @@ const AttemptListeningModulePage = () => {
       </Row>
       <Container className="my-3">
         <Row>
-          {module.sections.length > 0 &&
-            module.sections.map((section) => (
-              <Col key={section.id}>
-                <Card>
-                  <Card.Header>
-                    <span className="text-uppercase fw-bold text-black">
-                      {section.section}
-                    </span>
-                  </Card.Header>
-                  <Card.Body>
-                    <form className="text-black">
-                      {parse(section.questions, {
-                        replace: (domNode) => {
-                          if (domNode.name === "input") {
-                            return (
-                              <input className="m-2" {...domNode.attribs} />
-                            );
-                          }
-                        },
-                      })}
-                    </form>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))}
+          <Col sm={8}>
+            <Row>
+              {module.sections.length > 0 &&
+                module.sections.map((section) => (
+                  <ListeningSection
+                    key={section.id}
+                    section={section}
+                    setCurrentSection={setCurrentSection}
+                  />
+                ))}
+            </Row>
+          </Col>
+          <Col sm={4} className="mt-2">
+            <Card>
+              <Card.Header>
+                <span className=" fw-bold text-black">Question Pallete</span>
+              </Card.Header>
+              <Card.Body>Valani</Card.Body>
+            </Card>
+          </Col>
         </Row>
       </Container>
     </>
