@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import useAxios from "../../utils/useAxios";
-import AudioPlayer from "react-h5-audio-player";
-import "react-h5-audio-player/lib/styles.css";
-import "../../components/elements/audioplayer/ReactAudioPlayer.css";
+
 import { Row, Col, Container, Card } from "react-bootstrap";
 import parse from "html-react-parser";
+import ReactAudioPlayer from "../../components/elements/audioplayer/ReactAudioPlayer";
 
 const AttemptListeningModulePage = () => {
   const { module_slug } = useParams();
   const api = useAxios();
   const [module, setModule] = useState(null);
+  const [currentSection, setCurrentSection] = useState(null);
 
   useEffect(() => {
     getModule();
@@ -22,6 +22,7 @@ const AttemptListeningModulePage = () => {
     );
     if (response.status === 200) {
       setModule(response.data);
+      setCurrentSection(response.data.sections[0]);
     }
   }
 
@@ -31,13 +32,11 @@ const AttemptListeningModulePage = () => {
 
   return (
     <>
-      <Row className="sticky-top">
+      <Row className="sticky-top border-top">
         <Col>
-          <AudioPlayer
-            className=" border-top"
-            autoPlay={false}
-            src={module.sections[0].audio}
-            onPlay={(e) => console.log(module.sections[0].audio)}
+          <ReactAudioPlayer
+            audio_title={currentSection.section}
+            audio_url={currentSection.audio}
           />
         </Col>
       </Row>
