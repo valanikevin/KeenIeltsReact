@@ -25,7 +25,7 @@ const AllRoutes = () => {
       <Route path={"/ieltstest"}>
         <Route index element={<TestHomePage />} />
         <Route path={"listening"} element={<ListeningHomePage />} />
-        <Route path="attempt">
+        <Route path="attempt" element={<PrivateRoutes />}>
           <Route
             path="listening/:module_slug"
             element={<AttemptListeningModulePage />}
