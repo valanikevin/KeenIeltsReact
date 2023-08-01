@@ -7,6 +7,7 @@ import { Row, Col, Container, Card } from "react-bootstrap";
 import ReactAudioPlayer from "../../components/elements/audioplayer/ReactAudioPlayer";
 import ListeningSection from "../../components/ieltstest/listening/ListeningSection";
 import useScrollDirection from "../../utils/useScrollDirection";
+import CountdownTimer from "../../components/elements/CountdownTimer";
 
 const AttemptListeningModulePage = () => {
   const { module_slug } = useParams();
@@ -14,8 +15,6 @@ const AttemptListeningModulePage = () => {
   const [module, setModule] = useState(null);
   const [currentSection, setCurrentSection] = useState(null);
   const scrollDirection = useScrollDirection();
-
-  console.log(scrollDirection);
 
   useEffect(() => {
     getModule();
@@ -39,16 +38,15 @@ const AttemptListeningModulePage = () => {
 
   return (
     <>
-      <Row
-        className={`${
-          scrollDirection === "up" ? "sticky-top" : ""
-        } border-top justify-content-center`}
-      >
-        <Col>
+      <Row className={`${scrollDirection === "up" ? "sticky-top" : ""} mx-0`}>
+        <Col sm={12} className="p-0">
           <ReactAudioPlayer
             audio_title={currentSection.section}
             audio_url={currentSection.audio}
           />
+        </Col>
+        <Col sm={12} className="bg-white border-top p-0">
+          <CountdownTimer initialMinutes={60} initialSeconds={0} />
         </Col>
       </Row>
       <Container className="my-3">
