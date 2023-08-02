@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router";
 import useAxios from "../../utils/useAxios";
 
@@ -30,24 +30,46 @@ const AttemptListeningModulePage = () => {
     }
   }
 
-  const items = [
-    1, 2, 3, 4, 5, 6, 7, 8, 8, 8, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-    2, 2, 2,
-  ];
-
   function onStartAttempt() {}
-  const [formData, setFormData] = useState({});
+
+  const formRef = useRef(null);
+  const [currentFormData, setCurrentFormData] = useState({});
+
+  // Log form data every 5 seconds
+
+  function getFormData() {
+    if (formRef.current) {
+      const formData = new FormData(formRef.current);
+      let data = {};
+      let counter = 1;
+      for (let [key, value] of formData.entries()) {
+        data[key] = value; // Construct the data object
+        counter++;
+      }
+      setCurrentFormData(data); // Update the state
+      console.log("Length:" + Object.keys(data).length);
+      return formData;
+    }
+  }
+
+  useEffect(() => {
+    getFormData();
+  }, [module]);
 
   const handleChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+    const formData = getFormData();
+    console.log(currentFormData);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
+    let length = 0;
     for (let pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
+      console.log(pair[0] + ": " + pair[1]);
+      length++;
     }
+    console.log(length);
   };
 
   if (!module) {
@@ -55,7 +77,7 @@ const AttemptListeningModulePage = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} ref={formRef}>
       <Row
         className={`${
           scrollDirection === "up" ? "sticky-top" : ""
@@ -92,14 +114,14 @@ const AttemptListeningModulePage = () => {
                 <span className=" fw-bold text-black">Question Pallete</span>
               </Card.Header>
               <Card.Body>
-                {items.map((item, index) => (
+                {Object.entries(currentFormData).map((item, index) => (
                   <Badge
                     style={{ fontSize: "20px" }}
                     key={index}
                     className="m-1"
                     bg={`${index > 6 ? "warning" : "success"}`}
                   >
-                    {index}
+                    {index + 1}
                   </Badge>
                 ))}
               </Card.Body>
