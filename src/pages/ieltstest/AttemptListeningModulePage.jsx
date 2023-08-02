@@ -47,7 +47,6 @@ const AttemptListeningModulePage = () => {
         counter++;
       }
       setCurrentFormData(data); // Update the state
-      console.log("Length:" + Object.keys(data).length);
       return formData;
     }
   }
@@ -58,7 +57,6 @@ const AttemptListeningModulePage = () => {
 
   const handleChange = (event) => {
     const formData = getFormData();
-    console.log(currentFormData);
   };
 
   const handleSubmit = (event) => {
@@ -66,10 +64,8 @@ const AttemptListeningModulePage = () => {
     const formData = new FormData(event.target);
     let length = 0;
     for (let pair of formData.entries()) {
-      console.log(pair[0] + ": " + pair[1]);
       length++;
     }
-    console.log(length);
   };
 
   if (!module) {
