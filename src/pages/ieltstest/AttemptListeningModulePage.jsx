@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import useAxios from "../../utils/useAxios";
 
-import { Row, Col, Container, Card, Badge } from "react-bootstrap";
+import { Row, Col, Container, Card, Badge, Button } from "react-bootstrap";
 
 import ReactAudioPlayer from "../../components/elements/audioplayer/ReactAudioPlayer";
 import ListeningSection from "../../components/ieltstest/listening/ListeningSection";
@@ -47,7 +47,7 @@ const AttemptListeningModulePage = () => {
           scrollDirection === "up" ? "sticky-top" : ""
         } mx-0 border-top border-bottom`}
       >
-        <Col sm={12} className="p-0">
+        <Col sm={12} className="p-0 bg-white">
           <ReactAudioPlayer
             audio_title={currentSection.section}
             audio_url={currentSection.audio}
@@ -88,6 +88,9 @@ const AttemptListeningModulePage = () => {
                   </Badge>
                 ))}
               </Card.Body>
+              <Card.Footer>
+                <Button>Submit Answers</Button>
+              </Card.Footer>
             </Card>
           </Col>
         </Row>
