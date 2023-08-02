@@ -26,40 +26,6 @@ const CountdownTimer = ({ initialMinutes = 1, initialSeconds = 0 }) => {
     };
   });
 
-  const settings = {
-    infinite: true,
-    slidesToShow: 25,
-    slidesToScroll: 15,
-    arrows: false,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 25,
-          slidesToScroll: 15,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 12,
-          slidesToScroll: 12,
-        },
-      },
-      {
-        breakpoint: 540,
-        settings: {
-          slidesToShow: 8,
-          slidesToScroll: 4,
-        },
-      },
-    ],
-  };
-  const items = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 1, 2,
-    3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-  ];
-
   return (
     <Container>
       <Stack direction="horizontal">

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import useAxios from "../../utils/useAxios";
 
-import { Row, Col, Container, Card } from "react-bootstrap";
+import { Row, Col, Container, Card, Badge } from "react-bootstrap";
 
 import ReactAudioPlayer from "../../components/elements/audioplayer/ReactAudioPlayer";
 import ListeningSection from "../../components/ieltstest/listening/ListeningSection";
@@ -33,6 +33,10 @@ const AttemptListeningModulePage = () => {
   if (!module) {
     return null;
   }
+  const items = [
+    1, 2, 3, 4, 5, 6, 7, 8, 8, 8, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+    2, 2, 2,
+  ];
 
   function onStartAttempt() {}
 
@@ -72,7 +76,18 @@ const AttemptListeningModulePage = () => {
               <Card.Header>
                 <span className=" fw-bold text-black">Question Pallete</span>
               </Card.Header>
-              <Card.Body>Valani</Card.Body>
+              <Card.Body>
+                {items.map((item, index) => (
+                  <Badge
+                    style={{ fontSize: "20px" }}
+                    key={index}
+                    className="m-1"
+                    bg={`${index > 6 ? "warning" : "success"}`}
+                  >
+                    {index}
+                  </Badge>
+                ))}
+              </Card.Body>
             </Card>
           </Col>
         </Row>
