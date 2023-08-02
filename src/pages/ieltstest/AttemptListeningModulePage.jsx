@@ -30,18 +30,32 @@ const AttemptListeningModulePage = () => {
     }
   }
 
-  if (!module) {
-    return null;
-  }
   const items = [
     1, 2, 3, 4, 5, 6, 7, 8, 8, 8, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
     2, 2, 2,
   ];
 
   function onStartAttempt() {}
+  const [formData, setFormData] = useState({});
+
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+  };
+
+  if (!module) {
+    return null;
+  }
 
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       <Row
         className={`${
           scrollDirection === "up" ? "sticky-top" : ""
@@ -67,6 +81,7 @@ const AttemptListeningModulePage = () => {
                     key={section.id}
                     section={section}
                     setCurrentSection={setCurrentSection}
+                    handleChange={handleChange}
                   />
                 ))}
             </Row>
@@ -89,13 +104,13 @@ const AttemptListeningModulePage = () => {
                 ))}
               </Card.Body>
               <Card.Footer>
-                <Button>Submit Answers</Button>
+                <Button type="submit">Submit Answers</Button>
               </Card.Footer>
             </Card>
           </Col>
         </Row>
       </Container>
-    </>
+    </form>
   );
 };
 

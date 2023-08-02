@@ -3,7 +3,7 @@ import { Row, Col, Card, Stack, Button } from "react-bootstrap";
 import parse from "html-react-parser";
 import { FiPlayCircle } from "react-icons/fi";
 
-const ListeningSection = ({ section, setCurrentSection }) => {
+const ListeningSection = ({ section, setCurrentSection, handleChange }) => {
   function handleSetCurrentSection() {
     setCurrentSection(section);
   }
@@ -12,6 +12,8 @@ const ListeningSection = ({ section, setCurrentSection }) => {
   function handleShowNotes() {
     setShowNotes(!showNotes);
   }
+
+  let counter = 0;
 
   return (
     <Col className="my-2" sm={12}>
@@ -47,15 +49,27 @@ const ListeningSection = ({ section, setCurrentSection }) => {
               rows={5}
             />
           )}
-          <form className="text-black">
+          <span className="text-black">
             {parse(section.questions, {
               replace: (domNode) => {
-                if (domNode.name === "input") {
-                  return <input className="m-2" {...domNode.attribs} />;
+                if (
+                  domNode.name === "input" ||
+                  domNode.name === "textarea" ||
+                  domNode.name === "select"
+                ) {
+                  counter += 1;
+                  return React.createElement(domNode.name, {
+                    ...domNode.attribs,
+                    id: `${section.section}-que${counter}`,
+                    name: `${section.section}-que${counter}`,
+                    className: `m-2 ${domNode.attribs.className || ""}`,
+                    required: false,
+                    onChange: handleChange,
+                  });
                 }
               },
             })}
-          </form>
+          </span>
         </Card.Body>
       </Card>
     </Col>
