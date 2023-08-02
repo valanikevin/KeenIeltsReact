@@ -119,7 +119,7 @@ const AttemptListeningModulePage = () => {
                     style={{ fontSize: "20px" }}
                     key={index}
                     className="m-1"
-                    bg={`${index > 6 ? "warning" : "success"}`}
+                    bg={`${item[1] === "" ? "warning" : "success"}`}
                   >
                     {index + 1}
                   </Badge>
