@@ -19,6 +19,8 @@ const ReactAudioPlayer = ({ audio_title, audio_url, onPlayHandle }) => {
           autoPlay={true}
           src={audio_url}
           onPlay={onPlayHandle}
+          // TODO: Change volume to 1
+          volume={0}
         />
       </div>
     </Container>

@@ -91,7 +91,7 @@ const AttemptListeningModulePage = () => {
       </Row>
       <Container className="my-3">
         <Row>
-          <Col sm={8}>
+          <Col sm={12} md={8}>
             <Row>
               {module.sections.length > 0 &&
                 module.sections.map((section) => (
@@ -104,7 +104,7 @@ const AttemptListeningModulePage = () => {
                 ))}
             </Row>
           </Col>
-          <Col sm={4} className="mt-2">
+          <Col sm={12} md={4} className="mt-2">
             <Card>
               <Card.Header>
                 <span className=" fw-bold text-black">Question Pallete</span>

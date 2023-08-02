@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Row, Col, Card, Stack, Button } from "react-bootstrap";
+import { Row, Col, Card, Stack, Button, Badge } from "react-bootstrap";
 import parse from "html-react-parser";
 import { FiPlayCircle } from "react-icons/fi";
 
@@ -58,14 +58,27 @@ const ListeningSection = ({ section, setCurrentSection, handleChange }) => {
                   domNode.name === "select"
                 ) {
                   counter += 1;
-                  return React.createElement(domNode.name, {
-                    ...domNode.attribs,
-                    id: `${section.section}-que${counter}`,
-                    name: `${section.section}-que${counter}`,
-                    className: `m-2 ${domNode.attribs.className || ""}`,
-                    required: false,
-                    onChange: handleChange,
-                  });
+                  return (
+                    <>
+                      <Badge
+                        className="fw-bold"
+                        style={{ fontSize: "16px" }}
+                        bg="listening"
+                      >
+                        {counter}
+                      </Badge>
+                      {React.createElement(domNode.name, {
+                        ...domNode.attribs,
+                        id: `${section.section}-que${counter}`,
+                        name: `${section.section}-que${counter}`,
+                        className: `my-2 mx-1 ${
+                          domNode.attribs.className || ""
+                        }`,
+                        required: false,
+                        onChange: handleChange,
+                      })}
+                    </>
+                  );
                 }
               },
             })}
