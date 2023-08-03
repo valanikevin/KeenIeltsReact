@@ -58,6 +58,8 @@ const ListeningSection = ({ section, setCurrentSection, handleChange }) => {
                   domNode.name === "select"
                 ) {
                   counter += 1;
+                  let queName = domNode.attribs.name;
+                  queName = queName.split("-");
                   return (
                     <>
                       <Badge
@@ -65,12 +67,10 @@ const ListeningSection = ({ section, setCurrentSection, handleChange }) => {
                         style={{ fontSize: "16px" }}
                         bg="listening"
                       >
-                        {counter}
+                        {queName[1]}
                       </Badge>
                       {React.createElement(domNode.name, {
                         ...domNode.attribs,
-                        id: `${section.section}-que${counter}`,
-                        name: `${section.section}-que${counter}`,
                         className: `my-2 mx-1 ${
                           domNode.attribs.className || ""
                         }`,

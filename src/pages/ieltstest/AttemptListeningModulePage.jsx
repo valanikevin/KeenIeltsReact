@@ -10,7 +10,7 @@ import useScrollDirection from "../../utils/useScrollDirection";
 import CountdownTimer from "../../components/elements/CountdownTimer";
 
 const AttemptListeningModulePage = () => {
-  const { module_slug } = useParams();
+  const { module_slug, attempt_slug } = useParams();
   const api = useAxios();
   const [module, setModule] = useState(null);
   const [currentSection, setCurrentSection] = useState(null);
@@ -29,8 +29,6 @@ const AttemptListeningModulePage = () => {
       setCurrentSection(response.data.sections[0]);
     }
   }
-
-  function onStartAttempt() {}
 
   const formRef = useRef(null);
   const [currentFormData, setCurrentFormData] = useState({});

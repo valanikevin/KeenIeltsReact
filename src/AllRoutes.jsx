@@ -27,7 +27,7 @@ const AllRoutes = () => {
         <Route path={"listening"} element={<ListeningHomePage />} />
         <Route path="attempt" element={<PrivateRoutes />}>
           <Route
-            path="listening/:module_slug"
+            path="listening/:module_slug/:attempt_slug"
             element={<AttemptListeningModulePage />}
           />
         </Route>
