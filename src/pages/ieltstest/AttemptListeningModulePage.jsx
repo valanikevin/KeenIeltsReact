@@ -2,12 +2,21 @@ import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router";
 import useAxios from "../../utils/useAxios";
 
-import { Row, Col, Container, Card, Badge, Button } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Container,
+  Card,
+  Badge,
+  Button,
+  Stack,
+} from "react-bootstrap";
 
 import ReactAudioPlayer from "../../components/elements/audioplayer/ReactAudioPlayer";
 import ListeningSection from "../../components/ieltstest/listening/ListeningSection";
 import useScrollDirection from "../../utils/useScrollDirection";
 import CountdownTimer from "../../components/elements/CountdownTimer";
+import { FiChevronDown, FiChevronRight } from "react-icons/fi";
 
 const AttemptListeningModulePage = () => {
   const { module_slug, attempt_slug } = useParams();
@@ -91,15 +100,35 @@ const AttemptListeningModulePage = () => {
         <Row>
           <Col sm={12} md={8}>
             <Row>
-              {module.sections.length > 0 &&
-                module.sections.map((section) => (
-                  <ListeningSection
-                    key={section.id}
-                    section={section}
-                    setCurrentSection={setCurrentSection}
-                    handleChange={handleChange}
-                  />
-                ))}
+              <Col sm={12}>
+                <Card>
+                  <Card.Body>
+                    <Stack direction="horizontal">
+                      <div className="">
+                        <span className=" fw-bold text-black">
+                          {module.test.book.name}
+                        </span>
+                      </div>
+                      <div className=" ms-auto">
+                        <FiChevronRight className="text-black" size={20} />
+                      </div>
+                    </Stack>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col sm={12}>
+                <Row>
+                  {module.sections.length > 0 &&
+                    module.sections.map((section) => (
+                      <ListeningSection
+                        key={section.id}
+                        section={section}
+                        setCurrentSection={setCurrentSection}
+                        handleChange={handleChange}
+                      />
+                    ))}
+                </Row>
+              </Col>
             </Row>
           </Col>
           <Col sm={12} md={4} className="mt-2">
