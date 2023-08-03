@@ -10,6 +10,7 @@ import {
   Badge,
   Button,
   Stack,
+  Accordion,
 } from "react-bootstrap";
 
 import ReactAudioPlayer from "../../components/elements/audioplayer/ReactAudioPlayer";
@@ -101,20 +102,27 @@ const AttemptListeningModulePage = () => {
           <Col sm={12} md={8}>
             <Row>
               <Col sm={12}>
-                <Card>
-                  <Card.Body>
-                    <Stack direction="horizontal">
-                      <div className="">
-                        <span className=" fw-bold text-black">
-                          {module.test.book.name}
-                        </span>
-                      </div>
-                      <div className=" ms-auto">
-                        <FiChevronRight className="text-black" size={20} />
-                      </div>
-                    </Stack>
-                  </Card.Body>
-                </Card>
+                <Accordion>
+                  <Accordion.Item eventKey="0">
+                    <Accordion.Header>
+                      <span className="text-black fw-bold">
+                        {module.test.book.name}
+                      </span>
+                    </Accordion.Header>
+                    <Accordion.Body>
+                      <strong>This is the accordion body of item 1.</strong> It
+                      is hidden by default, until the collapse plugin adds the
+                      appropriate classes that we use to style each element.
+                      These classes control the overall appearance, as well as
+                      the showing and hiding via CSS transitions. You can modify
+                      any of this with custom CSS or overriding our default
+                      variables. It's also worth noting that just about any HTML
+                      can go within the <code>&lt;Accordion.Item&gt;</code>{" "}
+                      &rarr; <code>&lt;Accordion.Body&gt;</code> though the
+                      transition does limit overflow.
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </Accordion>
               </Col>
               <Col sm={12}>
                 <Row>
