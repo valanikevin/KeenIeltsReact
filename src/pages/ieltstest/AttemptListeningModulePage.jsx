@@ -19,6 +19,7 @@ import useScrollDirection from "../../utils/useScrollDirection";
 import CountdownTimer from "../../components/elements/CountdownTimer";
 import BookInfo from "../../components/ieltstest/listening/BookInfo";
 import useAxiosWithoutLoader from "../../utils/useAxiosWithoutLoader";
+import CustomAudioPlayer from "../../components/elements/audioplayer/CustomAudioPlayer";
 
 const AttemptListeningModulePage = () => {
   const { module_slug, attempt_slug } = useParams();
@@ -141,11 +142,12 @@ const AttemptListeningModulePage = () => {
         } mx-0 border-top border-bottom`}
       >
         <Col sm={12} className="p-0 bg-white">
-          <ReactAudioPlayer
+          {/* <ReactAudioPlayer
             audio_title={currentSection.section}
             audio_url={currentSection.audio}
             onEndedHandle={onSectionAudioEndedHandle}
-          />
+          /> */}
+          <CustomAudioPlayer src={currentSection.audio} />
         </Col>
         <Col sm={12} className="bg-white border-top p-0">
           <CountdownTimer
