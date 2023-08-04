@@ -42,7 +42,13 @@ const CountdownTimer = ({
         </div>
         <div className="ms-auto">
           {minutes === 0 && seconds === 0 ? (
-            <h1>Time's up!</h1>
+            <Badge bg="danger" style={{ fontSize: "20px" }} className="my-2">
+              Time's Up
+            </Badge>
+          ) : minutes === 0 && seconds <= 60 ? (
+            <Badge bg="danger" style={{ fontSize: "20px" }} className="m-2">
+              {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+            </Badge>
           ) : (
             <span className="text-black" style={{ fontSize: "20px" }}>
               {minutes}:{seconds < 10 ? `0${seconds}` : seconds}

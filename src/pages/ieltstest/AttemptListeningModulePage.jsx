@@ -2,17 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router";
 import useAxios from "../../utils/useAxios";
 
-import {
-  Row,
-  Col,
-  Container,
-  Card,
-  Badge,
-  Button,
-  Stack,
-  Accordion,
-  Table,
-} from "react-bootstrap";
+import { Row, Col, Container, Card, Badge, Button } from "react-bootstrap";
 
 import ReactAudioPlayer from "../../components/elements/audioplayer/ReactAudioPlayer";
 import ListeningSection from "../../components/ieltstest/listening/ListeningSection";
@@ -88,6 +78,20 @@ const AttemptListeningModulePage = () => {
     }
   }
 
+  function onSectionAudioEndedHandle(event) {
+    let currentSectionIndex = module.sections.findIndex(
+      (obj) => obj === currentSection
+    );
+
+    let nextSection = currentSectionIndex + 1;
+
+    if (nextSection > module.sections.length) {
+      sendAttemptUpdate("Forced Completed");
+    } else {
+      setCurrentSection(module.sections[nextSection]);
+    }
+  }
+
   useEffect(() => {
     getFormData();
   }, [module]);
@@ -117,12 +121,13 @@ const AttemptListeningModulePage = () => {
           <ReactAudioPlayer
             audio_title={currentSection.section}
             audio_url={currentSection.audio}
+            onEndedHandle={onSectionAudioEndedHandle}
           />
         </Col>
         <Col sm={12} className="bg-white border-top p-0">
           <CountdownTimer
-            initialMinutes={60}
-            initialSeconds={0}
+            initialMinutes={1}
+            initialSeconds={10}
             questionData={questionData}
           />
         </Col>

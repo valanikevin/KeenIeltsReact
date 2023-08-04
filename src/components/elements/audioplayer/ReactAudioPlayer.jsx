@@ -4,7 +4,12 @@ import AudioPlayer from "react-h5-audio-player";
 import "./ReactAudioPlayer.css";
 import { Container } from "react-bootstrap";
 
-const ReactAudioPlayer = ({ audio_title, audio_url, onPlayHandle }) => {
+const ReactAudioPlayer = ({
+  audio_title,
+  audio_url,
+  onPlayHandle,
+  onEndedHandle,
+}) => {
   return (
     <Container>
       <div className="bg-white pt-2">
@@ -21,6 +26,7 @@ const ReactAudioPlayer = ({ audio_title, audio_url, onPlayHandle }) => {
           onPlay={onPlayHandle}
           // TODO: Change volume to 1
           volume={0}
+          onEnded={onEndedHandle}
         />
       </div>
     </Container>
