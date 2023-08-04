@@ -14,10 +14,11 @@ const CustomAudioPlayer = ({ src, currentSection }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [isStartReady, setIsStartReady] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (audioRef.current.duration) {
+      if (audioRef.current && audioRef.current.duration) {
         setProgress(
           (audioRef.current.currentTime / audioRef.current.duration) * 100
         );
@@ -27,9 +28,11 @@ const CustomAudioPlayer = ({ src, currentSection }) => {
   }, []);
 
   useEffect(() => {
-    audioRef.current.currentTime = currentSection.audio_start_time;
-    playAudio();
-  }, [currentSection]);
+    if (isStartReady) {
+      audioRef.current.currentTime = currentSection.audio_start_time;
+      playAudio();
+    }
+  }, [currentSection, isStartReady]);
 
   const handlePlayPause = () => {
     if (isPlaying) {
@@ -54,7 +57,7 @@ const CustomAudioPlayer = ({ src, currentSection }) => {
   };
 
   const handleLoadedData = () => {
-    setDuration(audioRef.current.duration);
+    isStartReady && setDuration(audioRef.current.duration);
   };
 
   const handlePlayFromStart = () => {
@@ -71,27 +74,44 @@ const CustomAudioPlayer = ({ src, currentSection }) => {
 
   return (
     <Container className="my-3">
-      <audio ref={audioRef} src={src} onLoadedData={handleLoadedData} />
-      <ProgressBar now={progress} className="mb-3" />
-      <div className="text-center">
-        <ButtonGroup>
-          <Button onClick={handlePlayFromStart} className="btn-light">
-            <FiSkipBack size={20} />
+      {isStartReady ? (
+        <>
+          <audio ref={audioRef} src={src} onLoadedData={handleLoadedData} />
+          <ProgressBar now={progress} className="mb-3" />
+          <div className="text-center">
+            <ButtonGroup>
+              <Button onClick={handlePlayFromStart} className="btn-light">
+                <FiSkipBack size={20} />
+              </Button>
+              <Button onClick={handleBackward} className="btn-light">
+                <FiRewind size={20} />
+              </Button>
+              <Button onClick={handlePlayPause}>
+                {isPlaying ? <FiPause size={20} /> : <FiPlay size={20} />}
+              </Button>
+              <Button onClick={handleForward} className="btn-light">
+                <FiFastForward size={20} />
+              </Button>
+              <Button onClick={handleSkipToEnd} className="btn-light">
+                <FiSkipForward size={20} />
+              </Button>
+            </ButtonGroup>
+          </div>
+        </>
+      ) : (
+        <div className="text-center">
+          <h2>Ready?</h2>
+          <p>Take a look at the questions once, then start the test.</p>
+          <Button
+            variant="outline-primary"
+            onClick={() => {
+              setIsStartReady(true);
+            }}
+          >
+            Begin Listening Test
           </Button>
-          <Button onClick={handleBackward} className="btn-light">
-            <FiRewind size={20} />
-          </Button>
-          <Button onClick={handlePlayPause}>
-            {isPlaying ? <FiPause size={20} /> : <FiPlay size={20} />}
-          </Button>
-          <Button onClick={handleForward} className="btn-light">
-            <FiFastForward size={20} />
-          </Button>
-          <Button onClick={handleSkipToEnd} className="btn-light">
-            <FiSkipForward size={20} />
-          </Button>
-        </ButtonGroup>
-      </div>
+        </div>
+      )}
     </Container>
   );
 };

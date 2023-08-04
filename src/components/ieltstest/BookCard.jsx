@@ -45,7 +45,9 @@ const BookCard = ({
           "/ieltstest/attempt/" +
             response.data.module_type +
             "/" +
-            response.data.selected_module
+            response.data.selected_module +
+            "/" +
+            response.data.attempt
         );
       }
     }

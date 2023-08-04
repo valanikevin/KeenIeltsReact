@@ -146,8 +146,8 @@ const AttemptListeningModulePage = () => {
         </Col>
         <Col sm={12} className="bg-white border-top p-0">
           <CountdownTimer
-            initialMinutes={0}
-            initialSeconds={10}
+            initialMinutes={40}
+            initialSeconds={0}
             questionData={questionData}
             handleTimesUp={endTest}
           />
