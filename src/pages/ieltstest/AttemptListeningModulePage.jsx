@@ -179,7 +179,7 @@ const AttemptListeningModulePage = () => {
           </Col>
 
           <Col sm={12} md={4} className="">
-            <Row>
+            <Row className="sticky-top" style={{ zIndex: 10 }}>
               <Col sm={12} className="my-3">
                 <Accordion>
                   <Accordion.Item eventKey="0">
