@@ -11,6 +11,7 @@ import {
   Button,
   Stack,
   Accordion,
+  Table,
 } from "react-bootstrap";
 
 import ReactAudioPlayer from "../../components/elements/audioplayer/ReactAudioPlayer";
@@ -110,16 +111,36 @@ const AttemptListeningModulePage = () => {
                       </span>
                     </Accordion.Header>
                     <Accordion.Body>
-                      <strong>This is the accordion body of item 1.</strong> It
-                      is hidden by default, until the collapse plugin adds the
-                      appropriate classes that we use to style each element.
-                      These classes control the overall appearance, as well as
-                      the showing and hiding via CSS transitions. You can modify
-                      any of this with custom CSS or overriding our default
-                      variables. It's also worth noting that just about any HTML
-                      can go within the <code>&lt;Accordion.Item&gt;</code>{" "}
-                      &rarr; <code>&lt;Accordion.Body&gt;</code> though the
-                      transition does limit overflow.
+                      <Table striped bordered hover>
+                        <tbody>
+                          <tr>
+                            <td className="text-black">Book Name</td>
+                            <td className="text-black">
+                              {module.test.book.name}
+                            </td>
+                          </tr>
+
+                          <tr>
+                            <td className="text-black">Test Name</td>
+                            <td className="text-black">{module.test.name}</td>
+                          </tr>
+
+                          <tr>
+                            <td className="text-black">Module Name</td>
+                            <td className="text-black">{module.name}</td>
+                          </tr>
+
+                          <tr>
+                            <td className="text-black">Test Type</td>
+                            <td className="text-black">Academic, General</td>
+                          </tr>
+
+                          <tr>
+                            <td className="text-black">Attempt</td>
+                            <td className="text-black">{attempt_slug}</td>
+                          </tr>
+                        </tbody>
+                      </Table>
                     </Accordion.Body>
                   </Accordion.Item>
                 </Accordion>
