@@ -9,11 +9,11 @@ import {
   FiSkipForward,
 } from "react-icons/fi";
 
-const CustomAudioPlayer = ({ src, handleAudioEnd }) => {
+const CustomAudioPlayer = ({ src }) => {
   const audioRef = useRef();
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [duration, setDuration] = useState(0);  
+  const [duration, setDuration] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -61,7 +61,6 @@ const CustomAudioPlayer = ({ src, handleAudioEnd }) => {
 
   const handleSkipToEnd = () => {
     audioRef.current.currentTime = audioRef.current.duration;
-    handleAudioEnd();
   };
 
   return (

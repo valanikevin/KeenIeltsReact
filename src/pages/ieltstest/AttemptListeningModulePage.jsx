@@ -13,18 +13,15 @@ import {
   Table,
 } from "react-bootstrap";
 
-import ReactAudioPlayer from "../../components/elements/audioplayer/ReactAudioPlayer";
 import ListeningSection from "../../components/ieltstest/listening/ListeningSection";
 import useScrollDirection from "../../utils/useScrollDirection";
 import CountdownTimer from "../../components/elements/CountdownTimer";
 import BookInfo from "../../components/ieltstest/listening/BookInfo";
-import useAxiosWithoutLoader from "../../utils/useAxiosWithoutLoader";
 import CustomAudioPlayer from "../../components/elements/audioplayer/CustomAudioPlayer";
 
 const AttemptListeningModulePage = () => {
   const { module_slug, attempt_slug } = useParams();
   const api = useAxios();
-  const apiWOLoader = useAxiosWithoutLoader();
   const [module, setModule] = useState(null);
   const [currentSection, setCurrentSection] = useState(null);
   const scrollDirection = useScrollDirection();
@@ -41,7 +38,7 @@ const AttemptListeningModulePage = () => {
     );
     if (response.status === 200) {
       setModule(response.data);
-      setCurrentSection(response.data.sections[0]);
+      setCurrentSection(response.data.sections[1]);
     }
   }
 
@@ -56,7 +53,8 @@ const AttemptListeningModulePage = () => {
       answers: currentFormData,
       attempt_type: attempt_type,
     };
-    const response = apiWOLoader.post(
+
+    const response = api.post(
       "/ieltstest/update_attempt/listening/" + attempt_slug + "/",
       data
     );
@@ -103,17 +101,7 @@ const AttemptListeningModulePage = () => {
   }
 
   function onSectionAudioEndedHandle(event) {
-    let currentSectionIndex = module.sections.findIndex(
-      (obj) => obj === currentSection
-    );
-
-    let nextSection = currentSectionIndex + 1;
-
-    if (nextSection > module.sections.length) {
-      sendAttemptUpdate("Completed");
-    } else {
-      setCurrentSection(module.sections[nextSection]);
-    }
+    // Todo: section end handle.
   }
 
   useEffect(() => {
@@ -148,10 +136,9 @@ const AttemptListeningModulePage = () => {
             onEndedHandle={onSectionAudioEndedHandle}
           /> */}
           <CustomAudioPlayer
-            src={currentSection.audio}
+            src={module.audio}
             audio_title={currentSection.section}
             audio_url={currentSection.audio}
-            handleAudioEnd={onSectionAudioEndedHandle}
           />
         </Col>
         <Col sm={12} className="bg-white border-top p-0">
