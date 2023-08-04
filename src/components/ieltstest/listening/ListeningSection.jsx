@@ -61,7 +61,7 @@ const ListeningSection = ({ section, setCurrentSection, handleChange }) => {
                   let queName = domNode.attribs.name;
                   queName = queName.split("-");
                   return (
-                    <div id={`que-${queName[1]}`}>
+                    <span id={`que-${queName[1]}`}>
                       <Badge
                         className="fw-bold"
                         style={{ fontSize: "16px" }}
@@ -77,7 +77,7 @@ const ListeningSection = ({ section, setCurrentSection, handleChange }) => {
                         required: false,
                         onChange: handleChange,
                       })}
-                    </div>
+                    </span>
                   );
                 }
               },
