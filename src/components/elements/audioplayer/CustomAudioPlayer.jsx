@@ -26,10 +26,6 @@ const CustomAudioPlayer = ({ src }) => {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    audioRef.current.play();
-  }, [src]);
-
   const handlePlayPause = () => {
     if (isPlaying) {
       audioRef.current.pause();
