@@ -147,7 +147,12 @@ const AttemptListeningModulePage = () => {
             audio_url={currentSection.audio}
             onEndedHandle={onSectionAudioEndedHandle}
           /> */}
-          <CustomAudioPlayer src={currentSection.audio} />
+          <CustomAudioPlayer
+            src={currentSection.audio}
+            audio_title={currentSection.section}
+            audio_url={currentSection.audio}
+            handleAudioEnd={onSectionAudioEndedHandle}
+          />
         </Col>
         <Col sm={12} className="bg-white border-top p-0">
           <CountdownTimer
