@@ -13,7 +13,7 @@ const CustomAudioPlayer = ({ src, handleAudioEnd }) => {
   const audioRef = useRef();
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState(0);  
 
   useEffect(() => {
     const interval = setInterval(() => {
