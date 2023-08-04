@@ -2,7 +2,16 @@ import React, { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router";
 import useAxios from "../../utils/useAxios";
 
-import { Row, Col, Container, Card, Badge, Button } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Container,
+  Card,
+  Badge,
+  Button,
+  Accordion,
+  Table,
+} from "react-bootstrap";
 
 import ReactAudioPlayer from "../../components/elements/audioplayer/ReactAudioPlayer";
 import ListeningSection from "../../components/ieltstest/listening/ListeningSection";
@@ -18,6 +27,8 @@ const AttemptListeningModulePage = () => {
   const [module, setModule] = useState(null);
   const [currentSection, setCurrentSection] = useState(null);
   const scrollDirection = useScrollDirection();
+  const formRef = useRef(null);
+  const [currentFormData, setCurrentFormData] = useState({});
 
   useEffect(() => {
     getModule();
@@ -33,8 +44,6 @@ const AttemptListeningModulePage = () => {
     }
   }
 
-  const formRef = useRef(null);
-  const [currentFormData, setCurrentFormData] = useState({});
   const [questionData, setQuestionData] = useState({
     completed_questions: 0,
     total_questions: 0,
@@ -52,6 +61,20 @@ const AttemptListeningModulePage = () => {
     );
     if (response.status === 200) {
       console.log("Attempt Updated");
+    }
+  }
+
+  function scrollToElement(elementId) {
+    const element = document.getElementById(elementId);
+    if (element) {
+      // Get the element's position
+      const rect = element.getBoundingClientRect();
+
+      // Scroll to the element, minus some offset for spacing
+      window.scrollTo({
+        top: rect.top + window.pageYOffset - 200,
+        behavior: "smooth",
+      });
     }
   }
 
@@ -86,7 +109,7 @@ const AttemptListeningModulePage = () => {
     let nextSection = currentSectionIndex + 1;
 
     if (nextSection > module.sections.length) {
-      sendAttemptUpdate("Forced Completed");
+      sendAttemptUpdate("Completed");
     } else {
       setCurrentSection(module.sections[nextSection]);
     }
@@ -136,7 +159,7 @@ const AttemptListeningModulePage = () => {
         <Row>
           <Col sm={12} md={8}>
             <Row>
-              <Col sm={12}>
+              <Col sm={12} className="my-3">
                 <BookInfo module={module} attempt_slug={attempt_slug} />
               </Col>
               <Col sm={12}>
@@ -154,28 +177,65 @@ const AttemptListeningModulePage = () => {
               </Col>
             </Row>
           </Col>
-          <Col sm={12} md={4} className="mt-2">
-            <Card>
-              <Card.Header>
-                <span className=" fw-bold text-black">Question Pallete</span>
-              </Card.Header>
-              <Card.Body>
-                {Object.entries(currentFormData).map((item, index) => (
-                  <Badge
-                    style={{ fontSize: "20px" }}
-                    key={index}
-                    className="m-1"
-                    bg={`${item[1] === "" ? "warning" : "success"}`}
-                  >
-                    {index + 1}
-                  </Badge>
-                ))}
-              </Card.Body>
 
-              <Card.Footer>
-                <Button type="submit">Submit Answers</Button>
-              </Card.Footer>
-            </Card>
+          <Col sm={12} md={4} className="">
+            <Row>
+              <Col sm={12} className="my-3">
+                <Accordion>
+                  <Accordion.Item eventKey="0">
+                    <Accordion.Header>
+                      <span className="text-black fw-bold">Review Answers</span>
+                    </Accordion.Header>
+                    <Accordion.Body className="p-0 m-0">
+                      <Table striped bordered>
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Your Answer</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {Object.entries(currentFormData).map(
+                            (item, index) => (
+                              <tr key={index}>
+                                <td className="fw-bold">{index + 1}</td>
+                                <td className="text-black">{item[1]}</td>
+                              </tr>
+                            )
+                          )}
+                        </tbody>
+                      </Table>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </Accordion>
+              </Col>
+              <Col sm={12} className="mt-2">
+                <Card>
+                  <Card.Header>
+                    <span className=" fw-bold text-black">
+                      Question Pallete
+                    </span>
+                  </Card.Header>
+                  <Card.Body>
+                    {Object.entries(currentFormData).map((item, index) => (
+                      <Badge
+                        style={{ fontSize: "20px" }}
+                        key={index}
+                        className="m-1"
+                        onClick={() => scrollToElement("que-" + (index + 1))}
+                        bg={`${item[1] === "" ? "warning" : "success"}`}
+                      >
+                        {index + 1}
+                      </Badge>
+                    ))}
+                  </Card.Body>
+
+                  <Card.Footer>
+                    <Button type="submit">Submit Answers</Button>
+                  </Card.Footer>
+                </Card>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Container>
