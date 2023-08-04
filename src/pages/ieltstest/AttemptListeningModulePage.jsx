@@ -38,7 +38,7 @@ const AttemptListeningModulePage = () => {
     );
     if (response.status === 200) {
       setModule(response.data);
-      setCurrentSection(response.data.sections[1]);
+      setCurrentSection(response.data.sections[0]);
     }
   }
 
@@ -137,8 +137,7 @@ const AttemptListeningModulePage = () => {
           /> */}
           <CustomAudioPlayer
             src={module.audio}
-            audio_title={currentSection.section}
-            audio_url={currentSection.audio}
+            currentSection={currentSection}
           />
         </Col>
         <Col sm={12} className="bg-white border-top p-0">
