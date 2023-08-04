@@ -7,6 +7,7 @@ const CountdownTimer = ({
   initialMinutes = 1,
   initialSeconds = 0,
   questionData,
+  handleTimesUp,
 }) => {
   const [minutes, setMinutes] = useState(initialMinutes);
   const [seconds, setSeconds] = useState(initialSeconds);
@@ -19,6 +20,7 @@ const CountdownTimer = ({
       if (seconds === 0) {
         if (minutes === 0) {
           clearInterval(myInterval);
+          handleTimesUp();
         } else {
           setMinutes(minutes - 1);
           setSeconds(59);
@@ -29,6 +31,12 @@ const CountdownTimer = ({
       clearInterval(myInterval);
     };
   });
+
+  useEffect(() => {
+    if (seconds === 0 && minutes === 0) {
+      return handleTimesUp();
+    }
+  }, []);
 
   return (
     <Container>

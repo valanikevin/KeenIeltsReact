@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import useAxios from "../../utils/useAxios";
 
 import {
@@ -27,6 +27,7 @@ const AttemptListeningModulePage = () => {
   const scrollDirection = useScrollDirection();
   const formRef = useRef(null);
   const [currentFormData, setCurrentFormData] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     getModule();
@@ -100,10 +101,6 @@ const AttemptListeningModulePage = () => {
     }
   }
 
-  function onSectionAudioEndedHandle(event) {
-    // Todo: section end handle.
-  }
-
   useEffect(() => {
     getFormData();
   }, [module]);
@@ -112,10 +109,17 @@ const AttemptListeningModulePage = () => {
     const formData = getFormData();
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  function endTest() {
     getFormData();
     sendAttemptUpdate("Completed");
+    navigate(
+      `/ieltstest/attempt/listening/${module_slug}/${attempt_slug}/get_result`
+    );
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    endTest();
   };
 
   if (!module) {
@@ -142,9 +146,10 @@ const AttemptListeningModulePage = () => {
         </Col>
         <Col sm={12} className="bg-white border-top p-0">
           <CountdownTimer
-            initialMinutes={40}
-            initialSeconds={0}
+            initialMinutes={0}
+            initialSeconds={10}
             questionData={questionData}
+            handleTimesUp={endTest}
           />
         </Col>
       </Row>

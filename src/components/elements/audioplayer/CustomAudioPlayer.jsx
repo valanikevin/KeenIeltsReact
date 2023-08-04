@@ -28,6 +28,7 @@ const CustomAudioPlayer = ({ src, currentSection }) => {
 
   useEffect(() => {
     audioRef.current.currentTime = currentSection.audio_start_time;
+    playAudio();
   }, [currentSection]);
 
   const handlePlayPause = () => {
@@ -37,6 +38,11 @@ const CustomAudioPlayer = ({ src, currentSection }) => {
       audioRef.current.play();
     }
     setIsPlaying(!isPlaying);
+  };
+
+  const playAudio = () => {
+    audioRef.current.play();
+    setIsPlaying(true);
   };
 
   const handleBackward = () => {
@@ -68,7 +74,7 @@ const CustomAudioPlayer = ({ src, currentSection }) => {
       <audio ref={audioRef} src={src} onLoadedData={handleLoadedData} />
       <ProgressBar now={progress} className="mb-3" />
       <div className="text-center">
-        <ButtonGroup aria-label="Basic example">
+        <ButtonGroup>
           <Button onClick={handlePlayFromStart} className="btn-light">
             <FiSkipBack size={20} />
           </Button>
