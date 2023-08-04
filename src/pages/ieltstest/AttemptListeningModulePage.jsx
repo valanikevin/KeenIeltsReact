@@ -18,11 +18,13 @@ import ReactAudioPlayer from "../../components/elements/audioplayer/ReactAudioPl
 import ListeningSection from "../../components/ieltstest/listening/ListeningSection";
 import useScrollDirection from "../../utils/useScrollDirection";
 import CountdownTimer from "../../components/elements/CountdownTimer";
-import { FiChevronDown, FiChevronRight } from "react-icons/fi";
+import BookInfo from "../../components/ieltstest/listening/BookInfo";
+import useAxiosWithoutLoader from "../../utils/useAxiosWithoutLoader";
 
 const AttemptListeningModulePage = () => {
   const { module_slug, attempt_slug } = useParams();
   const api = useAxios();
+  const apiWOLoader = useAxiosWithoutLoader();
   const [module, setModule] = useState(null);
   const [currentSection, setCurrentSection] = useState(null);
   const scrollDirection = useScrollDirection();
@@ -32,7 +34,7 @@ const AttemptListeningModulePage = () => {
   }, [setModule]);
 
   async function getModule() {
-    const response = await api.options(
+    const response = await api.post(
       "/ieltstest/get_module/listening/" + module_slug + "/"
     );
     if (response.status === 200) {
@@ -43,19 +45,45 @@ const AttemptListeningModulePage = () => {
 
   const formRef = useRef(null);
   const [currentFormData, setCurrentFormData] = useState({});
-
+  const [questionData, setQuestionData] = useState({
+    completed_questions: 0,
+    total_questions: 0,
+  });
   // Log form data every 5 seconds
+
+  function sendAttemptUpdate(attempt_type = "In Progress") {
+    const data = {
+      answers: currentFormData,
+      attempt_type: attempt_type,
+    };
+    const response = apiWOLoader.post(
+      "/ieltstest/update_attempt/listening/" + attempt_slug + "/",
+      data
+    );
+    if (response.status === 200) {
+      console.log("Attempt Updated");
+    }
+  }
 
   function getFormData() {
     if (formRef.current) {
       const formData = new FormData(formRef.current);
       let data = {};
-      let counter = 1;
+      let counter = 0;
+      let completedQuestions = 0;
       for (let [key, value] of formData.entries()) {
         data[key] = value; // Construct the data object
         counter++;
+        if (value !== "") {
+          completedQuestions++;
+        }
       }
+
       setCurrentFormData(data); // Update the state
+      setQuestionData({
+        completed_questions: completedQuestions,
+        total_questions: counter,
+      });
       return formData;
     }
   }
@@ -70,11 +98,8 @@ const AttemptListeningModulePage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    let length = 0;
-    for (let pair of formData.entries()) {
-      length++;
-    }
+    getFormData();
+    sendAttemptUpdate("Completed");
   };
 
   if (!module) {
@@ -95,7 +120,11 @@ const AttemptListeningModulePage = () => {
           />
         </Col>
         <Col sm={12} className="bg-white border-top p-0">
-          <CountdownTimer initialMinutes={60} initialSeconds={0} />
+          <CountdownTimer
+            initialMinutes={60}
+            initialSeconds={0}
+            questionData={questionData}
+          />
         </Col>
       </Row>
       <Container className="my-3">
@@ -103,47 +132,7 @@ const AttemptListeningModulePage = () => {
           <Col sm={12} md={8}>
             <Row>
               <Col sm={12}>
-                <Accordion>
-                  <Accordion.Item eventKey="0">
-                    <Accordion.Header>
-                      <span className="text-black fw-bold">
-                        {module.test.book.name}
-                      </span>
-                    </Accordion.Header>
-                    <Accordion.Body>
-                      <Table striped bordered hover>
-                        <tbody>
-                          <tr>
-                            <td className="text-black">Book Name</td>
-                            <td className="text-black">
-                              {module.test.book.name}
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <td className="text-black">Test Name</td>
-                            <td className="text-black">{module.test.name}</td>
-                          </tr>
-
-                          <tr>
-                            <td className="text-black">Module Name</td>
-                            <td className="text-black">{module.name}</td>
-                          </tr>
-
-                          <tr>
-                            <td className="text-black">Test Type</td>
-                            <td className="text-black">Academic, General</td>
-                          </tr>
-
-                          <tr>
-                            <td className="text-black">Attempt</td>
-                            <td className="text-black">{attempt_slug}</td>
-                          </tr>
-                        </tbody>
-                      </Table>
-                    </Accordion.Body>
-                  </Accordion.Item>
-                </Accordion>
+                <BookInfo module={module} attempt_slug={attempt_slug} />
               </Col>
               <Col sm={12}>
                 <Row>
@@ -177,6 +166,7 @@ const AttemptListeningModulePage = () => {
                   </Badge>
                 ))}
               </Card.Body>
+
               <Card.Footer>
                 <Button type="submit">Submit Answers</Button>
               </Card.Footer>

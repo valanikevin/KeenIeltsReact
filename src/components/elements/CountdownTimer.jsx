@@ -3,7 +3,11 @@ import { Container, Row, Col, Badge, Stack } from "react-bootstrap";
 import { FiCheckCircle } from "react-icons/fi";
 import Slider from "react-slick";
 
-const CountdownTimer = ({ initialMinutes = 1, initialSeconds = 0 }) => {
+const CountdownTimer = ({
+  initialMinutes = 1,
+  initialSeconds = 0,
+  questionData,
+}) => {
   const [minutes, setMinutes] = useState(initialMinutes);
   const [seconds, setSeconds] = useState(initialSeconds);
 
@@ -32,7 +36,8 @@ const CountdownTimer = ({ initialMinutes = 1, initialSeconds = 0 }) => {
         <div>
           <span className="text-black" style={{ fontSize: "20px" }}>
             {" "}
-            <FiCheckCircle /> 9/40
+            <FiCheckCircle /> {questionData.completed_questions}/
+            {questionData.total_questions}
           </span>
         </div>
         <div className="ms-auto">

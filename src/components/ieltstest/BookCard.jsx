@@ -37,7 +37,7 @@ const BookCard = ({
     if (user === null) {
       navigate("/login");
     } else {
-      const response = await api.options(
+      const response = await api.post(
         "/ieltstest/find_smart_test/" + module_type + "/" + book.slug + "/"
       );
       if (response.status === 200) {
