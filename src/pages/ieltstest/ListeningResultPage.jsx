@@ -39,33 +39,33 @@ const ListeningResultPage = () => {
         />
         <Container className="my-3">
           <Row className="px-2">
-            <Col xs={6} md={3} className="my-2">
-              <Card>
+            <Col xs={6} md={3} className="my-2 d-flex">
+              <Card className="flex-fill">
                 <Card.Body className="">
                   <span>Bands</span>
-                  <h2 style={{ fontSize: "18px" }} className="my-2">
+                  <h2 style={{ fontSize: "1.2rem" }} className="my-2">
                     {attempt.bands} Bands
                   </h2>
                 </Card.Body>
               </Card>
             </Col>
-            <Col xs={6} md={3} className="my-2">
-              <Card>
+            <Col xs={6} md={3} className="my-2 d-flex">
+              <Card className="flex-fill">
                 <Card.Body className="">
                   <span>Score</span>
-                  <h2 style={{ fontSize: "18px" }} className="my-2">
+                  <h2 style={{ fontSize: "1.2rem" }} className="my-2">
                     {attempt.correct_answers}/
                     {attempt.correct_answers + attempt.incorrect_answers}
                   </h2>
                 </Card.Body>
               </Card>
             </Col>
-            <Col xs={6} md={3} className="my-2 ">
-              <Card>
+            <Col xs={6} md={3} className="my-2 d-flex">
+              <Card className="flex-fill">
                 <Card.Body className="">
                   <span>Highest Score</span>
                   <h2
-                    style={{ fontSize: "18px" }}
+                    style={{ fontSize: "1.2rem" }}
                     className="my-2 text-uppercase"
                   >
                     {attempt.evaluation.best_scored_section[0]}
@@ -73,12 +73,12 @@ const ListeningResultPage = () => {
                 </Card.Body>
               </Card>
             </Col>
-            <Col xs={6} md={3} className="my-2 ">
-              <Card>
+            <Col xs={6} md={3} className="my-2 d-flex">
+              <Card className="flex-fill">
                 <Card.Body className="">
                   <span>Lowest Score</span>
                   <h2
-                    style={{ fontSize: "18px" }}
+                    style={{ fontSize: "1.2rem" }}
                     className="my-2 text-uppercase"
                   >
                     {attempt.evaluation.worst_scored_section[0]}
@@ -89,6 +89,8 @@ const ListeningResultPage = () => {
           </Row>
         </Container>
       </div>
+
+      <div></div>
     </>
   );
 };
