@@ -77,7 +77,11 @@ const CustomAudioPlayer = ({ src, currentSection }) => {
       {isStartReady ? (
         <>
           <audio ref={audioRef} src={src} onLoadedData={handleLoadedData} />
-          <ProgressBar now={progress} className="mb-3" />
+          <ProgressBar
+            now={progress}
+            className="mb-3"
+            style={{ height: "5px" }}
+          />
           <div className="text-center">
             <ButtonGroup>
               <Button onClick={handlePlayFromStart} className="btn-light">

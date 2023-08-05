@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router";
 import useAxios from "../../utils/useAxios";
+import { Modal } from "react-bootstrap";
 
 import {
   Row,
@@ -28,6 +29,9 @@ const AttemptListeningModulePage = () => {
   const formRef = useRef(null);
   const [currentFormData, setCurrentFormData] = useState({});
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
 
   useEffect(() => {
     getModule();
@@ -110,11 +114,15 @@ const AttemptListeningModulePage = () => {
   };
 
   function endTest() {
+    handleShowModal();
+  }
+  function handleConfirmEndTest() {
     getFormData();
     sendAttemptUpdate("Completed");
     navigate(
       `/ieltstest/attempt/listening/${module_slug}/${attempt_slug}/get_result`
     );
+    handleCloseModal();
   }
 
   const handleSubmit = (event) => {
@@ -127,117 +135,136 @@ const AttemptListeningModulePage = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} ref={formRef}>
-      <Row
-        className={`${
-          scrollDirection === "up" ? "sticky-top" : ""
-        } mx-0 border-top border-bottom`}
-      >
-        <Col sm={12} className="p-0 bg-white">
-          {/* <ReactAudioPlayer
+    <>
+      <Modal show={showModal} onHide={handleCloseModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>End Test</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to end the test?</Modal.Body>
+        <Modal.Footer className="p-2">
+          <Button variant="outline-primary" onClick={handleCloseModal}>
+            No
+          </Button>
+          <Button variant="primary" onClick={handleConfirmEndTest}>
+            Yes, end test
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <form onSubmit={handleSubmit} ref={formRef}>
+        <Row
+          className={`${
+            scrollDirection === "up" ? "sticky-top" : ""
+          } mx-0 border-top border-bottom`}
+        >
+          <Col sm={12} className="p-0 bg-white">
+            {/* <ReactAudioPlayer
             audio_title={currentSection.section}
             audio_url={currentSection.audio}
             onEndedHandle={onSectionAudioEndedHandle}
           /> */}
-          <CustomAudioPlayer
-            src={module.audio}
-            currentSection={currentSection}
-          />
-        </Col>
-        <Col sm={12} className="bg-white border-top p-0">
-          <CountdownTimer
-            initialMinutes={40}
-            initialSeconds={0}
-            questionData={questionData}
-            handleTimesUp={endTest}
-          />
-        </Col>
-      </Row>
-      <Container className="my-3">
-        <Row>
-          <Col sm={12} md={8}>
-            <Row>
-              <Col sm={12} className="my-3">
-                <BookInfo module={module} attempt_slug={attempt_slug} />
-              </Col>
-              <Col sm={12}>
-                <Row>
-                  {module.sections.length > 0 &&
-                    module.sections.map((section) => (
-                      <ListeningSection
-                        key={section.id}
-                        section={section}
-                        setCurrentSection={setCurrentSection}
-                        handleChange={handleChange}
-                      />
-                    ))}
-                </Row>
-              </Col>
-            </Row>
+            <CustomAudioPlayer
+              src={module.audio}
+              currentSection={currentSection}
+            />
           </Col>
-
-          <Col sm={12} md={4} className="">
-            <Row className="sticky-top" style={{ zIndex: 10 }}>
-              <Col sm={12} className="my-3">
-                <Accordion>
-                  <Accordion.Item eventKey="0">
-                    <Accordion.Header>
-                      <span className="text-black fw-bold">Review Answers</span>
-                    </Accordion.Header>
-                    <Accordion.Body className="p-0 m-0">
-                      <Table striped bordered>
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Your Answer</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {Object.entries(currentFormData).map(
-                            (item, index) => (
-                              <tr key={index}>
-                                <td className="fw-bold">{index + 1}</td>
-                                <td className="text-black">{item[1]}</td>
-                              </tr>
-                            )
-                          )}
-                        </tbody>
-                      </Table>
-                    </Accordion.Body>
-                  </Accordion.Item>
-                </Accordion>
-              </Col>
-              <Col sm={12} className="mt-2">
-                <Card>
-                  <Card.Header>
-                    <span className=" fw-bold text-black">
-                      Question Pallete
-                    </span>
-                  </Card.Header>
-                  <Card.Body>
-                    {Object.entries(currentFormData).map((item, index) => (
-                      <Badge
-                        style={{ fontSize: "20px" }}
-                        key={index}
-                        className="m-1"
-                        onClick={() => scrollToElement("que-" + (index + 1))}
-                        bg={`${item[1] === "" ? "warning" : "success"}`}
-                      >
-                        {index + 1}
-                      </Badge>
-                    ))}
-                  </Card.Body>
-
-                  <Card.Footer>
-                    <Button type="submit">Submit Answers</Button>
-                  </Card.Footer>
-                </Card>
-              </Col>
-            </Row>
+          <Col sm={12} className="bg-white border-top p-0">
+            <CountdownTimer
+              initialMinutes={40}
+              initialSeconds={0}
+              questionData={questionData}
+              handleTimesUp={handleConfirmEndTest}
+            />
           </Col>
         </Row>
-      </Container>
-    </form>
+        <Container className="my-3">
+          <Row>
+            <Col sm={12} md={8}>
+              <Row>
+                <Col sm={12} className="my-3">
+                  <BookInfo module={module} attempt_slug={attempt_slug} />
+                </Col>
+                <Col sm={12}>
+                  <Row>
+                    {module.sections.length > 0 &&
+                      module.sections.map((section) => (
+                        <ListeningSection
+                          key={section.id}
+                          section={section}
+                          setCurrentSection={setCurrentSection}
+                          handleChange={handleChange}
+                        />
+                      ))}
+                  </Row>
+                </Col>
+              </Row>
+            </Col>
+
+            <Col sm={12} md={4} className="">
+              <Row className="sticky-top" style={{ zIndex: 10 }}>
+                <Col sm={12} className="my-3">
+                  <Accordion>
+                    <Accordion.Item eventKey="0">
+                      <Accordion.Header>
+                        <span className="text-black fw-bold">
+                          Review Answers
+                        </span>
+                      </Accordion.Header>
+                      <Accordion.Body className="p-0 m-0">
+                        <Table striped bordered>
+                          <thead>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Your Answer</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {Object.entries(currentFormData).map(
+                              (item, index) => (
+                                <tr key={index}>
+                                  <td className="fw-bold">{index + 1}</td>
+                                  <td className="text-black">{item[1]}</td>
+                                </tr>
+                              )
+                            )}
+                          </tbody>
+                        </Table>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  </Accordion>
+                </Col>
+                <Col sm={12} className="mt-2">
+                  <Card>
+                    <Card.Header>
+                      <span className=" fw-bold text-black">
+                        Question Pallete
+                      </span>
+                    </Card.Header>
+                    <Card.Body>
+                      {Object.entries(currentFormData).map((item, index) => (
+                        <Badge
+                          style={{ fontSize: "20px" }}
+                          key={index}
+                          className="m-1"
+                          onClick={() => scrollToElement("que-" + (index + 1))}
+                          bg={`${item[1] === "" ? "warning" : "success"}`}
+                        >
+                          {index + 1}
+                        </Badge>
+                      ))}
+                    </Card.Body>
+
+                    <Card.Footer>
+                      <Button type="submit">Submit Answers</Button>
+                    </Card.Footer>
+                  </Card>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Container>
+      </form>
+    </>
   );
 };
 
