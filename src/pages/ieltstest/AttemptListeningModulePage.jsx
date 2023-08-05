@@ -19,6 +19,7 @@ import useScrollDirection from "../../utils/useScrollDirection";
 import CountdownTimer from "../../components/elements/CountdownTimer";
 import BookInfo from "../../components/ieltstest/listening/BookInfo";
 import CustomAudioPlayer from "../../components/elements/audioplayer/CustomAudioPlayer";
+import { API_URLS } from "../../utils/urls";
 
 const AttemptListeningModulePage = () => {
   const { module_slug, attempt_slug } = useParams();
@@ -39,7 +40,7 @@ const AttemptListeningModulePage = () => {
 
   async function getModule() {
     const response = await api.post(
-      "/ieltstest/get_module/listening/" + module_slug + "/"
+      API_URLS.getListeningModule + module_slug + "/"
     );
     if (response.status === 200) {
       setModule(response.data);

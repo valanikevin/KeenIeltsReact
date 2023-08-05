@@ -9,7 +9,7 @@ import DashboardPage from "./pages/student/DashboardPage";
 import ListeningHomePage from "./pages/ieltstest/ListeningHomePage";
 import TestHomePage from "./pages/ieltstest/TestHomePage";
 import AttemptListeningModulePage from "./pages/ieltstest/AttemptListeningModulePage";
-import ListeningResult from "./pages/ieltstest/ListeningResult";
+import ListeningResultPage from "./pages/ieltstest/ListeningResultPage";
 
 const AllRoutes = () => {
   return (
@@ -33,7 +33,7 @@ const AllRoutes = () => {
           />
           <Route
             path="listening/:module_slug/:attempt_slug/get_result"
-            element={<ListeningResult />}
+            element={<ListeningResultPage />}
           />
         </Route>
       </Route>
