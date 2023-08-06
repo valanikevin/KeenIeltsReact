@@ -113,9 +113,10 @@ const ListeningSection = ({
                           required: false,
                           onChange: handleChange,
                           disabled: user_answers ? true : false,
-                          value: user_answers
-                            ? user_answers["que-" + queName[1]]["user_answer"]
-                            : "",
+                          ...(user_answers && {
+                            value:
+                              user_answers["que-" + queName[1]]["user_answer"],
+                          }),
                         })}
                       </span>
                     );

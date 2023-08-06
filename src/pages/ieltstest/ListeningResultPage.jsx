@@ -6,9 +6,11 @@ import { Accordion, Card, Col, Container, Row, Table } from "react-bootstrap";
 import PageHeadingBriefinfo from "../../components/layout/PageHeadingBriefInfo";
 import ListeningSection from "../../components/ieltstest/listening/ListeningSection";
 import CustomAudioPlayer from "../../components/elements/audioplayer/CustomAudioPlayer";
+import useAxiosWithoutLoader from "../../utils/useAxiosWithoutLoader";
 
 const ListeningResultPage = () => {
   const api = useAxios();
+  const api1 = useAxiosWithoutLoader();
   const { module_slug, attempt_slug } = useParams();
   const [attempt, setAttempt] = useState(null);
   const [module, setModule] = useState(null);
@@ -26,7 +28,7 @@ const ListeningResultPage = () => {
   }
 
   async function getModule() {
-    const response = await api.post(
+    const response = await api1.post(
       API_URLS.getListeningModule + module_slug + "/"
     );
     if (response.status === 200) {
@@ -36,10 +38,17 @@ const ListeningResultPage = () => {
 
   useEffect(() => {
     getAttempt();
+  }, []);
+
+  useEffect(() => {
     getModule();
   }, []);
 
-  if (!attempt || !module) {
+  if (!attempt || !attempt.evaluation) {
+    return null;
+  }
+
+  if (!module) {
     return null;
   }
 
