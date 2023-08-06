@@ -180,46 +180,57 @@ const ListeningResultPage = () => {
                     </Table>
                   </Accordion.Body>
                 </Accordion.Item>
-                <Accordion.Item>
-                  <Accordion.Header>
-                    <span className="text-black fw-bold">Review Answers</span>
-                  </Accordion.Header>
-                  <Accordion.Body className="p-0 m-0">
-                    <Table bordered className="table-sm">
-                      <thead>
-                        <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">Your Answer</th>
-                          <th scope="col">Correct Answer</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {Object.entries(attempt.evaluation.all_questions).map(
-                          (item, index) => (
-                            <tr
-                              key={index}
-                              className={
-                                item[1]["is_user_answer_correct"] === true
-                                  ? "table-success"
-                                  : "table-danger"
-                              }
-                            >
-                              <td className="fw-bold">{index + 1}</td>
-                              <td className="text-black">
-                                {item[1]["user_answer"]}
-                              </td>
-                              <td className="text-black">
-                                {item[1]["correct_answer"].length > 1
-                                  ? JSON.stringify(item[1]["correct_answer"])
-                                  : item[1]["correct_answer"]}
-                              </td>
+                {Object.entries(attempt.evaluation.all_sections).map(
+                  (section, index) => (
+                    <Accordion.Item key={section[0]} eventKey={index + 1}>
+                      <Accordion.Header>
+                        <span className="text-black fw-bold">
+                          Section {index + 1} • {section[1]["correct"]}/
+                          {section[1]["correct"] + section[1]["incorrect"]}
+                        </span>
+                      </Accordion.Header>
+                      <Accordion.Body className="p-0 m-0">
+                        <Table bordered className="table-sm">
+                          <thead>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Your Answer</th>
+                              <th scope="col">Correct Answer</th>
                             </tr>
-                          )
-                        )}
-                      </tbody>
-                    </Table>
-                  </Accordion.Body>
-                </Accordion.Item>
+                          </thead>
+                          <tbody>
+                            {Object.entries(section[1]).map((item, index) => {
+                              if (item[0].split("-")[0] === "que") {
+                                return (
+                                  <tr
+                                    key={index}
+                                    className={
+                                      item[1]["is_user_answer_correct"] === true
+                                        ? "table-success"
+                                        : "table-danger"
+                                    }
+                                  >
+                                    <td className="fw-bold">
+                                      {item[0].split("-")[1]}
+                                    </td>
+                                    <td className="text-black">
+                                      {item[1]["user_answer"]}
+                                    </td>
+                                    <td className="text-black">
+                                      {item[1]["correct_answer"]}
+                                    </td>
+                                  </tr>
+                                );
+                              } else {
+                                return null; // return null if you don't want to render anything
+                              }
+                            })}
+                          </tbody>
+                        </Table>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  )
+                )}
               </Accordion>
             </Col>
           </Row>

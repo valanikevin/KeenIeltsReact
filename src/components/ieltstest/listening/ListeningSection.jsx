@@ -101,7 +101,9 @@ const ListeningSection = ({
                                 style={{ marginLeft: "5px" }}
                               />
                             )
-                          ) : null}
+                          ) : (
+                            ""
+                          )}
                         </Badge>
                         {React.createElement(domNode.name, {
                           ...domNode.attribs,
@@ -113,7 +115,7 @@ const ListeningSection = ({
                           disabled: user_answers ? true : false,
                           value: user_answers
                             ? user_answers["que-" + queName[1]]["user_answer"]
-                            : null,
+                            : "",
                         })}
                       </span>
                     );
