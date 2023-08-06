@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { Row, Col, Card, Stack, Button, Badge } from "react-bootstrap";
 import parse from "html-react-parser";
-import { FiPlayCircle } from "react-icons/fi";
+import {
+  FiCheckCircle,
+  FiPlayCircle,
+  FiXCircle,
+  FiXSquare,
+} from "react-icons/fi";
 
 const ListeningSection = ({
   section,
   setCurrentSection = null,
   handleChange = null,
+  user_answers = null,
 }) => {
   function handleSetCurrentSection() {
     setCurrentSection(section);
@@ -70,9 +76,32 @@ const ListeningSection = ({
                         <Badge
                           className="fw-bold"
                           style={{ fontSize: "16px" }}
-                          bg="listening"
+                          bg={
+                            user_answers
+                              ? user_answers["que-" + queName[1]][
+                                  "is_user_answer_correct"
+                                ] === true
+                                ? "success"
+                                : "danger"
+                              : "listening"
+                          }
                         >
                           {queName[1]}
+                          {user_answers ? (
+                            user_answers["que-" + queName[1]][
+                              "is_user_answer_correct"
+                            ] === true ? (
+                              <FiCheckCircle
+                                size={18}
+                                style={{ marginLeft: "5px" }}
+                              />
+                            ) : (
+                              <FiXCircle
+                                size={18}
+                                style={{ marginLeft: "5px" }}
+                              />
+                            )
+                          ) : null}
                         </Badge>
                         {React.createElement(domNode.name, {
                           ...domNode.attribs,
@@ -81,6 +110,10 @@ const ListeningSection = ({
                           }`,
                           required: false,
                           onChange: handleChange,
+                          disabled: user_answers ? true : false,
+                          value: user_answers
+                            ? user_answers["que-" + queName[1]]["user_answer"]
+                            : null,
                         })}
                       </span>
                     );

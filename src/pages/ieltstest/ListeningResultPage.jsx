@@ -12,6 +12,7 @@ const ListeningResultPage = () => {
   const { module_slug, attempt_slug } = useParams();
   const [attempt, setAttempt] = useState(null);
   const [module, setModule] = useState(null);
+  const [currentAudioTime, setCurrentAudioTime] = useState(null);
 
   async function getAttempt() {
     const response = await api.post(
@@ -38,8 +39,12 @@ const ListeningResultPage = () => {
     getModule();
   }, []);
 
-  if (!attempt) {
+  if (!attempt || !module) {
     return null;
+  }
+
+  function handleChangeAudioTime(section) {
+    setCurrentAudioTime(section.audio_start_time);
   }
 
   return (
@@ -112,17 +117,70 @@ const ListeningResultPage = () => {
             <Col sm={12} md={6} className="mb-3">
               <Row>
                 <Col sm={12} className="mb-3">
-                  <CustomAudioPlayer src={module.audio} />
+                  <Card>
+                    <Card.Body className="m-0 p-1">
+                      <CustomAudioPlayer
+                        src={module.audio}
+                        start_time={currentAudioTime}
+                      />
+                    </Card.Body>
+                  </Card>
                 </Col>
                 {module.sections.length > 0 &&
                   module.sections.map((section) => (
-                    <ListeningSection key={section.id} section={section} />
+                    <div key={section.id} className="my-2">
+                      <ListeningSection
+                        section={section}
+                        user_answers={attempt.evaluation.all_questions}
+                        setCurrentSection={handleChangeAudioTime}
+                      />
+                    </div>
                   ))}
               </Row>
             </Col>
             <Col sm={12} md={6}>
               <Accordion defaultActiveKey="0">
                 <Accordion.Item eventKey="0">
+                  <Accordion.Header>
+                    <span className="text-black fw-bold">Review Answers</span>
+                  </Accordion.Header>
+                  <Accordion.Body className="p-0 m-0">
+                    <Table bordered className="table-sm">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Your Answer</th>
+                          <th scope="col">Correct Answer</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {Object.entries(attempt.evaluation.all_questions).map(
+                          (item, index) => (
+                            <tr
+                              key={index}
+                              className={
+                                item[1]["is_user_answer_correct"] === true
+                                  ? "table-success"
+                                  : "table-danger"
+                              }
+                            >
+                              <td className="fw-bold">{index + 1}</td>
+                              <td className="text-black">
+                                {item[1]["user_answer"]}
+                              </td>
+                              <td className="text-black">
+                                {item[1]["correct_answer"].length > 1
+                                  ? JSON.stringify(item[1]["correct_answer"])
+                                  : item[1]["correct_answer"]}
+                              </td>
+                            </tr>
+                          )
+                        )}
+                      </tbody>
+                    </Table>
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item>
                   <Accordion.Header>
                     <span className="text-black fw-bold">Review Answers</span>
                   </Accordion.Header>

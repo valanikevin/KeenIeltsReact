@@ -19,7 +19,7 @@ const BookInfo = ({ module, attempt_slug }) => {
           <span className="text-black fw-bold">{module.test.book.name}</span>
         </Accordion.Header>
         <Accordion.Body>
-          <Table striped bordered hover>
+          <Table striped bordered hover responsive>
             <tbody>
               <tr>
                 <td className="text-black">Book Name</td>
