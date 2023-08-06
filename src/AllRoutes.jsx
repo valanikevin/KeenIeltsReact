@@ -6,10 +6,10 @@ import { Route, Routes } from "react-router-dom";
 
 import PrivateRoutes from "./utils/PrivateRoutes";
 import DashboardPage from "./pages/student/DashboardPage";
-import ListeningHomePage from "./pages/ieltstest/ListeningHomePage";
 import TestHomePage from "./pages/ieltstest/TestHomePage";
 import AttemptListeningModulePage from "./pages/ieltstest/AttemptListeningModulePage";
 import ListeningResultPage from "./pages/ieltstest/ListeningResultPage";
+import ModuleHomePage from "./pages/ieltstest/ModuleHomePage";
 
 const AllRoutes = () => {
   return (
@@ -25,7 +25,7 @@ const AllRoutes = () => {
       {/* IELTS Tests */}
       <Route path={"/ieltstest"}>
         <Route index element={<TestHomePage />} />
-        <Route path={"listening"} element={<ListeningHomePage />} />
+        <Route path={":module_slug"} element={<ModuleHomePage />} />
         <Route path="attempt" element={<PrivateRoutes />}>
           <Route
             path="listening/:module_slug/:attempt_slug"

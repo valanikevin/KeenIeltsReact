@@ -79,7 +79,9 @@ const BookCard = ({
             <>
               <Card className="mb-4">
                 <Card.Header className={`bg-${color}`}>
-                  <h4 className={`text-white my-0`}>Choose {test_type}</h4>
+                  <h4 className={`text-white my-0 text-capitalize`}>
+                    Choose {test_type}
+                  </h4>
                 </Card.Header>
 
                 {book.tests_with_listening_module.map((test) => (
@@ -113,7 +115,9 @@ const BookCard = ({
         <Card.Footer>
           <Stack direction="horizontal" onClick={handleShow} gap={3}>
             <div className="px-2">
-              <span className="text-black">Choose {test_type}</span>
+              <span className="text-black text-capitalize">
+                Choose {test_type}
+              </span>
             </div>
             <div className="px-2 ms-auto">
               <FiList size={20} className="text-black" />
@@ -127,7 +131,7 @@ const BookCard = ({
         >
           <Stack direction="horizontal" gap={3}>
             <div className="p-2">
-              <span className={`fw-bold text-${color}`}>
+              <span className={`fw-bold text-${color} text-capitalize`}>
                 Begin Smart {test_type}
               </span>
             </div>

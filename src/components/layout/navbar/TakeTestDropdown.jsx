@@ -41,27 +41,27 @@ const TakeTestDropdown = () => {
         {
           id: uuid(),
           menuitem: "Reading",
-          link: "#",
+          link: "/ieltstest/reading/",
         },
         {
           id: uuid(),
           menuitem: "Writing",
-          link: "#",
+          link: "/ieltstest/writing/",
         },
         {
           id: uuid(),
           menuitem: "Speaking",
-          link: "#",
+          link: "/ieltstest/speaking/",
         },
         {
           id: uuid(),
           menuitem: "Full Test",
-          link: "/grouptests/",
+          link: "/ieltstest/fulltest/",
         },
         {
           id: uuid(),
           menuitem: "Group Test",
-          link: "/grouptests/",
+          link: "/ieltstest/grouptest/",
         },
       ],
     },
