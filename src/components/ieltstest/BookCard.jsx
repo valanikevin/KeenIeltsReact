@@ -12,7 +12,7 @@ import {
 } from "react-bootstrap";
 
 import { FiList, FiArrowRight } from "react-icons/fi";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import useAxios from "../../utils/useAxios";
 import AuthContext from "../../context/AuthContext";
 
@@ -33,13 +33,21 @@ const BookCard = ({
   const navigate = useNavigate();
   let { user, logoutUser } = useContext(AuthContext);
 
-  const getSmartTest = async () => {
+  const getSmartTest = async (specific_test = null) => {
     if (user === null) {
       navigate("/login");
     } else {
-      const response = await api.post(
-        "/ieltstest/find_smart_test/" + module_type + "/" + book.slug + "/"
-      );
+      console.log(specific_test);
+      var bodyFormData = new FormData();
+      bodyFormData.append("specific_test", specific_test);
+
+      const response = await api({
+        method: "post",
+        url:
+          "/ieltstest/find_smart_test/" + module_type + "/" + book.slug + "/",
+        data: bodyFormData,
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       if (response.status === 200) {
         navigate(
           "/ieltstest/attempt/" +
@@ -76,7 +84,11 @@ const BookCard = ({
                 </Card.Header>
 
                 {book.tests_with_listening_module.map((test) => (
-                  <Card.Footer key={test.slug}>
+                  <Card.Footer
+                    as={Link}
+                    key={test.slug}
+                    onClick={() => getSmartTest(test.slug)}
+                  >
                     <Stack direction="horizontal" gap={3}>
                       <div className="">
                         <span className={` text-black`}>{test.name}</span>
@@ -100,7 +112,7 @@ const BookCard = ({
           </Card.Title>
           <Card.Text>{card_description}</Card.Text>
         </Card.Body>
-        <Card.Footer>
+        <Card.Footer as={Link}>
           <Stack direction="horizontal" onClick={handleShow} gap={3}>
             <div className="px-2">
               <span className="text-black">Choose {test_type}</span>
@@ -110,7 +122,12 @@ const BookCard = ({
             </div>
           </Stack>
         </Card.Footer>
-        <Card.Footer onClick={getSmartTest}>
+        <Card.Footer
+          onClick={() => {
+            getSmartTest("");
+          }}
+          as={Link}
+        >
           <Stack direction="horizontal" gap={3}>
             <div className="p-2">
               <span className={`fw-bold text-${color}`}>
