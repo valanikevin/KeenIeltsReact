@@ -1,16 +1,16 @@
-.demo-container {
+.demo-container1 {
   width: 100%;
   margin: auto;
 }
 
-.progress-bar {
+.progress-bar1 {
   height: 4px;
   background-color: rgba(5, 114, 206, 0.2);
   width: 100%;
   overflow: hidden;
 }
 
-.progress-bar-value {
+.progress-bar-value1 {
   width: 100%;
   height: 100%;
   background-color: #0052cc;

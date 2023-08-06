@@ -10,9 +10,9 @@ const LoadingBar = () => {
   }
 
   return (
-    <div className="demo-container">
-      <div className="progress-bar">
-        <div className="progress-bar-value"></div>
+    <div className="demo-container1">
+      <div className="progress-bar1">
+        <div className="progress-bar-value1"></div>
       </div>
     </div>
   );

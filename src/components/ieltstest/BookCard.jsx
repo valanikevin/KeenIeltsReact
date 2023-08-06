@@ -37,7 +37,6 @@ const BookCard = ({
     if (user === null) {
       navigate("/login");
     } else {
-      console.log(specific_test);
       var bodyFormData = new FormData();
       bodyFormData.append("specific_test", specific_test);
 
@@ -85,7 +84,6 @@ const BookCard = ({
 
                 {book.tests_with_listening_module.map((test) => (
                   <Card.Footer
-                    as={Link}
                     key={test.slug}
                     onClick={() => getSmartTest(test.slug)}
                   >
@@ -112,7 +110,7 @@ const BookCard = ({
           </Card.Title>
           <Card.Text>{card_description}</Card.Text>
         </Card.Body>
-        <Card.Footer as={Link}>
+        <Card.Footer>
           <Stack direction="horizontal" onClick={handleShow} gap={3}>
             <div className="px-2">
               <span className="text-black">Choose {test_type}</span>
@@ -126,7 +124,6 @@ const BookCard = ({
           onClick={() => {
             getSmartTest("");
           }}
-          as={Link}
         >
           <Stack direction="horizontal" gap={3}>
             <div className="p-2">
