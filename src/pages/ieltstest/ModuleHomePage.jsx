@@ -51,12 +51,13 @@ const ModuleHomePage = () => {
             <Col xs={12} md={6} lg={4} key={book.slug}>
               <BookCard
                 test_type={`${module_slug} test`}
-                module_type={module_slug}
+                module_slug={module_slug}
                 image_url={book.cover}
                 book={book}
                 card_title={book.name}
                 card_description={book.description}
                 color={module_slug}
+                module_data={module_data}
               />
             </Col>
           ))}

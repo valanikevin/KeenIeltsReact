@@ -18,12 +18,13 @@ import AuthContext from "../../context/AuthContext";
 
 const BookCard = ({
   test_type,
-  module_type,
+  module_slug,
   image_url,
   card_title,
   card_description,
   book,
   color,
+  module_data,
 }) => {
   const [expanded, setExpanded] = useState(false);
   const [show, setShow] = useState(false);
@@ -43,7 +44,7 @@ const BookCard = ({
       const response = await api({
         method: "post",
         url:
-          "/ieltstest/find_smart_test/" + module_type + "/" + book.slug + "/",
+          "/ieltstest/find_smart_test/" + module_slug + "/" + book.slug + "/",
         data: bodyFormData,
         headers: { "Content-Type": "multipart/form-data" },
       });
@@ -75,7 +76,7 @@ const BookCard = ({
           <div className="mb-4">
             <Image width={"100%"} className="rounded" src={image_url} />
           </div>
-          {book.tests_with_listening_module && (
+          {book[module_data[module_slug].api_array_variable] && (
             <>
               <Card className="mb-4">
                 <Card.Header className={`bg-${color}`}>
@@ -84,21 +85,23 @@ const BookCard = ({
                   </h4>
                 </Card.Header>
 
-                {book.tests_with_listening_module.map((test) => (
-                  <Card.Footer
-                    key={test.slug}
-                    onClick={() => getSmartTest(test.slug)}
-                  >
-                    <Stack direction="horizontal" gap={3}>
-                      <div className="">
-                        <span className={` text-black`}>{test.name}</span>
-                      </div>
-                      <div className=" ms-auto">
-                        <FiArrowRight size={20} className="text-black" />
-                      </div>
-                    </Stack>
-                  </Card.Footer>
-                ))}
+                {book[module_data[module_slug].api_array_variable].map(
+                  (test) => (
+                    <Card.Footer
+                      key={test.slug}
+                      onClick={() => getSmartTest(test.slug)}
+                    >
+                      <Stack direction="horizontal" gap={3}>
+                        <div className="">
+                          <span className={` text-black`}>{test.name}</span>
+                        </div>
+                        <div className=" ms-auto">
+                          <FiArrowRight size={20} className="text-black" />
+                        </div>
+                      </Stack>
+                    </Card.Footer>
+                  )
+                )}
               </Card>
             </>
           )}
