@@ -1,11 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import {
-  Button,
-  ButtonGroup,
-  Card,
-  Container,
-  ProgressBar,
-} from "react-bootstrap";
+import { Button, ButtonGroup, Form, Stack } from "react-bootstrap";
 import {
   FiFastForward,
   FiPause,
@@ -14,19 +8,23 @@ import {
   FiSkipBack,
   FiSkipForward,
 } from "react-icons/fi";
+import moment from "moment";
 
 const CustomAudioPlayer = ({ src, start_time }) => {
   const audioRef = useRef();
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [isStartReady, setIsStartReady] = useState(false);
+  const [currentDuration, setCurrentDuration] = useState("00:00");
+  const [totalDuration, setTotalDuration] = useState("00:00");
 
   useEffect(() => {
     const interval = setInterval(() => {
       if (audioRef.current && audioRef.current.duration) {
         setProgress(
           (audioRef.current.currentTime / audioRef.current.duration) * 100
+        );
+        setCurrentDuration(
+          moment.utc(audioRef.current.currentTime * 1000).format("mm:ss")
         );
       }
     }, 1000);
@@ -46,11 +44,6 @@ const CustomAudioPlayer = ({ src, start_time }) => {
     setIsPlaying(!isPlaying);
   };
 
-  const playAudio = () => {
-    audioRef.current.play();
-    setIsPlaying(true);
-  };
-
   const handleBackward = () => {
     audioRef.current.currentTime -= 5;
   };
@@ -60,25 +53,44 @@ const CustomAudioPlayer = ({ src, start_time }) => {
   };
 
   const handleLoadedData = () => {
-    isStartReady && setDuration(audioRef.current.duration);
+    setTotalDuration(
+      moment.utc(audioRef.current.duration * 1000).format("mm:ss")
+    );
   };
 
   const handlePlayFromStart = () => {
     audioRef.current.currentTime = 0;
-    if (!isPlaying) {
-      audioRef.current.play();
-      setIsPlaying(true);
-    }
+    playAudio();
   };
 
   const handleSkipToEnd = () => {
     audioRef.current.currentTime = audioRef.current.duration;
   };
 
+  const handleProgressChange = (e) => {
+    audioRef.current.currentTime =
+      (e.target.value / 100) * audioRef.current.duration;
+    setProgress(e.target.value);
+  };
+
   return (
-    <div className="bg-white p-5">
+    <div className="bg-white px-5 py-3">
       <audio ref={audioRef} src={src} onLoadedData={handleLoadedData} />
-      <ProgressBar now={progress} className="mb-3" style={{ height: "5px" }} />
+      <div className="d-flex justify-content-between align-items-center">
+        <Form.Range
+          value={progress}
+          onChange={handleProgressChange}
+          style={{ flexGrow: 1 }}
+        />
+      </div>
+      <Stack direction="horizontal" className="mb-2">
+        <div>
+          <span>{currentDuration}</span>
+        </div>
+        <div className="ms-auto">
+          <span>{totalDuration}</span>
+        </div>
+      </Stack>
       <div className="text-center">
         <ButtonGroup>
           <Button onClick={handlePlayFromStart} className="btn-light">
