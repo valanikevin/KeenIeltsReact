@@ -3,7 +3,11 @@ import { Row, Col, Card, Stack, Button, Badge } from "react-bootstrap";
 import parse from "html-react-parser";
 import { FiPlayCircle } from "react-icons/fi";
 
-const ListeningSection = ({ section, setCurrentSection, handleChange }) => {
+const ListeningSection = ({
+  section,
+  setCurrentSection = null,
+  handleChange = null,
+}) => {
   function handleSetCurrentSection() {
     setCurrentSection(section);
   }
@@ -16,7 +20,7 @@ const ListeningSection = ({ section, setCurrentSection, handleChange }) => {
   let counter = 0;
 
   return (
-    <Col className="my-2" sm={12}>
+    <Col className="" sm={12}>
       <Card>
         <Card.Header>
           <Stack direction="horizontal">
@@ -42,46 +46,48 @@ const ListeningSection = ({ section, setCurrentSection, handleChange }) => {
           </Stack>
         </Card.Header>
         <Card.Body>
-          {showNotes && (
-            <textarea
-              className="form-control mb-2"
-              placeholder="Write your notes here."
-              rows={5}
-            />
-          )}
-          <span className="text-black">
-            {parse(section.questions, {
-              replace: (domNode) => {
-                if (
-                  domNode.name === "input" ||
-                  domNode.name === "textarea" ||
-                  domNode.name === "select"
-                ) {
-                  counter += 1;
-                  let queName = domNode.attribs.name;
-                  queName = queName.split("-");
-                  return (
-                    <span id={`que-${queName[1]}`}>
-                      <Badge
-                        className="fw-bold"
-                        style={{ fontSize: "16px" }}
-                        bg="listening"
-                      >
-                        {queName[1]}
-                      </Badge>
-                      {React.createElement(domNode.name, {
-                        ...domNode.attribs,
-                        className: `my-2 mx-1 ${
-                          domNode.attribs.className || ""
-                        }`,
-                        required: false,
-                        onChange: handleChange,
-                      })}
-                    </span>
-                  );
-                }
-              },
-            })}
+          <span>
+            {showNotes && (
+              <textarea
+                className="form-control mb-2"
+                placeholder="Write your notes here."
+                rows={5}
+              />
+            )}
+            <span className="text-black">
+              {parse(section.questions, {
+                replace: (domNode) => {
+                  if (
+                    domNode.name === "input" ||
+                    domNode.name === "textarea" ||
+                    domNode.name === "select"
+                  ) {
+                    counter += 1;
+                    let queName = domNode.attribs.name;
+                    queName = queName.split("-");
+                    return (
+                      <span id={`que-${queName[1]}`}>
+                        <Badge
+                          className="fw-bold"
+                          style={{ fontSize: "16px" }}
+                          bg="listening"
+                        >
+                          {queName[1]}
+                        </Badge>
+                        {React.createElement(domNode.name, {
+                          ...domNode.attribs,
+                          className: `my-2 mx-1 ${
+                            domNode.attribs.className || ""
+                          }`,
+                          required: false,
+                          onChange: handleChange,
+                        })}
+                      </span>
+                    );
+                  }
+                },
+              })}
+            </span>
           </span>
         </Card.Body>
       </Card>

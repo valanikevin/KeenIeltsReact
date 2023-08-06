@@ -33,10 +33,17 @@ const AttemptListeningModulePage = () => {
   const [showModal, setShowModal] = useState(false);
   const handleShowModal = () => setShowModal(true);
   const handleCloseModal = () => setShowModal(false);
+  const [currentAudioTime, setCurrentAudioTime] = useState(null);
 
   useEffect(() => {
     getModule();
   }, [setModule]);
+
+  useEffect(() => {
+    if (currentSection !== null) {
+      setCurrentAudioTime(currentSection.audio_start_time);
+    }
+  }, [currentSection]);
 
   async function getModule() {
     const response = await api.post(
@@ -159,15 +166,12 @@ const AttemptListeningModulePage = () => {
           } mx-0 border-top border-bottom`}
         >
           <Col sm={12} className="p-0 bg-white">
-            {/* <ReactAudioPlayer
-            audio_title={currentSection.section}
-            audio_url={currentSection.audio}
-            onEndedHandle={onSectionAudioEndedHandle}
-          /> */}
-            <CustomAudioPlayer
-              src={module.audio}
-              currentSection={currentSection}
-            />
+            <Container>
+              <CustomAudioPlayer
+                src={module.audio}
+                start_time={currentAudioTime}
+              />
+            </Container>
           </Col>
           <Col sm={12} className="bg-white border-top p-0">
             <CountdownTimer
@@ -189,12 +193,13 @@ const AttemptListeningModulePage = () => {
                   <Row>
                     {module.sections.length > 0 &&
                       module.sections.map((section) => (
-                        <ListeningSection
-                          key={section.id}
-                          section={section}
-                          setCurrentSection={setCurrentSection}
-                          handleChange={handleChange}
-                        />
+                        <div key={section.id} className="my-2">
+                          <ListeningSection
+                            section={section}
+                            setCurrentSection={setCurrentSection}
+                            handleChange={handleChange}
+                          />
+                        </div>
                       ))}
                   </Row>
                 </Col>

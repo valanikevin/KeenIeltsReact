@@ -4,11 +4,14 @@ import { API_URLS } from "../../utils/urls";
 import { useParams } from "react-router";
 import { Accordion, Card, Col, Container, Row, Table } from "react-bootstrap";
 import PageHeadingBriefinfo from "../../components/layout/PageHeadingBriefInfo";
+import ListeningSection from "../../components/ieltstest/listening/ListeningSection";
+import CustomAudioPlayer from "../../components/elements/audioplayer/CustomAudioPlayer";
 
 const ListeningResultPage = () => {
   const api = useAxios();
   const { module_slug, attempt_slug } = useParams();
   const [attempt, setAttempt] = useState(null);
+  const [module, setModule] = useState(null);
 
   async function getAttempt() {
     const response = await api.post(
@@ -21,8 +24,18 @@ const ListeningResultPage = () => {
     }
   }
 
+  async function getModule() {
+    const response = await api.post(
+      API_URLS.getListeningModule + module_slug + "/"
+    );
+    if (response.status === 200) {
+      setModule(response.data);
+    }
+  }
+
   useEffect(() => {
     getAttempt();
+    getModule();
   }, []);
 
   if (!attempt) {
@@ -96,8 +109,16 @@ const ListeningResultPage = () => {
       <div className="my-4">
         <Container>
           <Row>
-            <Col sm={12} md={6}>
-                
+            <Col sm={12} md={6} className="mb-3">
+              <Row>
+                <Col sm={12} className="mb-3">
+                  <CustomAudioPlayer src={module.audio} />
+                </Col>
+                {module.sections.length > 0 &&
+                  module.sections.map((section) => (
+                    <ListeningSection key={section.id} section={section} />
+                  ))}
+              </Row>
             </Col>
             <Col sm={12} md={6}>
               <Accordion defaultActiveKey="0">
