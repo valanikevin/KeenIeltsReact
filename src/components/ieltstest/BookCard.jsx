@@ -76,7 +76,7 @@ const BookCard = ({
           <div className="mb-4">
             <Image width={"100%"} className="rounded" src={image_url} />
           </div>
-          {book[module_data[module_slug].api_array_variable] && (
+          {book["tests"] && (
             <>
               <Card className="mb-4">
                 <Card.Header className={`bg-${color}`}>
@@ -85,23 +85,21 @@ const BookCard = ({
                   </h4>
                 </Card.Header>
 
-                {book[module_data[module_slug].api_array_variable].map(
-                  (test) => (
-                    <Card.Footer
-                      key={test.slug}
-                      onClick={() => getSmartTest(test.slug)}
-                    >
-                      <Stack direction="horizontal" gap={3}>
-                        <div className="">
-                          <span className={` text-black`}>{test.name}</span>
-                        </div>
-                        <div className=" ms-auto">
-                          <FiArrowRight size={20} className="text-black" />
-                        </div>
-                      </Stack>
-                    </Card.Footer>
-                  )
-                )}
+                {book["tests"].map((test) => (
+                  <Card.Footer
+                    key={test.slug}
+                    onClick={() => getSmartTest(test.slug)}
+                  >
+                    <Stack direction="horizontal" gap={3}>
+                      <div className="">
+                        <span className={` text-black`}>{test.name}</span>
+                      </div>
+                      <div className=" ms-auto">
+                        <FiArrowRight size={20} className="text-black" />
+                      </div>
+                    </Stack>
+                  </Card.Footer>
+                ))}
               </Card>
             </>
           )}

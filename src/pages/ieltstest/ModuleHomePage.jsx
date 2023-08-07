@@ -16,28 +16,36 @@ const ModuleHomePage = () => {
       page_description:
         "Improve your English listening skills by practicing with mock tests that closely resemble the actual IELTS listening tests.",
       api_url: "/ieltstest/listening/",
-      api_array_variable: "tests_with_listening_module",
+    },
+    reading: {
+      page_title: "Reading Tests",
+      page_description:
+        "Improve your English reading skills by practicing with mock tests that closely resemble the actual IELTS listening tests.",
+      api_url: "/ieltstest/reading/",
     },
   };
 
   useEffect(() => {
     getBooks();
-  }, []);
+  }, [module_slug]);
 
   const getBooks = async () => {
     try {
       const response = await api.get(module_data[module_slug].api_url);
       if (response.status === 200) {
         // Filter out books that have tests_with_listening_module
-        const books = response.data.books.filter(
-          (book) => book[module_data[module_slug].api_array_variable].length > 0
-        );
-        setBooks(books);
+        // console.log(response.data);
+        // const books = response.data.filter((book) => book["tests"].length > 0);
+        setBooks(response.data);
       }
     } catch (error) {
+      setBooks([]);
       console.error("Error fetching books:", error);
     }
   };
+  if (!books) {
+    return null;
+  }
   return (
     <div>
       <PageHeadingBriefinfo
