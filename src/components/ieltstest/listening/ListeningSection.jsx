@@ -101,6 +101,7 @@ const ListeningSection = ({
                             }`}
                             onChange={handleChange}
                             disabled={!!user_answers}
+                            required={false}
                             checked={
                               user_answers
                                 ? user_answers["que-" + queName[1]][
