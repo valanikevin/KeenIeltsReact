@@ -7,6 +7,7 @@ import {
   FiXCircle,
   FiXSquare,
 } from "react-icons/fi";
+import QuestionBadge from "../QuestionBadge";
 
 const ListeningSection = ({
   section,
@@ -73,36 +74,22 @@ const ListeningSection = ({
 
                     return (
                       <span id={`que-${queName[1]}`}>
-                        <Badge
-                          className="fw-bold"
-                          style={{ fontSize: "16px" }}
-                          bg={
-                            user_answers &&
-                            user_answers["que-" + queName[1]][
-                              "is_user_answer_correct"
-                            ]
-                              ? "success"
-                              : user_answers
-                              ? "danger"
-                              : "listening"
-                          }
-                        >
-                          {queName[1]}
-                          {user_answers &&
-                            (user_answers["que-" + queName[1]][
-                              "is_user_answer_correct"
-                            ] ? (
-                              <FiCheckCircle
-                                size={18}
-                                style={{ marginLeft: "5px" }}
-                              />
-                            ) : (
-                              <FiXCircle
-                                size={18}
-                                style={{ marginLeft: "5px" }}
-                              />
-                            ))}
-                        </Badge>
+                        {user_answers &&
+                          domNode.attribs.type === "radio" &&
+                          user_answers["que-" + queName[1]]["user_answer"] ===
+                            domNode.attribs.value && (
+                            <QuestionBadge
+                              user_answers={user_answers}
+                              queName={queName}
+                            />
+                          )}
+
+                        {domNode.attribs.type !== "radio" && (
+                          <QuestionBadge
+                            user_answers={user_answers}
+                            queName={queName}
+                          />
+                        )}
 
                         {domNode.name === "input" &&
                         domNode.attribs.type === "radio" ? (
