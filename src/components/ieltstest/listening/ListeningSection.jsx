@@ -69,28 +69,29 @@ const ListeningSection = ({
                     domNode.name === "select"
                   ) {
                     counter += 1;
-                    let queName = domNode.attribs.name;
-                    queName = queName.split("-");
+                    let queName = domNode.attribs.name.split("-");
+
                     return (
                       <span id={`que-${queName[1]}`}>
                         <Badge
                           className="fw-bold"
                           style={{ fontSize: "16px" }}
                           bg={
-                            user_answers
-                              ? user_answers["que-" + queName[1]][
-                                  "is_user_answer_correct"
-                                ] === true
-                                ? "success"
-                                : "danger"
+                            user_answers &&
+                            user_answers["que-" + queName[1]][
+                              "is_user_answer_correct"
+                            ]
+                              ? "success"
+                              : user_answers
+                              ? "danger"
                               : "listening"
                           }
                         >
                           {queName[1]}
-                          {user_answers ? (
-                            user_answers["que-" + queName[1]][
+                          {user_answers &&
+                            (user_answers["que-" + queName[1]][
                               "is_user_answer_correct"
-                            ] === true ? (
+                            ] ? (
                               <FiCheckCircle
                                 size={18}
                                 style={{ marginLeft: "5px" }}
@@ -100,24 +101,70 @@ const ListeningSection = ({
                                 size={18}
                                 style={{ marginLeft: "5px" }}
                               />
-                            )
-                          ) : (
-                            ""
-                          )}
+                            ))}
                         </Badge>
-                        {React.createElement(domNode.name, {
-                          ...domNode.attribs,
-                          className: `my-2 mx-1 ${
-                            domNode.attribs.className || ""
-                          }`,
-                          required: false,
-                          onChange: handleChange,
-                          disabled: user_answers ? true : false,
-                          ...(user_answers && {
-                            value:
-                              user_answers["que-" + queName[1]]["user_answer"],
-                          }),
-                        })}
+
+                        {domNode.name === "input" &&
+                        domNode.attribs.type === "radio" ? (
+                          <input
+                            type="radio"
+                            {...domNode.attribs}
+                            className={`my-2 mx-1 ${
+                              domNode.attribs.className || ""
+                            }`}
+                            onChange={handleChange}
+                            disabled={!!user_answers}
+                            checked={
+                              user_answers
+                                ? user_answers["que-" + queName[1]][
+                                    "user_answer"
+                                  ] === domNode.attribs.value
+                                : undefined
+                            }
+                          />
+                        ) : domNode.name === "select" ? (
+                          <select
+                            {...domNode.attribs}
+                            className={`my-2 mx-1 ${
+                              domNode.attribs.className || ""
+                            }`}
+                            required={false}
+                            onChange={handleChange}
+                            disabled={!!user_answers}
+                            value={
+                              user_answers
+                                ? user_answers["que-" + queName[1]][
+                                    "user_answer"
+                                  ]
+                                : undefined
+                            }
+                          >
+                            {Array.from(domNode.children || []).map(
+                              (optionNode, idx) => (
+                                <option
+                                  key={idx}
+                                  value={optionNode.attribs.value}
+                                  {...optionNode.attribs}
+                                >
+                                  {optionNode.children[0].data}
+                                </option>
+                              )
+                            )}
+                          </select>
+                        ) : (
+                          React.createElement(domNode.name, {
+                            ...domNode.attribs,
+                            className: `my-2 mx-1 ${
+                              domNode.attribs.className || ""
+                            }`,
+                            required: false,
+                            onChange: handleChange,
+                            disabled: !!user_answers,
+                            value: user_answers
+                              ? user_answers["que-" + queName[1]]["user_answer"]
+                              : undefined,
+                          })
+                        )}
                       </span>
                     );
                   }

@@ -34,9 +34,8 @@ const ModuleHomePage = () => {
       const response = await api.get(module_data[module_slug].api_url);
       if (response.status === 200) {
         // Filter out books that have tests_with_listening_module
-        // console.log(response.data);
-        // const books = response.data.filter((book) => book["tests"].length > 0);
-        setBooks(response.data);
+        const books = response.data.filter((book) => book["tests"].length > 0);
+        setBooks(books);
       }
     } catch (error) {
       setBooks([]);
