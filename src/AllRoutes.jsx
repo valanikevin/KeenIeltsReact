@@ -10,6 +10,7 @@ import TestHomePage from "./pages/ieltstest/TestHomePage";
 import AttemptListeningModulePage from "./pages/ieltstest/AttemptListeningModulePage";
 import ListeningResultPage from "./pages/ieltstest/ListeningResultPage";
 import ModuleHomePage from "./pages/ieltstest/ModuleHomePage";
+import AttemptReadingModulePage from "./pages/ieltstest/AttemptReadingModulePage";
 
 const AllRoutes = () => {
   return (
@@ -27,6 +28,7 @@ const AllRoutes = () => {
         <Route index element={<TestHomePage />} />
         <Route path={":module_slug"} element={<ModuleHomePage />} />
         <Route path="attempt" element={<PrivateRoutes />}>
+          {/* Listening Attempt */}
           <Route
             path="listening/:module_slug/:attempt_slug"
             element={<AttemptListeningModulePage />}
@@ -34,6 +36,11 @@ const AllRoutes = () => {
           <Route
             path="listening/:module_slug/:attempt_slug/get_result"
             element={<ListeningResultPage />}
+          />
+          {/* Reading Attempt */}
+          <Route
+            path="reading/:module_slug/:attempt_slug"
+            element={<AttemptReadingModulePage />}
           />
         </Route>
       </Route>

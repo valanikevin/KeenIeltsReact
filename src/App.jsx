@@ -35,7 +35,7 @@ function App() {
         {/* Website Layout */}
         <AppNavbar />
         <LoadingBar />
-        <div className=" app">
+        <div className="app">
           <AllRoutes />
         </div>
 
