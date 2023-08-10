@@ -13,6 +13,7 @@ import {
   FiChevronLeft,
   FiChevronRight,
 } from "react-icons/fi";
+import CountdownTimer from "../../elements/CountdownTimer";
 
 const ReadingFooter = ({ isExpanded, toggleExpanded, deviceType }) => {
   return (
@@ -40,17 +41,17 @@ const ReadingFooter = ({ isExpanded, toggleExpanded, deviceType }) => {
         </Button>
       </ButtonGroup> */}
       <Container>
-        <Stack
-          direction="horizontal"
-          className="mt-1 pb-1 border-bottom text-black"
-        >
-          <div>
-            <span style={{ fontSize: "24px" }}>4/10</span>
-          </div>
-          <div className="ms-auto">
-            <span style={{ fontSize: "24px" }}>34:50</span>
-          </div>
-          <div className="ms-auto">
+        <Row className="mt-1 pb-1 border-bottom text-black">
+          <Col className="col-4 mt-1">
+            <div>
+              <span style={{ fontSize: "20px" }}>4/10</span>
+            </div>
+          </Col>
+          <Col className="col-4 text-center mt-1">
+            {" "}
+            <CountdownTimer initialMinutes={40} initialSeconds={0} />
+          </Col>
+          <Col className="col-4" style={{ textAlign: "right" }}>
             {deviceType !== "mobile" && (
               <>
                 <Button variant="outline-primary" className="mx-1">
@@ -67,9 +68,9 @@ const ReadingFooter = ({ isExpanded, toggleExpanded, deviceType }) => {
             >
               {isExpanded ? <FiArrowDown size={20} /> : <FiArrowUp size={20} />}
             </Button>
-          </div>
-        </Stack>
-        <Row>
+          </Col>
+        </Row>
+        <Row className="my-3">
           <Col lg={"4"}>
             <h2>Kevin</h2>
           </Col>
