@@ -8,6 +8,7 @@ import ReadingFooter from "../../components/ieltstest/reading/ReadingFooter";
 
 const AttemptReadingModulePage = () => {
   const [deviceType, setDeviceType] = useState("desktop");
+  const [isFooterExpanded, setFooterExpanded] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -67,7 +68,11 @@ const AttemptReadingModulePage = () => {
           </Col>
         </Row>
       </Container>
-      <ReadingFooter />
+      <ReadingFooter
+        isExpanded={isFooterExpanded}
+        toggleExpanded={setFooterExpanded}
+        deviceType={deviceType}
+      />
     </>
   );
 };
