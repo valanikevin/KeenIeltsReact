@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import SplitPane from "react-split-pane";
+import { Navbar, Card, Container, Row, Col } from "react-bootstrap";
 import "./ReactSplitPane.css";
-import { Card, Container } from "react-bootstrap";
+import { ReadingNavBar } from "../../components/ieltstest/reading/ReadingNavBar";
+import { FiActivity } from "react-icons/fi";
+import ReadingFooter from "../../components/ieltstest/reading/ReadingFooter";
 
 const AttemptReadingModulePage = () => {
   const [deviceType, setDeviceType] = useState("desktop");
@@ -15,59 +18,57 @@ const AttemptReadingModulePage = () => {
       }
     };
 
-    // Call once to set initial state
     handleResize();
 
-    // Attach event listener for future window resize events
     window.addEventListener("resize", handleResize);
 
-    // Clean up event listener on component unmount
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []); // Empty dependency array ensures this effect runs once on mount and once on unmount
+  }, []);
 
   return (
-    <div style={{ height: "90vh", width: "98vw" }}>
-      <SplitPane
-        split={deviceType === "mobile" ? "horizontal" : "vertical"}
-        minSize={100}
-        defaultSize={100}
-      >
-        <div className="simulationDiv p-2" style={{ overflow: "auto" }}>
-          <Card>
-            <Card.Body>
-              <h1>Kevin </h1>
-              <h1>Kevin </h1>
-              <h1>Kevin </h1>
-              <h1>Kevin </h1>
-              <h1>Kevin </h1>
-              <h1>Kevin </h1>
-              <h1>Kevin </h1>
-              <h1>Kevin </h1>
-              <h1>Kevin </h1>
-              <h1>Kevin </h1>
-            </Card.Body>
-          </Card>
-        </div>
-        <div className="statisticsDiv p-2" style={{ overflow: "auto" }}>
-          <Card>
-            <Card.Body>
-              <h1>Kevin </h1>
-              <h1>Kevin </h1>
-              <h1>Kevin </h1>
-              <h1>Kevin </h1>
-              <h1>Kevin </h1>
-              <h1>Kevin </h1>
-              <h1>Kevin </h1>
-              <h1>Kevin </h1>
-              <h1>Kevin </h1>
-              <h1>Kevin </h1>
-            </Card.Body>
-          </Card>
-        </div>
-      </SplitPane>
-    </div>
+    <>
+      <ReadingNavBar />
+
+      <Container fluid style={{ paddingTop: "50px", paddingBottom: "50px" }}>
+        <Row style={{ height: "calc(100vh - 100px)" }}>
+          {" "}
+          {/* 100% viewport height - 50px (header) - 50px (footer) */}
+          <Col sm={12}>
+            <div style={{ height: "100%", width: "100%" }}>
+              <SplitPane
+                split={deviceType === "mobile" ? "horizontal" : "vertical"}
+                minSize={100}
+                defaultSize={100}
+              >
+                <div
+                  className="simulationDiv py-2 px-1"
+                  style={{ overflow: "auto" }}
+                >
+                  <Card className="h-100">
+                    <Card.Body>
+                      {/* Place Reading Passage content here */}
+                    </Card.Body>
+                  </Card>
+                </div>
+                <div
+                  className="statisticsDiv py-2 px-1"
+                  style={{ overflow: "auto" }}
+                >
+                  <Card className="h-100">
+                    <Card.Body>
+                      {/* Place Questions/Answer content here */}
+                    </Card.Body>
+                  </Card>
+                </div>
+              </SplitPane>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+      <ReadingFooter />
+    </>
   );
 };
 

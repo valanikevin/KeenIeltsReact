@@ -7,3 +7,10 @@
 .main {
   flex-grow: 1;
 }
+
+.fixed-footer {
+  position: fixed;
+  height: 100px;
+  bottom: 0;
+  width: 100%;
+}

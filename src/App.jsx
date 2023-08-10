@@ -1,10 +1,7 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
-
-import PrivateRoutes from "./utils/PrivateRoutes";
+import { useLocation } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-import { Container } from "react-bootstrap";
-import { createContext, useState } from "react";
+import { createContext } from "react";
 import NotificationState from "./context/layout/NotificationState";
 import AppNavbar from "./components/layout/navbar/AppNavbar";
 import LoadingBar from "./components/layout/LoadingBar/LoadingBar";
@@ -22,6 +19,13 @@ function App() {
       </Prev>
     ));
 
+  const location = useLocation();
+
+  // Define a pattern that matches the route where you don't want the Navbar and Footer
+  const hideLayoutForPattern = /^\/ieltstest\/attempt\/reading\/.*/;
+
+  const hideNavFooter = hideLayoutForPattern.test(location.pathname);
+
   const GlobalProvider = compose([
     NotificationState,
     LoadingState,
@@ -33,13 +37,13 @@ function App() {
       <GlobalProvider>
         <ScrollToTop />
         {/* Website Layout */}
-        <AppNavbar />
+        {!hideNavFooter && <AppNavbar />}
         <LoadingBar />
         <div className="app">
           <AllRoutes />
         </div>
 
-        <Footer />
+        {!hideNavFooter && <Footer />}
         {/* Website Layout Ends */}
       </GlobalProvider>
     </>
