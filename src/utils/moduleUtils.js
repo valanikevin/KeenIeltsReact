@@ -18,11 +18,12 @@ export function getFormData(
         completedQuestions++;
       }
     }
+
     setCurrentFormData(data); // Update the state
     setQuestionData({
       completed_questions: completedQuestions,
       total_questions: module.total_questions,
     });
-    return formData;
+    return data;
   }
 }

@@ -12,7 +12,11 @@ import Logo from "../../../assets/images/brand/logo/logo.svg";
 import { Link } from "react-router-dom";
 import { FiChevronLeft } from "react-icons/fi";
 
-export const ReadingNavBar = ({ module, currentSection }) => {
+export const ReadingNavBar = ({
+  module,
+  currentSection,
+  updateCurrentSection,
+}) => {
   if (!module) {
     return null;
   }
@@ -31,9 +35,10 @@ export const ReadingNavBar = ({ module, currentSection }) => {
         >
           {module.sections.map((section) => (
             <Dropdown.Item
-              eventKey="1"
+              eventKey={section.id}
               key={section.id}
               active={section.id === currentSection.id}
+              onClick={() => updateCurrentSection(section.id)}
             >
               {section.section}
             </Dropdown.Item>

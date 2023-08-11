@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import SplitPane from "react-split-pane";
 import { Navbar, Card, Container, Row, Col } from "react-bootstrap";
 import "./ReactSplitPane.css";
@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { API_URLS } from "../../utils/urls";
 import ReadingSection from "../../components/ieltstest/reading/ReadingSection";
 import ReadingPassage from "../../components/ieltstest/reading/ReadingPassage";
+import { getFormData } from "../../utils/moduleUtils";
 
 const AttemptReadingModulePage = () => {
   const [deviceType, setDeviceType] = useState("desktop");
@@ -16,6 +17,9 @@ const AttemptReadingModulePage = () => {
   const { module_slug } = useParams();
   const [module, setModule] = useState(null);
   const [currentSection, setCurrentSection] = useState(null);
+  const [currentFormData, setCurrentFormData] = useState({});
+  const [formData, setFormData] = useState({});
+  const formRef = useRef(null);
 
   const api = useAxios();
 
@@ -27,6 +31,11 @@ const AttemptReadingModulePage = () => {
       setModule(response.data);
       setCurrentSection(response.data.sections[0]);
     }
+  }
+
+  function updateCurrentSection(id) {
+    const newSection = module.sections.find((section) => section.id === id);
+    setCurrentSection(newSection);
   }
 
   useEffect(() => {
@@ -50,10 +59,19 @@ const AttemptReadingModulePage = () => {
     };
   }, []);
 
+  useEffect(() => {
+    getFormDataLocal();
+  }, [module]);
+
+  function getFormDataLocal() {
+    return getFormData(formRef, module, setCurrentFormData, setQuestionData);
+  }
+
   const paneStyle = {
     overflow: "auto",
     height: `${deviceType === "mobile" ? "65vh" : "95vh"}`,
   };
+
   const paneWithBackgroundColor = {
     ...paneStyle,
     backgroundColor: "#F5F5DC",
@@ -66,9 +84,40 @@ const AttemptReadingModulePage = () => {
     overflow: "auto", // Prevent scrollbars on the main layout
   };
 
+  const [questionData, setQuestionData] = useState({
+    completed_questions: 0,
+    total_questions: 0,
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    endTest();
+  };
+
+  const handleChange = (event) => {
+    const formData = getFormDataLocal();
+    const sectionId = currentSection.id;
+    setFormData({
+      ...formData,
+      [sectionId]: formData,
+    });
+    console.log({
+      ...formData,
+      [sectionId]: formData,
+    });
+  };
+
+  if (!module) {
+    return null;
+  }
+
   return (
     <>
-      <ReadingNavBar module={module} currentSection={currentSection} />
+      <ReadingNavBar
+        module={module}
+        currentSection={currentSection}
+        updateCurrentSection={updateCurrentSection}
+      />
       <div style={containerStyle} className="hide-scrollbar">
         <Row style={{ height: "100%" }}>
           <Col sm={12}>
@@ -84,7 +133,12 @@ const AttemptReadingModulePage = () => {
                   <ReadingPassage section={currentSection} />
                 </div>
                 <div className="statisticsDiv p-3 bg-white" style={paneStyle}>
-                  <ReadingSection section={currentSection} />
+                  <ReadingSection
+                    section={currentSection}
+                    handleChange={handleChange}
+                    handleSubmit={handleSubmit}
+                    formRef={formRef}
+                  />
                 </div>
               </SplitPane>
             </div>
@@ -95,6 +149,9 @@ const AttemptReadingModulePage = () => {
         isExpanded={isFooterExpanded}
         toggleExpanded={setFooterExpanded}
         deviceType={deviceType}
+        module={module}
+        currentFormData={currentFormData}
+        updateCurrentSection={updateCurrentSection}
       />
     </>
   );

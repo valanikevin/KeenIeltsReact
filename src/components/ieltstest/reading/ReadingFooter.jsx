@@ -6,6 +6,7 @@ import {
   Col,
   Stack,
   Container,
+  Card,
 } from "react-bootstrap";
 import {
   FiArrowUp,
@@ -14,8 +15,16 @@ import {
   FiChevronRight,
 } from "react-icons/fi";
 import CountdownTimer from "../../elements/CountdownTimer";
+import QuestionPallete from "../QuestionPallete";
 
-const ReadingFooter = ({ isExpanded, toggleExpanded, deviceType }) => {
+const ReadingFooter = ({
+  isExpanded,
+  toggleExpanded,
+  deviceType,
+  module,
+  currentFormData,
+ 
+}) => {
   return (
     <div
       className="fixed-footer border-top"
@@ -29,17 +38,7 @@ const ReadingFooter = ({ isExpanded, toggleExpanded, deviceType }) => {
         zIndex: "999",
       }}
     >
-      {/* <ButtonGroup size="sm">
-        <Button className="px-1">
-          <FiChevronLeft size={20} />
-        </Button>
-        <Button disabled variant="outline-primary" className="text-black">
-          Section 1
-        </Button>
-        <Button className="px-1">
-          <FiChevronRight size={20} />
-        </Button>
-      </ButtonGroup> */}
+
       <Container>
         <Row className="mt-1 pb-1 border-bottom text-black">
           <Col className="col-4 mt-1">
@@ -70,9 +69,19 @@ const ReadingFooter = ({ isExpanded, toggleExpanded, deviceType }) => {
             </Button>
           </Col>
         </Row>
-        <Row className="my-3">
+        <Row className="my-3" style={{ overflow: "auto", maxHeight: "200px" }}>
           <Col lg={"4"}>
-            <h2>Kevin</h2>
+            <Card className="shadow-0 border">
+              <Card.Header>
+                <span className=" fw-bold text-black">Question Pallete</span>
+              </Card.Header>
+              <Card.Body>
+                <QuestionPallete
+                  module={module}
+                  currentFormData={currentFormData}
+                />
+              </Card.Body>
+            </Card>
           </Col>
           <Col lg={"4"}>
             <h2>Kevin</h2>
