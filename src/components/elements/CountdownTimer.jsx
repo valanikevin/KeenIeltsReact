@@ -41,11 +41,11 @@ const CountdownTimer = ({
   return (
     <span>
       {minutes === 0 && seconds === 0 ? (
-        <Badge bg="danger" style={{ fontSize: "20px" }} className="my-2">
+        <Badge bg="danger" style={{ fontSize: "20px" }} className="">
           Time's Up
         </Badge>
       ) : minutes === 0 && seconds <= 60 ? (
-        <Badge bg="danger" style={{ fontSize: "20px" }} className="m-2">
+        <Badge bg="danger" style={{ fontSize: "20px" }} className="">
           {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
         </Badge>
       ) : (
