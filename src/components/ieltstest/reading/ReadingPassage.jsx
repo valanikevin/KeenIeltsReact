@@ -38,7 +38,7 @@ const ReadingPassage = ({ section }) => {
 
   return (
     <div
-      className="text-black reading-passage"
+      className="text-black reading-passage "
       onMouseUp={toggleHighlight}
       onTouchEnd={toggleHighlight}
     >

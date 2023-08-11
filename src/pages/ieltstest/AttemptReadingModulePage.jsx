@@ -69,7 +69,7 @@ const AttemptReadingModulePage = () => {
   return (
     <>
       <ReadingNavBar />
-      <div style={containerStyle}>
+      <div style={containerStyle} className="hide-scrollbar">
         <Row style={{ height: "100%" }}>
           <Col sm={12}>
             <div style={{ width: "100%" }}>
