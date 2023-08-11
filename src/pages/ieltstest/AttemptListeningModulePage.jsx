@@ -21,6 +21,7 @@ import BookInfo from "../../components/ieltstest/listening/BookInfo";
 import CustomAudioPlayer from "../../components/elements/audioplayer/CustomAudioPlayer";
 import { API_URLS } from "../../utils/urls";
 import { FiCheckCircle } from "react-icons/fi";
+import { getFormData } from "../../utils/moduleUtils";
 
 const AttemptListeningModulePage = () => {
   const { module_slug, attempt_slug } = useParams();
@@ -91,44 +92,22 @@ const AttemptListeningModulePage = () => {
     }
   }
 
-  function getFormData() {
-    if (formRef.current) {
-      const formData = new FormData(formRef.current);
-
-      let data = {};
-      let counter = 0;
-      let completedQuestions = 0;
-      for (let [key, value] of formData.entries()) {
-        // console.log(key + ": " + value);
-        data[key] = value; // Construct the data object
-        counter++;
-        if (value !== "") {
-          completedQuestions++;
-        }
-      }
-
-      setCurrentFormData(data); // Update the state
-      setQuestionData({
-        completed_questions: completedQuestions,
-        total_questions: counter,
-      });
-      return formData;
-    }
-  }
-
   useEffect(() => {
-    getFormData();
+    getFormDataLocal();
   }, [module]);
 
+  function getFormDataLocal() {
+    return getFormData(formRef, module, setCurrentFormData, setQuestionData);
+  }
   const handleChange = (event) => {
-    const formData = getFormData();
+    const formData = getFormDataLocal();
   };
 
   function endTest() {
     handleShowModal();
   }
   function handleConfirmEndTest() {
-    getFormData();
+    getFormDataLocal();
     sendAttemptUpdate("Completed");
     navigate(
       `/ieltstest/attempt/listening/${module_slug}/${attempt_slug}/get_result`

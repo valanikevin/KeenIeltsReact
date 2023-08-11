@@ -12,7 +12,10 @@ import Logo from "../../../assets/images/brand/logo/logo.svg";
 import { Link } from "react-router-dom";
 import { FiChevronLeft } from "react-icons/fi";
 
-export const ReadingNavBar = () => {
+export const ReadingNavBar = ({ module, currentSection }) => {
+  if (!module) {
+    return null;
+  }
   return (
     <Navbar bg="white" fixed="top" style={{ height: "50px" }}>
       <Navbar.Brand as={Link} to="/">
@@ -20,18 +23,24 @@ export const ReadingNavBar = () => {
       </Navbar.Brand>
       <ButtonGroup size="sm" className="ms-auto mx-2">
         <DropdownButton
-          title="Section 1"
+          title={`${currentSection.section}`}
           id="bg-nested-dropdown"
           size="sm"
           className="text-white"
           variant="outline-primary"
         >
-          <Dropdown.Item eventKey="1">Section 1</Dropdown.Item>
-          <Dropdown.Item eventKey="2">Section 2</Dropdown.Item>
-          <Dropdown.Item eventKey="2">Section 3</Dropdown.Item>
-          <Dropdown.Item eventKey="2">Section 4</Dropdown.Item>
+          {module.sections.map((section) => (
+            <Dropdown.Item
+              eventKey="1"
+              key={section.id}
+              active={section.id === currentSection.id}
+            >
+              {section.section}
+            </Dropdown.Item>
+          ))}
         </DropdownButton>
       </ButtonGroup>
+
       <DropdownButton
         title="Menu"
         id="bg-nested-dropdown"
