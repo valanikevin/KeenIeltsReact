@@ -18,7 +18,6 @@ export function getFormData(
         completedQuestions++;
       }
     }
-
     setCurrentFormData(data); // Update the state
     setQuestionData({
       completed_questions: completedQuestions,
