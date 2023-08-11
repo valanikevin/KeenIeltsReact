@@ -19,9 +19,6 @@ const AttemptReadingModulePage = () => {
   const [currentSection, setCurrentSection] = useState(null);
   const [currentFormData, setCurrentFormData] = useState({});
   const [formData, setFormData] = useState({});
-  const [userAnswersCurrentSection, setUserAnswersCurrentSection] = useState(
-    {}
-  );
   const formRef = useRef(null);
 
   const api = useAxios();
@@ -97,15 +94,14 @@ const AttemptReadingModulePage = () => {
     endTest();
   };
 
-  function getUserAnswersThisSection() {
-    const user_answers = formData[currentSection.id];
-    console.log(user_answers);
-  }
-
   const handleChange = (event) => {
     const formData = getFormDataLocal();
     const sectionId = currentSection.id;
     setFormData({
+      ...formData,
+      [sectionId]: formData,
+    });
+    console.log({
       ...formData,
       [sectionId]: formData,
     });
@@ -142,7 +138,6 @@ const AttemptReadingModulePage = () => {
                     handleChange={handleChange}
                     handleSubmit={handleSubmit}
                     formRef={formRef}
-                    user_answers={getUserAnswersThisSection()}
                   />
                 </div>
               </SplitPane>
