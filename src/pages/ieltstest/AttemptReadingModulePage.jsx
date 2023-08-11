@@ -3,7 +3,6 @@ import SplitPane from "react-split-pane";
 import { Navbar, Card, Container, Row, Col } from "react-bootstrap";
 import "./ReactSplitPane.css";
 import { ReadingNavBar } from "../../components/ieltstest/reading/ReadingNavBar";
-import { FiActivity } from "react-icons/fi";
 import ReadingFooter from "../../components/ieltstest/reading/ReadingFooter";
 import useAxios from "../../utils/useAxios";
 import { useParams } from "react-router-dom";
@@ -13,7 +12,7 @@ import ReadingSection from "../../components/ieltstest/reading/ReadingSection";
 const AttemptReadingModulePage = () => {
   const [deviceType, setDeviceType] = useState("desktop");
   const [isFooterExpanded, setFooterExpanded] = useState(false);
-  const { module_slug, attempt_slug } = useParams();
+  const { module_slug } = useParams();
   const [module, setModule] = useState(null);
   const [currentSection, setCurrentSection] = useState(null);
 
@@ -31,7 +30,7 @@ const AttemptReadingModulePage = () => {
 
   useEffect(() => {
     getModule();
-  }, [setModule]);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -43,7 +42,6 @@ const AttemptReadingModulePage = () => {
     };
 
     handleResize();
-
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -51,38 +49,29 @@ const AttemptReadingModulePage = () => {
     };
   }, []);
 
+  const paneStyle = {
+    overflow: "auto",
+    height: `${deviceType === "mobile" ? "65vh" : "95vh"}`,
+  };
+
   return (
     <>
       <ReadingNavBar />
-
       <Container fluid style={{ paddingTop: "50px", paddingBottom: "50px" }}>
         <Row style={{ height: "calc(100vh - 100px)" }}>
           <Col sm={12}>
-            <div style={{ height: "100%", width: "100%" }}>
+            <div style={{ width: "100%" }}>
               <SplitPane
                 split={deviceType === "mobile" ? "horizontal" : "vertical"}
-                defaultSize="50%"
               >
-                <div
-                  className="simulationDiv py-2 px-1"
-                  style={{
-                    overflow: "auto",
-                    height: `${deviceType === "mobile" ? "70vh" : "90vh"}`,
-                  }}
-                >
+                <div className="simulationDiv py-2 px-1" style={paneStyle}>
                   <Card>
                     <Card.Body>
                       <ReadingSection section={currentSection} />
                     </Card.Body>
                   </Card>
                 </div>
-                <div
-                  className="statisticsDiv py-2 px-1"
-                  style={{
-                    overflow: "auto",
-                    height: `${deviceType === "mobile" ? "70vh" : "90vh"}`,
-                  }}
-                >
+                <div className="statisticsDiv py-2 px-1" style={paneStyle}>
                   <Card>
                     <Card.Body>
                       <ReadingSection section={currentSection} />
