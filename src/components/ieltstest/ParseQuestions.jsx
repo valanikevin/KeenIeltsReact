@@ -4,6 +4,9 @@ import QuestionBadge from "./QuestionBadge";
 
 const ParseQuestions = ({ section, user_answers, handleChange }) => {
   let counter = 0;
+  if (!section || !section.questions) {
+    return null;
+  }
   return parse(section.questions, {
     replace: (domNode) => {
       if (

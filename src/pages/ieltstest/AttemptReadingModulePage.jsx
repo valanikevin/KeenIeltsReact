@@ -8,6 +8,7 @@ import ReadingFooter from "../../components/ieltstest/reading/ReadingFooter";
 import useAxios from "../../utils/useAxios";
 import { useParams } from "react-router-dom";
 import { API_URLS } from "../../utils/urls";
+import ReadingSection from "../../components/ieltstest/reading/ReadingSection";
 
 const AttemptReadingModulePage = () => {
   const [deviceType, setDeviceType] = useState("desktop");
@@ -60,26 +61,31 @@ const AttemptReadingModulePage = () => {
             <div style={{ height: "100%", width: "100%" }}>
               <SplitPane
                 split={deviceType === "mobile" ? "horizontal" : "vertical"}
-                minSize={100}
-                defaultSize={100}
+                defaultSize="50%"
               >
                 <div
                   className="simulationDiv py-2 px-1"
-                  style={{ overflow: "auto" }}
+                  style={{
+                    overflow: "auto",
+                    height: `${deviceType === "mobile" ? "70vh" : "90vh"}`,
+                  }}
                 >
-                  <Card className="h-100">
+                  <Card>
                     <Card.Body>
-                      {/* Place Reading Passage content here */}
+                      <ReadingSection section={currentSection} />
                     </Card.Body>
                   </Card>
                 </div>
                 <div
                   className="statisticsDiv py-2 px-1"
-                  style={{ overflow: "auto" }}
+                  style={{
+                    overflow: "auto",
+                    height: `${deviceType === "mobile" ? "70vh" : "90vh"}`,
+                  }}
                 >
-                  <Card className="h-100">
+                  <Card>
                     <Card.Body>
-                      {/* Place Questions/Answer content here */}
+                      <ReadingSection section={currentSection} />
                     </Card.Body>
                   </Card>
                 </div>

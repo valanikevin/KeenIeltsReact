@@ -25,7 +25,6 @@ const ListeningSection = ({
     setShowNotes(!showNotes);
   }
 
-  let counter = 0;
 
   return (
     <Col className="" sm={12}>
