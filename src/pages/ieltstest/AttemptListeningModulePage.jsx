@@ -22,6 +22,7 @@ import CustomAudioPlayer from "../../components/elements/audioplayer/CustomAudio
 import { API_URLS } from "../../utils/urls";
 import { FiCheckCircle } from "react-icons/fi";
 import { getFormData } from "../../utils/moduleUtils";
+import QuestionPallete from "../../components/ieltstest/QuestionPallete";
 
 const AttemptListeningModulePage = () => {
   const { module_slug, attempt_slug } = useParams();
@@ -241,29 +242,10 @@ const AttemptListeningModulePage = () => {
                       </span>
                     </Card.Header>
                     <Card.Body>
-                      {Array.from(
-                        { length: module.total_questions },
-                        (_, index) => (
-                          <Badge
-                            style={{ fontSize: "20px" }}
-                            key={index}
-                            className="m-1"
-                            onClick={() =>
-                              scrollToElement("que-" + (index + 1))
-                            }
-                            bg={
-                              currentFormData["que-" + (index + 1)] !==
-                              undefined
-                                ? currentFormData["que-" + (index + 1)] === ""
-                                  ? "warning"
-                                  : "success"
-                                : "warning"
-                            }
-                          >
-                            {index + 1}
-                          </Badge>
-                        )
-                      )}
+                      <QuestionPallete
+                        module={module}
+                        currentFormData={currentFormData}
+                      />
                       {/* {Object.entries(currentFormData).map((item, index) => (
                         <Badge
                           style={{ fontSize: "20px" }}
