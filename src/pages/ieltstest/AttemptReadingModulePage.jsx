@@ -8,6 +8,7 @@ import useAxios from "../../utils/useAxios";
 import { useParams } from "react-router-dom";
 import { API_URLS } from "../../utils/urls";
 import ReadingSection from "../../components/ieltstest/reading/ReadingSection";
+import ReadingPassage from "../../components/ieltstest/reading/ReadingPassage";
 
 const AttemptReadingModulePage = () => {
   const [deviceType, setDeviceType] = useState("desktop");
@@ -53,36 +54,43 @@ const AttemptReadingModulePage = () => {
     overflow: "auto",
     height: `${deviceType === "mobile" ? "65vh" : "95vh"}`,
   };
+  const paneWithBackgroundColor = {
+    ...paneStyle,
+    backgroundColor: "#F5F5DC",
+  };
+
+  const containerStyle = {
+    paddingTop: "50px",
+    paddingBottom: "50px",
+    height: "calc(100vh - 50px)", // Assuming 50px for NavBar and 50px for Footer
+    overflow: "auto", // Prevent scrollbars on the main layout
+  };
 
   return (
     <>
       <ReadingNavBar />
-      <Container fluid style={{ paddingTop: "50px", paddingBottom: "50px" }}>
-        <Row style={{ height: "calc(100vh - 100px)" }}>
+      <div style={containerStyle}>
+        <Row style={{ height: "100%" }}>
           <Col sm={12}>
             <div style={{ width: "100%" }}>
               <SplitPane
                 split={deviceType === "mobile" ? "horizontal" : "vertical"}
+                style={{ height: "100%" }} // Ensure SplitPane fills its container
               >
-                <div className="simulationDiv py-2 px-1" style={paneStyle}>
-                  <Card>
-                    <Card.Body>
-                      <ReadingSection section={currentSection} />
-                    </Card.Body>
-                  </Card>
+                <div
+                  className="simulationDiv p-3"
+                  style={paneWithBackgroundColor}
+                >
+                  <ReadingPassage section={currentSection} />
                 </div>
-                <div className="statisticsDiv py-2 px-1" style={paneStyle}>
-                  <Card>
-                    <Card.Body>
-                      <ReadingSection section={currentSection} />
-                    </Card.Body>
-                  </Card>
+                <div className="statisticsDiv p-3 bg-white" style={paneStyle}>
+                  <ReadingSection section={currentSection} />
                 </div>
               </SplitPane>
             </div>
           </Col>
         </Row>
-      </Container>
+      </div>
       <ReadingFooter
         isExpanded={isFooterExpanded}
         toggleExpanded={setFooterExpanded}

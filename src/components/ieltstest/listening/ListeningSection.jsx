@@ -1,13 +1,7 @@
 import React, { useState } from "react";
-import { Row, Col, Card, Stack, Button, Badge } from "react-bootstrap";
-import parse from "html-react-parser";
-import {
-  FiCheckCircle,
-  FiPlayCircle,
-  FiXCircle,
-  FiXSquare,
-} from "react-icons/fi";
-import QuestionBadge from "../QuestionBadge";
+import { Col, Card, Stack, Button } from "react-bootstrap";
+
+import { FiPlayCircle } from "react-icons/fi";
 import ParseQuestions from "../ParseQuestions";
 
 const ListeningSection = ({
@@ -24,7 +18,6 @@ const ListeningSection = ({
   function handleShowNotes() {
     setShowNotes(!showNotes);
   }
-
 
   return (
     <Col className="" sm={12}>

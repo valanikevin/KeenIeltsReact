@@ -7,7 +7,7 @@ const ReadingSection = ({
   user_answers = null,
 }) => {
   return (
-    <div>
+    <div className="text-black">
       <ParseQuestions
         section={section}
         user_answers={user_answers}
