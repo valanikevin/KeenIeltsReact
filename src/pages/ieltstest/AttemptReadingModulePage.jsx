@@ -31,11 +31,11 @@ const AttemptReadingModulePage = () => {
   const [userAnswerBySection, setUserAnswerBySection] = useState({});
   const [currentUserAnswerBySection, setCurrentUserAnswerBySection] =
     useState(null);
+  const [allAnswers, setAllAnswers] = useState({});
   const [questionData, setQuestionData] = useState({
     completed_questions: 0,
   });
   const [showReviewModal, setShowReviewModal] = useState(false);
-  const handleShowReviewModal = () => setShowReviewModal(true);
   const handleCloseReviewModal = () => setShowReviewModal(false);
 
   const formRef = useRef(null);
@@ -73,13 +73,13 @@ const AttemptReadingModulePage = () => {
 
   useEffect(() => {
     getFormDataLocal();
+    initializeAllAnswer();
   }, [module]);
 
   useEffect(() => {
     if (userAnswerBySection) {
       // Make sure this is the correct variable name
       let completed_questions = 0;
-
       Object.keys(userAnswerBySection).map((section) =>
         Object.keys(userAnswerBySection[section]).map(
           (item) =>
@@ -104,6 +104,11 @@ const AttemptReadingModulePage = () => {
         ...userAnswerBySection,
         [currentSection.id]: data,
       });
+      setAllAnswers({
+        ...allAnswers,
+        ...data, // Correctly merging the data object with the existing allAnswers object
+      });
+
       return data;
     } else {
       return null;
@@ -136,6 +141,16 @@ const AttemptReadingModulePage = () => {
     setCurrentSection(newSection);
   }
 
+  function initializeAllAnswer() {
+    if (module) {
+      const n = module.total_questions;
+      let answers = {};
+      Array.from({ length: n }, (_, index) => index + 1).map(
+        (number) => (answers["que-" + number] = "")
+      );
+      setAllAnswers(answers);
+    }
+  }
   // CSS
 
   const paneStyle = {
@@ -179,16 +194,12 @@ const AttemptReadingModulePage = () => {
               </tr>
             </thead>
             <tbody>
-              {Object.keys(userAnswerBySection).map((section) =>
-                Object.keys(userAnswerBySection[section]).map((item, index) => (
-                  <tr key={`${section}-${index}`}>
-                    <td className="fw-bold">{item.split("-")[1]}</td>
-                    <td className="text-black">
-                      {userAnswerBySection[section][item]}
-                    </td>
-                  </tr>
-                ))
-              )}
+              {Object.keys(allAnswers).map((item) => (
+                <tr>
+                  <td>{item.split("-")[1]}</td>
+                  <td>{allAnswers[item]}</td>
+                </tr>
+              ))}
             </tbody>
           </Table>
         </Modal.Body>
@@ -236,6 +247,7 @@ const AttemptReadingModulePage = () => {
         updateCurrentSection={updateCurrentSection}
         questionData={questionData}
         setShowReviewModal={setShowReviewModal}
+        userAllAnswer={allAnswers}
       />
     </>
   );

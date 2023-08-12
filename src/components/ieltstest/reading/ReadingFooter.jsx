@@ -26,6 +26,7 @@ const ReadingFooter = ({
   userAnswersBySection,
   questionData,
   setShowReviewModal,
+  userAllAnswer,
 }) => {
   return (
     <div
@@ -80,10 +81,11 @@ const ReadingFooter = ({
         <Row className="my-3" style={{ overflow: "auto", maxHeight: "38vh" }}>
           <Col lg={"8"}>
             <p className=" fw-bold text-black mb-2">Question Pallete</p>
-            <QuestionPalleteReading
+            {/* <QuestionPalleteReading
               module={module}
               userAnswersBySection={userAnswersBySection}
-            />
+            /> */}
+            <QuestionPallete module={module} currentFormData={userAllAnswer} />
           </Col>
           <Col lg={"4"}>
             {deviceType === "mobile" && (
