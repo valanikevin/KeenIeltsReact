@@ -1,6 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import SplitPane from "react-split-pane";
-import { Navbar, Card, Container, Row, Col } from "react-bootstrap";
+import {
+  Navbar,
+  Card,
+  Container,
+  Row,
+  Col,
+  Modal,
+  Accordion,
+  Table,
+  Badge,
+} from "react-bootstrap";
 import "./ReactSplitPane.css";
 import { ReadingNavBar } from "../../components/ieltstest/reading/ReadingNavBar";
 import ReadingFooter from "../../components/ieltstest/reading/ReadingFooter";
@@ -21,27 +31,17 @@ const AttemptReadingModulePage = () => {
   const [userAnswerBySection, setUserAnswerBySection] = useState({});
   const [currentUserAnswerBySection, setCurrentUserAnswerBySection] =
     useState(null);
+  const [questionData, setQuestionData] = useState({
+    completed_questions: 0,
+  });
+  const [showReviewModal, setShowReviewModal] = useState(false);
+  const handleShowReviewModal = () => setShowReviewModal(true);
+  const handleCloseReviewModal = () => setShowReviewModal(false);
 
   const formRef = useRef(null);
-
   const api = useAxios();
 
-  async function getModule() {
-    const response = await api.post(
-      API_URLS.getReadingModule + module_slug + "/"
-    );
-    if (response.status === 200) {
-      setModule(response.data);
-      setCurrentSection(response.data.sections[0]);
-      // Initialize userAnswerBySection here if you have existing answers
-      // setUserAnswerBySection( ... );
-    }
-  }
-
-  function updateCurrentSection(id) {
-    const newSection = module.sections.find((section) => section.id === id);
-    setCurrentSection(newSection);
-  }
+  // Effects:
 
   useEffect(() => {
     getModule();
@@ -75,19 +75,6 @@ const AttemptReadingModulePage = () => {
     getFormDataLocal();
   }, [module]);
 
-  function getFormDataLocal() {
-    if (currentSection != null) {
-      const data = getFormData(formRef, module, setCurrentFormData);
-      setUserAnswerBySection({
-        ...userAnswerBySection,
-        [currentSection.id]: data,
-      });
-      return data;
-    } else {
-      return null;
-    }
-  }
-
   useEffect(() => {
     if (userAnswerBySection) {
       // Make sure this is the correct variable name
@@ -108,6 +95,49 @@ const AttemptReadingModulePage = () => {
     }
   }, [userAnswerBySection]); // Make sure this is the correct variable name
 
+  // Functions
+
+  function getFormDataLocal() {
+    if (currentSection != null) {
+      const data = getFormData(formRef, module, setCurrentFormData);
+      setUserAnswerBySection({
+        ...userAnswerBySection,
+        [currentSection.id]: data,
+      });
+      return data;
+    } else {
+      return null;
+    }
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    endTest();
+  };
+
+  const handleChange = (event) => {
+    const formData = getFormDataLocal();
+  };
+
+  async function getModule() {
+    const response = await api.post(
+      API_URLS.getReadingModule + module_slug + "/"
+    );
+    if (response.status === 200) {
+      setModule(response.data);
+      setCurrentSection(response.data.sections[0]);
+      // Initialize userAnswerBySection here if you have existing answers
+      // setUserAnswerBySection( ... );
+    }
+  }
+
+  function updateCurrentSection(id) {
+    const newSection = module.sections.find((section) => section.id === id);
+    setCurrentSection(newSection);
+  }
+
+  // CSS
+
   const paneStyle = {
     overflow: "auto",
     height: `${deviceType === "mobile" ? "65vh" : "95vh"}`,
@@ -125,25 +155,44 @@ const AttemptReadingModulePage = () => {
     overflow: "auto", // Prevent scrollbars on the main layout
   };
 
-  const [questionData, setQuestionData] = useState({
-    completed_questions: 0,
-  });
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    endTest();
-  };
-
-  const handleChange = (event) => {
-    const formData = getFormDataLocal();
-  };
-
   if (!module) {
     return null;
   }
 
   return (
     <>
+      <Modal
+        show={showReviewModal}
+        onHide={handleCloseReviewModal}
+        centered
+        className="p-0"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Review Answers</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Table striped bordered size="sm">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Your Answer</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.keys(userAnswerBySection).map((section) =>
+                Object.keys(userAnswerBySection[section]).map((item, index) => (
+                  <tr key={`${section}-${index}`}>
+                    <td className="fw-bold">{item.split("-")[1]}</td>
+                    <td className="text-black">
+                      {userAnswerBySection[section][item]}
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </Table>
+        </Modal.Body>
+      </Modal>
       <ReadingNavBar
         module={module}
         currentSection={currentSection}
@@ -186,6 +235,7 @@ const AttemptReadingModulePage = () => {
         userAnswersBySection={userAnswerBySection}
         updateCurrentSection={updateCurrentSection}
         questionData={questionData}
+        setShowReviewModal={setShowReviewModal}
       />
     </>
   );

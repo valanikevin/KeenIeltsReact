@@ -25,6 +25,7 @@ const ReadingFooter = ({
   module,
   userAnswersBySection,
   questionData,
+  setShowReviewModal,
 }) => {
   return (
     <div
@@ -54,7 +55,13 @@ const ReadingFooter = ({
           <Col className="col-4" style={{ textAlign: "right" }}>
             {deviceType !== "mobile" && (
               <>
-                <Button variant="outline-primary" className="mx-1">
+                <Button
+                  variant="outline-primary"
+                  className="mx-1"
+                  onClick={() => {
+                    setShowReviewModal(true);
+                  }}
+                >
                   Review
                 </Button>
                 <Button variant="outline-primary" className="mx-1">
@@ -70,7 +77,7 @@ const ReadingFooter = ({
             </Button>
           </Col>
         </Row>
-        <Row className="my-3" style={{ overflow: "auto", maxHeight: "45vh" }}>
+        <Row className="my-3" style={{ overflow: "auto", maxHeight: "38vh" }}>
           <Col lg={"8"}>
             <p className=" fw-bold text-black mb-2">Question Pallete</p>
             <QuestionPalleteReading
@@ -79,7 +86,22 @@ const ReadingFooter = ({
             />
           </Col>
           <Col lg={"4"}>
-            <h2>Kevin</h2>
+            {deviceType === "mobile" && (
+              <>
+                <Button
+                  variant="outline-primary"
+                  className="mx-1"
+                  onClick={() => {
+                    setShowReviewModal(true);
+                  }}
+                >
+                  Review
+                </Button>
+                <Button variant="outline-primary" className="mx-1">
+                  Submit Test
+                </Button>
+              </>
+            )}
           </Col>
         </Row>
       </Container>
