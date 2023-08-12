@@ -77,12 +77,7 @@ const AttemptReadingModulePage = () => {
 
   function getFormDataLocal() {
     if (currentSection != null) {
-      const data = getFormData(
-        formRef,
-        module,
-        setCurrentFormData,
-        setQuestionData
-      );
+      const data = getFormData(formRef, module, setCurrentFormData);
       setUserAnswerBySection({
         ...userAnswerBySection,
         [currentSection.id]: data,
@@ -92,6 +87,26 @@ const AttemptReadingModulePage = () => {
       return null;
     }
   }
+
+  useEffect(() => {
+    if (userAnswerBySection) {
+      // Make sure this is the correct variable name
+      let completed_questions = 0;
+
+      Object.keys(userAnswerBySection).map((section) =>
+        Object.keys(userAnswerBySection[section]).map(
+          (item) =>
+            // You can access the value with userAnswersBySection[section][item]
+            userAnswerBySection[section][item] !== undefined &&
+            userAnswerBySection[section][item] !== "" &&
+            completed_questions++
+        )
+      );
+      setQuestionData({
+        completed_questions: completed_questions,
+      });
+    }
+  }, [userAnswerBySection]); // Make sure this is the correct variable name
 
   const paneStyle = {
     overflow: "auto",
@@ -112,7 +127,6 @@ const AttemptReadingModulePage = () => {
 
   const [questionData, setQuestionData] = useState({
     completed_questions: 0,
-    total_questions: 0,
   });
 
   const handleSubmit = (event) => {
@@ -171,6 +185,7 @@ const AttemptReadingModulePage = () => {
         module={module}
         userAnswersBySection={userAnswerBySection}
         updateCurrentSection={updateCurrentSection}
+        questionData={questionData}
       />
     </>
   );

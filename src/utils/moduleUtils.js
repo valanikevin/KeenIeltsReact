@@ -2,7 +2,7 @@ export function getFormData(
   formRef,
   module,
   setCurrentFormData,
-  setQuestionData
+  setQuestionData = null
 ) {
   if (formRef.current) {
     const formData = new FormData(formRef.current);
@@ -20,10 +20,12 @@ export function getFormData(
     }
 
     setCurrentFormData(data); // Update the state
-    setQuestionData({
-      completed_questions: completedQuestions,
-      total_questions: module.total_questions,
-    });
+    if (setQuestionData) {
+      setQuestionData({
+        completed_questions: completedQuestions,
+        total_questions: module.total_questions,
+      });
+    }
     return data;
   }
 }

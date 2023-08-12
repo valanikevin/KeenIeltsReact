@@ -24,6 +24,7 @@ const ReadingFooter = ({
   deviceType,
   module,
   userAnswersBySection,
+  questionData,
 }) => {
   return (
     <div
@@ -42,11 +43,12 @@ const ReadingFooter = ({
         <Row className="mt-1 pb-1 border-bottom text-black">
           <Col className="col-4 mt-1">
             <div>
-              <span style={{ fontSize: "20px" }}>4/10</span>
+              <span style={{ fontSize: "20px" }}>
+                {questionData.completed_questions}/{module.total_questions}
+              </span>
             </div>
           </Col>
           <Col className="col-4 text-center mt-1">
-            {" "}
             <CountdownTimer initialMinutes={40} initialSeconds={0} />
           </Col>
           <Col className="col-4" style={{ textAlign: "right" }}>
