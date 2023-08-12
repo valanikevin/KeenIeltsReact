@@ -18,7 +18,8 @@ const AttemptReadingModulePage = () => {
   const [module, setModule] = useState(null);
   const [currentSection, setCurrentSection] = useState(null);
   const [currentFormData, setCurrentFormData] = useState({});
-  const [formData, setFormData] = useState({});
+  const [userAnswerBySection, setUserAnswerBySection] = useState({});
+
   const formRef = useRef(null);
 
   const api = useAxios();
@@ -30,6 +31,8 @@ const AttemptReadingModulePage = () => {
     if (response.status === 200) {
       setModule(response.data);
       setCurrentSection(response.data.sections[0]);
+      // Initialize userAnswerBySection here if you have existing answers
+      // setUserAnswerBySection( ... );
     }
   }
 
@@ -63,8 +66,31 @@ const AttemptReadingModulePage = () => {
     getFormDataLocal();
   }, [module]);
 
+  useEffect(() => {
+    if (currentSection) {
+      setCurrentFormData(userAnswerBySection[currentSection.id] || {});
+    }
+  }, [currentSection]);
+
   function getFormDataLocal() {
-    return getFormData(formRef, module, setCurrentFormData, setQuestionData);
+    if (currentSection != null) {
+      const data = getFormData(
+        formRef,
+        module,
+        setCurrentFormData,
+        setQuestionData
+      );
+      setUserAnswerBySection({
+        ...userAnswerBySection,
+        [currentSection.id]: data,
+      });
+      // Set current form data
+      setCurrentFormData(data);
+      console.log(userAnswerBySection);
+      return data;
+    } else {
+      return null;
+    }
   }
 
   const paneStyle = {
@@ -96,15 +122,6 @@ const AttemptReadingModulePage = () => {
 
   const handleChange = (event) => {
     const formData = getFormDataLocal();
-    const sectionId = currentSection.id;
-    setFormData({
-      ...formData,
-      [sectionId]: formData,
-    });
-    console.log({
-      ...formData,
-      [sectionId]: formData,
-    });
   };
 
   if (!module) {
@@ -138,6 +155,7 @@ const AttemptReadingModulePage = () => {
                     handleChange={handleChange}
                     handleSubmit={handleSubmit}
                     formRef={formRef}
+                    key={currentSection.id}
                   />
                 </div>
               </SplitPane>
