@@ -16,20 +16,20 @@ import {
 } from "react-icons/fi";
 import CountdownTimer from "../../elements/CountdownTimer";
 import QuestionPallete from "../QuestionPallete";
+import QuestionPalleteReading from "./QuestionPalleteReading";
 
 const ReadingFooter = ({
   isExpanded,
   toggleExpanded,
   deviceType,
   module,
-  currentFormData,
- 
+  userAnswersBySection,
 }) => {
   return (
     <div
       className="fixed-footer border-top"
       style={{
-        height: isExpanded ? "300px" : "50px", // adjust as needed
+        height: isExpanded ? "50vh" : "50px", // adjust as needed
         width: "100vw",
         position: "fixed",
         bottom: 0,
@@ -38,7 +38,6 @@ const ReadingFooter = ({
         zIndex: "999",
       }}
     >
-
       <Container>
         <Row className="mt-1 pb-1 border-bottom text-black">
           <Col className="col-4 mt-1">
@@ -69,22 +68,13 @@ const ReadingFooter = ({
             </Button>
           </Col>
         </Row>
-        <Row className="my-3" style={{ overflow: "auto", maxHeight: "200px" }}>
-          <Col lg={"4"}>
-            <Card className="shadow-0 border">
-              <Card.Header>
-                <span className=" fw-bold text-black">Question Pallete</span>
-              </Card.Header>
-              <Card.Body>
-                <QuestionPallete
-                  module={module}
-                  currentFormData={currentFormData}
-                />
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col lg={"4"}>
-            <h2>Kevin</h2>
+        <Row className="my-3" style={{ overflow: "auto", maxHeight: "45vh" }}>
+          <Col lg={"8"}>
+            <p className=" fw-bold text-black mb-2">Question Pallete</p>
+            <QuestionPalleteReading
+              module={module}
+              userAnswersBySection={userAnswersBySection}
+            />
           </Col>
           <Col lg={"4"}>
             <h2>Kevin</h2>

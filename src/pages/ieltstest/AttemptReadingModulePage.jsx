@@ -87,8 +87,6 @@ const AttemptReadingModulePage = () => {
         ...userAnswerBySection,
         [currentSection.id]: data,
       });
-
-      console.log(currentFormData);
       return data;
     } else {
       return null;
@@ -171,7 +169,7 @@ const AttemptReadingModulePage = () => {
         toggleExpanded={setFooterExpanded}
         deviceType={deviceType}
         module={module}
-        currentFormData={currentFormData}
+        userAnswersBySection={userAnswerBySection}
         updateCurrentSection={updateCurrentSection}
       />
     </>
