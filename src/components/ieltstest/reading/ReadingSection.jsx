@@ -1,5 +1,6 @@
 import React from "react";
 import ParseQuestions from "../ParseQuestions";
+import ParseQuestionsReading from "./ParseQuestionsReading";
 
 const ReadingSection = ({
   section,
@@ -11,7 +12,7 @@ const ReadingSection = ({
   return (
     <div className="text-black">
       <form onSubmit={handleSubmit} ref={formRef}>
-        <ParseQuestions
+        <ParseQuestionsReading
           section={section}
           user_answers={user_answers}
           handleChange={handleChange}

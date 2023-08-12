@@ -19,6 +19,8 @@ const AttemptReadingModulePage = () => {
   const [currentSection, setCurrentSection] = useState(null);
   const [currentFormData, setCurrentFormData] = useState({});
   const [userAnswerBySection, setUserAnswerBySection] = useState({});
+  const [currentUserAnswerBySection, setCurrentUserAnswerBySection] =
+    useState(null);
 
   const formRef = useRef(null);
 
@@ -44,6 +46,13 @@ const AttemptReadingModulePage = () => {
   useEffect(() => {
     getModule();
   }, []);
+
+  useEffect(() => {
+    if (currentSection) {
+      const answers = userAnswerBySection[currentSection.id];
+      setCurrentUserAnswerBySection(answers);
+    }
+  }, [currentSection]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -149,6 +158,7 @@ const AttemptReadingModulePage = () => {
                     handleSubmit={handleSubmit}
                     formRef={formRef}
                     key={currentSection.id}
+                    user_answers={currentUserAnswerBySection}
                   />
                 </div>
               </SplitPane>
