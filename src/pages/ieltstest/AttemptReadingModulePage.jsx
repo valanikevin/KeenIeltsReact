@@ -66,12 +66,6 @@ const AttemptReadingModulePage = () => {
     getFormDataLocal();
   }, [module]);
 
-  useEffect(() => {
-    if (currentSection) {
-      setCurrentFormData(userAnswerBySection[currentSection.id] || {});
-    }
-  }, [currentSection]);
-
   function getFormDataLocal() {
     if (currentSection != null) {
       const data = getFormData(
@@ -84,9 +78,8 @@ const AttemptReadingModulePage = () => {
         ...userAnswerBySection,
         [currentSection.id]: data,
       });
-      // Set current form data
-      setCurrentFormData(data);
-      console.log(userAnswerBySection);
+
+      console.log(currentFormData);
       return data;
     } else {
       return null;
