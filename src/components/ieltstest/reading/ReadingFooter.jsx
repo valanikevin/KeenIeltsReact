@@ -22,10 +22,10 @@ const ReadingFooter = ({
   toggleExpanded,
   deviceType,
   module,
-  userAnswersBySection,
   questionData,
   setShowReviewModal,
   userAllAnswer,
+  setShowSubmitModal,
 }) => {
   return (
     <div
@@ -94,7 +94,11 @@ const ReadingFooter = ({
                 >
                   Review
                 </Button>
-                <Button variant="outline-primary" className="mx-1">
+                <Button
+                  variant="outline-primary"
+                  className="mx-1"
+                  onClick={setShowSubmitModal}
+                >
                   Submit Test
                 </Button>
               </>

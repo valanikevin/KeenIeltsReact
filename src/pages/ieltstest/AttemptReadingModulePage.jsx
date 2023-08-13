@@ -10,6 +10,7 @@ import {
   Accordion,
   Table,
   Badge,
+  Button,
 } from "react-bootstrap";
 import "./ReactSplitPane.css";
 import { ReadingNavBar } from "../../components/ieltstest/reading/ReadingNavBar";
@@ -44,7 +45,9 @@ const AttemptReadingModulePage = () => {
 
   const formRef = useRef(null);
   const api = useAxios();
-
+  const [showSubmitModal, setShowSubmitModal] = useState(false);
+  const handleShowSubmitModal = () => setShowSubmitModal(true);
+  const handleClosSubmiteModal = () => setShowSubmitModal(false);
   // Effects:
 
   useEffect(() => {
@@ -155,6 +158,19 @@ const AttemptReadingModulePage = () => {
       setAllAnswers(answers);
     }
   }
+
+  function endTest() {
+    handleShowModal();
+  }
+  function handleConfirmEndTest() {
+    getFormDataLocal();
+    sendAttemptUpdate("Completed");
+    navigate(
+      `/ieltstest/attempt/listening/${module_slug}/${attempt_slug}/get_result`
+    );
+    handleClosSubmiteModal();
+  }
+
   // CSS
 
   const paneStyle = {
@@ -180,6 +196,20 @@ const AttemptReadingModulePage = () => {
 
   return (
     <>
+      <Modal show={showSubmitModal} onHide={handleClosSubmiteModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>End Test</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to end the test?</Modal.Body>
+        <Modal.Footer className="p-2">
+          <Button variant="outline-primary" onClick={handleClosSubmiteModal}>
+            No
+          </Button>
+          <Button variant="primary" onClick={handleConfirmEndTest}>
+            Yes, end test
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <Modal
         show={showReviewModal}
         onHide={handleCloseReviewModal}
@@ -281,11 +311,11 @@ const AttemptReadingModulePage = () => {
         toggleExpanded={setFooterExpanded}
         deviceType={deviceType}
         module={module}
-        userAnswersBySection={userAnswerBySection}
         updateCurrentSection={updateCurrentSection}
         questionData={questionData}
         setShowReviewModal={setShowReviewModal}
         userAllAnswer={allAnswers}
+        setShowSubmitModal={setShowSubmitModal}
       />
     </>
   );
