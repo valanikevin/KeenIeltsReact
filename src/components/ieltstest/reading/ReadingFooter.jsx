@@ -16,7 +16,6 @@ import {
 } from "react-icons/fi";
 import CountdownTimer from "../../elements/CountdownTimer";
 import QuestionPallete from "../QuestionPallete";
-import QuestionPalleteReading from "./QuestionPalleteReading";
 
 const ReadingFooter = ({
   isExpanded,
@@ -79,12 +78,8 @@ const ReadingFooter = ({
           </Col>
         </Row>
         <Row className="my-3" style={{ overflow: "auto", maxHeight: "38vh" }}>
-          <Col lg={"8"}>
-            <p className=" fw-bold text-black mb-2">Question Pallete</p>
-            {/* <QuestionPalleteReading
-              module={module}
-              userAnswersBySection={userAnswersBySection}
-            /> */}
+          <Col lg={"8"} className="my-2">
+            <p className=" fw-bold text-black mb-1 mx-1">Question Pallete</p>
             <QuestionPallete module={module} currentFormData={userAllAnswer} />
           </Col>
           <Col lg={"4"}>

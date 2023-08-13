@@ -247,7 +247,7 @@ const AttemptReadingModulePage = () => {
         updateCurrentSection={updateCurrentSection}
         setShowTestInfoModal={setShowTestInfoModal}
       />
-      <Container style={containerStyle} className="hide-scrollbar">
+      <Container style={containerStyle} className="hide-scrollbar px-0">
         <Row style={{ height: "100%" }}>
           <Col sm={12}>
             <div style={{ width: "100%" }}>

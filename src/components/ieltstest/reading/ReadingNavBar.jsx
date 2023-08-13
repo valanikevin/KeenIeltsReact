@@ -54,9 +54,11 @@ export const ReadingNavBar = ({
         className="text-white"
         variant="outline-primary"
       >
-        <Dropdown.Item eventKey="1">Home</Dropdown.Item>
+        <Dropdown.Item eventKey="1" as={Link} to={"/"}>
+          Home
+        </Dropdown.Item>
         <Dropdown.Item eventKey="2" onClick={() => setShowTestInfoModal(true)}>
-          Test Info
+          Book Info
         </Dropdown.Item>
       </DropdownButton>
     </Navbar>
