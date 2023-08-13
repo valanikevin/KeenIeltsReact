@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Badge, Stack } from "react-bootstrap";
-import { FiCheckCircle } from "react-icons/fi";
+import { FiCheckCircle, FiClock } from "react-icons/fi";
 import Slider from "react-slick";
 
 const CountdownTimer = ({
@@ -46,11 +46,13 @@ const CountdownTimer = ({
         </Badge>
       ) : minutes === 0 && seconds <= 60 ? (
         <Badge bg="danger" style={{ fontSize: "20px" }} className="">
+          <FiClock className="mb-1" />
           {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
         </Badge>
       ) : (
         <span className="text-black" style={{ fontSize: "20px" }}>
-          {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+          <FiClock className="mb-1" /> {minutes}:
+          {seconds < 10 ? `0${seconds}` : seconds}
         </span>
       )}
     </span>

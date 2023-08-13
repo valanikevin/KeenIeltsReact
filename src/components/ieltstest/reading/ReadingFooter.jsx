@@ -13,6 +13,8 @@ import {
   FiArrowDown,
   FiChevronLeft,
   FiChevronRight,
+  FiCheckCircle,
+  FiClock,
 } from "react-icons/fi";
 import CountdownTimer from "../../elements/CountdownTimer";
 import QuestionPallete from "../QuestionPallete";
@@ -45,11 +47,13 @@ const ReadingFooter = ({
           <Col className="col-4 mt-1">
             <div>
               <span style={{ fontSize: "20px" }}>
+                <FiCheckCircle className="" style={{ marginRight: "5px" }} />
                 {questionData.completed_questions}/{module.total_questions}
               </span>
             </div>
           </Col>
           <Col className="col-4 text-center mt-1">
+           
             <CountdownTimer initialMinutes={40} initialSeconds={0} />
           </Col>
           <Col className="col-4" style={{ textAlign: "right" }}>

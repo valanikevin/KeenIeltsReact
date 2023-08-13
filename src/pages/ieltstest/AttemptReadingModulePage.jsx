@@ -16,7 +16,7 @@ import "./ReactSplitPane.css";
 import { ReadingNavBar } from "../../components/ieltstest/reading/ReadingNavBar";
 import ReadingFooter from "../../components/ieltstest/reading/ReadingFooter";
 import useAxios from "../../utils/useAxios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { API_URLS } from "../../utils/urls";
 import ReadingSection from "../../components/ieltstest/reading/ReadingSection";
 import ReadingPassage from "../../components/ieltstest/reading/ReadingPassage";
@@ -48,6 +48,8 @@ const AttemptReadingModulePage = () => {
   const [showSubmitModal, setShowSubmitModal] = useState(false);
   const handleShowSubmitModal = () => setShowSubmitModal(true);
   const handleClosSubmiteModal = () => setShowSubmitModal(false);
+  const navigate = useNavigate();
+
   // Effects:
 
   useEffect(() => {
@@ -159,6 +161,21 @@ const AttemptReadingModulePage = () => {
     }
   }
 
+  function sendAttemptUpdate(attempt_type = "In Progress") {
+    const data = {
+      answers: allAnswers,
+      attempt_type: attempt_type,
+    };
+
+    const response = api.post(
+      "/ieltstest/update_attempt/reading/" + attempt_slug + "/",
+      data
+    );
+    if (response.status === 200) {
+      console.log("Attempt Updated");
+    }
+  }
+
   function endTest() {
     handleShowModal();
   }
@@ -166,7 +183,7 @@ const AttemptReadingModulePage = () => {
     getFormDataLocal();
     sendAttemptUpdate("Completed");
     navigate(
-      `/ieltstest/attempt/listening/${module_slug}/${attempt_slug}/get_result`
+      `/ieltstest/attempt/reading/${module_slug}/${attempt_slug}/get_result`
     );
     handleClosSubmiteModal();
   }
