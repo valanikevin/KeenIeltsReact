@@ -182,7 +182,18 @@ const AttemptListeningModulePage = () => {
             <Col sm={12} md={8}>
               <Row>
                 <Col sm={12} className="my-3">
-                  <BookInfo module={module} attempt_slug={attempt_slug} />
+                  <Accordion>
+                    <Accordion.Item eventKey="0">
+                      <Accordion.Header>
+                        <span className="text-black fw-bold">
+                          {module.test.book.name}
+                        </span>
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        <BookInfo module={module} attempt_slug={attempt_slug} />
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  </Accordion>
                 </Col>
                 <Col sm={12}>
                   <Row>

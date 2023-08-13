@@ -20,11 +20,12 @@ import { API_URLS } from "../../utils/urls";
 import ReadingSection from "../../components/ieltstest/reading/ReadingSection";
 import ReadingPassage from "../../components/ieltstest/reading/ReadingPassage";
 import { getFormData } from "../../utils/moduleUtils";
+import BookInfo from "../../components/ieltstest/listening/BookInfo";
 
 const AttemptReadingModulePage = () => {
   const [deviceType, setDeviceType] = useState("desktop");
   const [isFooterExpanded, setFooterExpanded] = useState(false);
-  const { module_slug } = useParams();
+  const { module_slug, attempt_slug } = useParams();
   const [module, setModule] = useState(null);
   const [currentSection, setCurrentSection] = useState(null);
   const [currentFormData, setCurrentFormData] = useState({});
@@ -37,6 +38,9 @@ const AttemptReadingModulePage = () => {
   });
   const [showReviewModal, setShowReviewModal] = useState(false);
   const handleCloseReviewModal = () => setShowReviewModal(false);
+
+  const [showTestInfoModal, setShowTestInfoModal] = useState(false);
+  const handleCloseTestInfoModal = () => setShowTestInfoModal(false);
 
   const formRef = useRef(null);
   const api = useAxios();
@@ -195,21 +199,55 @@ const AttemptReadingModulePage = () => {
             </thead>
             <tbody>
               {Object.keys(allAnswers).map((item) => (
-                <tr>
+                <tr key={item}>
                   <td>{item.split("-")[1]}</td>
-                  <td>{allAnswers[item]}</td>
+                  <td className="fw-bold text-black">{allAnswers[item]}</td>
                 </tr>
               ))}
             </tbody>
           </Table>
         </Modal.Body>
+        <div class="modal-footer py-2">
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            onClick={handleCloseReviewModal}
+          >
+            Close
+          </button>
+        </div>
       </Modal>
+
+      <Modal
+        show={showTestInfoModal}
+        onHide={handleCloseTestInfoModal}
+        centered
+        className="p-0"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Test Info</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="p-0">
+          <BookInfo module={module} attempt_slug={attempt_slug} />
+        </Modal.Body>
+        <div class="modal-footer py-2">
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            onClick={handleCloseTestInfoModal}
+          >
+            Close
+          </button>
+        </div>
+      </Modal>
+
       <ReadingNavBar
         module={module}
         currentSection={currentSection}
         updateCurrentSection={updateCurrentSection}
+        setShowTestInfoModal={setShowTestInfoModal}
       />
-      <div style={containerStyle} className="hide-scrollbar">
+      <Container style={containerStyle} className="hide-scrollbar">
         <Row style={{ height: "100%" }}>
           <Col sm={12}>
             <div style={{ width: "100%" }}>
@@ -237,7 +275,7 @@ const AttemptReadingModulePage = () => {
             </div>
           </Col>
         </Row>
-      </div>
+      </Container>
       <ReadingFooter
         isExpanded={isFooterExpanded}
         toggleExpanded={setFooterExpanded}

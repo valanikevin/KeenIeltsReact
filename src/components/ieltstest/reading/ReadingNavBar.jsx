@@ -16,6 +16,7 @@ export const ReadingNavBar = ({
   module,
   currentSection,
   updateCurrentSection,
+  setShowTestInfoModal,
 }) => {
   if (!module) {
     return null;
@@ -54,7 +55,9 @@ export const ReadingNavBar = ({
         variant="outline-primary"
       >
         <Dropdown.Item eventKey="1">Home</Dropdown.Item>
-        <Dropdown.Item eventKey="2">Test Info</Dropdown.Item>
+        <Dropdown.Item eventKey="2" onClick={() => setShowTestInfoModal(true)}>
+          Test Info
+        </Dropdown.Item>
       </DropdownButton>
     </Navbar>
   );
