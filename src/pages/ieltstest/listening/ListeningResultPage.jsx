@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import useAxios from "../../utils/useAxios";
-import { API_URLS } from "../../utils/urls";
+import useAxios from "../../../utils/useAxios";
+import { API_URLS } from "../../../utils/urls";
 import { useParams } from "react-router";
 import { Accordion, Card, Col, Container, Row, Table } from "react-bootstrap";
-import PageHeadingBriefinfo from "../../components/layout/PageHeadingBriefInfo";
-import ListeningSection from "../../components/ieltstest/listening/ListeningSection";
-import CustomAudioPlayer from "../../components/elements/audioplayer/CustomAudioPlayer";
-import useAxiosWithoutLoader from "../../utils/useAxiosWithoutLoader";
+import PageHeadingBriefinfo from "../../../components/layout/PageHeadingBriefInfo";
+import ListeningSection from "../../../components/ieltstest/listening/ListeningSection";
+import CustomAudioPlayer from "../../../components/elements/audioplayer/CustomAudioPlayer";
+import useAxiosWithoutLoader from "../../../utils/useAxiosWithoutLoader";
 
 const ListeningResultPage = () => {
   const api = useAxios();

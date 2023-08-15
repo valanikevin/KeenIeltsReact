@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router";
-import useAxios from "../../utils/useAxios";
+import useAxios from "../../../utils/useAxios";
 import { Modal, Stack } from "react-bootstrap";
 
 import {
@@ -14,15 +14,15 @@ import {
   Table,
 } from "react-bootstrap";
 
-import ListeningSection from "../../components/ieltstest/listening/ListeningSection";
-import useScrollDirection from "../../utils/useScrollDirection";
-import CountdownTimer from "../../components/elements/CountdownTimer";
-import BookInfo from "../../components/ieltstest/listening/BookInfo";
-import CustomAudioPlayer from "../../components/elements/audioplayer/CustomAudioPlayer";
-import { API_URLS } from "../../utils/urls";
+import ListeningSection from "../../../components/ieltstest/listening/ListeningSection";
+import useScrollDirection from "../../../utils/useScrollDirection";
+import CountdownTimer from "../../../components/elements/CountdownTimer";
+import BookInfo from "../../../components/ieltstest/listening/BookInfo";
+import CustomAudioPlayer from "../../../components/elements/audioplayer/CustomAudioPlayer";
+import { API_URLS } from "../../../utils/urls";
 import { FiCheckCircle } from "react-icons/fi";
-import { getFormData } from "../../utils/moduleUtils";
-import QuestionPallete from "../../components/ieltstest/QuestionPallete";
+import { getFormData } from "../../../utils/moduleUtils";
+import QuestionPallete from "../../../components/ieltstest/QuestionPallete";
 
 const AttemptListeningModulePage = () => {
   const { module_slug, attempt_slug } = useParams();

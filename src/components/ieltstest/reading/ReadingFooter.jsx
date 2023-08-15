@@ -53,7 +53,6 @@ const ReadingFooter = ({
             </div>
           </Col>
           <Col className="col-4 text-center mt-1">
-           
             <CountdownTimer initialMinutes={40} initialSeconds={0} />
           </Col>
           <Col className="col-4" style={{ textAlign: "right" }}>
@@ -68,7 +67,11 @@ const ReadingFooter = ({
                 >
                   Review
                 </Button>
-                <Button variant="outline-primary" className="mx-1">
+                <Button
+                  variant="outline-primary"
+                  className="mx-1"
+                  onClick={setShowSubmitModal}
+                >
                   Submit Test
                 </Button>
               </>

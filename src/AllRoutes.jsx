@@ -7,10 +7,11 @@ import { Route, Routes } from "react-router-dom";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import DashboardPage from "./pages/student/DashboardPage";
 import TestHomePage from "./pages/ieltstest/TestHomePage";
-import AttemptListeningModulePage from "./pages/ieltstest/AttemptListeningModulePage";
-import ListeningResultPage from "./pages/ieltstest/ListeningResultPage";
+import AttemptListeningModulePage from "./pages/ieltstest/listening/AttemptListeningModulePage";
+import ListeningResultPage from "./pages/ieltstest/listening/ListeningResultPage";
 import ModuleHomePage from "./pages/ieltstest/ModuleHomePage";
-import AttemptReadingModulePage from "./pages/ieltstest/AttemptReadingModulePage";
+import AttemptReadingModulePage from "./pages/ieltstest/reading/AttemptReadingModulePage";
+import ReadingResultPage from "./pages/ieltstest/reading/ReadingResultPage";
 
 const AllRoutes = () => {
   return (
@@ -41,6 +42,10 @@ const AllRoutes = () => {
           <Route
             path="reading/:module_slug/:attempt_slug"
             element={<AttemptReadingModulePage />}
+          />
+          <Route
+            path="reading/:module_slug/:attempt_slug/get_result"
+            element={<ReadingResultPage />}
           />
         </Route>
       </Route>

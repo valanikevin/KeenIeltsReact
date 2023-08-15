@@ -22,7 +22,9 @@ function App() {
   const location = useLocation();
 
   // Define a pattern that matches the route where you don't want the Navbar and Footer
-  const hideLayoutForPattern = /^\/ieltstest\/attempt\/reading\/.*/;
+  const hideLayoutForPattern =
+    /^\/ieltstest\/attempt\/reading\/[A-Za-z0-9]+\/[A-Za-z0-9]+$/;
+  // const hideLayoutForPattern = /^\/ieltstest\/attempt\/reading\/.*/;
 
   const hideNavFooter = hideLayoutForPattern.test(location.pathname);
 

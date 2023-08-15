@@ -13,15 +13,15 @@ import {
   Button,
 } from "react-bootstrap";
 import "./ReactSplitPane.css";
-import { ReadingNavBar } from "../../components/ieltstest/reading/ReadingNavBar";
-import ReadingFooter from "../../components/ieltstest/reading/ReadingFooter";
-import useAxios from "../../utils/useAxios";
+import { ReadingNavBar } from "../../../components/ieltstest/reading/ReadingNavBar";
+import ReadingFooter from "../../../components/ieltstest/reading/ReadingFooter";
+import useAxios from "../../../utils/useAxios";
 import { useNavigate, useParams } from "react-router-dom";
-import { API_URLS } from "../../utils/urls";
-import ReadingSection from "../../components/ieltstest/reading/ReadingSection";
-import ReadingPassage from "../../components/ieltstest/reading/ReadingPassage";
-import { getFormData } from "../../utils/moduleUtils";
-import BookInfo from "../../components/ieltstest/listening/BookInfo";
+import { API_URLS } from "../../../utils/urls";
+import ReadingSection from "../../../components/ieltstest/reading/ReadingSection";
+import ReadingPassage from "../../../components/ieltstest/reading/ReadingPassage";
+import { getFormData } from "../../../utils/moduleUtils";
+import BookInfo from "../../../components/ieltstest/listening/BookInfo";
 
 const AttemptReadingModulePage = () => {
   const [deviceType, setDeviceType] = useState("desktop");
