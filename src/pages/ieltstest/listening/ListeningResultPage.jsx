@@ -7,6 +7,7 @@ import PageHeadingBriefinfo from "../../../components/layout/PageHeadingBriefInf
 import ListeningSection from "../../../components/ieltstest/listening/ListeningSection";
 import CustomAudioPlayer from "../../../components/elements/audioplayer/CustomAudioPlayer";
 import useAxiosWithoutLoader from "../../../utils/useAxiosWithoutLoader";
+import ScoreSection from "../../../components/ieltstest/ScoreSection";
 
 const ListeningResultPage = () => {
   const api = useAxios();
@@ -59,65 +60,7 @@ const ListeningResultPage = () => {
   return (
     <>
       <div className="border-bottom">
-        <PageHeadingBriefinfo
-          pagetitle={attempt.book.name}
-          briefinfo={"Listening Test Result"}
-          color="bg-listening"
-        />
-        <Container className="my-3">
-          <Row className="px-2">
-            <Col xs={12}>
-              <h2 className="display4">Your Scores</h2>
-            </Col>
-            <Col xs={6} md={3} className="my-2 d-flex">
-              <Card className="flex-fill">
-                <Card.Body className="">
-                  <span>Bands</span>
-                  <h2 style={{ fontSize: "1.2rem" }} className="my-2">
-                    {attempt.bands} Bands
-                  </h2>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col xs={6} md={3} className="my-2 d-flex">
-              <Card className="flex-fill">
-                <Card.Body className="">
-                  <span>Score</span>
-                  <h2 style={{ fontSize: "1.2rem" }} className="my-2">
-                    {attempt.correct_answers}/
-                    {attempt.correct_answers + attempt.incorrect_answers}
-                  </h2>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col xs={6} md={3} className="my-2 d-flex">
-              <Card className="flex-fill">
-                <Card.Body className="">
-                  <span>Highest Score</span>
-                  <h2
-                    style={{ fontSize: "1.2rem" }}
-                    className="my-2 text-uppercase"
-                  >
-                    {attempt.evaluation.best_scored_section[0]}
-                  </h2>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col xs={6} md={3} className="my-2 d-flex">
-              <Card className="flex-fill">
-                <Card.Body className="">
-                  <span>Lowest Score</span>
-                  <h2
-                    style={{ fontSize: "1.2rem" }}
-                    className="my-2 text-uppercase"
-                  >
-                    {attempt.evaluation.worst_scored_section[0]}
-                  </h2>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-        </Container>
+        <ScoreSection attempt={attempt} />
       </div>
 
       <div className="my-4">
