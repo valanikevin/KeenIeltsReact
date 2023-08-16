@@ -2,12 +2,12 @@ import React from "react";
 import PageHeadingBriefinfo from "../layout/PageHeadingBriefInfo";
 import { Container, Row, Col, Card } from "react-bootstrap";
 
-const ScoreSection = ({ attempt }) => {
+const ScoreSection = ({ attempt, module_name }) => {
   return (
     <>
       <PageHeadingBriefinfo
         pagetitle={attempt.book.name}
-        briefinfo={"Listening Test Result"}
+        briefinfo={module_name + " Test Result"}
         color="bg-listening"
       />
       <Container className="my-3">

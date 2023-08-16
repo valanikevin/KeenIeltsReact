@@ -60,7 +60,7 @@ const ListeningResultPage = () => {
   return (
     <>
       <div className="border-bottom">
-        <ScoreSection attempt={attempt} />
+        <ScoreSection attempt={attempt} module_name={"Listening"} />
       </div>
 
       <div className="my-4">
