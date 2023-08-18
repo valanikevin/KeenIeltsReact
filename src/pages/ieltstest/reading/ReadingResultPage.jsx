@@ -100,7 +100,7 @@ const ReadingResultPage = () => {
             <Col sm={12}>
               <Accordion defaultActiveKey={"0"}>
                 {Object.keys(module.sections).map((item) => (
-                  <Accordion.Item eventKey={item}>
+                  <Accordion.Item eventKey={item} key={item}>
                     <Accordion.Header>
                       {module.sections[item].section}
                     </Accordion.Header>
@@ -123,7 +123,12 @@ const ReadingResultPage = () => {
                             className="statisticsDiv p-3 bg-white"
                             style={paneStyle}
                           >
-                            <ReadingSection section={module.sections[item]} />
+                            <ReadingSection
+                              section={module.sections[item]}
+                              user_answers={
+                                attempt.evaluation.all_sections[item]
+                              }
+                            />
                           </div>
                         </SplitPane>
                       </div>

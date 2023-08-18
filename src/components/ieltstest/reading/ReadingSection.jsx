@@ -12,10 +12,11 @@ const ReadingSection = ({
   return (
     <div className="text-black">
       <form onSubmit={handleSubmit} ref={formRef}>
-        <ParseQuestionsReading
+        <ParseQuestions
           section={section}
           user_answers={user_answers}
           handleChange={handleChange}
+          useReadingMode={true}
         />
       </form>
     </div>
