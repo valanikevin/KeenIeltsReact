@@ -47,12 +47,8 @@ const ParseQuestionsReading = ({ section, user_answers, handleChange }) => {
                 onChange={handleInputChange}
                 required={false}
                 checked={
-                  user_answers
-                    ? user_answers["que-" + queName[1]]["user_answer"] ===
-                      domNode.attribs.value
-                    : formValues["que-" + queName[1]] === domNode.attribs.value
+                  formValues["que-" + queName[1]] === domNode.attribs.value
                 }
-                disabled={!!user_answers}
               />
             ) : domNode.name === "select" ? (
               <select
@@ -60,12 +56,7 @@ const ParseQuestionsReading = ({ section, user_answers, handleChange }) => {
                 className={`my-2 mx-1 ${domNode.attribs.className || ""}`}
                 required={false}
                 onChange={handleInputChange}
-                value={
-                  user_answers
-                    ? user_answers["que-" + queName[1]]["user_answer"]
-                    : formValues["que-" + queName[1]]
-                }
-                disabled={!!user_answers}
+                value={formValues["que-" + queName[1]]}
               >
                 {Array.from(domNode.children || []).map((optionNode, idx) => (
                   <option
