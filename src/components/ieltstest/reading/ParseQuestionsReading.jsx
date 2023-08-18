@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import parse from "html-react-parser";
 
-const ParseQuestionsReading = ({ section, user_answers, handleChange }) => {
+const ParseQuestionsReading = ({ section, section_form_values, handleChange }) => {
   const [formValues, setFormValues] = useState({});
 
   useEffect(() => {
-    if (user_answers) {
-      setFormValues(user_answers);
+    if (section_form_values) {
+      setFormValues(section_form_values);
     }
-  }, [user_answers]);
+  }, [section_form_values]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;

@@ -315,7 +315,7 @@ const AttemptReadingModulePage = () => {
                     handleSubmit={handleSubmit}
                     formRef={formRef}
                     key={currentSection.id}
-                    user_answers={currentUserAnswerBySection}
+                    section_form_values={currentUserAnswerBySection}
                   />
                 </div>
               </SplitPane>
