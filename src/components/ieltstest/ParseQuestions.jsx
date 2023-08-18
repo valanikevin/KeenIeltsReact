@@ -111,15 +111,14 @@ const ParseQuestions = ({
 
         return (
           <span id={`que-${queName[1]}`}>
-            {moduleType === "Listening" &&
-              user_answers &&
+            {user_answers &&
               domNode.attribs.type === "radio" &&
               user_answers["que-" + queName[1]]["user_answer"] ===
                 domNode.attribs.value && (
                 <QuestionBadge user_answers={user_answers} queName={queName} />
               )}
 
-            {moduleType === "Listening" && domNode.attribs.type !== "radio" && (
+            {domNode.attribs.type !== "radio" && (
               <QuestionBadge user_answers={user_answers} queName={queName} />
             )}
 
