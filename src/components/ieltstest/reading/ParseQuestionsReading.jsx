@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import parse from "html-react-parser";
+import QuestionBadge from "../QuestionBadge";
 
-const ParseQuestionsReading = ({
+const ParseQuestions = ({
   section,
   section_form_values,
-  user_answers = null,
+  user_answers,
   handleChange,
+  moduleType = "Listening", // Default to 'Listening' module
 }) => {
   const [formValues, setFormValues] = useState({});
 
@@ -20,18 +22,80 @@ const ParseQuestionsReading = ({
   }, [user_answers]);
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    const key = name.split("-")[1];
-    setFormValues({
-      ...formValues,
-      ["que-" + key]: value,
-    });
-    if (handleChange) {
-      handleChange(event);
+    if (moduleType === "Reading") {
+      const { name, value } = event.target;
+      const key = name.split("-")[1];
+      setFormValues({
+        ...formValues,
+        ["que-" + key]: value,
+      });
+      if (handleChange) {
+        handleChange(event);
+      }
     }
   };
 
-  let counter = 0;
+  const renderInput = (domNode, queName) => {
+    const commonProps = {
+      ...domNode.attribs,
+      className: `my-2 mx-1 ${domNode.attribs.className || ""}`,
+      required: false,
+      onChange: moduleType === "Reading" ? handleInputChange : handleChange,
+      disabled: !!user_answers,
+    };
+
+    if (domNode.name === "input" && domNode.attribs.type === "radio") {
+      return (
+        <input
+          type="radio"
+          {...commonProps}
+          checked={
+            user_answers
+              ? user_answers["que-" + queName[1]]["user_answer"] ===
+                domNode.attribs.value
+              : moduleType === "Reading"
+              ? formValues["que-" + queName[1]] === domNode.attribs.value
+              : undefined
+          }
+        />
+      );
+    }
+
+    if (domNode.name === "select") {
+      return (
+        <select
+          {...commonProps}
+          value={
+            user_answers
+              ? user_answers["que-" + queName[1]]["user_answer"]
+              : moduleType === "Reading"
+              ? formValues["que-" + queName[1]]
+              : undefined
+          }
+        >
+          {Array.from(domNode.children || []).map((optionNode, idx) => (
+            <option
+              key={idx}
+              value={optionNode.attribs.value}
+              {...optionNode.attribs}
+            >
+              {optionNode.children[0].data}
+            </option>
+          ))}
+        </select>
+      );
+    }
+
+    return React.createElement(domNode.name, {
+      ...commonProps,
+      value: user_answers
+        ? user_answers["que-" + queName[1]]["user_answer"]
+        : moduleType === "Reading"
+        ? formValues["que-" + queName[1]]
+        : undefined,
+    });
+  };
+
   if (!section || !section.questions) {
     return null;
   }
@@ -43,61 +107,23 @@ const ParseQuestionsReading = ({
         domNode.name === "textarea" ||
         domNode.name === "select"
       ) {
-        counter += 1;
         let queName = domNode.attribs.name.split("-");
 
         return (
           <span id={`que-${queName[1]}`}>
-            {domNode.name === "input" && domNode.attribs.type === "radio" ? (
-              <input
-                type="radio"
-                {...domNode.attribs}
-                className={`my-2 mx-1 ${domNode.attribs.className || ""}`}
-                onChange={handleInputChange}
-                required={false}
-                disabled={!!user_answers}
-                checked={
-                  user_answers
-                    ? user_answers["que-" + queName[1]]["user_answer"] ===
-                      domNode.attribs.value
-                    : formValues["que-" + queName[1]] === domNode.attribs.value
-                }
-              />
-            ) : domNode.name === "select" ? (
-              <select
-                {...domNode.attribs}
-                className={`my-2 mx-1 ${domNode.attribs.className || ""}`}
-                required={false}
-                onChange={handleInputChange}
-                disabled={!!user_answers}
-                value={
-                  user_answers
-                    ? user_answers["que-" + queName[1]]["user_answer"]
-                    : formValues["que-" + queName[1]]
-                }
-              >
-                {Array.from(domNode.children || []).map((optionNode, idx) => (
-                  <option
-                    key={idx}
-                    value={optionNode.attribs.value}
-                    {...optionNode.attribs}
-                  >
-                    {optionNode.children[0].data}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              React.createElement(domNode.name, {
-                ...domNode.attribs,
-                className: `my-2 mx-1 ${domNode.attribs.className || ""}`,
-                required: false,
-                onChange: handleInputChange,
-                disabled: !!user_answers,
-                value: user_answers
-                  ? user_answers["que-" + queName[1]]["user_answer"]
-                  : formValues["que-" + queName[1]],
-              })
+            {moduleType === "Listening" &&
+              user_answers &&
+              domNode.attribs.type === "radio" &&
+              user_answers["que-" + queName[1]]["user_answer"] ===
+                domNode.attribs.value && (
+                <QuestionBadge user_answers={user_answers} queName={queName} />
+              )}
+
+            {moduleType === "Listening" && domNode.attribs.type !== "radio" && (
+              <QuestionBadge user_answers={user_answers} queName={queName} />
             )}
+
+            {renderInput(domNode, queName)}
           </span>
         );
       }
@@ -105,4 +131,4 @@ const ParseQuestionsReading = ({
   });
 };
 
-export default ParseQuestionsReading;
+export default ParseQuestions;
