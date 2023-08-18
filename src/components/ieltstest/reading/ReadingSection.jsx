@@ -8,6 +8,7 @@ const ReadingSection = ({
   handleChange = null,
   handleSubmit = null,
   section_form_values = null,
+  user_answers = null,
 }) => {
   return (
     <div className="text-black">
@@ -17,6 +18,7 @@ const ReadingSection = ({
           section_form_values={section_form_values}
           handleChange={handleChange}
           useReadingMode={true}
+          user_answers={user_answers}
         />
       </form>
     </div>
