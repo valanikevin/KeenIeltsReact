@@ -9,6 +9,7 @@ import "./ReactSplitPane.css";
 
 import ReadingPassage from "../../../components/ieltstest/reading/ReadingPassage";
 import ReadingSection from "../../../components/ieltstest/reading/ReadingSection";
+import ReviewAnswers from "../../../components/ieltstest/ReviewAnswers";
 
 const ReadingResultPage = () => {
   const api = useAxios();
@@ -98,11 +99,21 @@ const ReadingResultPage = () => {
         <Container>
           <Row>
             <Col sm={12}>
-              <Accordion defaultActiveKey={"0"}>
+              <Accordion defaultActiveKey={"review_answer"}>
+                <Accordion.Item eventKey="review_answer">
+                  <Accordion.Header>
+                    <span className="text-black fw-bold">Review Answers</span>
+                  </Accordion.Header>
+                  <Accordion.Body className="p-0">
+                    <ReviewAnswers attempt={attempt} />
+                  </Accordion.Body>
+                </Accordion.Item>
                 {Object.keys(module.sections).map((item) => (
                   <Accordion.Item eventKey={item} key={item}>
                     <Accordion.Header>
-                      {module.sections[item].section}
+                      <span className="text-black fw-bold">
+                        {module.sections[item].section}
+                      </span>
                     </Accordion.Header>
                     <Accordion.Body className="p-0">
                       <div className="h-100">

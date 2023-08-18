@@ -17,10 +17,6 @@ const ParseQuestions = ({
     }
   }, [section_form_values]);
 
-  useEffect(() => {
-    console.log(user_answers);
-  }, [user_answers]);
-
   const handleInputChange = (event) => {
     if (moduleType === "Reading") {
       const { name, value } = event.target;
