@@ -5,9 +5,15 @@ import { Col, Container, Row } from "react-bootstrap";
 import BookCard from "../../components/ieltstest/BookCard";
 import usePublicAxios from "../../utils/usePublicAxios";
 import { API_URLS } from "../../utils/urls";
+import useAxios from "../../utils/useAxios";
 
 const ModuleHomePage = () => {
-  const api = usePublicAxios();
+  let api;
+  if (localStorage.getItem("authTokens")) {
+    api = useAxios();
+  } else {
+    api = usePublicAxios();
+  }
   const { module_slug } = useParams();
   const [books, setBooks] = useState([]);
   const module_data = {

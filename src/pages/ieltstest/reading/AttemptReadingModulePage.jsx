@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import SplitPane from "react-split-pane";
 import {
+  Stack,
   Navbar,
   Card,
   Container,
@@ -21,6 +22,7 @@ import { API_URLS } from "../../../utils/urls";
 import ReadingSection from "../../../components/ieltstest/reading/ReadingSection";
 import ReadingPassage from "../../../components/ieltstest/reading/ReadingPassage";
 import { getFormData } from "../../../utils/moduleUtils";
+import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import BookInfo from "../../../components/ieltstest/listening/BookInfo";
 
 const AttemptReadingModulePage = () => {
@@ -132,6 +134,33 @@ const AttemptReadingModulePage = () => {
   const handleChange = (event) => {
     const formData = getFormDataLocal();
   };
+  function handlePreviousSectionButton() {
+    let current_section_id = currentSection.id;
+    let new_section_id = current_section_id - 1;
+    const newSection = module.sections.find(
+      (section) => section.id === new_section_id
+    );
+    if (newSection) {
+      setCurrentSection(newSection);
+    } else {
+      const lastElement = module.sections[module.sections.length - 1];
+      setCurrentSection(lastElement);
+    }
+  }
+
+  function handleNextSectionButton() {
+    let current_section_id = currentSection.id;
+    let new_section_id = current_section_id + 1;
+    const newSection = module.sections.find(
+      (section) => section.id === new_section_id
+    );
+    if (newSection) {
+      setCurrentSection(newSection);
+    } else {
+      const lastElement = module.sections[0];
+      setCurrentSection(lastElement);
+    }
+  }
 
   async function getModule() {
     const response = await api.post(
@@ -140,8 +169,6 @@ const AttemptReadingModulePage = () => {
     if (response.status === 200) {
       setModule(response.data);
       setCurrentSection(response.data.sections[0]);
-      // Initialize userAnswerBySection here if you have existing answers
-      // setUserAnswerBySection( ... );
     }
   }
 
@@ -317,6 +344,26 @@ const AttemptReadingModulePage = () => {
                     key={currentSection.id}
                     section_form_values={currentUserAnswerBySection}
                   />
+                  <Stack direction="horizontal" className="border-top pt-3">
+                    <div className="m-0">
+                      <Button
+                        variant="dark"
+                        className="btn-sm"
+                        onClick={handlePreviousSectionButton}
+                      >
+                        <FiArrowLeft size={20} /> Previous Section
+                      </Button>
+                    </div>
+                    <div className="m-0 ms-auto">
+                      <Button
+                        variant="dark"
+                        className="btn-sm"
+                        onClick={handleNextSectionButton}
+                      >
+                        Next Section <FiArrowRight size={20} />
+                      </Button>
+                    </div>
+                  </Stack>
                 </div>
               </SplitPane>
             </div>
