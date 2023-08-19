@@ -29,6 +29,18 @@ const ModuleHomePage = () => {
         "Improve your English reading skills by practicing with mock tests that closely resemble the actual IELTS listening tests.",
       api_url: "/ieltstest/reading/",
     },
+    writing: {
+      page_title: "Writing Tests",
+      page_description:
+        "Improve your English writing skills by practicing with mock tests that closely resemble the actual IELTS listening tests.",
+      api_url: "/ieltstest/writing/",
+    },
+    speaking: {
+      page_title: "Speaking Tests",
+      page_description:
+        "Improve your English speaking skills by practicing with mock tests that closely resemble the actual IELTS listening tests.",
+      api_url: "/ieltstest/speaking/",
+    },
   };
 
   useEffect(() => {
