@@ -51,6 +51,8 @@ const AttemptReadingModulePage = () => {
   const handleShowSubmitModal = () => setShowSubmitModal(true);
   const handleClosSubmiteModal = () => setShowSubmitModal(false);
   const navigate = useNavigate();
+  const passageSection = useRef(null);
+  const questionSection = useRef(null);
 
   // Effects:
 
@@ -62,6 +64,9 @@ const AttemptReadingModulePage = () => {
     if (currentSection) {
       const answers = userAnswerBySection[currentSection.id];
       setCurrentUserAnswerBySection(answers);
+      window.scrollTo(0, 0);
+      passageSection.current.scrollTop = 0;
+      questionSection.current.scrollTop = 0;
     }
   }, [currentSection]);
 
@@ -332,10 +337,15 @@ const AttemptReadingModulePage = () => {
                 <div
                   className="simulationDiv p-3"
                   style={paneWithBackgroundColor}
+                  ref={passageSection}
                 >
                   <ReadingPassage section={currentSection} />
                 </div>
-                <div className="statisticsDiv p-3 bg-white" style={paneStyle}>
+                <div
+                  className="statisticsDiv p-3 bg-white"
+                  style={paneStyle}
+                  ref={questionSection}
+                >
                   <ReadingSection
                     section={currentSection}
                     handleChange={handleChange}
