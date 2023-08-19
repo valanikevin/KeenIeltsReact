@@ -28,6 +28,7 @@ const ReadingFooter = ({
   setShowReviewModal,
   userAllAnswer,
   setShowSubmitModal,
+  handleConfirmEndTest,
 }) => {
   return (
     <div
@@ -53,7 +54,11 @@ const ReadingFooter = ({
             </div>
           </Col>
           <Col className="col-4 text-center mt-1">
-            <CountdownTimer initialMinutes={40} initialSeconds={0} />
+            <CountdownTimer
+              initialMinutes={40}
+              initialSeconds={0}
+              handleTimesUp={handleConfirmEndTest}
+            />
           </Col>
           <Col className="col-4" style={{ textAlign: "right" }}>
             {deviceType !== "mobile" && (

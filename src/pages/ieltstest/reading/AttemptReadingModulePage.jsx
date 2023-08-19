@@ -390,6 +390,7 @@ const AttemptReadingModulePage = () => {
         setShowReviewModal={setShowReviewModal}
         userAllAnswer={allAnswers}
         setShowSubmitModal={setShowSubmitModal}
+        handleConfirmEndTest={handleConfirmEndTest}
       />
     </>
   );
