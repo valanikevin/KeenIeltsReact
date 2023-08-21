@@ -245,81 +245,6 @@ const AttemptReadingModulePage = () => {
 
   return (
     <>
-      <Modal show={showSubmitModal} onHide={handleClosSubmiteModal} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>End Test</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Are you sure you want to end the test?</Modal.Body>
-        <Modal.Footer className="p-2">
-          <Button variant="outline-primary" onClick={handleClosSubmiteModal}>
-            No
-          </Button>
-          <Button variant="primary" onClick={handleConfirmEndTest}>
-            Yes, end test
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      <Modal
-        show={showReviewModal}
-        onHide={handleCloseReviewModal}
-        centered
-        className="p-0"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Review Answers</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Table striped bordered size="sm">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Your Answer</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.keys(allAnswers).map((item) => (
-                <tr key={item}>
-                  <td>{item.split("-")[1]}</td>
-                  <td className="fw-bold text-black">{allAnswers[item]}</td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </Modal.Body>
-        <div class="modal-footer py-2">
-          <button
-            type="button"
-            class="btn btn-outline-primary"
-            onClick={handleCloseReviewModal}
-          >
-            Close
-          </button>
-        </div>
-      </Modal>
-
-      <Modal
-        show={showTestInfoModal}
-        onHide={handleCloseTestInfoModal}
-        centered
-        className="p-0"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Test Info</Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="p-0">
-          <BookInfo module={module} attempt_slug={attempt_slug} />
-        </Modal.Body>
-        <div class="modal-footer py-2">
-          <button
-            type="button"
-            class="btn btn-outline-primary"
-            onClick={handleCloseTestInfoModal}
-          >
-            Close
-          </button>
-        </div>
-      </Modal>
-
       <MiniNavBar
         module={module}
         currentSection={currentSection}
@@ -392,6 +317,81 @@ const AttemptReadingModulePage = () => {
         setShowSubmitModal={setShowSubmitModal}
         handleConfirmEndTest={handleConfirmEndTest}
       />
+
+      <Modal show={showSubmitModal} onHide={handleClosSubmiteModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>End Test</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to end the test?</Modal.Body>
+        <Modal.Footer className="p-2">
+          <Button variant="outline-primary" onClick={handleClosSubmiteModal}>
+            No
+          </Button>
+          <Button variant="primary" onClick={handleConfirmEndTest}>
+            Yes, end test
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        show={showReviewModal}
+        onHide={handleCloseReviewModal}
+        centered
+        className="p-0"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Review Answers</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Table striped bordered size="sm">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Your Answer</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.keys(allAnswers).map((item) => (
+                <tr key={item}>
+                  <td>{item.split("-")[1]}</td>
+                  <td className="fw-bold text-black">{allAnswers[item]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Modal.Body>
+        <div class="modal-footer py-2">
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            onClick={handleCloseReviewModal}
+          >
+            Close
+          </button>
+        </div>
+      </Modal>
+
+      <Modal
+        show={showTestInfoModal}
+        onHide={handleCloseTestInfoModal}
+        centered
+        className="p-0"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Test Info</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="p-0">
+          <BookInfo module={module} attempt_slug={attempt_slug} />
+        </Modal.Body>
+        <div className="modal-footer py-2">
+          <button
+            type="button"
+            className="btn btn-outline-primary"
+            onClick={handleCloseTestInfoModal}
+          >
+            Close
+          </button>
+        </div>
+      </Modal>
     </>
   );
 };
