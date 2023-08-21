@@ -13,6 +13,7 @@ import ModuleHomePage from "./pages/ieltstest/ModuleHomePage";
 import AttemptReadingModulePage from "./pages/ieltstest/reading/AttemptReadingModulePage";
 import ReadingResultPage from "./pages/ieltstest/reading/ReadingResultPage";
 import AttemptWritingModulePage from "./pages/ieltstest/writing/AttemptWritingModulePage";
+import WritingResultPage from "./pages/ieltstest/writing/WritingResultPage";
 
 const AllRoutes = () => {
   return (
@@ -53,6 +54,11 @@ const AllRoutes = () => {
           <Route
             path="writing/:module_slug/:attempt_slug"
             element={<AttemptWritingModulePage />}
+          />
+
+          <Route
+            path="writing/:module_slug/:attempt_slug/get_result"
+            element={<WritingResultPage />}
           />
         </Route>
       </Route>

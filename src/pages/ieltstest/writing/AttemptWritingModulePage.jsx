@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import useAxios from "../../../utils/useAxios";
 import { API_URLS } from "../../../utils/urls";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { MiniNavBar } from "../../../components/ieltstest/MiniNavBar";
 import { Modal } from "react-bootstrap";
 import BookInfo from "../../../components/ieltstest/listening/BookInfo";
@@ -47,6 +47,7 @@ const AttemptWritingModulePage = () => {
   const [showSubmitModal, setShowSubmitModal] = useState(false);
   const handleShowSubmitModal = () => setShowSubmitModal(true);
   const handleClosSubmiteModal = () => setShowSubmitModal(false);
+  const navigate = useNavigate();
 
   // Functions
   async function getModule() {
@@ -62,6 +63,21 @@ const AttemptWritingModulePage = () => {
   function updateCurrentSection(id) {
     const newSection = module.sections.find((section) => section.id === id);
     setCurrentSection(newSection);
+  }
+
+  function sendAttemptUpdate(attempt_type = "In Progress") {
+    const data = {
+      answers: userAnswerBySection,
+      attempt_type: attempt_type,
+    };
+
+    const response = api.post(
+      "/ieltstest/update_attempt/writing/" + attempt_slug + "/",
+      data
+    );
+    if (response.status === 200) {
+      console.log("Attempt Updated");
+    }
   }
 
   function handleConfirmEndTest() {
