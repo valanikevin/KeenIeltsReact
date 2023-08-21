@@ -22,7 +22,7 @@ import {
   Badge,
   Button,
 } from "react-bootstrap";
-import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
+import { FiArrowLeft, FiArrowRight, FiCheckCircle } from "react-icons/fi";
 import WritingSection from "../../../components/ieltstest/writing/WritingSection";
 import WritingTask from "../../../components/ieltstest/writing/WritingTask";
 
@@ -38,6 +38,15 @@ const AttemptWritingModulePage = () => {
   const [userAnswerBySection, setUserAnswerBySection] = useState({});
   const formRef = useRef(null);
   const [currentFormData, setCurrentFormData] = useState({});
+  const isFirstSection = currentSection
+    ? currentSection.id === module.sections[0].id
+    : false;
+  const isLastSection = currentSection
+    ? currentSection.id === module.sections[module.sections.length - 1].id
+    : false;
+  const [showSubmitModal, setShowSubmitModal] = useState(false);
+  const handleShowSubmitModal = () => setShowSubmitModal(true);
+  const handleClosSubmiteModal = () => setShowSubmitModal(false);
 
   // Functions
   async function getModule() {
@@ -53,6 +62,43 @@ const AttemptWritingModulePage = () => {
   function updateCurrentSection(id) {
     const newSection = module.sections.find((section) => section.id === id);
     setCurrentSection(newSection);
+  }
+
+  function handleConfirmEndTest() {
+    getFormDataLocal();
+    sendAttemptUpdate("Completed");
+    navigate(
+      `/ieltstest/attempt/writing/${module_slug}/${attempt_slug}/get_result`
+    );
+    handleClosSubmiteModal();
+  }
+
+  function handlePreviousSectionButton() {
+    let current_section_id = currentSection.id;
+    let new_section_id = current_section_id - 1;
+    const newSection = module.sections.find(
+      (section) => section.id === new_section_id
+    );
+    if (newSection) {
+      setCurrentSection(newSection);
+    } else {
+      const lastElement = module.sections[module.sections.length - 1];
+      setCurrentSection(lastElement);
+    }
+  }
+
+  function handleNextSectionButton() {
+    let current_section_id = currentSection.id;
+    let new_section_id = current_section_id + 1;
+    const newSection = module.sections.find(
+      (section) => section.id === new_section_id
+    );
+    if (newSection) {
+      setCurrentSection(newSection);
+    } else {
+      const lastElement = module.sections[0];
+      setCurrentSection(lastElement);
+    }
   }
 
   // CSS
@@ -170,14 +216,35 @@ const AttemptWritingModulePage = () => {
                   />
                   <Stack direction="horizontal" className="border-top pt-3">
                     <div className="m-0">
-                      <Button variant="dark" className="btn-sm">
+                      <Button
+                        variant="dark"
+                        className="btn-sm"
+                        onClick={handlePreviousSectionButton}
+                        disabled={isFirstSection} // Disable if on the first section
+                      >
                         <FiArrowLeft size={20} /> Previous Section
                       </Button>
                     </div>
                     <div className="m-0 ms-auto">
-                      <Button variant="dark" className="btn-sm">
-                        Next Section <FiArrowRight size={20} />
-                      </Button>
+                      {isLastSection ? (
+                        <Button
+                          variant="primary"
+                          className="btn-sm"
+                          onClick={() => {
+                            setShowSubmitModal(true);
+                          }}
+                        >
+                          Submit Test <FiCheckCircle size={20} />
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="dark"
+                          className="btn-sm"
+                          onClick={handleNextSectionButton}
+                        >
+                          Next Section <FiArrowRight size={20} />
+                        </Button>
+                      )}
                     </div>
                   </Stack>
                 </div>
@@ -187,6 +254,20 @@ const AttemptWritingModulePage = () => {
         </Row>
       </Container>
 
+      <Modal show={showSubmitModal} onHide={handleClosSubmiteModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>End Test</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to end the test?</Modal.Body>
+        <Modal.Footer className="p-2">
+          <Button variant="outline-primary" onClick={handleClosSubmiteModal}>
+            No
+          </Button>
+          <Button variant="primary" onClick={handleConfirmEndTest}>
+            Yes, end test
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <Modal
         show={showTestInfoModal}
         onHide={handleCloseTestInfoModal}

@@ -12,6 +12,11 @@
 
 .writing-questions textarea {
   width: 100%;
+  color: black;
+}
+
+.writing-questions textarea:focus {
+  color: black;
 }
 
 .highlighted-text {

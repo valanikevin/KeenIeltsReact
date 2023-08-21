@@ -22,7 +22,7 @@ import { API_URLS } from "../../../utils/urls";
 import ReadingSection from "../../../components/ieltstest/reading/ReadingSection";
 import ReadingPassage from "../../../components/ieltstest/reading/ReadingPassage";
 import { getFormData } from "../../../utils/moduleUtils";
-import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
+import { FiArrowLeft, FiArrowRight, FiCheckCircle } from "react-icons/fi";
 import BookInfo from "../../../components/ieltstest/listening/BookInfo";
 
 const AttemptReadingModulePage = () => {
@@ -53,6 +53,12 @@ const AttemptReadingModulePage = () => {
   const navigate = useNavigate();
   const passageSection = useRef(null);
   const questionSection = useRef(null);
+  const isFirstSection = currentSection
+    ? currentSection.id === module.sections[0].id
+    : false;
+  const isLastSection = currentSection
+    ? currentSection.id === module.sections[module.sections.length - 1].id
+    : false;
 
   // Effects:
 
@@ -139,6 +145,7 @@ const AttemptReadingModulePage = () => {
   const handleChange = (event) => {
     const formData = getFormDataLocal();
   };
+
   function handlePreviousSectionButton() {
     let current_section_id = currentSection.id;
     let new_section_id = current_section_id - 1;
@@ -285,18 +292,31 @@ const AttemptReadingModulePage = () => {
                         variant="dark"
                         className="btn-sm"
                         onClick={handlePreviousSectionButton}
+                        disabled={isFirstSection} // Disable if on the first section
                       >
                         <FiArrowLeft size={20} /> Previous Section
                       </Button>
                     </div>
                     <div className="m-0 ms-auto">
-                      <Button
-                        variant="dark"
-                        className="btn-sm"
-                        onClick={handleNextSectionButton}
-                      >
-                        Next Section <FiArrowRight size={20} />
-                      </Button>
+                      {isLastSection ? (
+                        <Button
+                          variant="primary"
+                          className="btn-sm"
+                          onClick={() => {
+                            setShowSubmitModal(true);
+                          }}
+                        >
+                          Submit Test <FiCheckCircle size={20} />
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="dark"
+                          className="btn-sm"
+                          onClick={handleNextSectionButton}
+                        >
+                          Next Section <FiArrowRight size={20} />
+                        </Button>
+                      )}
                     </div>
                   </Stack>
                 </div>
