@@ -37,6 +37,7 @@ const AttemptWritingModulePage = () => {
   const [deviceType, setDeviceType] = useState("desktop");
   const [userAnswerBySection, setUserAnswerBySection] = useState({});
   const formRef = useRef(null);
+  const [currentFormData, setCurrentFormData] = useState({});
 
   // Functions
   async function getModule() {
@@ -98,18 +99,23 @@ const AttemptWritingModulePage = () => {
   function getFormDataLocal() {
     if (formRef.current) {
       const formData = new FormData(formRef.current);
-
+      let data = {};
       for (let [key, value] of formData.entries()) {
-        setUserAnswerBySection({
-          ...userAnswerBySection,
-          [key]: value,
-        });
+        data[key] = value; // Construct the data object
       }
+      // Use currentSection.id to store the data for the current section
+      setUserAnswerBySection({
+        ...userAnswerBySection,
+        [currentSection.id]: data[`task-${currentSection.id}`],
+      });
+      setCurrentFormData(data);
     }
   }
 
   useEffect(() => {
     getFormDataLocal();
+    if (currentSection) {
+    }
   }, [currentSection]);
 
   useEffect(() => {
@@ -159,6 +165,8 @@ const AttemptWritingModulePage = () => {
                     deviceType={deviceType}
                     formRef={formRef}
                     handleChange={handleChange}
+                    currentFormData={currentFormData}
+                    userAnswerBySection={userAnswerBySection} // Pass this prop
                   />
                   <Stack direction="horizontal" className="border-top pt-3">
                     <div className="m-0">
