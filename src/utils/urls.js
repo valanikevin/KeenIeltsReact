@@ -4,4 +4,8 @@ export const API_URLS = {
   getListeningModule: "/ieltstest/get_module/listening/",
   getReadingModule: "/ieltstest/get_module/reading/",
   getReadingAttempt: "/ieltstest/get_attempt/reading/",
+  getWritingModule: "/ieltstest/get_module/writing/",
+  getWritingAttempt: "/ieltstest/get_attempt/writing/",
+  getSpeakingModule: "/ieltstest/get_module/speaking/",
+  getSpeakingAttempt: "/ieltstest/get_attempt/speaking/",
 };

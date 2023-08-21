@@ -8,11 +8,11 @@ import {
   DropdownButton,
   Dropdown,
 } from "react-bootstrap";
-import Logo from "../../../assets/images/brand/logo/logo.svg";
+import Logo from "../../assets/images/brand/logo/logo.svg";
 import { Link } from "react-router-dom";
 import { FiChevronLeft } from "react-icons/fi";
 
-export const ReadingNavBar = ({
+export const MiniNavBar = ({
   module,
   currentSection,
   updateCurrentSection,

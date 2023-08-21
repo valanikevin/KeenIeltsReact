@@ -14,7 +14,7 @@ import {
   Button,
 } from "react-bootstrap";
 import "./ReactSplitPane.css";
-import { ReadingNavBar } from "../../../components/ieltstest/reading/ReadingNavBar";
+import { MiniNavBar } from "../../../components/ieltstest/MiniNavBar";
 import ReadingFooter from "../../../components/ieltstest/reading/ReadingFooter";
 import useAxios from "../../../utils/useAxios";
 import { useNavigate, useParams } from "react-router-dom";
@@ -320,7 +320,7 @@ const AttemptReadingModulePage = () => {
         </div>
       </Modal>
 
-      <ReadingNavBar
+      <MiniNavBar
         module={module}
         currentSection={currentSection}
         updateCurrentSection={updateCurrentSection}
