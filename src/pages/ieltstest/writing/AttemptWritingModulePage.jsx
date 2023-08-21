@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useAxios from "../../../utils/useAxios";
 import { API_URLS } from "../../../utils/urls";
 import { useParams } from "react-router-dom";
@@ -24,6 +24,7 @@ import {
 } from "react-bootstrap";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import WritingSection from "../../../components/ieltstest/writing/WritingSection";
+import WritingTask from "../../../components/ieltstest/writing/WritingTask";
 
 const AttemptWritingModulePage = () => {
   // Variables:
@@ -34,6 +35,8 @@ const AttemptWritingModulePage = () => {
   const [showTestInfoModal, setShowTestInfoModal] = useState(false);
   const handleCloseTestInfoModal = () => setShowTestInfoModal(false);
   const [deviceType, setDeviceType] = useState("desktop");
+  const [userAnswerBySection, setUserAnswerBySection] = useState({});
+  const formRef = useRef(null);
 
   // Functions
   async function getModule() {
@@ -46,11 +49,15 @@ const AttemptWritingModulePage = () => {
     }
   }
 
+  function updateCurrentSection(id) {
+    const newSection = module.sections.find((section) => section.id === id);
+    setCurrentSection(newSection);
+  }
+
   // CSS
 
   const paneStyle = {
     overflow: "auto",
-    height: `${deviceType === "mobile" ? "50vh" : "95vh"}`,
   };
 
   const paneWithBackgroundColor = {
@@ -84,6 +91,27 @@ const AttemptWritingModulePage = () => {
     };
   }, []);
 
+  const handleChange = (event) => {
+    const formData = getFormDataLocal();
+  };
+
+  function getFormDataLocal() {
+    if (formRef.current) {
+      const formData = new FormData(formRef.current);
+
+      for (let [key, value] of formData.entries()) {
+        setUserAnswerBySection({
+          ...userAnswerBySection,
+          [key]: value,
+        });
+      }
+    }
+  }
+
+  useEffect(() => {
+    getFormDataLocal();
+  }, [currentSection]);
+
   useEffect(() => {
     getModule();
   }, []);
@@ -96,6 +124,7 @@ const AttemptWritingModulePage = () => {
       <MiniNavBar
         module={module}
         currentSection={currentSection}
+        updateCurrentSection={updateCurrentSection}
         setShowTestInfoModal={setShowTestInfoModal}
       />
       <Container style={containerStyle} className="hide-scrollbar px-0">
@@ -108,12 +137,29 @@ const AttemptWritingModulePage = () => {
               >
                 <div
                   className="simulationDiv p-3 writing-questions"
-                  style={paneWithBackgroundColor}
+                  style={{
+                    height: `${deviceType === "mobile" ? "30vh" : "95vh"}`,
+                    backgroundColor: "#ffeae0",
+                  }}
                 >
-                  {parse(module.sections[0].questions)}
+                  <WritingTask
+                    currentSection={currentSection}
+                    key={currentSection.id}
+                  />
                 </div>
-                <div className="statisticsDiv p-3 bg-white" style={paneStyle}>
-                  <WritingSection />
+                <div
+                  className="statisticsDiv p-3 bg-white"
+                  style={{
+                    height: `${deviceType === "mobile" ? "60vh" : "95vh"}`,
+                  }}
+                >
+                  <WritingSection
+                    currentSection={currentSection}
+                    key={currentSection.id}
+                    deviceType={deviceType}
+                    formRef={formRef}
+                    handleChange={handleChange}
+                  />
                   <Stack direction="horizontal" className="border-top pt-3">
                     <div className="m-0">
                       <Button variant="dark" className="btn-sm">
