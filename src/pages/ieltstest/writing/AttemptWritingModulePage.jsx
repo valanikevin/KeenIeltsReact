@@ -25,6 +25,7 @@ import {
 import { FiArrowLeft, FiArrowRight, FiCheckCircle } from "react-icons/fi";
 import WritingSection from "../../../components/ieltstest/writing/WritingSection";
 import WritingTask from "../../../components/ieltstest/writing/WritingTask";
+import WritingFooter from "../../../components/ieltstest/writing/WritingFooter";
 
 const AttemptWritingModulePage = () => {
   // Variables:
@@ -48,6 +49,8 @@ const AttemptWritingModulePage = () => {
   const handleShowSubmitModal = () => setShowSubmitModal(true);
   const handleClosSubmiteModal = () => setShowSubmitModal(false);
   const navigate = useNavigate();
+  const taskSectionRef = useRef(null);
+  const answerSectionRef = useRef(null);
 
   // Functions
   async function getModule() {
@@ -175,6 +178,14 @@ const AttemptWritingModulePage = () => {
   }
 
   useEffect(() => {
+    if (currentSection) {
+      window.scrollTo(0, 0);
+      taskSectionRef.current.scrollTop = 0;
+      answerSectionRef.current.scrollTop = 0;
+    }
+  }, [currentSection]);
+
+  useEffect(() => {
     getFormDataLocal();
     if (currentSection) {
     }
@@ -206,9 +217,10 @@ const AttemptWritingModulePage = () => {
                 <div
                   className="simulationDiv p-3 writing-questions"
                   style={{
-                    height: `${deviceType === "mobile" ? "30vh" : "95vh"}`,
+                    height: `${deviceType === "mobile" ? "45vh" : "95vh"}`,
                     backgroundColor: "#ffeae0",
                   }}
+                  ref={taskSectionRef}
                 >
                   <WritingTask
                     currentSection={currentSection}
@@ -220,6 +232,7 @@ const AttemptWritingModulePage = () => {
                   style={{
                     height: `${deviceType === "mobile" ? "60vh" : "95vh"}`,
                   }}
+                  ref={answerSectionRef}
                 >
                   <WritingSection
                     currentSection={currentSection}
@@ -230,45 +243,21 @@ const AttemptWritingModulePage = () => {
                     currentFormData={currentFormData}
                     userAnswerBySection={userAnswerBySection} // Pass this prop
                   />
-                  <Stack direction="horizontal" className="border-top pt-3">
-                    <div className="m-0">
-                      <Button
-                        variant="dark"
-                        className="btn-sm"
-                        onClick={handlePreviousSectionButton}
-                        disabled={isFirstSection} // Disable if on the first section
-                      >
-                        <FiArrowLeft size={20} /> Previous Section
-                      </Button>
-                    </div>
-                    <div className="m-0 ms-auto">
-                      {isLastSection ? (
-                        <Button
-                          variant="primary"
-                          className="btn-sm"
-                          onClick={() => {
-                            setShowSubmitModal(true);
-                          }}
-                        >
-                          Submit Test <FiCheckCircle size={20} />
-                        </Button>
-                      ) : (
-                        <Button
-                          variant="dark"
-                          className="btn-sm"
-                          onClick={handleNextSectionButton}
-                        >
-                          Next Section <FiArrowRight size={20} />
-                        </Button>
-                      )}
-                    </div>
-                  </Stack>
                 </div>
               </SplitPane>
             </div>
           </Col>
         </Row>
       </Container>
+      <WritingFooter
+        deviceType={deviceType}
+        handleConfirmEndTest={handleConfirmEndTest}
+        isFirstSection={isFirstSection}
+        isLastSection={isLastSection}
+        handleNextSectionButton={handleNextSectionButton}
+        handlePreviousSectionButton={handlePreviousSectionButton}
+        setShowSubmitModal={setShowSubmitModal}
+      />
 
       <Modal show={showSubmitModal} onHide={handleClosSubmiteModal} centered>
         <Modal.Header closeButton>
