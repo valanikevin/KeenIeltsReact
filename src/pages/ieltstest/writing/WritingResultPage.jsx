@@ -198,7 +198,7 @@ const WritingResultPage = () => {
             <Card className="skeleton-card">
               <Card.Body>
                 <div className="writing-questions">
-                  {parse(module.sections[0].task)}
+                  {parse(currentSection.task)}
                 </div>
               </Card.Body>
             </Card>
@@ -210,7 +210,9 @@ const WritingResultPage = () => {
                   <span className="fw-bold text-black">Your Answer</span>
                 </Card.Header>
                 <Card.Body>
-                  <p className="text-black">{parse(attempt.answers["1"])}</p>
+                  <p className="text-black">
+                    {parse(attempt.answers[currentSection.id])}
+                  </p>
                 </Card.Body>
               </Card>
             ) : (
@@ -224,10 +226,12 @@ const WritingResultPage = () => {
                 <Card.Body>
                   <p className="fw-bold text-black">
                     <Badge style={{ fontSize: "20px" }}>
-                      {bands["1"]["overall_score"]["bands"]}
+                      {bands[currentSection.id]["overall_score"]["bands"]}
                     </Badge>
                   </p>
-                  <p>{bands["1"]["overall_score"]["description"]}</p>
+                  <p>
+                    {bands[currentSection.id]["overall_score"]["description"]}
+                  </p>
                 </Card.Body>
               </Card>
             ) : (
@@ -242,7 +246,7 @@ const WritingResultPage = () => {
                 </Card.Header>
                 <Card.Body>
                   <div className="writing-questions text-black">
-                    {parse(evaluation["1"].improved_answer)}
+                    {parse(evaluation[currentSection.id].improved_answer)}
                   </div>
                 </Card.Body>
 
@@ -250,7 +254,9 @@ const WritingResultPage = () => {
                   <p className="text-black fw-bold">
                     What improvements did I made?
                   </p>
-                  <p>{parse(evaluation["1"].improvements_made)}</p>
+                  <p>
+                    {parse(evaluation[currentSection.id].improvements_made)}
+                  </p>
                 </Card.Footer>
               </Card>
             ) : (
@@ -259,7 +265,9 @@ const WritingResultPage = () => {
           </Col>
           {bands_keys.map((bands_key) => (
             <Col sm={12} md={6} key={bands_key}>
-              {bands && bands["1"] && bands["1"][bands_key] ? (
+              {bands &&
+              bands[currentSection.id] &&
+              bands[currentSection.id][bands_key] ? (
                 <Card className="skeleton-card">
                   <Card.Header>
                     <Stack direction="horizontal">
@@ -284,25 +292,27 @@ const WritingResultPage = () => {
                   </Card.Header>
                   <div>
                     <ListGroup className="rounded-0 mb-3">
-                      {Object.keys(bands["1"][bands_key]).map((item) => (
-                        <ListGroup.Item key={item}>
-                          <Stack direction="horizontal">
-                            <div>
-                              <span
-                                className="text-black"
-                                style={{ textTransform: "capitalize" }}
-                              >
-                                {item.replace(/_/g, " ")}
-                              </span>
-                            </div>
-                            <div className="ms-auto">
-                              <Badge bg="dark" style={{ fontSize: 15 }}>
-                                {bands["1"][bands_key][item]}
-                              </Badge>
-                            </div>
-                          </Stack>
-                        </ListGroup.Item>
-                      ))}
+                      {Object.keys(bands[currentSection.id][bands_key]).map(
+                        (item) => (
+                          <ListGroup.Item key={item}>
+                            <Stack direction="horizontal">
+                              <div>
+                                <span
+                                  className="text-black"
+                                  style={{ textTransform: "capitalize" }}
+                                >
+                                  {item.replace(/_/g, " ")}
+                                </span>
+                              </div>
+                              <div className="ms-auto">
+                                <Badge bg="dark" style={{ fontSize: 15 }}>
+                                  {bands[currentSection.id][bands_key][item]}
+                                </Badge>
+                              </div>
+                            </Stack>
+                          </ListGroup.Item>
+                        )
+                      )}
                     </ListGroup>
                   </div>
                 </Card>
