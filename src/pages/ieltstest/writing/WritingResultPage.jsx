@@ -6,6 +6,7 @@ import PageHeadingBriefinfo from "../../../components/layout/PageHeadingBriefInf
 import SkeletonLoader from "../../../components/elements/skeleton/SkeletonLoader";
 import {
   Badge,
+  Button,
   Card,
   Col,
   Container,
@@ -15,6 +16,7 @@ import {
 } from "react-bootstrap";
 import parse from "html-react-parser";
 import "../../../components/ieltstest/writing/WritingModule.css";
+import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 
 const WritingResultPage = () => {
   const { module_slug, attempt_slug } = useParams();
@@ -22,6 +24,15 @@ const WritingResultPage = () => {
   const [module, setModule] = useState(null);
   const [evaluation, setEvaluation] = useState(null);
   const [attempt, setAttempt] = useState(null);
+  const [currentSection, setCurrentSection] = useState(null);
+  const isFirstSection = currentSection
+    ? currentSection.id === module.sections[0].id
+    : false;
+  const isLastSection = currentSection
+    ? currentSection.id === module.sections[module.sections.length - 1].id
+    : false;
+  const [deviceType, setDeviceType] = useState("desktop");
+
   const api = useAxiosWithoutLoader();
   const bands_keys = [
     "coherence",
@@ -67,7 +78,35 @@ const WritingResultPage = () => {
     );
     if (response.status === 200) {
       setModule(response.data);
-      console.log(response.data);
+      setCurrentSection(response.data.sections[0]);
+    }
+  }
+
+  function handlePreviousSectionButton() {
+    let current_section_id = currentSection.id;
+    let new_section_id = current_section_id - 1;
+    const newSection = module.sections.find(
+      (section) => section.id === new_section_id
+    );
+    if (newSection) {
+      setCurrentSection(newSection);
+    } else {
+      const lastElement = module.sections[module.sections.length - 1];
+      setCurrentSection(lastElement);
+    }
+  }
+
+  function handleNextSectionButton() {
+    let current_section_id = currentSection.id;
+    let new_section_id = current_section_id + 1;
+    const newSection = module.sections.find(
+      (section) => section.id === new_section_id
+    );
+    if (newSection) {
+      setCurrentSection(newSection);
+    } else {
+      const lastElement = module.sections[0];
+      setCurrentSection(lastElement);
     }
   }
 
@@ -82,6 +121,23 @@ const WritingResultPage = () => {
 
   useEffect(() => {
     getAttempt();
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setDeviceType("mobile");
+      } else {
+        setDeviceType("desktop");
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   if (!attempt) {
@@ -100,8 +156,44 @@ const WritingResultPage = () => {
         color="bg-writing"
       />
 
-      <Container>
+      <Container className="mb-3">
         <Row>
+          <Col sm={12} className="mt-3">
+            <Card>
+              <Card.Body>
+                <Stack direction="horizontal">
+                  <div>
+                    <Button
+                      variant="primary"
+                      onClick={handlePreviousSectionButton}
+                      disabled={isFirstSection}
+                    >
+                      <FiArrowLeft size={20} />{" "}
+                      {deviceType === "desktop" && "Previous "}
+                    </Button>
+                  </div>
+                  <div className="ms-auto">
+                    <span
+                      className="fw-bold text-black"
+                      style={{ fontSize: "20px" }}
+                    >
+                      {currentSection.section}
+                    </span>
+                  </div>
+                  <div className="ms-auto">
+                    <Button
+                      variant="primary"
+                      onClick={handleNextSectionButton}
+                      disabled={isFirstSection}
+                    >
+                      {deviceType === "desktop" && "Next "}
+                      <FiArrowRight size={20} />
+                    </Button>
+                  </div>
+                </Stack>
+              </Card.Body>
+            </Card>
+          </Col>
           <Col sm={12}>
             <Card className="skeleton-card">
               <Card.Body>
@@ -124,6 +216,23 @@ const WritingResultPage = () => {
             ) : (
               <SkeletonLoader title={"Your Answer"} />
             )}
+            {bands ? (
+              <Card className="skeleton-card">
+                <Card.Header>
+                  <span className="fw-bold text-black">Overall Score</span>
+                </Card.Header>
+                <Card.Body>
+                  <p className="fw-bold text-black">
+                    <Badge style={{ fontSize: "20px" }}>
+                      {bands["1"]["overall_score"]["bands"]}
+                    </Badge>
+                  </p>
+                  <p>{bands["1"]["overall_score"]["description"]}</p>
+                </Card.Body>
+              </Card>
+            ) : (
+              <SkeletonLoader title={"Overall Score"} />
+            )}
           </Col>
           <Col sm={12} md={6}>
             {evaluation ? (
@@ -141,7 +250,7 @@ const WritingResultPage = () => {
                   <p className="text-black fw-bold">
                     What improvements did I made?
                   </p>
-                  <p>{parse(evaluation["1"].what_improvements_did_you_made)}</p>
+                  <p>{parse(evaluation["1"].improvements_made)}</p>
                 </Card.Footer>
               </Card>
             ) : (
@@ -149,8 +258,8 @@ const WritingResultPage = () => {
             )}
           </Col>
           {bands_keys.map((bands_key) => (
-            <Col sm={12} md={6}>
-              {bands ? (
+            <Col sm={12} md={6} key={bands_key}>
+              {bands && bands["1"] && bands["1"][bands_key] ? (
                 <Card className="skeleton-card">
                   <Card.Header>
                     <Stack direction="horizontal">
@@ -180,14 +289,14 @@ const WritingResultPage = () => {
                           <Stack direction="horizontal">
                             <div>
                               <span
-                                className=" text-black"
+                                className="text-black"
                                 style={{ textTransform: "capitalize" }}
                               >
                                 {item.replace(/_/g, " ")}
                               </span>
                             </div>
                             <div className="ms-auto">
-                              <Badge bg="reading" style={{ fontSize: 15 }}>
+                              <Badge bg="dark" style={{ fontSize: 15 }}>
                                 {bands["1"][bands_key][item]}
                               </Badge>
                             </div>

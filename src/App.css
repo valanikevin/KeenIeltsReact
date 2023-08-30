@@ -23,3 +23,7 @@
 .hide-scrollbar::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
+
+p {
+  color: black;
+}
