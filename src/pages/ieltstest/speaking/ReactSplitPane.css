@@ -1,0 +1,21 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.settingsDiv,
+.simulationDiv,
+.statisticsDiv {
+  width: 100%;
+  height: 90vh;
+  overflow: auto;
+}
+
+.hEACtv {
+  height: 15px !important;
+  margin: 20px;
+}
+
+.fXAXjb {
+  width: 15px !important;
+}

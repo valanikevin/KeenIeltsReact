@@ -126,11 +126,6 @@ const AttemptWritingModulePage = () => {
     overflow: "auto",
   };
 
-  const paneWithBackgroundColor = {
-    ...paneStyle,
-    backgroundColor: "#ffeae0",
-  };
-
   const containerStyle = {
     paddingTop: "50px",
     paddingBottom: "50px",
