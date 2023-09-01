@@ -17,6 +17,7 @@ import {
 import SpeakingFooter from "../../../components/ieltstest/speaking/SpeakingFooter";
 import BookInfo from "../../../components/ieltstest/listening/BookInfo";
 import Waves from "../../../components/ieltstest/speaking/Waves";
+import VoiceRecorder from "../../../components/ieltstest/speaking/VoiceRecorder";
 
 const AttemptSpeakingModulePage = () => {
   const [deviceType, setDeviceType] = useState("desktop");
@@ -26,62 +27,7 @@ const AttemptSpeakingModulePage = () => {
   const api = useAxios();
   const [showTestInfoModal, setShowTestInfoModal] = useState(false);
   const handleCloseTestInfoModal = () => setShowTestInfoModal(false);
-
-  const [audioURL, setAudioURL] = useState("");
-  const [mediaRecorder, setMediaRecorder] = useState(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
-
-  useEffect(() => {
-    if (mediaRecorder) {
-      const audioContext = new AudioContext();
-      const analyser = audioContext.createAnalyser();
-      const dataArray = new Uint8Array(analyser.frequencyBinCount);
-
-      navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
-        const source = audioContext.createMediaStreamSource(stream);
-        source.connect(analyser);
-
-        const checkAudio = () => {
-          analyser.getByteFrequencyData(dataArray);
-          const volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
-
-          if (volume > 10) {
-            setIsSpeaking(true);
-          } else {
-            setIsSpeaking(false);
-          }
-          requestAnimationFrame(checkAudio);
-        };
-        checkAudio();
-      });
-    }
-  }, [mediaRecorder]);
-
-  const startRecording = () => {
-    navigator.mediaDevices
-      .getUserMedia({ audio: true })
-      .then((stream) => {
-        const newMediaRecorder = new MediaRecorder(stream);
-        setMediaRecorder(newMediaRecorder);
-
-        newMediaRecorder.ondataavailable = (event) => {
-          const audioBlob = new Blob([event.data], { type: "audio/wav" });
-          setAudioURL(URL.createObjectURL(audioBlob));
-        };
-
-        newMediaRecorder.start();
-      })
-      .catch((err) => {
-        console.error("Could not get media:", err);
-      });
-  };
-
-  const stopRecording = () => {
-    if (mediaRecorder) {
-      mediaRecorder.stop();
-    }
-  };
-
   // Effects
   useEffect(() => {
     getModule();
@@ -164,30 +110,8 @@ const AttemptSpeakingModulePage = () => {
                   <p className="fw-bold" style={{ fontSize: "1.7rem" }}>
                     {currentSection.questions[0].question}
                   </p>
-
-                  <div className="App">
-                    <Card style={{ margin: "20px" }}>
-                      <Card.Header>Simple Audio Recorder</Card.Header>
-                      <Card.Body>
-                        <Button variant="primary" onClick={startRecording}>
-                          Start Recording
-                        </Button>{" "}
-                        <Button variant="secondary" onClick={stopRecording}>
-                          Stop Recording
-                        </Button>
-                        <Waves isSpeaking={isSpeaking} />
-                        {isSpeaking ? (
-                          <Alert variant="success">Speaking...</Alert>
-                        ) : (
-                          <Alert variant="danger">Silent</Alert>
-                        )}
-                      </Card.Body>
-                      <Card.Footer>
-                        <h2>Preview:</h2>
-                        {audioURL && <audio controls src={audioURL} />}
-                      </Card.Footer>
-                    </Card>
-                  </div>
+                  <Waves isSpeaking={isSpeaking} />
+                  <VoiceRecorder setIsSpeaking={setIsSpeaking} />
                 </Card.Body>
               </Card>
             </div>

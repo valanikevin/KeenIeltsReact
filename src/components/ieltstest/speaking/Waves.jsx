@@ -7,7 +7,7 @@ const Waves = ({ isSpeaking, background = "primary" }) => {
       className={`d-flex justify-content-center align-items-center bg-${background}`}
       style={{ height: "30px" }}
     >
-      {isSpeaking === false ? (
+      {isSpeaking ? (
         <div className="d-flex justify-content-between align-items-center">
           <div className="waveform-bar animated rounded"></div>
           <div className="waveform-bar animated rounded"></div>
