@@ -29,6 +29,7 @@ const SpeakingFooter = ({
   isEndTest,
   module,
   userAllResponse,
+  setUserAllResponse,
 }) => {
   const [testStarted, setIsTestStarted] = useState(false);
   const [audioURL, setAudioURL] = useState("");
@@ -96,13 +97,22 @@ const SpeakingFooter = ({
   };
 
   const stopRecording = () => {
+    console.log("Stop Recording");
     if (mediaRecorder) {
       mediaRecorder.stop();
+      setUserAllResponse[currentSection.id][currentQuestion.id] = {
+        audio_duration: 2.43,
+        audio_file: "audio_file_here",
+      };
+      // Reset Audio
     }
   };
 
   function handleNextQuestion() {
     // Find the index of the current question in the current section
+
+    stopRecording();
+
     const currentQuestionIndex = currentSection.questions.findIndex(
       (q) => q === currentQuestion
     );

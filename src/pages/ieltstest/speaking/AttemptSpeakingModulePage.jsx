@@ -135,6 +135,8 @@ const AttemptSpeakingModulePage = () => {
         setCurrentSection={setCurrentSection}
         isEndTest={isEndTest}
         module={module}
+        userAllResponse={userAllResponse}
+        setUserAllResponse={setUserAllResponse}
       />
 
       <Modal
