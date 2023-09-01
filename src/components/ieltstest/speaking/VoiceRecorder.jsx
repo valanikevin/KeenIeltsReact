@@ -19,7 +19,7 @@ const VoiceRecorder = ({ setIsSpeaking }) => {
           analyser.getByteFrequencyData(dataArray);
           const volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
 
-          if (volume > 10) {
+          if (volume > 15) {
             setIsSpeaking(true);
           } else {
             setIsSpeaking(false);

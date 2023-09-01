@@ -28,10 +28,18 @@ const AttemptSpeakingModulePage = () => {
   const [showTestInfoModal, setShowTestInfoModal] = useState(false);
   const handleCloseTestInfoModal = () => setShowTestInfoModal(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [userAllResponse, setUserAllResponse] = useState(null);
+  const [currentQuestion, setCurrentQuestion] = useState(null);
+  const [isEndTest, setIsEndTest] = useState(null);
+
   // Effects
   useEffect(() => {
     getModule();
   }, []);
+
+  //   useEffect(() => {
+
+  //   }, [currentQuestion]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -57,7 +65,9 @@ const AttemptSpeakingModulePage = () => {
     );
     if (response.status === 200) {
       setModule(response.data);
-      setCurrentSection(response.data.sections[0]);
+      const current_section = response.data.sections[0];
+      setCurrentSection(current_section);
+      setCurrentQuestion(current_section.questions[0]);
     }
   }
 
@@ -108,9 +118,8 @@ const AttemptSpeakingModulePage = () => {
                 </Card.Header>
                 <Card.Body>
                   <p className="fw-bold" style={{ fontSize: "1.7rem" }}>
-                    {currentSection.questions[0].question}
+                    {currentQuestion.question}
                   </p>
-                  <Waves isSpeaking={isSpeaking} />
                   <VoiceRecorder setIsSpeaking={setIsSpeaking} />
                 </Card.Body>
               </Card>
@@ -119,7 +128,16 @@ const AttemptSpeakingModulePage = () => {
         </Row>
       </Container>
 
-      <SpeakingFooter deviceType={deviceType} />
+      <SpeakingFooter
+        deviceType={deviceType}
+        isSpeaking={isSpeaking}
+        currentQuestion={currentQuestion}
+        setCurrentQuestion={setCurrentQuestion}
+        currentSection={currentSection}
+        setCurrentSection={setCurrentSection}
+        isEndTest={isEndTest}
+        module={module}
+      />
 
       <Modal
         show={showTestInfoModal}
