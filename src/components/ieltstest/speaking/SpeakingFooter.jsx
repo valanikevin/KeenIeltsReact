@@ -100,6 +100,9 @@ const SpeakingFooter = ({
     console.log("Stop Recording");
   };
 
+  // function updateAudioTimeStampForQuestion -> Save audio timestamp for each question.
+  // function handleNextSection -> Save audio for entire section.
+
   function handleNextQuestion() {
     // Find the index of the current question in the current section
 
