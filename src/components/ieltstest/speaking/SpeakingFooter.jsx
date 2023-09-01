@@ -98,14 +98,6 @@ const SpeakingFooter = ({
 
   const stopRecording = () => {
     console.log("Stop Recording");
-    if (mediaRecorder) {
-      mediaRecorder.stop();
-      setUserAllResponse[currentSection.id][currentQuestion.id] = {
-        audio_duration: 2.43,
-        audio_file: "audio_file_here",
-      };
-      // Reset Audio
-    }
   };
 
   function handleNextQuestion() {
