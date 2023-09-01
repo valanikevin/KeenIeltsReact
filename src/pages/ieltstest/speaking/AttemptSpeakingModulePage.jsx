@@ -17,8 +17,6 @@ import {
 import SpeakingFooter from "../../../components/ieltstest/speaking/SpeakingFooter";
 import BookInfo from "../../../components/ieltstest/listening/BookInfo";
 import Waves from "../../../components/ieltstest/speaking/Waves";
-import VoiceRecorder from "../../../components/ieltstest/speaking/VoiceRecorder";
-
 const AttemptSpeakingModulePage = () => {
   const [deviceType, setDeviceType] = useState("desktop");
   const { module_slug, attempt_slug } = useParams();
@@ -120,7 +118,6 @@ const AttemptSpeakingModulePage = () => {
                   <p className="fw-bold" style={{ fontSize: "1.7rem" }}>
                     {currentQuestion.question}
                   </p>
-                  <VoiceRecorder setIsSpeaking={setIsSpeaking} />
                 </Card.Body>
               </Card>
             </div>
@@ -131,6 +128,7 @@ const AttemptSpeakingModulePage = () => {
       <SpeakingFooter
         deviceType={deviceType}
         isSpeaking={isSpeaking}
+        setIsSpeaking={setIsSpeaking}
         currentQuestion={currentQuestion}
         setCurrentQuestion={setCurrentQuestion}
         currentSection={currentSection}
