@@ -83,7 +83,10 @@ const AttemptSpeakingModulePage = () => {
       />
 
       <Container style={containerStyle} className="hide-scrollbar">
-        <Row style={{ height: "100%" }} className="justify-content-center">
+        <Row
+          style={{ height: "100%" }}
+          className="d-flex align-items-center justify-content-center"
+        >
           <Col sm={8}>
             <div style={{ width: "100%" }}>
               <Card className="my-3">

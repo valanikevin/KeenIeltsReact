@@ -11,6 +11,11 @@ const SpeakingFooter = ({ handleConfirmEndTest, deviceType }) => {
     >
       <Container className="">
         <Row className="my-2 text-black justify-content-center ">
+          <Col sm={8} className="border-bottom mb-2">
+            <div className="mt-2 mb-3 text-center">
+              <span className="">Recording</span>
+            </div>
+          </Col>
           <Col sm={8}>
             <Row className="">
               <Col className="col-6 mt-1">
