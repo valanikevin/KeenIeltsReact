@@ -1,0 +1,64 @@
+@keyframes waveAnimation1 {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.4);
+  }
+}
+
+@keyframes waveAnimation2 {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.7);
+  }
+}
+
+@keyframes waveAnimation3 {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.5);
+  }
+}
+
+.waveform {
+  display: flex;
+  align-items: center;
+}
+
+.waveform-bar,
+.waveform-dot {
+  width: 5px;
+  height: 20px;
+  background: white;
+  margin: 2px;
+}
+
+.waveform-bar:nth-child(1).animated {
+  animation: waveAnimation1 0.5s infinite;
+}
+
+.waveform-bar:nth-child(2).animated {
+  animation: waveAnimation2 0.4s infinite;
+}
+
+.waveform-bar:nth-child(3).animated {
+  animation: waveAnimation3 0.6s infinite;
+}
+
+.waveform-dot {
+  border-radius: 50%;
+  height: 5px;
+  background: white;
+}
+
+.waveform-bar {
+  border-radius: 10%;
+}
