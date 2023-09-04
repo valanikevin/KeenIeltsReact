@@ -35,6 +35,29 @@ const SpeakingFooter = ({
   const [audioURL, setAudioURL] = useState("");
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [isPaused, setIsPaused] = useState(false);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
+  const [intervalId, setIntervalId] = useState(null);
+
+  useEffect(() => {
+    let interval;
+
+    if (isRunning) {
+      interval = setInterval(() => {
+        setElapsedTime((prevTime) => prevTime + 1);
+      }, 1000);
+
+      setIntervalId(interval);
+    } else if (!isRunning && intervalId) {
+      clearInterval(intervalId);
+    }
+
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [isRunning]);
 
   useEffect(() => {
     if (mediaRecorder) {
@@ -62,6 +85,11 @@ const SpeakingFooter = ({
     }
   }, [mediaRecorder]);
 
+  function startTest() {
+    setIsRunning(true);
+    startRecording();
+  }
+
   const startRecording = () => {
     setIsTestStarted(true); // Set testStarted to true
     navigator.mediaDevices
@@ -84,6 +112,7 @@ const SpeakingFooter = ({
 
   const pauseRecording = () => {
     if (mediaRecorder && mediaRecorder.state === "recording") {
+      setIsRunning(false);
       mediaRecorder.pause();
       setIsPaused(true);
     }
@@ -91,6 +120,7 @@ const SpeakingFooter = ({
 
   const resumeRecording = () => {
     if (mediaRecorder && mediaRecorder.state === "paused") {
+      setIsRunning(true);
       mediaRecorder.resume();
       setIsPaused(false);
     }
@@ -105,7 +135,7 @@ const SpeakingFooter = ({
 
   function handleNextQuestion() {
     // Find the index of the current question in the current section
-
+    console.log(elapsedTime);
     stopRecording();
 
     const currentQuestionIndex = currentSection.questions.findIndex(
@@ -148,6 +178,12 @@ const SpeakingFooter = ({
     }
   }
 
+  function secondsToMinutes(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
+  }
+
   return (
     <div
       className=" border-top bg-white"
@@ -165,7 +201,7 @@ const SpeakingFooter = ({
                     <div className="mx-2">
                       <Waves isSpeaking={isSpeaking} background="dark" />
                     </div>
-                    <div className="mx-2">2:30</div>
+                    <div className="mx-2">{secondsToMinutes(elapsedTime)}</div>
                   </Stack>
                 </Badge>
               )}
@@ -176,7 +212,7 @@ const SpeakingFooter = ({
               <Col className="col-6 mt-1">
                 {!testStarted ? (
                   <Button
-                    onClick={startRecording}
+                    onClick={startTest}
                     className={`w-100 ${deviceType === "desktop" && "btn-lg"}`}
                   >
                     <MdMic size={23} /> Start
