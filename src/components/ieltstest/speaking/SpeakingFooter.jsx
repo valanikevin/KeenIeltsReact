@@ -60,6 +60,10 @@ const SpeakingFooter = ({
   }, [isRunning]);
 
   useEffect(() => {
+    setElapsedTime(0);
+  }, [currentQuestion]);
+
+  useEffect(() => {
     if (mediaRecorder) {
       const audioContext = new AudioContext();
       const analyser = audioContext.createAnalyser();
@@ -133,10 +137,43 @@ const SpeakingFooter = ({
   // function updateAudioTimeStampForQuestion -> Save audio timestamp for each question.
   // function handleNextSection -> Save audio for entire section.
 
+  function updateUserResponses() {
+    // Check that currentSection and currentQuestion are not null or undefined
+    if (
+      currentSection &&
+      currentQuestion &&
+      currentSection.id &&
+      currentQuestion.id
+    ) {
+      // Create a deep copy of the current userAllResponse state
+      const newUserAllResponse = userAllResponse
+        ? JSON.parse(JSON.stringify(userAllResponse))
+        : {};
+
+      // Check and create keys if they don't exist
+      if (!newUserAllResponse[currentSection.id]) {
+        newUserAllResponse[currentSection.id] = {};
+      }
+
+      if (!newUserAllResponse[currentSection.id][currentQuestion.id]) {
+        newUserAllResponse[currentSection.id][currentQuestion.id] = {};
+      }
+
+      // Update the elapsedTime for the current question in the current section
+      newUserAllResponse[currentSection.id][currentQuestion.id]["elapsedTime"] =
+        elapsedTime;
+
+      setUserAllResponse(newUserAllResponse);
+    } else {
+      console.error(
+        "Either currentSection, currentQuestion or their IDs are null or not set."
+      );
+    }
+  }
+
   function handleNextQuestion() {
     // Find the index of the current question in the current section
-    console.log(elapsedTime);
-    stopRecording();
+    updateUserResponses();
 
     const currentQuestionIndex = currentSection.questions.findIndex(
       (q) => q === currentQuestion
