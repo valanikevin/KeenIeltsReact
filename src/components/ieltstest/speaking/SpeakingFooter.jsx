@@ -131,7 +131,9 @@ const SpeakingFooter = ({
   };
 
   const stopRecording = () => {
-    console.log("Stop Recording");
+    if (mediaRecorder) {
+      mediaRecorder.stop();
+    }
   };
 
   // function updateAudioTimeStampForQuestion -> Save audio timestamp for each question.
@@ -229,6 +231,7 @@ const SpeakingFooter = ({
       <Container className="">
         <Row className="my-2 text-black justify-content-center ">
           <Col sm={8} className="border-bottom mb-2">
+            <div>{audioURL && <audio src={audioURL} controls />}</div>
             <div className="mt-2 mb-3 text-center">
               {isPaused ? (
                 <div className="text-danger">On pause</div>
@@ -290,6 +293,9 @@ const SpeakingFooter = ({
                 >
                   Next <MdKeyboardDoubleArrowRight size={23} />
                 </Button>
+              </Col>
+              <Col>
+                <Button onClick={stopRecording}>Stop Recording</Button>
               </Col>
             </Row>
           </Col>
