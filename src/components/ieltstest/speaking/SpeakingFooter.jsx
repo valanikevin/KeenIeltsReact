@@ -26,7 +26,7 @@ const SpeakingFooter = ({
   setCurrentQuestion,
   currentSection,
   setCurrentSection,
-  isEndTest,
+  setIsEndTest,
   module,
   userAllResponse,
   setUserAllResponse,
@@ -210,7 +210,7 @@ const SpeakingFooter = ({
       // If it's the last section
       else if (currentSectionIndex === module.sections.length - 1) {
         // Set isEndTest to true
-        isEndTest(true);
+        setIsEndTest(true);
       }
     } else {
       console.log("Question not found or already at the end.");

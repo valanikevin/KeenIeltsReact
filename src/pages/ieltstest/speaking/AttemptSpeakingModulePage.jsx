@@ -134,7 +134,7 @@ const AttemptSpeakingModulePage = () => {
         setCurrentQuestion={setCurrentQuestion}
         currentSection={currentSection}
         setCurrentSection={setCurrentSection}
-        isEndTest={isEndTest}
+        setIsEndTest={setIsEndTest}
         module={module}
         userAllResponse={userAllResponse}
         setUserAllResponse={setUserAllResponse}
