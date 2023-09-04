@@ -196,14 +196,22 @@ const SpeakingFooter = ({
               {isPaused ? (
                 <div className="text-danger">On pause</div>
               ) : (
-                <Badge bg="dark" className="" style={{ fontSize: "20px" }}>
-                  <Stack direction="horizontal" className="">
-                    <div className="mx-2">
-                      <Waves isSpeaking={isSpeaking} background="dark" />
-                    </div>
-                    <div className="mx-2">{secondsToMinutes(elapsedTime)}</div>
-                  </Stack>
-                </Badge>
+                <div>
+                  <Badge
+                    bg="dark"
+                    className=""
+                    style={{ fontSize: "20px", width: "125px" }}
+                  >
+                    <Stack direction="horizontal" className="">
+                      <div className="mx-2">
+                        <Waves isSpeaking={isSpeaking} background="dark" />
+                      </div>
+                      <div className="mx-2">
+                        {secondsToMinutes(elapsedTime)}
+                      </div>
+                    </Stack>
+                  </Badge>
+                </div>
               )}
             </div>
           </Col>
