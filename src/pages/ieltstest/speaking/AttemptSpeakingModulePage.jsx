@@ -98,6 +98,7 @@ const AttemptSpeakingModulePage = () => {
         currentSection={currentSection}
         updateCurrentSection={updateCurrentSection}
         setShowTestInfoModal={setShowTestInfoModal}
+        showSectionList={false}
       />
 
       <Container style={containerStyle} className="hide-scrollbar">

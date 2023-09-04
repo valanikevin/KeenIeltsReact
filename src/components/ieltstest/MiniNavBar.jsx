@@ -17,6 +17,7 @@ export const MiniNavBar = ({
   currentSection,
   updateCurrentSection,
   setShowTestInfoModal,
+  showSectionList = true,
 }) => {
   if (!module) {
     return null;
@@ -26,39 +27,41 @@ export const MiniNavBar = ({
       <Navbar.Brand as={Link} to="/">
         <Image src={Logo} alt="" />
       </Navbar.Brand>
-      <ButtonGroup size="sm" className="ms-auto mx-2">
-        <DropdownButton
-          title={`${currentSection.section}`}
-          id="bg-nested-dropdown"
-          size="sm"
-          className="text-white"
-          variant="outline-primary"
-        >
-          {module.sections.map((section) => (
-            <Dropdown.Item
-              eventKey={section.id}
-              key={section.id}
-              active={section.id === currentSection.id}
-              onClick={() => updateCurrentSection(section.id)}
-            >
-              {section.section}
-            </Dropdown.Item>
-          ))}
-        </DropdownButton>
-      </ButtonGroup>
+      {showSectionList && (
+        <ButtonGroup size="sm" className="ms-auto mx-2">
+          <DropdownButton
+            title={`${currentSection.section}`}
+            id="bg-nested-dropdown"
+            size="sm"
+            className="text-white"
+            variant="outline-primary"
+          >
+            {module.sections.map((section) => (
+              <Dropdown.Item
+                eventKey={section.id}
+                key={section.id}
+                active={section.id === currentSection.id}
+                onClick={() => updateCurrentSection(section.id)}
+              >
+                {section.section}
+              </Dropdown.Item>
+            ))}
+          </DropdownButton>
+        </ButtonGroup>
+      )}
 
       <DropdownButton
         title="Menu"
         id="bg-nested-dropdown"
         size="sm"
-        className="text-white"
+        className="text-white ms-auto"
         variant="outline-primary"
       >
         <Dropdown.Item eventKey="1" as={Link} to={"/"}>
           Home
         </Dropdown.Item>
         <Dropdown.Item eventKey="2" onClick={() => setShowTestInfoModal(true)}>
-          Book Info
+          Test Info
         </Dropdown.Item>
       </DropdownButton>
     </Navbar>

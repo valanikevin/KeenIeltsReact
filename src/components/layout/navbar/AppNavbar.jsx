@@ -10,7 +10,7 @@ import AuthContext from "../../../context/AuthContext";
 import QuickMenu from "./QuickMenu";
 import TakeTestDropdown from "./TakeTestDropdown";
 
-const AppNavbar = () => {
+const AppNavbar = ({ fixed = false }) => {
   const isDesktop = useMediaQuery({
     query: "(min-width: 1224px)",
   });
@@ -61,6 +61,8 @@ const AppNavbar = () => {
         expanded={expandedMenu}
         expand="lg"
         className="navbar-default"
+        bg="white"
+        fixed={`${fixed && "top"}`}
       >
         <Container fluid className="px-0 ps-2">
           <div className="d-flex">
