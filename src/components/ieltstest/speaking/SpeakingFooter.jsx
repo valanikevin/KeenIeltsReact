@@ -39,6 +39,16 @@ const SpeakingFooter = ({
   const [isRunning, setIsRunning] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
 
+  const [audioCurrentSection, setAudioCurrentSection] =
+    useState(currentSection);
+
+  useEffect(() => {
+    if (testStarted && audioURL) {
+      updateUserResponses(audioCurrentSection.id, audioURL);
+      setAudioCurrentSection(currentSection);
+    }
+  }, [audioURL]);
+
   useEffect(() => {
     let interval;
 
@@ -58,6 +68,14 @@ const SpeakingFooter = ({
       }
     };
   }, [isRunning]);
+
+  useEffect(() => {
+    // Clear audio URL and start a new recording when section changes
+    setAudioURL("");
+    if (testStarted) {
+      startRecording(); // startRecording should take care of creating a new MediaRecorder instance
+    }
+  }, [currentSection]);
 
   useEffect(() => {
     setElapsedTime(0);
@@ -132,14 +150,16 @@ const SpeakingFooter = ({
 
   const stopRecording = () => {
     if (mediaRecorder) {
+      mediaRecorder.stream.getTracks().forEach((track) => track.stop());
       mediaRecorder.stop();
+      setMediaRecorder(null); // Reset the MediaRecorder
     }
   };
 
   // function updateAudioTimeStampForQuestion -> Save audio timestamp for each question.
   // function handleNextSection -> Save audio for entire section.
 
-  function updateUserResponses() {
+  function updateUserResponses(audioSection = null, audioBlobUrl = null) {
     // Check that currentSection and currentQuestion are not null or undefined
     if (
       currentSection &&
@@ -164,6 +184,14 @@ const SpeakingFooter = ({
       // Update the elapsedTime for the current question in the current section
       newUserAllResponse[currentSection.id][currentQuestion.id]["elapsedTime"] =
         elapsedTime;
+
+      // If we're changing sections or at the end of the section, store the audio blob URL
+      console.log("AUDIO: ", audioSection);
+      if (audioBlobUrl) {
+        newUserAllResponse[audioSection] =
+          newUserAllResponse[audioSection] ?? {};
+        newUserAllResponse[audioSection]["audio"] = audioBlobUrl;
+      }
 
       setUserAllResponse(newUserAllResponse);
     } else {
@@ -191,6 +219,9 @@ const SpeakingFooter = ({
     }
     // If it's the last question in the current section
     else if (currentQuestionIndex === currentSection.questions.length - 1) {
+      stopRecording();
+
+      updateUserResponses(audioURL);
       // Find the index of the current section in the module
       const currentSectionIndex = module.sections.findIndex(
         (sec) => sec === currentSection
@@ -215,6 +246,7 @@ const SpeakingFooter = ({
     } else {
       console.log("Question not found or already at the end.");
     }
+    console.log(userAllResponse);
   }
 
   function secondsToMinutes(seconds) {
@@ -231,6 +263,7 @@ const SpeakingFooter = ({
       <Container className="">
         <Row className="my-2 text-black justify-content-center ">
           <Col sm={8} className="border-bottom mb-2">
+            <div>{audioURL}</div>
             <div>{audioURL && <audio src={audioURL} controls />}</div>
             <div className="mt-2 mb-3 text-center">
               {isPaused ? (
