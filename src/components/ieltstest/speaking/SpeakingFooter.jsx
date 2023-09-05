@@ -18,7 +18,6 @@ import {
 import Waves from "./Waves";
 
 const SpeakingFooter = ({
-  handleConfirmEndTest,
   deviceType,
   isSpeaking,
   setIsSpeaking,

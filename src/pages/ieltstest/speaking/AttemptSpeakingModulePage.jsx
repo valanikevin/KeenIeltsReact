@@ -29,15 +29,14 @@ const AttemptSpeakingModulePage = () => {
   const [userAllResponse, setUserAllResponse] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [isEndTest, setIsEndTest] = useState(null);
+  const [showSubmitModal, setShowSubmitModal] = useState(false);
+  const handleShowSubmitModal = () => setShowSubmitModal(true);
+  const handleClosSubmiteModal = () => setShowSubmitModal(false);
 
   // Effects
   useEffect(() => {
     getModule();
   }, []);
-
-  //   useEffect(() => {
-
-  //   }, [currentQuestion]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -72,6 +71,31 @@ const AttemptSpeakingModulePage = () => {
   function updateCurrentSection(id) {
     const newSection = module.sections.find((section) => section.id === id);
     setCurrentSection(newSection);
+  }
+
+  function sendAttemptUpdate(attempt_type = "In Progress") {
+    const data = {
+      answers: userAllResponse,
+      attempt_type: attempt_type,
+    };
+
+    const response = api.post(
+      "/ieltstest/update_attempt/speaking/" + attempt_slug + "/",
+      data
+    );
+
+    if (response.status === 200) {
+      console.log("Attempt Updated");
+    }
+  }
+
+  function handleConfirmEndTest() {
+    getFormDataLocal();
+    sendAttemptUpdate("Completed");
+    navigate(
+      `/ieltstest/attempt/speaking/${module_slug}/${attempt_slug}/get_result`
+    );
+    handleClosSubmiteModal();
   }
 
   // CSS
@@ -138,6 +162,7 @@ const AttemptSpeakingModulePage = () => {
         module={module}
         userAllResponse={userAllResponse}
         setUserAllResponse={setUserAllResponse}
+        handleShowSubmitModal={handleShowSubmitModal}
       />
 
       <Modal
@@ -161,6 +186,21 @@ const AttemptSpeakingModulePage = () => {
             Close
           </button>
         </div>
+      </Modal>
+
+      <Modal show={showSubmitModal} onHide={handleClosSubmiteModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>End Test</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to end the test?</Modal.Body>
+        <Modal.Footer className="p-2">
+          <Button variant="outline-primary" onClick={handleClosSubmiteModal}>
+            No
+          </Button>
+          <Button variant="primary" onClick={handleConfirmEndTest}>
+            Yes, end test
+          </Button>
+        </Modal.Footer>
       </Modal>
     </>
   );
