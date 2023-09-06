@@ -326,9 +326,6 @@ const SpeakingFooter = ({
                   Next <MdKeyboardDoubleArrowRight size={23} />
                 </Button>
               </Col>
-              <Col>
-                <Button onClick={stopRecording}>Stop Recording</Button>
-              </Col>
             </Row>
           </Col>
         </Row>
