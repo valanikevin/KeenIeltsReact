@@ -29,6 +29,7 @@ const SpeakingFooter = ({
   module,
   userAllResponse,
   setUserAllResponse,
+  handleConfirmEndTest,
 }) => {
   const [testStarted, setIsTestStarted] = useState(false);
   const [audioURL, setAudioURL] = useState("");
@@ -43,7 +44,10 @@ const SpeakingFooter = ({
 
   useEffect(() => {
     if (testStarted && audioURL) {
-      updateUserResponses(audioCurrentSection.id, audioURL);
+      const user_responses = updateUserResponses(
+        audioCurrentSection.id,
+        audioURL
+      );
       setAudioCurrentSection(currentSection);
     }
   }, [audioURL]);
@@ -193,6 +197,7 @@ const SpeakingFooter = ({
       }
 
       setUserAllResponse(newUserAllResponse);
+      return newUserAllResponse;
     } else {
       console.error(
         "Either currentSection, currentQuestion or their IDs are null or not set."
@@ -202,7 +207,7 @@ const SpeakingFooter = ({
 
   function handleNextQuestion() {
     // Find the index of the current question in the current section
-    updateUserResponses();
+    const user_responses = updateUserResponses();
 
     const currentQuestionIndex = currentSection.questions.findIndex(
       (q) => q === currentQuestion

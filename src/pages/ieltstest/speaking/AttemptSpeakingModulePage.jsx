@@ -39,6 +39,14 @@ const AttemptSpeakingModulePage = () => {
   }, []);
 
   useEffect(() => {
+    if (isEndTest) {
+      if (userAllResponse["3"]["audio"]) {
+        handleConfirmEndTest(userAllResponse);
+      }
+    }
+  }, [isEndTest, userAllResponse]);
+
+  useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
         setDeviceType("mobile");
@@ -73,9 +81,9 @@ const AttemptSpeakingModulePage = () => {
     setCurrentSection(newSection);
   }
 
-  function sendAttemptUpdate(attempt_type = "In Progress") {
+  function sendAttemptUpdate(attempt_type = "In Progress", user_responses) {
     const data = {
-      answers: userAllResponse,
+      answers: user_responses,
       attempt_type: attempt_type,
     };
 
@@ -89,9 +97,8 @@ const AttemptSpeakingModulePage = () => {
     }
   }
 
-  function handleConfirmEndTest() {
-    getFormDataLocal();
-    sendAttemptUpdate("Completed");
+  function handleConfirmEndTest(user_responses) {
+    sendAttemptUpdate("Completed", user_responses);
     navigate(
       `/ieltstest/attempt/speaking/${module_slug}/${attempt_slug}/get_result`
     );
@@ -162,7 +169,7 @@ const AttemptSpeakingModulePage = () => {
         module={module}
         userAllResponse={userAllResponse}
         setUserAllResponse={setUserAllResponse}
-        handleShowSubmitModal={handleShowSubmitModal}
+        handleConfirmEndTest={handleConfirmEndTest}
       />
 
       <Modal
