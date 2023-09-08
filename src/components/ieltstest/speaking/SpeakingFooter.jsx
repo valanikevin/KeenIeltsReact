@@ -8,6 +8,7 @@ import {
   Stack,
   Badge,
   Card,
+  ProgressBar,
 } from "react-bootstrap";
 import {
   MdKeyboardDoubleArrowRight,
@@ -38,9 +39,36 @@ const SpeakingFooter = ({
   const [elapsedTime, setElapsedTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [intervalId, setIntervalId] = useState(null);
+  const [progress, setProgress] = useState(0);
+  const [totalQuestions, setTotalQuestions] = useState(0);
 
   const [audioCurrentSection, setAudioCurrentSection] =
     useState(currentSection);
+
+  useEffect(() => {
+    // Calculate total questions
+    let count = 0;
+    module.sections.forEach((section) => {
+      count += section.questions.length;
+    });
+    setTotalQuestions(count);
+  }, [module]);
+
+  useEffect(() => {
+    // Calculate progress
+    let completedQuestions = 0;
+    for (let i = 0; i < module.sections.length; i++) {
+      const section = module.sections[i];
+      if (section === currentSection) {
+        completedQuestions +=
+          currentSection.questions.indexOf(currentQuestion) + 1;
+        break;
+      } else {
+        completedQuestions += section.questions.length;
+      }
+    }
+    setProgress((completedQuestions / totalQuestions) * 100);
+  }, [currentQuestion, currentSection, module, totalQuestions]);
 
   useEffect(() => {
     if (testStarted && audioURL) {
@@ -264,6 +292,11 @@ const SpeakingFooter = ({
       className=" border-top bg-white"
       style={{ position: "fixed", bottom: 0, width: "100%" }}
     >
+      <ProgressBar
+        now={progress}
+        className="mb-2 rounded-0"
+        style={{ height: "5px" }}
+      />
       <Container className="">
         <Row className="my-2 text-black justify-content-center ">
           <Col sm={8} className="border-bottom mb-2">
