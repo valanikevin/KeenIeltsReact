@@ -298,11 +298,11 @@ const SpeakingFooter = ({
         style={{ height: "5px" }}
       />
       <Container className="">
-        <Row className="my-2 text-black justify-content-center ">
-          <Col sm={8} className="border-bottom mb-2">
+        <Row className="mt-2 text-black justify-content-center ">
+          <Col sm={8} className="">
             <div>{audioURL}</div>
             <div>{audioURL && <audio src={audioURL} controls />}</div>
-            <div className="mt-2 mb-3 text-center">
+            <div className="mt-2  text-center">
               {isPaused ? (
                 <div className="text-danger">On pause</div>
               ) : (
@@ -325,6 +325,11 @@ const SpeakingFooter = ({
               )}
             </div>
           </Col>
+        </Row>
+      </Container>
+      <hr></hr>
+      <Container>
+        <Row className="my-2 mb-3 text-black justify-content-center ">
           <Col sm={8}>
             <Row className="">
               <Col className="col-6 mt-1">
