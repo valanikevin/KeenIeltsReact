@@ -81,24 +81,63 @@ const AttemptSpeakingModulePage = () => {
     setCurrentSection(newSection);
   }
 
-  function sendAttemptUpdate(attempt_type = "In Progress", user_responses) {
-    const data = {
-      answers: user_responses,
-      attempt_type: attempt_type,
-    };
+  async function sendAttemptUpdate(
+    attempt_type = "In Progress",
+    user_responses
+  ) {
+    let formData = new FormData();
 
-    const response = api.post(
+    formData.append("attempt_type", attempt_type);
+
+    for (const key in user_responses) {
+      const audioBlob = user_responses[key].audio;
+      formData.append(`audio_${key}`, audioBlob);
+    }
+
+    const response = await fetch(
       "/ieltstest/update_attempt/speaking/" + attempt_slug + "/",
-      data
+      {
+        method: "POST",
+        body: formData,
+      }
     );
 
     if (response.status === 200) {
-      console.log("Attempt Updated");
+      // Attempt Updated
     }
   }
 
-  function handleConfirmEndTest(user_responses) {
-    sendAttemptUpdate("Completed", user_responses);
+  async function blobToBytes(blob) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
+      reader.onerror = reject;
+      reader.readAsArrayBuffer(blob);
+    });
+  }
+
+  async function replaceAudioBlobWithBytes(user_responses) {
+    for (const key in user_responses) {
+      const audioBlobUrl = user_responses[key].audio;
+
+      const blob = await fetch(audioBlobUrl).then((r) => r.blob());
+
+      const audioBytes = await blobToBytes(blob);
+
+      user_responses[key].audio = audioBytes;
+    }
+
+    return user_responses;
+  }
+
+  async function handleConfirmEndTest(user_responses) {
+    const updatedUserResponses = await replaceAudioBlobWithBytes(
+      user_responses
+    );
+
+    sendAttemptUpdate("Completed", updatedUserResponses);
     navigate(
       `/ieltstest/attempt/speaking/${module_slug}/${attempt_slug}/get_result`
     );
