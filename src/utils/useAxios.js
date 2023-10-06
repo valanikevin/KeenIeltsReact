@@ -5,7 +5,7 @@ import AuthContext from "../context/AuthContext";
 import { useContext, useEffect } from "react";
 import LoadingContext from "../context/layout/LoadingContext";
 
-const baseURL = "http://127.0.0.1:8000/api";
+export const baseURL = "http://127.0.0.1:8000/api";
 
 const useAxios = () => {
   const { authTokens, setUser, setAuthTokens } = useContext(AuthContext);

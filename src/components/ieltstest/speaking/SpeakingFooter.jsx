@@ -234,6 +234,7 @@ const SpeakingFooter = ({
   }
 
   function handleNextQuestion() {
+    console.log("Running handleNextQuestion");
     // Find the index of the current question in the current section
     const user_responses = updateUserResponses();
 
@@ -278,7 +279,6 @@ const SpeakingFooter = ({
     } else {
       console.log("Question not found or already at the end.");
     }
-    console.log(userAllResponse);
   }
 
   function secondsToMinutes(seconds) {

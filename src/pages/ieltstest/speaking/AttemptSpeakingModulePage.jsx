@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { API_URLS } from "../../../utils/urls";
 import { useParams } from "react-router-dom";
-import useAxios from "../../../utils/useAxios";
+import useAxios, { baseURL } from "../../../utils/useAxios";
 import SplitPane from "react-split-pane";
 import "./ReactSplitPane.css";
 import { MiniNavBar } from "../../../components/ieltstest/MiniNavBar";
@@ -85,25 +85,49 @@ const AttemptSpeakingModulePage = () => {
     attempt_type = "In Progress",
     user_responses
   ) {
+    // Create a new FormData instance for text-based data
     let formData = new FormData();
 
+    // Append the attempt_type
     formData.append("attempt_type", attempt_type);
 
+    // Loop through user_responses
     for (const key in user_responses) {
-      const audioBlob = user_responses[key].audio;
-      formData.append(`audio_${key}`, audioBlob);
+      const response = user_responses[key];
+
+      // Convert the ArrayBuffer audio data to a Blob and add it to FormData
+      const audioBuffer = response.audio;
+      const blob = new Blob([audioBuffer], { type: "audio/wav" });
+      formData.append(`responses[${key}][audio]`, blob);
+
+      // Loop through the rest of the keys in each response object
+      for (const nestedKey in response) {
+        if (nestedKey !== "audio") {
+          // Skip 'audio' as it's already added
+          formData.append(
+            `${key},${nestedKey}`,
+            JSON.stringify(response[nestedKey])
+          );
+        }
+      }
     }
 
-    const response = await fetch(
-      "/ieltstest/update_attempt/speaking/" + attempt_slug + "/",
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
+    try {
+      // Perform the Axios request
+      const response = await api.post(
+        `/ieltstest/update_attempt/speaking/${attempt_slug}/`,
+        formData // FormData will automatically set the 'Content-Type' to 'multipart/form-data'
+      );
 
-    if (response.status === 200) {
-      // Attempt Updated
+      // Check the response
+      if (response.status === 200) {
+        console.log("Attempt updated successfully");
+        // Do something, perhaps navigate the user to a new page or update the UI
+      } else {
+        console.log("Failed to update attempt", response);
+      }
+    } catch (error) {
+      console.error("There was an error sending the request", error);
     }
   }
 
@@ -119,6 +143,8 @@ const AttemptSpeakingModulePage = () => {
   }
 
   async function replaceAudioBlobWithBytes(user_responses) {
+    console.log("Inside replace audio");
+
     for (const key in user_responses) {
       const audioBlobUrl = user_responses[key].audio;
 
@@ -126,9 +152,12 @@ const AttemptSpeakingModulePage = () => {
 
       const audioBytes = await blobToBytes(blob);
 
-      user_responses[key].audio = audioBytes;
+      // This will replace the "audio" key with the new value, while keeping the rest of the properties the same.
+      user_responses[key] = {
+        ...user_responses[key],
+        audio: audioBytes,
+      };
     }
-
     return user_responses;
   }
 
@@ -138,10 +167,10 @@ const AttemptSpeakingModulePage = () => {
     );
 
     sendAttemptUpdate("Completed", updatedUserResponses);
-    navigate(
-      `/ieltstest/attempt/speaking/${module_slug}/${attempt_slug}/get_result`
-    );
-    handleClosSubmiteModal();
+    // navigate(
+    //   `/ieltstest/attempt/speaking/${module_slug}/${attempt_slug}/get_result`
+    // );
+    // handleClosSubmiteModal();
   }
 
   // CSS
