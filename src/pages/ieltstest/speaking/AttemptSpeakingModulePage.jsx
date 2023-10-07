@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { API_URLS } from "../../../utils/urls";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useAxios, { baseURL } from "../../../utils/useAxios";
 import SplitPane from "react-split-pane";
 import "./ReactSplitPane.css";
@@ -32,7 +32,7 @@ const AttemptSpeakingModulePage = () => {
   const [showSubmitModal, setShowSubmitModal] = useState(false);
   const handleShowSubmitModal = () => setShowSubmitModal(true);
   const handleClosSubmiteModal = () => setShowSubmitModal(false);
-
+  const navigate = useNavigate();
   // Effects
   useEffect(() => {
     getModule();
@@ -122,7 +122,6 @@ const AttemptSpeakingModulePage = () => {
       // Check the response
       if (response.status === 200) {
         console.log("Attempt updated successfully");
-        // Do something, perhaps navigate the user to a new page or update the UI
       } else {
         console.log("Failed to update attempt", response);
       }
@@ -168,10 +167,10 @@ const AttemptSpeakingModulePage = () => {
     );
 
     sendAttemptUpdate("Completed", updatedUserResponses);
-    // navigate(
-    //   `/ieltstest/attempt/speaking/${module_slug}/${attempt_slug}/get_result`
-    // );
-    // handleClosSubmiteModal();
+    navigate(
+      `/ieltstest/attempt/speaking/${module_slug}/${attempt_slug}/get_result`
+    );
+    handleClosSubmiteModal();
   }
 
   // CSS
