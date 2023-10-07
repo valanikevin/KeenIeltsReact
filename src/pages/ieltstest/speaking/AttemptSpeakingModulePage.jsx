@@ -98,7 +98,7 @@ const AttemptSpeakingModulePage = () => {
       // Convert the ArrayBuffer audio data to a Blob and add it to FormData
       const audioBuffer = response.audio;
       const blob = new Blob([audioBuffer], { type: "audio/wav" });
-      formData.append(`responses[${key}][audio]`, blob);
+      formData.append(`${key}`, blob);
 
       // Loop through the rest of the keys in each response object
       for (const nestedKey in response) {
@@ -162,6 +162,7 @@ const AttemptSpeakingModulePage = () => {
   }
 
   async function handleConfirmEndTest(user_responses) {
+    console.log("Handle Confirm End Test");
     const updatedUserResponses = await replaceAudioBlobWithBytes(
       user_responses
     );

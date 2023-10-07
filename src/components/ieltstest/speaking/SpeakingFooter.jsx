@@ -300,8 +300,6 @@ const SpeakingFooter = ({
       <Container className="">
         <Row className="mt-2 text-black justify-content-center ">
           <Col sm={8} className="">
-            <div>{audioURL}</div>
-            <div>{audioURL && <audio src={audioURL} controls />}</div>
             <div className="mt-2  text-center">
               {isPaused ? (
                 <div className="text-danger">On pause</div>
