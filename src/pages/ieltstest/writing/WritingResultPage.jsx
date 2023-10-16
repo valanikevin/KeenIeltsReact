@@ -17,6 +17,7 @@ import {
 import parse from "html-react-parser";
 import "../../../components/ieltstest/writing/WritingModule.css";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
+import SectionCard from "../../../components/ieltstest/SectionCard";
 
 const WritingResultPage = () => {
   const { module_slug, attempt_slug } = useParams();
@@ -159,40 +160,14 @@ const WritingResultPage = () => {
       <Container className="mb-3">
         <Row>
           <Col sm={12} className="mt-3">
-            <Card>
-              <Card.Body>
-                <Stack direction="horizontal">
-                  <div>
-                    <Button
-                      variant="primary"
-                      onClick={handlePreviousSectionButton}
-                      disabled={isFirstSection}
-                    >
-                      <FiArrowLeft size={20} />{" "}
-                      {deviceType === "desktop" && "Previous "}
-                    </Button>
-                  </div>
-                  <div className="ms-auto">
-                    <span
-                      className="fw-bold text-black"
-                      style={{ fontSize: "20px" }}
-                    >
-                      {currentSection.section}
-                    </span>
-                  </div>
-                  <div className="ms-auto">
-                    <Button
-                      variant="primary"
-                      onClick={handleNextSectionButton}
-                      disabled={isFirstSection}
-                    >
-                      {deviceType === "desktop" && "Next "}
-                      <FiArrowRight size={20} />
-                    </Button>
-                  </div>
-                </Stack>
-              </Card.Body>
-            </Card>
+            <SectionCard
+              currentSection={currentSection}
+              deviceType={deviceType}
+              isFirstSection={isFirstSection}
+              isLastSection={isLastSection}
+              handleNextSectionButton={handleNextSectionButton}
+              handlePreviousSectionButton={handlePreviousSectionButton}
+            />
           </Col>
           <Col sm={12}>
             <Card className="skeleton-card">
