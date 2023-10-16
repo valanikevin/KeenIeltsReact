@@ -145,11 +145,62 @@ const SpeakingResultPage = () => {
 
           <Col sm={12} className="mt-3">
             <Card>
-              <Card.Body>
+              <Card.Body className="p-1">
                 <CustomAudioPlayer
                   src={"https://ielts-up.com/listening/11.2.mp3"}
                   start_time={0.0}
                 />
+              </Card.Body>
+              <hr className="m-0" />
+              <Card.Body className="text-black" style={{ fontSize: "1.2rem" }}>
+                <h2>Nicely Done</h2>
+                <ul>
+                  <li>
+                    You provided relevant answers to most of the questions.
+                  </li>
+                  <li>
+                    Your fluency and pronunciation were generally clear and
+                    understandable.
+                  </li>
+                  <li>
+                    You used a variety of sentence structures and vocabulary.
+                  </li>
+                </ul>
+              </Card.Body>
+              <hr className="m-0" />
+              <Card.Body className="text-black" style={{ fontSize: "1.2rem" }}>
+                <h2>Things to Improve</h2>
+                <ul>
+                  <li>
+                    Try to answer the questions more directly and provide more
+                    specific examples.
+                  </li>
+                  <li>
+                    Work on your grammar and sentence structure to make your
+                    responses more coherent.
+                  </li>
+                  <li>
+                    Expand your vocabulary by using more descriptive words.
+                  </li>
+                </ul>
+              </Card.Body>
+              <hr className="m-0" />
+              <Card.Body className="text-black" style={{ fontSize: "1.2rem" }}>
+                <h2>Coherence Suggestions</h2>
+                <ul>
+                  <li>
+                    Try to organize your thoughts more clearly and use
+                    transition words to link your ideas together.
+                  </li>
+                  <li>
+                    Use topic sentences to introduce each new point you want to
+                    make.
+                  </li>
+                  <li>
+                    Practice speaking more fluently and naturally to improve
+                    your overall coherence.
+                  </li>
+                </ul>
               </Card.Body>
             </Card>
           </Col>
