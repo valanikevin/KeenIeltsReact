@@ -120,9 +120,7 @@ const SpeakingResultPage = () => {
                 <span className="fw-bold text-black">Overall Test Score</span>
               </Card.Header>
               <Card.Body>
-                <Badge>
-                  <h3 className="display-4 text-white pt-2">7.5 Bands</h3>
-                </Badge>
+                <h3 className="display-4 text-black pt-2">7.5 Bands</h3>
                 <p className="mt-3">
                   You have a fully operational command of the language with only
                   occasional unsystematic inaccuracies and inappropriate usage.
