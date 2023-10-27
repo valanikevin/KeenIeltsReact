@@ -196,48 +196,48 @@ const WritingResultPage = () => {
                   </thead>
                   <tbody className="">
                     <tr>
-                      <th>
+                      <td>
                         <h3 className="m-0">TA: </h3>
                         Task Achievement
-                      </th>
-                      <th>
+                      </td>
+                      <td>
                         <h3>6.5</h3>
-                      </th>
+                      </td>
                     </tr>
                     <tr>
-                      <th>
+                      <td>
                         <h3 className="my-0">CC: </h3>
                         Coherence and Cohesion
-                      </th>
-                      <th>
+                      </td>
+                      <td>
                         <h3>6.5</h3>
-                      </th>
+                      </td>
                     </tr>
                     <tr>
-                      <th>
+                      <td>
                         <h3 className="m-0">LR: </h3>
                         Lexical Resource
-                      </th>
-                      <th>
+                      </td>
+                      <td>
                         <h3>6.5</h3>
-                      </th>
+                      </td>
                     </tr>
                     <tr>
-                      <th>
+                      <td>
                         <h3 className="m-0">GRA: </h3>
                         Grammatical Range Accuracy
-                      </th>
-                      <th>
+                      </td>
+                      <td>
                         <h3>6.5</h3>
-                      </th>
+                      </td>
                     </tr>
                     <tr>
-                      <th>
+                      <td>
                         <h3 className="fw-bold mt-2">Overall </h3>
-                      </th>
-                      <th>
+                      </td>
+                      <td>
                         <h3 className="fw-bold mt-2">6.5</h3>
-                      </th>
+                      </td>
                     </tr>
                   </tbody>
                 </Table>
@@ -259,48 +259,48 @@ const WritingResultPage = () => {
                   </thead>
                   <tbody className="">
                     <tr>
-                      <th>
+                      <td>
                         <h3 className="m-0">TA: </h3>
                         Task Achievement
-                      </th>
-                      <th>
+                      </td>
+                      <td>
                         Candidate addresses the requirements of the task and
                         presents an overview with information appropriately
                         selected. There may be inconsistencies in tone.
-                      </th>
+                      </td>
                     </tr>
                     <tr>
-                      <th>
+                      <td>
                         <h3 className="my-0">CC: </h3>
                         Coherence and Cohesion
-                      </th>
-                      <th>
+                      </td>
+                      <td>
                         Candidate addresses the requirements of the task and
                         presents an overview with information appropriately
                         selected. There may be inconsistencies in tone.
-                      </th>
+                      </td>
                     </tr>
                     <tr>
-                      <th>
+                      <td>
                         <h3 className="m-0">LR: </h3>
                         Lexical Resource
-                      </th>
-                      <th>
+                      </td>
+                      <td>
                         Candidate addresses the requirements of the task and
                         presents an overview with information appropriately
                         selected. There may be inconsistencies in tone.
-                      </th>
+                      </td>
                     </tr>
                     <tr>
-                      <th>
+                      <td>
                         <h3 className="m-0">GRA: </h3>
                         Grammatical Range Accuracy
-                      </th>
-                      <th>
+                      </td>
+                      <td>
                         Candidate addresses the requirements of the task and
                         presents an overview with information appropriately
                         selected. There may be inconsistencies in tone.
-                      </th>
+                      </td>
                     </tr>
                   </tbody>
                 </Table>
@@ -329,6 +329,22 @@ const WritingResultPage = () => {
                       ))}
                   </tbody>
                 </Table>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col sm={12} md={8} className="mt-3">
+            <Card>
+              <Card.Header>
+                <h3 className="mt-2 fw-bold">Conclusion & Expert Feedback</h3>
+              </Card.Header>
+              <Card.Body>
+                <p style={{ fontSize: "1.1rem" }}>
+                  {
+                    evaluation[currentSection.id][
+                      "overall_personalized_feedback_suggestions"
+                    ]
+                  }
+                </p>
               </Card.Body>
             </Card>
           </Col>
