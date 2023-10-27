@@ -5,6 +5,7 @@ import { API_URLS } from "../../../utils/urls";
 import PageHeadingBriefinfo from "../../../components/layout/PageHeadingBriefInfo";
 import SkeletonLoader from "../../../components/elements/skeleton/SkeletonLoader";
 import {
+  Accordion,
   Badge,
   Button,
   Card,
@@ -178,13 +179,28 @@ const WritingResultPage = () => {
               handlePreviousSectionButton={handlePreviousSectionButton}
             />
           </Col>
+
           <Col sm={12} md={8}>
             <Card className="skeleton-card">
-              <Card.Body>
-                <div className="writing-questions">
-                  {parse(currentSection.task)}
-                </div>
-              </Card.Body>
+              <Accordion>
+                <Accordion.Item eventKey="0">
+                  <Accordion.Header>
+                    <span className="fw-bold text-black">
+                      <h3 className="mt-2 fw-bold">Your Answer</h3>
+                    </span>
+                  </Accordion.Header>
+                  <Accordion.Body>
+                    <div className="writing-questions table table-responsive">
+                      {parse(currentSection.task)}
+                    </div>
+                    <hr />
+                    <h3 className="mt-2 fw-bold">Your Answer</h3>
+                    <p className="writing-questions">
+                      {parse(attempt.answers[currentSection.id])}
+                    </p>
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
             </Card>
           </Col>
           <Col sm={12} md={8} className="mt-3">
@@ -204,7 +220,7 @@ const WritingResultPage = () => {
                     {evaluation_keys.map((item) => (
                       <tr>
                         <td>
-                          <h3 className="m-0">{item.short}: </h3>
+                          <h3 className="m-0 text-black">{item.short}: </h3>
                           {item.name}
                         </td>
                         <td>
@@ -233,6 +249,7 @@ const WritingResultPage = () => {
                 <Table bordered hover responsive>
                   <tbody className="">
                     {evaluation &&
+                      evaluation[currentSection.id] &&
                       evaluation[currentSection.id][
                         "vocabulary_choice_suggestions"
                       ].map((suggestion) => (
