@@ -144,6 +144,12 @@ const WritingResultPage = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (currentSection) {
+      window.scrollTo(0, 0);
+    }
+  }, [currentSection]);
+
   if (!attempt) {
     return null;
   }
@@ -162,7 +168,7 @@ const WritingResultPage = () => {
 
       <Container className="mb-3">
         <Row className="justify-content-center">
-          <Col sm={12} className="mt-3">
+          <Col sm={12} md={8} className="mt-3">
             <SectionCard
               currentSection={currentSection}
               deviceType={deviceType}
@@ -172,7 +178,7 @@ const WritingResultPage = () => {
               handlePreviousSectionButton={handlePreviousSectionButton}
             />
           </Col>
-          <Col sm={12}>
+          <Col sm={12} md={8}>
             <Card className="skeleton-card">
               <Card.Body>
                 <div className="writing-questions">
@@ -181,7 +187,7 @@ const WritingResultPage = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col sm={12} md={6} className="mt-3">
+          <Col sm={12} md={8} className="mt-3">
             <Card className="h-100">
               <Card.Header>
                 <h3 className="mt-2 fw-bold">Estimated Band Scores</h3>
@@ -195,50 +201,21 @@ const WritingResultPage = () => {
                     </tr>
                   </thead>
                   <tbody className="">
-                    <tr>
-                      <td>
-                        <h3 className="m-0">TA: </h3>
-                        Task Achievement
-                      </td>
-                      <td>
-                        <h3>6.5</h3>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <h3 className="my-0">CC: </h3>
-                        Coherence and Cohesion
-                      </td>
-                      <td>
-                        <h3>6.5</h3>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <h3 className="m-0">LR: </h3>
-                        Lexical Resource
-                      </td>
-                      <td>
-                        <h3>6.5</h3>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <h3 className="m-0">GRA: </h3>
-                        Grammatical Range Accuracy
-                      </td>
-                      <td>
-                        <h3>6.5</h3>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <h3 className="fw-bold mt-2">Overall </h3>
-                      </td>
-                      <td>
-                        <h3 className="fw-bold mt-2">6.5</h3>
-                      </td>
-                    </tr>
+                    {evaluation_keys.map((item) => (
+                      <tr>
+                        <td>
+                          <h3 className="m-0">{item.short}: </h3>
+                          {item.name}
+                        </td>
+                        <td>
+                          <h3>
+                            {evaluation &&
+                              evaluation[currentSection.id] &&
+                              evaluation[currentSection.id][item.key]}
+                          </h3>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </Table>
               </Card.Body>
@@ -277,19 +254,57 @@ const WritingResultPage = () => {
               </Card.Header>
               <Card.Body>
                 <p style={{ fontSize: "1.1rem" }}>
-                  {
+                  {evaluation &&
                     evaluation[currentSection.id][
                       "overall_personalized_feedback_suggestions"
-                    ]
-                  }
+                    ]}
                 </p>
               </Card.Body>
             </Card>
+          </Col>
+
+          <Col sm={12} md={8} className="mt-3">
+            <SectionCard
+              currentSection={currentSection}
+              deviceType={deviceType}
+              isFirstSection={isFirstSection}
+              isLastSection={isLastSection}
+              handleNextSectionButton={handleNextSectionButton}
+              handlePreviousSectionButton={handlePreviousSectionButton}
+            />
           </Col>
         </Row>
       </Container>
     </>
   );
 };
+
+const evaluation_keys = [
+  {
+    name: "Task Achievement",
+    short: "TA",
+    key: "task_achievement_band_score",
+  },
+  {
+    name: "Coherence and Cohesion",
+    short: "CC",
+    key: "coherence_and_cohesion_band_score",
+  },
+  {
+    name: "Lexical Resource",
+    short: "LR",
+    key: "lexical_resource_band_score",
+  },
+  {
+    name: "Grammatical Range Accuracy",
+    short: "GRA",
+    key: "grammatical_range_accuracy_band_score",
+  },
+  {
+    name: null,
+    short: "Overall",
+    key: "overall_band_score",
+  },
+];
 
 export default WritingResultPage;
