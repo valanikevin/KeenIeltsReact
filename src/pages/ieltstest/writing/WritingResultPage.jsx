@@ -244,69 +244,7 @@ const WritingResultPage = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col sm={12} md={6} className="mt-3">
-            <Card className="h-100">
-              <Card.Header>
-                <h3 className="mt-2 fw-bold">Bands Description</h3>
-              </Card.Header>
-              <Card.Body>
-                <Table striped bordered hover responsive size="sm">
-                  <thead>
-                    <tr>
-                      <th>Requirements</th>
-                      <th>Explanation</th>
-                    </tr>
-                  </thead>
-                  <tbody className="">
-                    <tr>
-                      <td>
-                        <h3 className="m-0">TA: </h3>
-                        Task Achievement
-                      </td>
-                      <td>
-                        Candidate addresses the requirements of the task and
-                        presents an overview with information appropriately
-                        selected. There may be inconsistencies in tone.
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <h3 className="my-0">CC: </h3>
-                        Coherence and Cohesion
-                      </td>
-                      <td>
-                        Candidate addresses the requirements of the task and
-                        presents an overview with information appropriately
-                        selected. There may be inconsistencies in tone.
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <h3 className="m-0">LR: </h3>
-                        Lexical Resource
-                      </td>
-                      <td>
-                        Candidate addresses the requirements of the task and
-                        presents an overview with information appropriately
-                        selected. There may be inconsistencies in tone.
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <h3 className="m-0">GRA: </h3>
-                        Grammatical Range Accuracy
-                      </td>
-                      <td>
-                        Candidate addresses the requirements of the task and
-                        presents an overview with information appropriately
-                        selected. There may be inconsistencies in tone.
-                      </td>
-                    </tr>
-                  </tbody>
-                </Table>
-              </Card.Body>
-            </Card>
-          </Col>
+
           <Col sm={12} md={8} className="mt-3">
             <Card>
               <Card.Header>
