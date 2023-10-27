@@ -28,3 +28,6 @@ p {
   color: black;
 }
 
+td {
+  color: black !important;
+}
