@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import useAxios from "../../../utils/useAxios";
 import { API_URLS } from "../../../utils/urls";
@@ -6,6 +6,7 @@ import ScoreSection from "../../../components/ieltstest/ScoreSection";
 import { Accordion, Card, Col, Container, Row } from "react-bootstrap";
 import SplitPane from "react-split-pane";
 import "./ReactSplitPane.css";
+import LoadingContext from "../../../context/layout/LoadingContext";
 
 import ReadingPassage from "../../../components/ieltstest/reading/ReadingPassage";
 import ReadingSection from "../../../components/ieltstest/reading/ReadingSection";
@@ -17,6 +18,7 @@ const ReadingResultPage = () => {
   const [module, setModule] = useState(null);
   const [attempt, setAttempt] = useState(null);
   const [deviceType, setDeviceType] = useState("desktop");
+  const [loadingBar, setLoadingBar] = useContext(LoadingContext);
 
   async function getModule() {
     const response = await api.post(
@@ -24,7 +26,6 @@ const ReadingResultPage = () => {
     );
     if (response.status === 200) {
       setModule(response.data);
-      console.log(response.data);
     }
   }
 
@@ -41,11 +42,8 @@ const ReadingResultPage = () => {
 
   useEffect(() => {
     getAttempt();
-  }, []);
-
-  useEffect(() => {
     getModule();
-  }, []);
+  }, [loadingBar]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -81,11 +79,7 @@ const ReadingResultPage = () => {
     overflow: "auto", // Prevent scrollbars on the main layout
   };
 
-  if (!attempt || !attempt.evaluation) {
-    return null;
-  }
-
-  if (!module) {
+  if (!module || !attempt || !attempt.evaluation) {
     return null;
   }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import useAxios from "../../../utils/useAxios";
 import { API_URLS } from "../../../utils/urls";
@@ -7,6 +7,7 @@ import { Badge, Card, Col, Container, Row } from "react-bootstrap";
 import SectionCard from "../../../components/ieltstest/SectionCard";
 import SkeletonLoader from "../../../components/elements/skeleton/SkeletonLoader";
 import CustomAudioPlayer from "../../../components/elements/audioplayer/CustomAudioPlayer";
+import LoadingContext from "../../../context/layout/LoadingContext";
 
 const SpeakingResultPage = () => {
   const { module_slug, attempt_slug } = useParams();
@@ -14,6 +15,8 @@ const SpeakingResultPage = () => {
   const [module, setModule] = useState(null);
   const [currentSection, setCurrentSection] = useState(null);
   const [deviceType, setDeviceType] = useState("desktop");
+  const [loadingBar, setLoadingBar] = useContext(LoadingContext);
+
   const isFirstSection = currentSection
     ? currentSection.id === module.sections[0].id
     : false;
@@ -72,12 +75,9 @@ const SpeakingResultPage = () => {
   }
 
   useEffect(() => {
-    getModule();
-  }, []);
-
-  useEffect(() => {
     getAttempt();
-  }, []);
+    getModule();
+  }, [loadingBar]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -96,11 +96,7 @@ const SpeakingResultPage = () => {
     };
   }, []);
 
-  if (!attempt) {
-    return null;
-  }
-
-  if (!module) {
+  if (!module || !attempt) {
     return null;
   }
 

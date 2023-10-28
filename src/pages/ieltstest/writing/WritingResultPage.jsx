@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { json, useParams } from "react-router-dom";
 import useAxiosWithoutLoader from "../../../utils/useAxiosWithoutLoader";
 import { API_URLS } from "../../../utils/urls";
@@ -22,6 +22,7 @@ import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import SectionCard from "../../../components/ieltstest/SectionCard";
 import useAxios from "../../../utils/useAxios";
 import { LuFileEdit } from "react-icons/lu";
+import LoadingContext from "../../../context/layout/LoadingContext";
 
 const WritingResultPage = () => {
   const { module_slug, attempt_slug } = useParams();
@@ -29,6 +30,7 @@ const WritingResultPage = () => {
   const [attempt, setAttempt] = useState(null);
   const [currentSection, setCurrentSection] = useState(null);
   const [evaluation, setEvaluation] = useState(null);
+  const [loadingBar, setLoadingBar] = useContext(LoadingContext);
 
   const isFirstSection = currentSection
     ? currentSection.id === module.sections[0].id
@@ -117,12 +119,9 @@ const WritingResultPage = () => {
   }
 
   useEffect(() => {
-    getModule();
-  }, []);
-
-  useEffect(() => {
     getAttempt();
-  }, []);
+    getModule();
+  }, [loadingBar]);
 
   useEffect(() => {
     if (module && module.sections) {
@@ -153,11 +152,7 @@ const WritingResultPage = () => {
     }
   }, [currentSection]);
 
-  if (!attempt) {
-    return null;
-  }
-
-  if (!module) {
+  if (!module || !attempt) {
     return null;
   }
 
@@ -246,7 +241,7 @@ const WritingResultPage = () => {
                       </thead>
                       <tbody className="">
                         {evaluation_keys.map((item) => (
-                          <tr>
+                          <tr key={item.short}>
                             <td>
                               <h3 className="m-0 text-black">{item.short}: </h3>
                               {item.name}
@@ -280,8 +275,8 @@ const WritingResultPage = () => {
                           evaluation[currentSection.id] &&
                           evaluation[currentSection.id][
                             "vocabulary_choice_suggestions"
-                          ].map((suggestion) => (
-                            <tr>
+                          ].map((suggestion, index) => (
+                            <tr key={index}>
                               <td>
                                 <p style={{ fontSize: "1.1rem" }}>
                                   {suggestion}

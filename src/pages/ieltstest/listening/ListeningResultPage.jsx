@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import useAxios from "../../../utils/useAxios";
 import { API_URLS } from "../../../utils/urls";
 import { useParams } from "react-router";
@@ -9,6 +9,7 @@ import CustomAudioPlayer from "../../../components/elements/audioplayer/CustomAu
 import useAxiosWithoutLoader from "../../../utils/useAxiosWithoutLoader";
 import ScoreSection from "../../../components/ieltstest/ScoreSection";
 import ReviewAnswers from "../../../components/ieltstest/ReviewAnswers";
+import LoadingContext from "../../../context/layout/LoadingContext";
 
 const ListeningResultPage = () => {
   const api = useAxios();
@@ -17,6 +18,7 @@ const ListeningResultPage = () => {
   const [attempt, setAttempt] = useState(null);
   const [module, setModule] = useState(null);
   const [currentAudioTime, setCurrentAudioTime] = useState(null);
+  const [loadingBar, setLoadingBar] = useContext(LoadingContext);
 
   async function getAttempt() {
     const response = await api.post(
@@ -40,17 +42,10 @@ const ListeningResultPage = () => {
 
   useEffect(() => {
     getAttempt();
-  }, []);
-
-  useEffect(() => {
     getModule();
-  }, []);
+  }, [loadingBar]);
 
-  if (!attempt || !attempt.evaluation) {
-    return null;
-  }
-
-  if (!module) {
+  if (!module || !attempt || !attempt.evaluation) {
     return null;
   }
 
