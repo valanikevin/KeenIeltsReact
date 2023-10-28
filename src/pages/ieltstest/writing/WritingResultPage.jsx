@@ -172,7 +172,7 @@ const WritingResultPage = () => {
       <Container className="mb-3">
         <Row className="justify-content-center">
           <Col sm={12} md={8} className="mt-3">
-            {attempt && attempt.bands > 1 ? (
+            {attempt && attempt.bands > 0 ? (
               <Card>
                 <Card.Header>
                   <h3 className="mt-2 fw-bold">Overall Score</h3>
@@ -222,7 +222,9 @@ const WritingResultPage = () => {
                         <hr />
                         <h3 className="mt-2 fw-bold">Your Answer</h3>
                         <p className="writing-questions">
-                          {parse(attempt.answers[currentSection.id])}
+                          {attempt &&
+                            attempt.answers &&
+                            parse(attempt.answers[currentSection.id])}
                         </p>
                       </Accordion.Body>
                     </Accordion.Item>
