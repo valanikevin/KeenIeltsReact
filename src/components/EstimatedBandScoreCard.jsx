@@ -28,9 +28,11 @@ const EstimatedBandScoreCard = ({
                 </td>
                 <td>
                   <h3>
-                    {evaluation &&
-                      evaluation[currentSection.id] &&
-                      evaluation[currentSection.id][item.key]}
+                    {currentSection
+                      ? evaluation &&
+                        evaluation[currentSection.id] &&
+                        evaluation[currentSection.id][item.key]
+                      : evaluation && evaluation[item.key]}
                   </h3>
                 </td>
               </tr>

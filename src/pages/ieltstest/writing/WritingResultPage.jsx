@@ -228,11 +228,18 @@ const WritingResultPage = () => {
               </Col>
 
               <Col sm={12} md={8} className="mt-3">
-                <SuggestionListCard
-                  title={"Vocabulary & Word Choice Suggestions"}
-                  evaluation={evaluation}
-                  currentSection={currentSection}
-                />
+                {evaluation && evaluation[currentSection.id] && (
+                  <SuggestionListCard
+                    title={"Vocabulary & Word Choice Suggestions"}
+                    evaluation={evaluation}
+                    currentSection={currentSection}
+                    array={
+                      evaluation[currentSection.id][
+                        "vocabulary_choice_suggestions"
+                      ]
+                    }
+                  />
+                )}
               </Col>
               <Col sm={12} md={8} className="mt-3">
                 <Card>

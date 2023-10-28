@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Table } from "react-bootstrap";
 
-const SuggestionListCard = ({ title, evaluation, currentSection }) => {
+const SuggestionListCard = ({ title, evaluation, currentSection, array }) => {
   return (
     <Card>
       <Card.Header>
@@ -10,17 +10,13 @@ const SuggestionListCard = ({ title, evaluation, currentSection }) => {
       <Card.Body>
         <Table bordered hover responsive>
           <tbody className="">
-            {evaluation &&
-              evaluation[currentSection.id] &&
-              evaluation[currentSection.id][
-                "vocabulary_choice_suggestions"
-              ].map((suggestion, index) => (
-                <tr key={index}>
-                  <td>
-                    <p style={{ fontSize: "1.1rem" }}>{suggestion}</p>
-                  </td>
-                </tr>
-              ))}
+            {array.map((suggestion, index) => (
+              <tr key={index}>
+                <td>
+                  <p style={{ fontSize: "1.1rem" }}>{suggestion}</p>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </Table>
       </Card.Body>
