@@ -23,6 +23,7 @@ import SectionCard from "../../../components/ieltstest/SectionCard";
 import useAxios from "../../../utils/useAxios";
 import { LuFileEdit } from "react-icons/lu";
 import LoadingContext from "../../../context/layout/LoadingContext";
+import OverallBandsCard from "../../../components/ieltstest/OverallBandsCard";
 
 const WritingResultPage = () => {
   const { module_slug, attempt_slug } = useParams();
@@ -121,7 +122,7 @@ const WritingResultPage = () => {
   useEffect(() => {
     getAttempt();
     getModule();
-  }, [loadingBar]);
+  }, []);
 
   useEffect(() => {
     if (module && module.sections) {
@@ -168,21 +169,10 @@ const WritingResultPage = () => {
         <Row className="justify-content-center">
           <Col sm={12} md={8} className="mt-3">
             {attempt && attempt.bands > 0 ? (
-              <Card>
-                <Card.Header>
-                  <h3 className="mt-2 fw-bold">Overall Score</h3>
-                </Card.Header>
-                <Card.Body className="">
-                  <Badge bg="writing">
-                    <h4 className="display-5 mt-2 mx-3 text-white">
-                      {attempt.bands} Bands
-                    </h4>
-                  </Badge>
-                  <p style={{ fontSize: "1.1rem" }} className="mt-4">
-                    {attempt.bands_description}
-                  </p>
-                </Card.Body>
-              </Card>
+              <OverallBandsCard
+                bands={attempt.bands}
+                description={attempt.bands_description}
+              />
             ) : (
               <SkeletonLoader title={"Overall Score"} />
             )}
