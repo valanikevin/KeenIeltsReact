@@ -21,6 +21,7 @@ import "../../../components/ieltstest/writing/WritingModule.css";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import SectionCard from "../../../components/ieltstest/SectionCard";
 import useAxios from "../../../utils/useAxios";
+import { LuFileEdit } from "react-icons/lu";
 
 const WritingResultPage = () => {
   const { module_slug, attempt_slug } = useParams();
@@ -37,7 +38,6 @@ const WritingResultPage = () => {
     : false;
   const [deviceType, setDeviceType] = useState("desktop");
 
-  const api1 = useAxiosWithoutLoader();
   const api = useAxios();
 
   async function getAttempt() {
@@ -64,11 +64,13 @@ const WritingResultPage = () => {
     if (index < sections.length) {
       await getEvaluation(sections[index].id);
       evaluateSections(sections, index + 1); // Move to the next section
+    } else {
+      getAttempt();
     }
   }
 
   async function getEvaluation(section_id) {
-    const response = await api1.post(
+    const response = await api.post(
       "/ieltstest/get_writing_evaluation/" +
         attempt_slug +
         "/" +
@@ -170,126 +172,174 @@ const WritingResultPage = () => {
       <Container className="mb-3">
         <Row className="justify-content-center">
           <Col sm={12} md={8} className="mt-3">
-            <SectionCard
-              currentSection={currentSection}
-              deviceType={deviceType}
-              isFirstSection={isFirstSection}
-              isLastSection={isLastSection}
-              handleNextSectionButton={handleNextSectionButton}
-              handlePreviousSectionButton={handlePreviousSectionButton}
-            />
+            {attempt && attempt.bands > 1 ? (
+              <Card>
+                <Card.Header>
+                  <h3 className="mt-2 fw-bold">Overall Score</h3>
+                </Card.Header>
+                <Card.Body className="">
+                  <Badge bg="writing">
+                    <h4 className="display-5 mt-2 mx-3 text-white">
+                      {attempt.bands} Bands
+                    </h4>
+                  </Badge>
+                  <p style={{ fontSize: "1.1rem" }} className="mt-4">
+                    {attempt.bands_description}
+                  </p>
+                </Card.Body>
+              </Card>
+            ) : (
+              <SkeletonLoader title={"Overall Score"} />
+            )}
+            <hr className=" my-4" />
           </Col>
 
-          <Col sm={12} md={8}>
-            <Card className="skeleton-card">
-              <Accordion>
-                <Accordion.Item eventKey="0">
-                  <Accordion.Header>
-                    <span className="fw-bold text-black">
-                      <h3 className="mt-2 fw-bold">Your Answer</h3>
-                    </span>
-                  </Accordion.Header>
-                  <Accordion.Body>
-                    <div className="writing-questions table table-responsive">
-                      {parse(currentSection.task)}
-                    </div>
-                    <hr />
-                    <h3 className="mt-2 fw-bold">Your Answer</h3>
-                    <p className="writing-questions">
-                      {parse(attempt.answers[currentSection.id])}
-                    </p>
-                  </Accordion.Body>
-                </Accordion.Item>
-              </Accordion>
-            </Card>
-          </Col>
-          <Col sm={12} md={8} className="mt-3">
-            <Card className="h-100">
-              <Card.Header>
-                <h3 className="mt-2 fw-bold">Estimated Band Scores</h3>
-              </Card.Header>
-              <Card.Body>
-                <Table striped bordered hover responsive size="sm">
-                  <thead>
-                    <tr>
-                      <th>Description</th>
-                      <th>Bands</th>
-                    </tr>
-                  </thead>
-                  <tbody className="">
-                    {evaluation_keys.map((item) => (
-                      <tr>
-                        <td>
-                          <h3 className="m-0 text-black">{item.short}: </h3>
-                          {item.name}
-                        </td>
-                        <td>
-                          <h3>
-                            {evaluation &&
-                              evaluation[currentSection.id] &&
-                              evaluation[currentSection.id][item.key]}
-                          </h3>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
-              </Card.Body>
-            </Card>
-          </Col>
-
-          <Col sm={12} md={8} className="mt-3">
-            <Card>
-              <Card.Header>
-                <h3 className="mt-2 fw-bold">
-                  Vocabulary & Word Choice Suggestions
-                </h3>
-              </Card.Header>
-              <Card.Body>
-                <Table bordered hover responsive>
-                  <tbody className="">
-                    {evaluation &&
-                      evaluation[currentSection.id] &&
-                      evaluation[currentSection.id][
-                        "vocabulary_choice_suggestions"
-                      ].map((suggestion) => (
+          {evaluation ? (
+            <>
+              <Col sm={12} md={8} className="">
+                <SectionCard
+                  currentSection={currentSection}
+                  deviceType={deviceType}
+                  isFirstSection={isFirstSection}
+                  isLastSection={isLastSection}
+                  handleNextSectionButton={handleNextSectionButton}
+                  handlePreviousSectionButton={handlePreviousSectionButton}
+                />
+              </Col>
+              <Col sm={12} md={8}>
+                <Card className="skeleton-card">
+                  <Accordion>
+                    <Accordion.Item eventKey="0">
+                      <Accordion.Header>
+                        <span className="fw-bold text-black">
+                          <h3 className="mt-2 fw-bold">Your Answer</h3>
+                        </span>
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        <div className="writing-questions table table-responsive">
+                          {parse(currentSection.task)}
+                        </div>
+                        <hr />
+                        <h3 className="mt-2 fw-bold">Your Answer</h3>
+                        <p className="writing-questions">
+                          {parse(attempt.answers[currentSection.id])}
+                        </p>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  </Accordion>
+                </Card>
+              </Col>
+              <Col sm={12} md={8} className="mt-3">
+                <Card className="h-100">
+                  <Card.Header>
+                    <h3 className="mt-2 fw-bold">Estimated Band Scores</h3>
+                  </Card.Header>
+                  <Card.Body>
+                    <Table striped bordered hover responsive size="sm">
+                      <thead>
                         <tr>
-                          <td>
-                            <p style={{ fontSize: "1.1rem" }}>{suggestion}</p>
-                          </td>
+                          <th>Description</th>
+                          <th>Bands</th>
                         </tr>
-                      ))}
-                  </tbody>
-                </Table>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col sm={12} md={8} className="mt-3">
-            <Card>
-              <Card.Header>
-                <h3 className="mt-2 fw-bold">Conclusion & Expert Feedback</h3>
-              </Card.Header>
-              <Card.Body>
-                <p style={{ fontSize: "1.1rem" }}>
-                  {evaluation &&
-                    evaluation[currentSection.id][
-                      "overall_personalized_feedback_suggestions"
-                    ]}
-                </p>
-              </Card.Body>
-            </Card>
-          </Col>
+                      </thead>
+                      <tbody className="">
+                        {evaluation_keys.map((item) => (
+                          <tr>
+                            <td>
+                              <h3 className="m-0 text-black">{item.short}: </h3>
+                              {item.name}
+                            </td>
+                            <td>
+                              <h3>
+                                {evaluation &&
+                                  evaluation[currentSection.id] &&
+                                  evaluation[currentSection.id][item.key]}
+                              </h3>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </Table>
+                  </Card.Body>
+                </Card>
+              </Col>
 
-          <Col sm={12} md={8} className="mt-3">
-            <SectionCard
-              currentSection={currentSection}
-              deviceType={deviceType}
-              isFirstSection={isFirstSection}
-              isLastSection={isLastSection}
-              handleNextSectionButton={handleNextSectionButton}
-              handlePreviousSectionButton={handlePreviousSectionButton}
-            />
-          </Col>
+              <Col sm={12} md={8} className="mt-3">
+                <Card>
+                  <Card.Header>
+                    <h3 className="mt-2 fw-bold">
+                      Vocabulary & Word Choice Suggestions
+                    </h3>
+                  </Card.Header>
+                  <Card.Body>
+                    <Table bordered hover responsive>
+                      <tbody className="">
+                        {evaluation &&
+                          evaluation[currentSection.id] &&
+                          evaluation[currentSection.id][
+                            "vocabulary_choice_suggestions"
+                          ].map((suggestion) => (
+                            <tr>
+                              <td>
+                                <p style={{ fontSize: "1.1rem" }}>
+                                  {suggestion}
+                                </p>
+                              </td>
+                            </tr>
+                          ))}
+                      </tbody>
+                    </Table>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col sm={12} md={8} className="mt-3">
+                <Card>
+                  <Card.Header>
+                    <h3 className="mt-2 fw-bold">
+                      Conclusion & Expert Feedback
+                    </h3>
+                  </Card.Header>
+                  <Card.Body>
+                    <p style={{ fontSize: "1.1rem" }}>
+                      {evaluation &&
+                        evaluation[currentSection.id][
+                          "overall_personalized_feedback_suggestions"
+                        ]}
+                    </p>
+                  </Card.Body>
+                </Card>
+              </Col>
+
+              <Col sm={12} md={8} className="mt-3">
+                <SectionCard
+                  currentSection={currentSection}
+                  deviceType={deviceType}
+                  isFirstSection={isFirstSection}
+                  isLastSection={isLastSection}
+                  handleNextSectionButton={handleNextSectionButton}
+                  handlePreviousSectionButton={handlePreviousSectionButton}
+                />
+              </Col>
+            </>
+          ) : (
+            <Col sm={12} md={8} className="">
+              <Card>
+                <Card.Header>
+                  <h3 className="mt-2 fw-bold">Test Results</h3>
+                </Card.Header>
+                <Card.Body className="text-center">
+                  <LuFileEdit size={60} color="black" />
+                  <h2 className="mt-3">Crafting Your Results!</h2>
+                  <p style={{ fontSize: "1.1rem" }}>
+                    We're meticulously evaluating your answers to provide an
+                    accurate score. As we piece together your performance,
+                    please enjoy this brief moment of anticipation. Your IELTS
+                    proficiency insights are just around the corner!
+                  </p>
+                </Card.Body>
+              </Card>
+            </Col>
+          )}
         </Row>
       </Container>
     </>

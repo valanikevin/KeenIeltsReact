@@ -7,7 +7,7 @@ const SkeletonLoader = ({ title }) => {
     <Card className="skeleton-card">
       <Card.Header>
         {title ? (
-          <span className="fw-bold text-black">{title}</span>
+          <h3 className="mt-2 fw-bold">{title}</h3>
         ) : (
           <div className="skeleton-header"></div>
         )}
@@ -18,7 +18,7 @@ const SkeletonLoader = ({ title }) => {
         <div className="skeleton-content"></div>
       </Card.Body>
       <Card.Footer>
-        <div className="skeleton-footer"></div>
+        <div className="skeleton-footer my-3"></div>
       </Card.Footer>
     </Card>
   );
