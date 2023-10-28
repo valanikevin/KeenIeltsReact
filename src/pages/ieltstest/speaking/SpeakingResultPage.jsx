@@ -17,6 +17,7 @@ const SpeakingResultPage = () => {
   const [currentSection, setCurrentSection] = useState(null);
   const [deviceType, setDeviceType] = useState("desktop");
   const [loadingBar, setLoadingBar] = useContext(LoadingContext);
+  const [evaluation, setEvaluation] = useState(null);
 
   const isFirstSection = currentSection
     ? currentSection.id === module.sections[0].id
@@ -75,10 +76,25 @@ const SpeakingResultPage = () => {
     }
   }
 
+  async function getEvaluation() {
+    const response = await api.post(
+      "/ieltstest/get_speaking_evaluation/" + attempt_slug + "/"
+    );
+    if (response.status === 200) {
+      setEvaluation(response.data);
+    } else {
+      console.error("Unable to fetch attempt at ListeningResult.jsx");
+    }
+  }
+
   useEffect(() => {
     getAttempt();
     getModule();
   }, [loadingBar]);
+
+  useEffect(() => {
+    getEvaluation();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -113,10 +129,8 @@ const SpeakingResultPage = () => {
         <Row>
           <Col sm={12} className="mt-3">
             <OverallBandsCard
-              bands={"7.5"}
-              description={
-                "You have a fully operational command of the language with only  occasional unsystematic inaccuracies and inappropriate usage."
-              }
+              bands={attempt.bands}
+              description={attempt.bands_description}
               color="speaking"
             />
           </Col>

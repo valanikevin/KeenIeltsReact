@@ -24,6 +24,8 @@ import useAxios from "../../../utils/useAxios";
 import { LuFileEdit } from "react-icons/lu";
 import LoadingContext from "../../../context/layout/LoadingContext";
 import OverallBandsCard from "../../../components/ieltstest/OverallBandsCard";
+import EstimatedBandScoreCard from "../../../components/EstimatedBandScoreCard";
+import SuggestionListCard from "../../../components/SuggestionListCard";
 
 const WritingResultPage = () => {
   const { module_slug, attempt_slug } = useParams();
@@ -218,67 +220,19 @@ const WritingResultPage = () => {
                 </Card>
               </Col>
               <Col sm={12} md={8} className="mt-3">
-                <Card className="h-100">
-                  <Card.Header>
-                    <h3 className="mt-2 fw-bold">Estimated Band Scores</h3>
-                  </Card.Header>
-                  <Card.Body>
-                    <Table striped bordered hover responsive size="sm">
-                      <thead>
-                        <tr>
-                          <th>Description</th>
-                          <th>Bands</th>
-                        </tr>
-                      </thead>
-                      <tbody className="">
-                        {evaluation_keys.map((item) => (
-                          <tr key={item.short}>
-                            <td>
-                              <h3 className="m-0 text-black">{item.short}: </h3>
-                              {item.name}
-                            </td>
-                            <td>
-                              <h3>
-                                {evaluation &&
-                                  evaluation[currentSection.id] &&
-                                  evaluation[currentSection.id][item.key]}
-                              </h3>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </Table>
-                  </Card.Body>
-                </Card>
+                <EstimatedBandScoreCard
+                  evaluation_keys={evaluation_keys}
+                  evaluation={evaluation}
+                  currentSection={currentSection}
+                />
               </Col>
 
               <Col sm={12} md={8} className="mt-3">
-                <Card>
-                  <Card.Header>
-                    <h3 className="mt-2 fw-bold">
-                      Vocabulary & Word Choice Suggestions
-                    </h3>
-                  </Card.Header>
-                  <Card.Body>
-                    <Table bordered hover responsive>
-                      <tbody className="">
-                        {evaluation &&
-                          evaluation[currentSection.id] &&
-                          evaluation[currentSection.id][
-                            "vocabulary_choice_suggestions"
-                          ].map((suggestion, index) => (
-                            <tr key={index}>
-                              <td>
-                                <p style={{ fontSize: "1.1rem" }}>
-                                  {suggestion}
-                                </p>
-                              </td>
-                            </tr>
-                          ))}
-                      </tbody>
-                    </Table>
-                  </Card.Body>
-                </Card>
+                <SuggestionListCard
+                  title={"Vocabulary & Word Choice Suggestions"}
+                  evaluation={evaluation}
+                  currentSection={currentSection}
+                />
               </Col>
               <Col sm={12} md={8} className="mt-3">
                 <Card>
