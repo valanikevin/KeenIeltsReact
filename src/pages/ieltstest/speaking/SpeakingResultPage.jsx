@@ -8,6 +8,7 @@ import SectionCard from "../../../components/ieltstest/SectionCard";
 import SkeletonLoader from "../../../components/elements/skeleton/SkeletonLoader";
 import CustomAudioPlayer from "../../../components/elements/audioplayer/CustomAudioPlayer";
 import LoadingContext from "../../../context/layout/LoadingContext";
+import OverallBandsCard from "../../../components/ieltstest/OverallBandsCard";
 
 const SpeakingResultPage = () => {
   const { module_slug, attempt_slug } = useParams();
@@ -111,20 +112,13 @@ const SpeakingResultPage = () => {
       <Container className="mb-3">
         <Row>
           <Col sm={12} className="mt-3">
-            <Card>
-              <Card.Header>
-                <span className="fw-bold text-black">Overall Test Score</span>
-              </Card.Header>
-              <Card.Body>
-                <h3 className="display-4 text-black pt-2">7.5 Bands</h3>
-                <p className="mt-3">
-                  You have a fully operational command of the language with only
-                  occasional unsystematic inaccuracies and inappropriate usage.
-                  You may misunderstand some things in unfamiliar situations.
-                  You handle complex detailed argumentation well.
-                </p>
-              </Card.Body>
-            </Card>
+            <OverallBandsCard
+              bands={"7.5"}
+              description={
+                "You have a fully operational command of the language with only  occasional unsystematic inaccuracies and inappropriate usage."
+              }
+              color="speaking"
+            />
           </Col>
           <Col sm={12} className="mt-3">
             <SectionCard

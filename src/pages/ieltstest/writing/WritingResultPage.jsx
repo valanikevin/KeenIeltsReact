@@ -172,6 +172,7 @@ const WritingResultPage = () => {
               <OverallBandsCard
                 bands={attempt.bands}
                 description={attempt.bands_description}
+                color="writing"
               />
             ) : (
               <SkeletonLoader title={"Overall Score"} />
