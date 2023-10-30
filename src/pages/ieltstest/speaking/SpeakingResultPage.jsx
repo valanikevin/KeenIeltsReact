@@ -129,7 +129,7 @@ const SpeakingResultPage = () => {
 
       <Container className="mb-3">
         <Row className="justify-content-center">
-          <Col sm={12} md={8} className="mt-3">
+          <Col xl={8} lg={10} md={12} className="mt-3">
             <OverallBandsCard
               bands={attempt.bands}
               description={attempt.bands_description}
@@ -137,14 +137,14 @@ const SpeakingResultPage = () => {
             />
           </Col>
 
-          <Col sm={12} md={8} className="mt-3">
+          <Col xl={8} lg={10} md={12} className="mt-3">
             <EstimatedBandScoreCard
               evaluation_keys={evaluation_keys}
               evaluation={evaluation}
             />
           </Col>
 
-          <Col sm={12} md={8} className="mt-3">
+          <Col xl={8} lg={10} md={12} className="mt-3">
             <SuggestionListCard
               title={"Test Suggestions"}
               evaluation={evaluation}

@@ -96,14 +96,14 @@ const ReadingResultPage = () => {
       <div className="my-4">
         <Container>
           <Row className="justify-content-center">
-            <Col sm={12} md={8} className="mt-3 mb-3">
+            <Col xl={8} lg={10} md={12} className="mt-3 mb-3">
               <OverallBandsCard
                 bands={attempt.bands}
                 description={attempt.bands_description}
                 color="reading"
               />
             </Col>
-            <Col sm={12} md={8}>
+            <Col xl={8} lg={10} md={12}>
               <Accordion defaultActiveKey={"review_answer"}>
                 <Accordion.Item eventKey="review_answer">
                   <Accordion.Header>
