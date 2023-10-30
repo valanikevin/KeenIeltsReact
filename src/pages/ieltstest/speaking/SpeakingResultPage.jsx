@@ -164,6 +164,19 @@ const SpeakingResultPage = () => {
           <Col xl={8} lg={10} md={12} className="mt-3">
             <Card>
               <Card.Header>
+                <h3 className="mt-2 fw-bold">Conclusion & Expert Feedback</h3>
+              </Card.Header>
+              <Card.Body>
+                <p style={{ fontSize: "1.1rem" }}>
+                  {evaluation &&
+                    evaluation["overall_personalized_feedback_suggestions"]}
+                </p>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col xl={8} lg={10} md={12} className="mt-3">
+            <Card>
+              <Card.Header>
                 {" "}
                 <h3 className="mt-2 fw-bold">Your Responses</h3>
               </Card.Header>
@@ -173,11 +186,13 @@ const SpeakingResultPage = () => {
               />
               <hr />
               <Card.Body>
-                <Accordion defaultActiveKey={0}>
+                <Accordion>
                   {module.sections.map((section, index) => (
                     <Accordion.Item eventKey={index}>
                       <Accordion.Header>
-                        <h3 className="mt-2 fw-bold">{section.section}</h3>
+                        <h4 className="mt-2 fw-bold">
+                          {section.section} Questions
+                        </h4>
                       </Accordion.Header>
                       <Accordion.Body className="">
                         <div className="">

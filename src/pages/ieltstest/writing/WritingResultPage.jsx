@@ -169,7 +169,7 @@ const WritingResultPage = () => {
 
       <Container className="mb-3">
         <Row className="justify-content-center">
-          <Col xl={8} lg={10} md={12}  className="mt-3">
+          <Col xl={8} lg={10} md={12} className="mt-3">
             {attempt && attempt.bands > 0 ? (
               <OverallBandsCard
                 bands={attempt.bands}
@@ -184,7 +184,7 @@ const WritingResultPage = () => {
 
           {evaluation ? (
             <>
-              <Col xl={8} lg={10} md={12}  className="">
+              <Col xl={8} lg={10} md={12} className="">
                 <SectionCard
                   currentSection={currentSection}
                   deviceType={deviceType}
@@ -194,7 +194,7 @@ const WritingResultPage = () => {
                   handlePreviousSectionButton={handlePreviousSectionButton}
                 />
               </Col>
-              <Col xl={8} lg={10} md={12} >
+              <Col xl={8} lg={10} md={12}>
                 <Card className="skeleton-card">
                   <Accordion>
                     <Accordion.Item eventKey="0">
@@ -219,7 +219,7 @@ const WritingResultPage = () => {
                   </Accordion>
                 </Card>
               </Col>
-              <Col xl={8} lg={10} md={12}  className="mt-3">
+              <Col xl={8} lg={10} md={12} className="mt-3">
                 <EstimatedBandScoreCard
                   evaluation_keys={evaluation_keys}
                   evaluation={evaluation}
@@ -227,7 +227,7 @@ const WritingResultPage = () => {
                 />
               </Col>
 
-              <Col xl={8} lg={10} md={12}  className="mt-3">
+              <Col xl={8} lg={10} md={12} className="mt-3">
                 {evaluation && evaluation[currentSection.id] && (
                   <SuggestionListCard
                     title={"Vocabulary & Word Choice Suggestions"}
@@ -241,7 +241,7 @@ const WritingResultPage = () => {
                   />
                 )}
               </Col>
-              <Col xl={8} lg={10} md={12}  className="mt-3">
+              <Col xl={8} lg={10} md={12} className="mt-3">
                 <Card>
                   <Card.Header>
                     <h3 className="mt-2 fw-bold">
@@ -259,7 +259,7 @@ const WritingResultPage = () => {
                 </Card>
               </Col>
 
-              <Col xl={8} lg={10} md={12}  className="mt-3">
+              <Col xl={8} lg={10} md={12} className="mt-3">
                 <SectionCard
                   currentSection={currentSection}
                   deviceType={deviceType}
@@ -271,7 +271,7 @@ const WritingResultPage = () => {
               </Col>
             </>
           ) : (
-            <Col xl={8} lg={10} md={12}  className="">
+            <Col xl={8} lg={10} md={12} className="">
               <Card>
                 <Card.Header>
                   <h3 className="mt-2 fw-bold">Test Results</h3>
