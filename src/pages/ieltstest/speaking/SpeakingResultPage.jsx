@@ -162,44 +162,52 @@ const SpeakingResultPage = () => {
             />
           </Col>
           <Col xl={8} lg={10} md={12} className="mt-3">
-            <Accordion defaultActiveKey={0}>
-              {module.sections.map((section, index) => (
-                <Accordion.Item eventKey={index}>
-                  <Accordion.Header>
-                    <h3 className="mt-2 fw-bold">Section 1</h3>
-                  </Accordion.Header>
-                  <Accordion.Body className="p-0">
-                    <CustomAudioPlayer
-                      src={"https://ielts-up.com/listening/10.3.mp3"}
-                      start_time={"0.0"}
-                    />
-                    <hr />
-                    <div className="px-3">
-                      <Table bordered striped responsive>
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Question Asked</th>
-                            <th scope="col">Play</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {section.questions.map((question, index) => (
-                            <tr key={index}>
-                              <th scope="row">{index + 1}</th>
-                              <td>{question.question}</td>
-                              <td>
-                                <FiPlayCircle size={20} />
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </Table>
-                    </div>
-                  </Accordion.Body>
-                </Accordion.Item>
-              ))}
-            </Accordion>
+            <Card>
+              <Card.Header>
+                {" "}
+                <h3 className="mt-2 fw-bold">Your Responses</h3>
+              </Card.Header>
+              <CustomAudioPlayer
+                src={attempt.merged_audio}
+                start_time={"0.0"}
+              />
+              <hr />
+              <Card.Body>
+                <Accordion defaultActiveKey={0}>
+                  {module.sections.map((section, index) => (
+                    <Accordion.Item eventKey={index}>
+                      <Accordion.Header>
+                        <h3 className="mt-2 fw-bold">{section.section}</h3>
+                      </Accordion.Header>
+                      <Accordion.Body className="">
+                        <div className="">
+                          <Table bordered striped responsive>
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Question Asked</th>
+                                <th scope="col">Play</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {section.questions.map((question, index) => (
+                                <tr key={index}>
+                                  <th scope="row">{index + 1}</th>
+                                  <td>{question.question}</td>
+                                  <td>
+                                    <FiPlayCircle size={20} />
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </Table>
+                        </div>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                  ))}
+                </Accordion>
+              </Card.Body>
+            </Card>
           </Col>
         </Row>
       </Container>
