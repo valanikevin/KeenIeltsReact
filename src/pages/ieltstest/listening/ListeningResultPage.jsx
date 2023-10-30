@@ -10,6 +10,7 @@ import useAxiosWithoutLoader from "../../../utils/useAxiosWithoutLoader";
 import ScoreSection from "../../../components/ieltstest/ScoreSection";
 import ReviewAnswers from "../../../components/ieltstest/ReviewAnswers";
 import LoadingContext from "../../../context/layout/LoadingContext";
+import OverallBandsCard from "../../../components/ieltstest/OverallBandsCard";
 
 const ListeningResultPage = () => {
   const api = useAxios();
@@ -55,38 +56,34 @@ const ListeningResultPage = () => {
 
   return (
     <>
-      <div className="border-bottom">
-        <ScoreSection attempt={attempt} module_name={"Listening"} />
-      </div>
+      <PageHeadingBriefinfo
+        pagetitle={attempt.book.name}
+        briefinfo={"Listening" + " Test Result"}
+        color="bg-listening"
+      />
 
       <div className="my-4">
         <Container>
-          <Row>
-            <Col sm={12} md={6} className="mb-3">
-              <Row>
-                <Col sm={12} className="mb-3">
-                  <Card>
-                    <Card.Body className="m-0 p-1">
-                      <CustomAudioPlayer
-                        src={module.audio}
-                        start_time={currentAudioTime}
-                      />
-                    </Card.Body>
-                  </Card>
-                </Col>
-                {module.sections.length > 0 &&
-                  module.sections.map((section) => (
-                    <div key={section.id} className="my-2">
-                      <ListeningSection
-                        section={section}
-                        user_answers={attempt.evaluation.all_questions}
-                        setCurrentSection={handleChangeAudioTime}
-                      />
-                    </div>
-                  ))}
-              </Row>
+          <Row className="justify-content-center">
+            <Col sm={12} md={8} className="mt-3 mb-3">
+              <OverallBandsCard
+                bands={attempt.bands}
+                description={attempt.bands_description}
+                color="listening"
+              />
             </Col>
-            <Col sm={12} md={6}>
+
+            <Col sm={12} md={8} className="mb-3">
+              <Card>
+                <Card.Body className="m-0 p-1">
+                  <CustomAudioPlayer
+                    src={module.audio}
+                    start_time={currentAudioTime}
+                  />
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col sm={12} md={8}>
               <Accordion defaultActiveKey="0">
                 <Accordion.Item eventKey="0">
                   <Accordion.Header>
@@ -148,6 +145,20 @@ const ListeningResultPage = () => {
                   )
                 )}
               </Accordion>
+            </Col>
+            <Col sm={12} md={8} className="mb-3">
+              <Row>
+                {module.sections.length > 0 &&
+                  module.sections.map((section) => (
+                    <div key={section.id} className="my-2">
+                      <ListeningSection
+                        section={section}
+                        user_answers={attempt.evaluation.all_questions}
+                        setCurrentSection={handleChangeAudioTime}
+                      />
+                    </div>
+                  ))}
+              </Row>
             </Col>
           </Row>
         </Container>

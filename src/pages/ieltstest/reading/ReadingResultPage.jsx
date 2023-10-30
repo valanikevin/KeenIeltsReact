@@ -11,6 +11,8 @@ import LoadingContext from "../../../context/layout/LoadingContext";
 import ReadingPassage from "../../../components/ieltstest/reading/ReadingPassage";
 import ReadingSection from "../../../components/ieltstest/reading/ReadingSection";
 import ReviewAnswers from "../../../components/ieltstest/ReviewAnswers";
+import PageHeadingBriefinfo from "../../../components/layout/PageHeadingBriefInfo";
+import OverallBandsCard from "../../../components/ieltstest/OverallBandsCard";
 
 const ReadingResultPage = () => {
   const api = useAxios();
@@ -85,14 +87,23 @@ const ReadingResultPage = () => {
 
   return (
     <>
-      <div className="border-bottom">
-        <ScoreSection attempt={attempt} module_name={"Reading"} />
-      </div>
+      <PageHeadingBriefinfo
+        pagetitle={attempt.book.name}
+        briefinfo={"Reading" + " Test Result"}
+        color="bg-reading"
+      />
 
       <div className="my-4">
         <Container>
-          <Row>
-            <Col sm={12}>
+          <Row className="justify-content-center">
+            <Col sm={12} md={8} className="mt-3 mb-3">
+              <OverallBandsCard
+                bands={attempt.bands}
+                description={attempt.bands_description}
+                color="reading"
+              />
+            </Col>
+            <Col sm={12} md={8}>
               <Accordion defaultActiveKey={"review_answer"}>
                 <Accordion.Item eventKey="review_answer">
                   <Accordion.Header>
