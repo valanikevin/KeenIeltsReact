@@ -20,6 +20,7 @@ import OverallBandsCard from "../../../components/ieltstest/OverallBandsCard";
 import SuggestionListCard from "../../../components/SuggestionListCard";
 import EstimatedBandScoreCard from "../../../components/EstimatedBandScoreCard";
 import { FiPlayCircle } from "react-icons/fi";
+import SpeakingLoader from "../../../components/ieltstest/speaking/SpeakingLoader";
 
 const SpeakingResultPage = () => {
   const { module_slug, attempt_slug } = useParams();
@@ -93,6 +94,7 @@ const SpeakingResultPage = () => {
     );
     if (response.status === 200) {
       setEvaluation(response.data);
+      getAttempt();
     } else {
       console.error("Unable to fetch attempt at ListeningResult.jsx");
     }
@@ -124,8 +126,8 @@ const SpeakingResultPage = () => {
     };
   }, []);
 
-  if (!module || !attempt) {
-    return null;
+  if (!module || !attempt || !evaluation) {
+    return <SpeakingLoader />; // Replace with your preferred loading component
   }
 
   return (
