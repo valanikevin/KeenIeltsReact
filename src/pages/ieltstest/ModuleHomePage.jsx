@@ -60,6 +60,11 @@ const ModuleHomePage = () => {
       console.error("Error fetching books:", error);
     }
   };
+
+  useEffect(() => {
+    document.title = module_data[module_slug].page_title + " | KeenIELTS";
+  }, []);
+
   if (!books) {
     return null;
   }

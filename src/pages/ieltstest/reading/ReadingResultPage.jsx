@@ -82,7 +82,7 @@ const ReadingResultPage = () => {
   };
 
   useEffect(() => {
-    document.title = attempt.book.name + " | Reading Test Result  | KeenIELTS";
+    document.title = "Reading Test Result  | KeenIELTS";
   }, []);
 
   if (!module || !attempt || !attempt.evaluation) {
