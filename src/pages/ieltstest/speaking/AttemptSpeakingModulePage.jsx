@@ -33,7 +33,9 @@ const AttemptSpeakingModulePage = () => {
   const handleShowSubmitModal = () => setShowSubmitModal(true);
   const handleClosSubmiteModal = () => setShowSubmitModal(false);
   const navigate = useNavigate();
+
   // Effects
+
   useEffect(() => {
     getModule();
   }, []);
@@ -189,6 +191,10 @@ const AttemptSpeakingModulePage = () => {
   if (!module) {
     return null;
   }
+
+  useEffect(() => {
+    document.title = "Speaking Test | KeenIELTS";
+  }, []);
 
   return (
     <>

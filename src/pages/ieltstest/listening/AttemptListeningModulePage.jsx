@@ -121,6 +121,10 @@ const AttemptListeningModulePage = () => {
     endTest();
   };
 
+  useEffect(() => {
+    document.title = "Listening Test | KeenIELTS";
+  }, []);
+
   if (!module) {
     return null;
   }

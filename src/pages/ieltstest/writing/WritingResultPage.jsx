@@ -122,10 +122,6 @@ const WritingResultPage = () => {
   }
 
   useEffect(() => {
-    document.title = attempt.book.name + " | Writing Test Result";
-  }, []);
-
-  useEffect(() => {
     getAttempt();
     getModule();
   }, []);
@@ -158,6 +154,10 @@ const WritingResultPage = () => {
       window.scrollTo(0, 0);
     }
   }, [currentSection]);
+
+  useEffect(() => {
+    document.title = "Writing Test Result  | KeenIELTS";
+  }, []);
 
   if (!module || !attempt) {
     return null;

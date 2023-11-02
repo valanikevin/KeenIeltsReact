@@ -190,9 +190,14 @@ const AttemptWritingModulePage = () => {
     getModule();
   }, []);
 
+  useEffect(() => {
+    document.title = "Writing Test | KeenIELTS";
+  }, []);
+
   if (!module) {
     return null;
   }
+
   return (
     <>
       <MiniNavBar

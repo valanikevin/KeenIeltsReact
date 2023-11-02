@@ -246,6 +246,10 @@ const AttemptReadingModulePage = () => {
     overflow: "auto", // Prevent scrollbars on the main layout
   };
 
+  useEffect(() => {
+    document.title = "Reading Test | KeenIELTS";
+  }, []);
+
   if (!module) {
     return null;
   }

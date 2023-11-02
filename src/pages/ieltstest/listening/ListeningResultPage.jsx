@@ -42,13 +42,13 @@ const ListeningResultPage = () => {
   }
 
   useEffect(() => {
-    document.title = attempt.book.name + " | Listening Test Result";
-  }, []);
-
-  useEffect(() => {
     getAttempt();
     getModule();
   }, [loadingBar]);
+
+  useEffect(() => {
+    document.title = "Listening Test Result  | KeenIELTS";
+  }, []);
 
   if (!module || !attempt || !attempt.evaluation) {
     return null;

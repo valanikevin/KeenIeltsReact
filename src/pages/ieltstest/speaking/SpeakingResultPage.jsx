@@ -101,10 +101,6 @@ const SpeakingResultPage = () => {
     }
   }
 
-    useEffect(() => {
-      document.title = attempt.book.name + " | Speaking Test Result";
-    }, []);
-
   useEffect(() => {
     getAttempt();
     getModule();
@@ -129,6 +125,10 @@ const SpeakingResultPage = () => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+  }, []);
+
+  useEffect(() => {
+    document.title = "Speaking Test Result  | KeenIELTS";
   }, []);
 
   if (!module || !attempt || !evaluation) {
