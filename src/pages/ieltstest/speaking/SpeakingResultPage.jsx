@@ -30,6 +30,7 @@ const SpeakingResultPage = () => {
   const [deviceType, setDeviceType] = useState("desktop");
   const [loadingBar, setLoadingBar] = useContext(LoadingContext);
   const [evaluation, setEvaluation] = useState(null);
+  const [currentAudioTime, setCurrentAudioTime] = useState(0.0);
 
   const isFirstSection = currentSection
     ? currentSection.id === module.sections[0].id
@@ -184,7 +185,7 @@ const SpeakingResultPage = () => {
               </Card.Header>
               <CustomAudioPlayer
                 src={attempt.merged_audio}
-                start_time={"0.0"}
+                start_time={currentAudioTime}
               />
               <hr />
               <Card.Body>
@@ -212,7 +213,14 @@ const SpeakingResultPage = () => {
                                   <th scope="row">{index + 1}</th>
                                   <td>{question.question}</td>
                                   <td>
-                                    <FiPlayCircle size={20} />
+                                    <FiPlayCircle
+                                      size={20}
+                                      onClick={() => {
+                                        setCurrentAudioTime(
+                                          attempt.merged_timestamps[question.id]
+                                        );
+                                      }}
+                                    />
                                   </td>
                                 </tr>
                               ))}
