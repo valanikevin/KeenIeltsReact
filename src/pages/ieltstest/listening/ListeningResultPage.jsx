@@ -42,6 +42,10 @@ const ListeningResultPage = () => {
   }
 
   useEffect(() => {
+    document.title = attempt.book.name + " | Listening Test Result";
+  }, []);
+
+  useEffect(() => {
     getAttempt();
     getModule();
   }, [loadingBar]);
@@ -65,7 +69,7 @@ const ListeningResultPage = () => {
       <div className="my-4">
         <Container>
           <Row className="justify-content-center">
-            <Col xl={8} lg={10} md={12}  className="mt-3 mb-3">
+            <Col xl={8} lg={10} md={12} className="mt-3 mb-3">
               <OverallBandsCard
                 bands={attempt.bands}
                 description={attempt.bands_description}
@@ -73,7 +77,7 @@ const ListeningResultPage = () => {
               />
             </Col>
 
-            <Col xl={8} lg={10} md={12}  className="mb-3">
+            <Col xl={8} lg={10} md={12} className="mb-3">
               <Card>
                 <Card.Body className="m-0 p-1">
                   <CustomAudioPlayer
@@ -83,7 +87,7 @@ const ListeningResultPage = () => {
                 </Card.Body>
               </Card>
             </Col>
-            <Col xl={8} lg={10} md={12} >
+            <Col xl={8} lg={10} md={12}>
               <Accordion defaultActiveKey="0">
                 <Accordion.Item eventKey="0">
                   <Accordion.Header>
@@ -146,7 +150,7 @@ const ListeningResultPage = () => {
                 )}
               </Accordion>
             </Col>
-            <Col xl={8} lg={10} md={12}  className="mb-3">
+            <Col xl={8} lg={10} md={12} className="mb-3">
               <Row>
                 {module.sections.length > 0 &&
                   module.sections.map((section) => (

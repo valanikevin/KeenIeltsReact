@@ -81,6 +81,10 @@ const ReadingResultPage = () => {
     overflow: "auto", // Prevent scrollbars on the main layout
   };
 
+  useEffect(() => {
+    document.title = attempt.book.name + " | Reading Test Result";
+  }, []);
+
   if (!module || !attempt || !attempt.evaluation) {
     return null;
   }

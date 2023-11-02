@@ -122,6 +122,10 @@ const WritingResultPage = () => {
   }
 
   useEffect(() => {
+    document.title = attempt.book.name + " | Writing Test Result";
+  }, []);
+
+  useEffect(() => {
     getAttempt();
     getModule();
   }, []);

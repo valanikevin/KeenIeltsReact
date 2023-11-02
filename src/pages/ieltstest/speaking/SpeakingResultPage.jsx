@@ -101,6 +101,10 @@ const SpeakingResultPage = () => {
     }
   }
 
+    useEffect(() => {
+      document.title = attempt.book.name + " | Speaking Test Result";
+    }, []);
+
   useEffect(() => {
     getAttempt();
     getModule();
