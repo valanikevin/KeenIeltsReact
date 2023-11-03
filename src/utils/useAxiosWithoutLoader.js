@@ -4,8 +4,9 @@ import dayjs from "dayjs";
 import AuthContext from "../context/AuthContext";
 import { useContext, useEffect } from "react";
 import LoadingContext from "../context/layout/LoadingContext";
+import { DJANGO_BASE_URL } from "./config";
 
-const baseURL = "http://127.0.0.1:8000/api";
+export const baseURL = DJANGO_BASE_URL;
 
 const useAxiosWithoutLoader = () => {
   const { authTokens, setUser, setAuthTokens } = useContext(AuthContext);

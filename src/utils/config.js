@@ -9,3 +9,5 @@ export const API_URLS = {
   getSpeakingModule: "/ieltstest/get_module/speaking/",
   getSpeakingAttempt: "/ieltstest/get_attempt/speaking/",
 };
+
+export const DJANGO_BASE_URL = "http://192.168.10.55:8000/api";

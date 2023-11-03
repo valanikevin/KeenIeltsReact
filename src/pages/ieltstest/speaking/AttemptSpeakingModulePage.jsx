@@ -188,13 +188,13 @@ const AttemptSpeakingModulePage = () => {
     overflow: "auto", // Prevent scrollbars on the main layout
   };
 
-  if (!module) {
-    return null;
-  }
-
   useEffect(() => {
     document.title = "Speaking Test | KeenIELTS";
   }, []);
+
+  if (!module) {
+    return null;
+  }
 
   return (
     <>

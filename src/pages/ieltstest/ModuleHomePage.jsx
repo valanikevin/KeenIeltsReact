@@ -4,7 +4,7 @@ import PageHeadingBriefinfo from "../../components/layout/PageHeadingBriefInfo";
 import { Col, Container, Row } from "react-bootstrap";
 import BookCard from "../../components/ieltstest/BookCard";
 import usePublicAxios from "../../utils/usePublicAxios";
-import { API_URLS } from "../../utils/urls";
+import { API_URLS } from "../../utils/config";
 import useAxios from "../../utils/useAxios";
 
 const ModuleHomePage = () => {

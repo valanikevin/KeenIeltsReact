@@ -6,6 +6,7 @@ import useAxios from "../utils/useAxios";
 const AuthContext = createContext();
 import axios from "axios";
 import LoadingContext from "./layout/LoadingContext";
+import { DJANGO_BASE_URL } from "../utils/config";
 
 export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
@@ -33,7 +34,7 @@ export const AuthProvider = ({ children }) => {
   }, [authTokens, loading]);
 
   const loginUser = async (values, resetForm, initialValues) => {
-    let response = await fetch("http://localhost:8000/api/token/", {
+    let response = await fetch(DJANGO_BASE_URL + "/token/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +76,7 @@ export const AuthProvider = ({ children }) => {
 
   const registerUser = async (values, resetForm, initialValues) => {
     axios
-      .post("http://localhost:8000/api/register/", {
+      .post(DJANGO_BASE_URL + "/register/", {
         first_name: values.first_name,
         last_name: values.last_name,
         email: values.email,
