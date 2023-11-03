@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { API_URLS } from "../../../utils/urls";
+import { API_URLS } from "../../../utils/config";
 import { useNavigate, useParams } from "react-router-dom";
 import useAxios, { baseURL } from "../../../utils/useAxios";
 import SplitPane from "react-split-pane";

@@ -18,7 +18,7 @@ import { MiniNavBar } from "../../../components/ieltstest/MiniNavBar";
 import ReadingFooter from "../../../components/ieltstest/reading/ReadingFooter";
 import useAxios from "../../../utils/useAxios";
 import { useNavigate, useParams } from "react-router-dom";
-import { API_URLS } from "../../../utils/urls";
+import { API_URLS } from "../../../utils/config";
 import ReadingSection from "../../../components/ieltstest/reading/ReadingSection";
 import ReadingPassage from "../../../components/ieltstest/reading/ReadingPassage";
 import { getFormData } from "../../../utils/moduleUtils";

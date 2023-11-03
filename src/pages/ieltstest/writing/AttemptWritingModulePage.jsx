@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import useAxios from "../../../utils/useAxios";
-import { API_URLS } from "../../../utils/urls";
+import { API_URLS } from "../../../utils/config";
 import { useNavigate, useParams } from "react-router-dom";
 import { MiniNavBar } from "../../../components/ieltstest/MiniNavBar";
 import { Modal } from "react-bootstrap";

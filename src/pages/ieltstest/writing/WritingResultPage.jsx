@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { json, useParams } from "react-router-dom";
 import useAxiosWithoutLoader from "../../../utils/useAxiosWithoutLoader";
-import { API_URLS } from "../../../utils/urls";
+import { API_URLS } from "../../../utils/config";
 import PageHeadingBriefinfo from "../../../components/layout/PageHeadingBriefInfo";
 import SkeletonLoader from "../../../components/elements/skeleton/SkeletonLoader";
 import {

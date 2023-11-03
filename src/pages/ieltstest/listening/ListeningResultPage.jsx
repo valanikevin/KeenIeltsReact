@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import useAxios from "../../../utils/useAxios";
-import { API_URLS } from "../../../utils/urls";
+import { API_URLS } from "../../../utils/config";
 import { useParams } from "react-router";
 import { Accordion, Card, Col, Container, Row, Table } from "react-bootstrap";
 import PageHeadingBriefinfo from "../../../components/layout/PageHeadingBriefInfo";

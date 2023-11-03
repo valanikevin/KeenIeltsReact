@@ -19,7 +19,7 @@ import useScrollDirection from "../../../utils/useScrollDirection";
 import CountdownTimer from "../../../components/elements/CountdownTimer";
 import BookInfo from "../../../components/ieltstest/listening/BookInfo";
 import CustomAudioPlayer from "../../../components/elements/audioplayer/CustomAudioPlayer";
-import { API_URLS } from "../../../utils/urls";
+import { API_URLS } from "../../../utils/config";
 import { FiCheckCircle } from "react-icons/fi";
 import { getFormData } from "../../../utils/moduleUtils";
 import QuestionPallete from "../../../components/ieltstest/QuestionPallete";

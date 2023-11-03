@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import useAxios from "../../../utils/useAxios";
-import { API_URLS } from "../../../utils/urls";
+import { API_URLS } from "../../../utils/config";
 import PageHeadingBriefinfo from "../../../components/layout/PageHeadingBriefInfo";
 import {
   Accordion,
