@@ -16,6 +16,7 @@ import AttemptWritingModulePage from "./pages/ieltstest/writing/AttemptWritingMo
 import WritingResultPage from "./pages/ieltstest/writing/WritingResultPage";
 import AttemptSpeakingModulePage from "./pages/ieltstest/speaking/AttemptSpeakingModulePage";
 import SpeakingResultPage from "./pages/ieltstest/speaking/SpeakingResultPage";
+import AccountPage from "./pages/base/AccountPage";
 
 const AllRoutes = () => {
   return (
@@ -24,6 +25,11 @@ const AllRoutes = () => {
       <Route path={"/dashboard"} element={<PrivateRoutes />}>
         <Route index element={<DashboardPage />} />
       </Route>
+
+      <Route path={"/account"} element={<PrivateRoutes />}>
+        <Route index element={<AccountPage />} />
+      </Route>
+
       <Route path={"/"} element={<HomePage />} />
       <Route path={"/login"} element={<LoginPage />} />
       <Route path={"/register"} element={<RegisterPage />} />

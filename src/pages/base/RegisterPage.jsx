@@ -1,7 +1,7 @@
 import { useEffect, useContext, useState } from "react";
 import AuthContext, { useAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import { Col, Row, Card } from "react-bootstrap";
+import { Col, Row, Card, Container } from "react-bootstrap";
 import BaseForm from "../../components/layout/BaseForm";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
@@ -69,8 +69,8 @@ const RegisterPage = () => {
     password1: Yup.string()
       .required("Password is required")
       .min(
-        5,
-        "password must contain 5 or more characters with at least one of each: uppercase, lowercase, number and special"
+        8,
+        "password must contain 8 or more characters with at least one of each: uppercase, lowercase, number and special"
       )
       .minLowercase(1, "password must contain at least 1 lower case letter")
       .minUppercase(1, "password must contain at least 1 upper case letter")
@@ -84,33 +84,35 @@ const RegisterPage = () => {
 
   return (
     <>
-      <Row className="align-items-center justify-content-center g-0 ">
-        <Col lg={5} md={8} className="pt-4 ">
-          <Card>
-            <Card.Body className="p-6">
-              <div className="mb-4">
-                <h1 className="mb-1 fw-bold">Sign up</h1>
-                <span>
-                  Already have an account?{" "}
-                  <Link to="/login/" className="ms-1">
-                    Sign in
-                  </Link>
-                </span>
-              </div>
+      <Container>
+        <Row className="align-items-center justify-content-center ">
+          <Col lg={5} md={8} className="">
+            <Card className="mt-5">
+              <Card.Body className="">
+                <div className="mb-4">
+                  <h1 className="mb-1 fw-bold">Sign up</h1>
+                  <span>
+                    Already have an account?{" "}
+                    <Link to="/login/" className="ms-1">
+                      Sign in
+                    </Link>
+                  </span>
+                </div>
 
-              <BaseForm
-                form_fields={form_fields}
-                submit_label={"Sign up"}
-                on_submit={registerUser}
-                serverErrors={registrationError}
-                validation_schema={SignupSchema}
-              />
+                <BaseForm
+                  form_fields={form_fields}
+                  submit_label={"Sign up"}
+                  on_submit={registerUser}
+                  serverErrors={registrationError}
+                  validation_schema={SignupSchema}
+                />
 
-              <div className="mb-4" />
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+                <div className="mb-4" />
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 };

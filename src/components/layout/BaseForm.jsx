@@ -1,34 +1,25 @@
-import { useEffect, useContext, useState } from "react";
-import AuthContext, { useAuth } from "../../context/AuthContext";
-import { Link } from "react-router-dom";
-import { Formik, Field, Form as FormikForm } from "formik";
-import * as Yup from "yup";
+// BaseForm.js
 
-import {
-  Col,
-  Row,
-  Card,
-  Form,
-  Button,
-  Alert,
-  FormGroup,
-} from "react-bootstrap";
-import NotificationContext from "../../context/layout/NotificationContext";
+import React, { useContext } from "react";
+import { Formik, Field, Form as FormikForm } from "formik";
+import { Col, FormGroup, Form, Button } from "react-bootstrap";
 import LoadingContext from "../../context/layout/LoadingContext";
 
 const BaseForm = ({
-  form_fields,
-  submit_label,
+  form_fields = [],
+  submit_label = "Submit",
   on_submit,
   serverErrors,
   validation_schema,
 }) => {
-  let initialValues = {};
   const [loadingBar, setLoadingBar] = useContext(LoadingContext);
 
-  form_fields.forEach(function (field) {
-    initialValues[field.id] = "";
-  });
+  // Initialize initialValues with the provided values for each field
+  let initialValues = form_fields.reduce((values, field) => {
+    values[field.id] =
+      field.value || (field.options ? field.options[0].value : "");
+    return values;
+  }, {});
 
   return (
     <>
@@ -51,43 +42,56 @@ const BaseForm = ({
                 key={field.id}
               >
                 <Form.Label htmlFor={field.id}>{field.label}</Form.Label>
-                <Field
-                  type={field.type}
-                  as={Form.Control}
-                  id={field.id}
-                  name={field.id}
-                  placeholder={field.placeholder}
-                  isInvalid={
-                    (errors[field.id] && touched[field.id]) ||
-                    (serverErrors && serverErrors[field.id])
-                      ? true
-                      : false
-                  }
-                  isValid={
-                    (errors[field.id] === undefined && touched[field.id]) ||
-                    (serverErrors && serverErrors[field.id] === undefined)
-                      ? true
-                      : false
-                  }
-                />
+                {field.type !== "select" ? (
+                  <Field
+                    as={Form.Control}
+                    type={field.type}
+                    id={field.id}
+                    name={field.id}
+                    placeholder={field.placeholder}
+                    isInvalid={
+                      (errors[field.id] && touched[field.id]) ||
+                      (serverErrors && serverErrors[field.id])
+                    }
+                  />
+                ) : (
+                  <Field
+                    as={Form.Select}
+                    name={field.id}
+                    className={`form-control ${
+                      (errors[field.id] && touched[field.id]) ||
+                      (serverErrors && serverErrors[field.id])
+                        ? "is-invalid"
+                        : ""
+                    }`}
+                  >
+                    {field.options.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </Field>
+                )}
                 {errors[field.id] && touched[field.id] ? (
                   <Form.Control.Feedback type="invalid">
-                    {errors[field.id]}
+                    <span className="text-danger"> {errors[field.id]}</span>
                   </Form.Control.Feedback>
                 ) : null}
                 {serverErrors && serverErrors[field.id] ? (
                   <Form.Control.Feedback type="invalid">
                     {serverErrors[field.id].map((sError, index) => (
-                      <p key={index}>{sError.message}</p>
+                      <p className="text-danger" key={index}>
+                        {sError.message}
+                      </p>
                     ))}
                   </Form.Control.Feedback>
                 ) : null}
               </FormGroup>
             ))}
 
-            <Col lg={12} md={12} className="mb-0 mt-4 d-grid gap-2">
-              {/* Button */}
+            <Col lg={12} md={12} className="mb-0 mt-4  gap-2">
               <Button
+                size="lg"
                 variant="primary"
                 type="submit"
                 disabled={!(isValid && dirty) || loadingBar}

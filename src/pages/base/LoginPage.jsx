@@ -51,8 +51,7 @@ const LoginPage = () => {
   return (
     <>
       <Container>
-        <Row className="align-items-center justify-content-center g-0 ">
-          <Col></Col>
+        <Row className="align-items-center justify-content-center ">
           <Col lg={5} md={8} className="">
             {loginError && (
               <div className="mt-5">
@@ -62,7 +61,7 @@ const LoginPage = () => {
               </div>
             )}
             <Card className="mt-5">
-              <Card.Body className="p-6">
+              <Card.Body className="">
                 <div className="mb-4">
                   <h1 className="mb-1 fw-bold">Sign in</h1>
                   <span>
