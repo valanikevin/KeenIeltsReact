@@ -3,15 +3,16 @@ import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import NotificationContext from "./layout/NotificationContext";
 import useAxios from "../utils/useAxios";
-const AuthContext = createContext();
 import axios from "axios";
 import LoadingContext from "./layout/LoadingContext";
 import { DJANGO_BASE_URL } from "../utils/config";
 
+const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [loadingBar, setLoadingBar] = useContext(LoadingContext);
   const [registrationError, setRegistrationError] = useState(null);
+  const [loginError, setLoginError] = useState(null);
   const [user, setUser] = useState(() =>
     localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user"))
@@ -34,38 +35,51 @@ export const AuthProvider = ({ children }) => {
   }, [authTokens, loading]);
 
   const loginUser = async (values, resetForm, initialValues) => {
-    let response = await fetch(DJANGO_BASE_URL + "/token/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    setLoadingBar(true); // Show loading bar at the start of the request
+    try {
+      const response = await axios.post(`${DJANGO_BASE_URL}/token/`, {
         email: values.email,
         password: values.password,
-      }),
-    });
+      });
 
-    let data = await response.json();
-
-    if ((await response).status === 200) {
-      setAuthTokens(data);
-      setUser(jwt_decode(data.access));
-      localStorage.setItem("authTokens", JSON.stringify(data));
-      localStorage.setItem("user", JSON.stringify(jwt_decode(data.access)));
-      setNotification({ ...notification, message: "" });
-      setLoadingBar(false);
-      resetForm(initialValues);
-      navigate("/");
-    } else {
-      let error = {
-        title: "Login Error",
-        message: "Invalid Credentials.",
-        color: "danger",
-      };
-      setNotification(error);
-      setLoadingBar(false);
+      setAuthTokens(response.data);
+      setUser(jwt_decode(response.data.access));
+      localStorage.setItem("authTokens", JSON.stringify(response.data));
+      localStorage.setItem(
+        "user",
+        JSON.stringify(jwt_decode(response.data.access))
+      );
+      setNotification({
+        title: "Login Successful",
+        message: "You are now logged in.",
+        color: "success",
+      });
+      navigate("/"); // Navigate to the homepage on successful login
+    } catch (error) {
+      if (error.response) {
+        // The server responded with a status code outside the 2xx range
+        setLoginError(error.response.data.detail || "Invalid Credentials.");
+        setNotification({
+          title: "Login Error",
+          message: error.response.data.detail || "Invalid Credentials.",
+          color: "danger",
+        });
+      } else {
+        // The request was made but no response was received or error occurred in setting up the request
+        setLoginError("There was a problem connecting to the server.");
+        setNotification({
+          title: "Network Error",
+          message:
+            "There was a problem connecting to the server. Please try again later.",
+          color: "danger",
+        });
+      }
+    } finally {
+      setLoadingBar(false); // Hide loading bar after the request is completed
+      resetForm(initialValues); // Reset the form to initial values
     }
   };
+
   const logoutUser = () => {
     setAuthTokens(null);
     setUser(null);
@@ -110,6 +124,7 @@ export const AuthProvider = ({ children }) => {
     user: user,
     authTokens: authTokens,
     registrationError: registrationError,
+    loginError: loginError,
     setAuthTokens: setAuthTokens,
     setUser: setUser,
     loginUser: loginUser,
