@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import PageHeadingBriefinfo from "../../components/layout/PageHeadingBriefInfo";
 import {
   Button,
@@ -13,6 +13,8 @@ import BookCard from "../../components/ieltstest/BookCard";
 import usePublicAxios from "../../utils/usePublicAxios";
 import { API_URLS } from "../../utils/config";
 import useAxios from "../../utils/useAxios";
+import TestTypeContext from "../../context/TestTypeContext";
+import LoadingContext from "../../context/layout/LoadingContext";
 
 const ModuleHomePage = () => {
   let api;
@@ -23,36 +25,11 @@ const ModuleHomePage = () => {
   }
   const { module_slug } = useParams();
   const [books, setBooks] = useState([]);
-  const module_data = {
-    listening: {
-      page_title: "Listening Tests",
-      page_description:
-        "Improve your English listening skills by practicing with mock tests that closely resemble the actual IELTS listening tests.",
-      api_url: "/ieltstest/listening/",
-    },
-    reading: {
-      page_title: "Reading Tests",
-      page_description:
-        "Improve your English reading skills by practicing with mock tests that closely resemble the actual IELTS listening tests.",
-      api_url: "/ieltstest/reading/",
-    },
-    writing: {
-      page_title: "Writing Tests",
-      page_description:
-        "Improve your English writing skills by practicing with mock tests that closely resemble the actual IELTS listening tests.",
-      api_url: "/ieltstest/writing/",
-    },
-    speaking: {
-      page_title: "Speaking Tests",
-      page_description:
-        "Improve your English speaking skills by practicing with mock tests that closely resemble the actual IELTS listening tests.",
-      api_url: "/ieltstest/speaking/",
-    },
-  };
+  const [testType, setTestType] = useContext(TestTypeContext);
 
   useEffect(() => {
     getBooks();
-  }, [module_slug]);
+  }, [module_slug, testType]);
 
   const getBooks = async () => {
     try {
@@ -86,10 +63,24 @@ const ModuleHomePage = () => {
         <Container className="text-center">
           <div className="">
             <ButtonGroup aria-label="Basic mixed styles example">
-              <Button variant="outline-primary" active>
+              <Button
+                variant="outline-primary"
+                active={testType === "academic" ? true : false}
+                onClick={() => {
+                  setTestType("academic");
+                }}
+              >
                 Academic
               </Button>
-              <Button variant="outline-primary">General</Button>
+              <Button
+                variant="outline-primary"
+                active={testType === "general" ? true : false}
+                onClick={() => {
+                  setTestType("general");
+                }}
+              >
+                General
+              </Button>
             </ButtonGroup>
           </div>
         </Container>
@@ -114,6 +105,32 @@ const ModuleHomePage = () => {
       </Container>
     </div>
   );
+};
+const module_data = {
+  listening: {
+    page_title: "Listening Tests",
+    page_description:
+      "Improve your English listening skills by practicing with mock tests that closely resemble the actual IELTS listening tests.",
+    api_url: "/ieltstest/listening/",
+  },
+  reading: {
+    page_title: "Reading Tests",
+    page_description:
+      "Improve your English reading skills by practicing with mock tests that closely resemble the actual IELTS listening tests.",
+    api_url: "/ieltstest/reading/",
+  },
+  writing: {
+    page_title: "Writing Tests",
+    page_description:
+      "Improve your English writing skills by practicing with mock tests that closely resemble the actual IELTS listening tests.",
+    api_url: "/ieltstest/writing/",
+  },
+  speaking: {
+    page_title: "Speaking Tests",
+    page_description:
+      "Improve your English speaking skills by practicing with mock tests that closely resemble the actual IELTS listening tests.",
+    api_url: "/ieltstest/speaking/",
+  },
 };
 
 export default ModuleHomePage;

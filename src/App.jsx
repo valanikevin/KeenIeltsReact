@@ -9,6 +9,7 @@ import LoadingState from "./context/layout/LoadingState";
 import Footer from "./components/layout/Footer";
 import AllRoutes from "./AllRoutes";
 import ScrollToTop from "./utils/ScrollToTop";
+import TestTypeState from "./context/layout/TestTypeState";
 export const ErrorContext = createContext();
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
     NotificationState,
     LoadingState,
     AuthProvider,
+    TestTypeState,
   ]);
 
   return (
