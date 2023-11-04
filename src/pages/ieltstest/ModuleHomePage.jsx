@@ -11,10 +11,8 @@ import {
 } from "react-bootstrap";
 import BookCard from "../../components/ieltstest/BookCard";
 import usePublicAxios from "../../utils/usePublicAxios";
-import { API_URLS } from "../../utils/config";
 import useAxios from "../../utils/useAxios";
 import TestTypeContext from "../../context/TestTypeContext";
-import LoadingContext from "../../context/layout/LoadingContext";
 import TestTypeSwitch from "../../components/ieltstest/TestTypeSwitch";
 
 const ModuleHomePage = () => {
@@ -29,14 +27,20 @@ const ModuleHomePage = () => {
   const [testType, setTestType] = useContext(TestTypeContext);
 
   useEffect(() => {
-    getBooks();
+    if (testType) {
+      getBooks();
+    }
   }, [module_slug, testType]);
 
   const getBooks = async () => {
     try {
-      const response = await api.get(module_data[module_slug].api_url);
+      const response = await api.get(module_data[module_slug].api_url, {
+        params: {
+          // Use the `params` key to include query parameters
+          testType: testType,
+        },
+      });
       if (response.status === 200) {
-
         const books = response.data.filter((book) => book["tests"].length > 0);
         setBooks(books);
       }
