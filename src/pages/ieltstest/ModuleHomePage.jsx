@@ -1,7 +1,14 @@
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import PageHeadingBriefinfo from "../../components/layout/PageHeadingBriefInfo";
-import { Col, Container, Row } from "react-bootstrap";
+import {
+  Button,
+  ButtonGroup,
+  Col,
+  Container,
+  Row,
+  Stack,
+} from "react-bootstrap";
 import BookCard from "../../components/ieltstest/BookCard";
 import usePublicAxios from "../../utils/usePublicAxios";
 import { API_URLS } from "../../utils/config";
@@ -75,6 +82,18 @@ const ModuleHomePage = () => {
         briefinfo={module_data[module_slug].page_description}
         color={`bg-${module_slug}`}
       />
+      <div className="bg-white py-2 border-bottom">
+        <Container className="text-center">
+          <div className="">
+            <ButtonGroup aria-label="Basic mixed styles example">
+              <Button variant="outline-primary" active>
+                Academic
+              </Button>
+              <Button variant="outline-primary">General</Button>
+            </ButtonGroup>
+          </div>
+        </Container>
+      </div>
       <Container className="p-3 app">
         <Row>
           {books.map((book) => (
