@@ -15,6 +15,7 @@ import { API_URLS } from "../../utils/config";
 import useAxios from "../../utils/useAxios";
 import TestTypeContext from "../../context/TestTypeContext";
 import LoadingContext from "../../context/layout/LoadingContext";
+import TestTypeSwitch from "../../components/ieltstest/TestTypeSwitch";
 
 const ModuleHomePage = () => {
   let api;
@@ -35,7 +36,7 @@ const ModuleHomePage = () => {
     try {
       const response = await api.get(module_data[module_slug].api_url);
       if (response.status === 200) {
-        // Filter out books that have tests_with_listening_module
+
         const books = response.data.filter((book) => book["tests"].length > 0);
         setBooks(books);
       }
@@ -59,32 +60,9 @@ const ModuleHomePage = () => {
         briefinfo={module_data[module_slug].page_description}
         color={`bg-${module_slug}`}
       />
-      <div className="bg-white py-2 border-bottom">
-        <Container className="text-center">
-          <div className="">
-            <ButtonGroup aria-label="Basic mixed styles example">
-              <Button
-                variant="outline-primary"
-                active={testType === "academic" ? true : false}
-                onClick={() => {
-                  setTestType("academic");
-                }}
-              >
-                Academic
-              </Button>
-              <Button
-                variant="outline-primary"
-                active={testType === "general" ? true : false}
-                onClick={() => {
-                  setTestType("general");
-                }}
-              >
-                General
-              </Button>
-            </ButtonGroup>
-          </div>
-        </Container>
-      </div>
+      {(module_slug == "reading" || module_slug == "writing") && (
+        <TestTypeSwitch />
+      )}
       <Container className="p-3 app">
         <Row>
           {books.map((book) => (
