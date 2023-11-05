@@ -74,13 +74,13 @@ const ChangePasswordForm = () => {
         <h3 className="mt-2 fw-bold">Change Password</h3>
       </Card.Header>
       <Card.Body>
-        {JSON.stringify(error)}
         <BaseForm
           form_fields={form_fields}
           submit_label="Update"
           validation_schema={ChangePasswordSchema}
           on_submit={changePassword}
           serverErrors={error}
+          successMessage="Password updated successfully."
         />
       </Card.Body>
     </Card>

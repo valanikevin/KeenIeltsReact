@@ -1,6 +1,4 @@
-// BaseForm.js
-
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Formik, Field, Form as FormikForm } from "formik";
 import { Col, FormGroup, Form, Button, Alert } from "react-bootstrap";
 import LoadingContext from "../../context/layout/LoadingContext";
@@ -12,15 +10,23 @@ const BaseForm = ({
   serverErrors,
   validation_schema,
   nonFieldErrors,
+  successMessage = "Form submitted successfully!",
 }) => {
   const [loadingBar, setLoadingBar] = useContext(LoadingContext);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
-  // Initialize initialValues with the provided values for each field
   let initialValues = form_fields.reduce((values, field) => {
     values[field.id] =
       field.value || (field.options ? field.options[0].value : "");
     return values;
   }, {});
+
+  const handleSuccess = () => {
+    setShowSuccessAlert(true);
+    setTimeout(() => {
+      setShowSuccessAlert(false);
+    }, 5000);
+  };
 
   return (
     <>
@@ -30,21 +36,29 @@ const BaseForm = ({
           {serverErrors.non_field_errors.join(" ")}
         </Alert>
       )}
+      {showSuccessAlert && (
+        <Alert
+          variant="success"
+          onClose={() => setShowSuccessAlert(false)}
+          dismissible
+        >
+          {successMessage}
+        </Alert>
+      )}
       <Formik
         initialValues={initialValues}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           setLoadingBar(true);
           try {
-            // Call the on_submit function passed in props with form values
             await on_submit(values);
-            // If the submission is successful, you can reset the form
-            resetForm();
+            handleSuccess();
+            resetForm({ values: initialValues });
           } catch (error) {
-            // Handle any errors here, such as setting error messages in state
             console.error(error);
+          } finally {
+            setLoadingBar(false);
+            setSubmitting(false);
           }
-          setLoadingBar(false);
-          setSubmitting(false);
         }}
         validationSchema={validation_schema}
       >
