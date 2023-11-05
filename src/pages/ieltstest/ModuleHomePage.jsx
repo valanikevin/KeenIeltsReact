@@ -64,9 +64,9 @@ const ModuleHomePage = () => {
         briefinfo={module_data[module_slug].page_description}
         color={`bg-${module_slug}`}
       />
-      {(module_slug == "reading" || module_slug == "writing") && (
-        <TestTypeSwitch />
-      )}
+      {(module_slug == "reading" ||
+        module_slug == "writing" ||
+        module_slug == "fulltest") && <TestTypeSwitch />}
       <Container className="p-3 app">
         <Row>
           {books.map((book) => (
@@ -90,28 +90,38 @@ const ModuleHomePage = () => {
 };
 const module_data = {
   listening: {
+    title: "Listening Test",
     page_title: "Listening Tests",
     page_description:
       "Improve your English listening skills by practicing with mock tests that closely resemble the actual IELTS listening tests.",
     api_url: "/ieltstest/listening/",
   },
   reading: {
+    title: "Reading Test",
     page_title: "Reading Tests",
     page_description:
       "Improve your English reading skills by practicing with mock tests that closely resemble the actual IELTS listening tests.",
     api_url: "/ieltstest/reading/",
   },
   writing: {
+    title: "Writing Test",
     page_title: "Writing Tests",
     page_description:
       "Improve your English writing skills by practicing with mock tests that closely resemble the actual IELTS listening tests.",
     api_url: "/ieltstest/writing/",
   },
   speaking: {
+    title: "Speaking Test",
     page_title: "Speaking Tests",
     page_description:
       "Improve your English speaking skills by practicing with mock tests that closely resemble the actual IELTS listening tests.",
     api_url: "/ieltstest/speaking/",
+  },
+  fulltest: {
+    title: "Full Test",
+    page_title: "Take Full Test",
+    page_description: "Practice full IELTS test with answers and explanations.",
+    api_url: "/ieltstest/fulltest/",
   },
 };
 

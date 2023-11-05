@@ -81,7 +81,7 @@ const BookCard = ({
               <Card className="mb-4">
                 <Card.Header className={`bg-${color}`}>
                   <h4 className={`text-white my-0 text-capitalize`}>
-                    Choose {test_type}
+                    Choose {module_data[module_slug].title}
                   </h4>
                 </Card.Header>
 
@@ -117,7 +117,7 @@ const BookCard = ({
           <Stack direction="horizontal" onClick={handleShow} gap={3}>
             <div className="px-2">
               <span className="text-black text-capitalize">
-                Choose {test_type}
+                Choose {module_data[module_slug].title}
               </span>
             </div>
             <div className="px-2 ms-auto">
@@ -133,7 +133,7 @@ const BookCard = ({
           <Stack direction="horizontal" gap={3}>
             <div className="p-2">
               <span className={`fw-bold text-${color} text-capitalize`}>
-                Begin Smart {test_type}
+                Begin Smart {module_data[module_slug].title}
               </span>
             </div>
             <div className="p-2 ms-auto">

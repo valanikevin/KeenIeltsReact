@@ -7,6 +7,7 @@ $listening: #008080;
 $reading: #808000;
 $writing: #a0522d;
 $speaking: #4169e1;
+$fulltest: #0052cc;
 
 .bg-listening {
   background-color: $listening;
@@ -24,6 +25,10 @@ $speaking: #4169e1;
   background-color: $speaking;
 }
 
+.bg-fulltest {
+  background-color: $fulltest;
+}
+
 .text-listening {
   color: $listening;
 }
@@ -38,6 +43,10 @@ $speaking: #4169e1;
 
 .text-speaking {
   color: $speaking;
+}
+
+.text-fulltest {
+  color: $fulltest;
 }
 
 .progress-bar {

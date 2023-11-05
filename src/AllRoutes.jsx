@@ -17,6 +17,7 @@ import WritingResultPage from "./pages/ieltstest/writing/WritingResultPage";
 import AttemptSpeakingModulePage from "./pages/ieltstest/speaking/AttemptSpeakingModulePage";
 import SpeakingResultPage from "./pages/ieltstest/speaking/SpeakingResultPage";
 import AccountPage from "./pages/base/AccountPage";
+import FullTestHomePage from "./pages/ieltstest/FullTestHomePage";
 
 const AllRoutes = () => {
   return (
