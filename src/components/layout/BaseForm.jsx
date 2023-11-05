@@ -52,7 +52,7 @@ const BaseForm = ({
           try {
             await on_submit(values);
             handleSuccess();
-            resetForm({ values: initialValues });
+            // Do not reset form here, because we want the form to update with new values from the server
           } catch (error) {
             console.error(error);
           } finally {
@@ -61,6 +61,7 @@ const BaseForm = ({
           }
         }}
         validationSchema={validation_schema}
+        enableReinitialize // This line is important
       >
         {({ errors, touched, isValid, dirty }) => (
           <FormikForm>

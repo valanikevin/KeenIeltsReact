@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import BaseForm from "../layout/BaseForm";
 import { DJANGO_BASE_URL } from "../../utils/config";
 
-const AccountSettingForm = () => {
+const AccountSettingForm = ({ userData, setUserData }) => {
   const api = useAxios();
 
   const form_fields = [
@@ -15,7 +15,7 @@ const AccountSettingForm = () => {
       id: "first_name",
       invalid_feedback: "e.g. Rahul",
       placeholder: "Enter your First Name",
-      value: "Kevin",
+      value: userData?.first_name,
     },
     {
       type: "text",
@@ -23,18 +23,18 @@ const AccountSettingForm = () => {
       id: "last_name",
       invalid_feedback: "e.g. Sharma",
       placeholder: "Enter your Last Name",
-      value: "Valani",
+      value: userData?.last_name,
     },
     {
       type: "select",
-      label: "Test Type",
+      label: "Preparing for",
       id: "testType",
       invalid_feedback: "Select Academic or General",
       placeholder: "What IELTS test you're preparing?",
-      value: "academic",
+      value: userData?.testType,
       options: [
-        { value: "academic", label: "Academic" },
-        { value: "general", label: "General" },
+        { value: "academic", label: "Academic IELTS" },
+        { value: "general", label: "General IELTS" },
       ],
     },
   ];
@@ -57,11 +57,9 @@ const AccountSettingForm = () => {
         DJANGO_BASE_URL + "/account/update_account_settings/",
         values
       );
-      // If the request is successful, handle the response accordingly
-      console.log(response.data); // Or handle success another way, e.g., show a success message
+      setUserData(response.data);
     } catch (error) {
-      // If the request fails, handle the error accordingly
-      console.error(error.response || error.message); // Or handle error another way, e.g., show an error message
+      console.error(error.response || error.message);
     }
   };
   return (
