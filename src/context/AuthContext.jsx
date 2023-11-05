@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
   const loginUser = async (values, resetForm, initialValues) => {
     setLoadingBar(true); // Show loading bar at the start of the request
     try {
-      const response = await axios.post(`${DJANGO_BASE_URL}/token/`, {
+      const response = await axios.post(`${DJANGO_BASE_URL}/account/token/`, {
         email: values.email,
         password: values.password,
       });
@@ -90,7 +90,7 @@ export const AuthProvider = ({ children }) => {
 
   const registerUser = async (values, resetForm, initialValues) => {
     axios
-      .post(DJANGO_BASE_URL + "/register/", {
+      .post(DJANGO_BASE_URL + "/account/register/", {
         first_name: values.first_name,
         last_name: values.last_name,
         email: values.email,

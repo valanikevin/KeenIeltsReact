@@ -3,8 +3,12 @@ import PageHeadingBriefinfo from "../../components/layout/PageHeadingBriefInfo";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import * as Yup from "yup";
 import BaseForm from "../../components/layout/BaseForm";
+import useAxios from "../../utils/useAxios";
+import { DJANGO_BASE_URL } from "../../utils/config";
 
 const AccountPage = () => {
+  const api = useAxios();
+
   const form_fields = [
     {
       type: "text",
@@ -28,7 +32,7 @@ const AccountPage = () => {
       id: "testType",
       invalid_feedback: "Select Academic or General",
       placeholder: "What IELTS test you're preparing?",
-      value: "general",
+      value: "academic",
       options: [
         { value: "academic", label: "Academic" },
         { value: "general", label: "General" },
@@ -47,6 +51,20 @@ const AccountPage = () => {
       .required("Required"),
     testType: Yup.string().required("You must select a test type"),
   });
+
+  const updateAccountSetting = async (values) => {
+    try {
+      const response = await api.post(
+        DJANGO_BASE_URL + "/account/update_account_settings/",
+        values
+      );
+      // If the request is successful, handle the response accordingly
+      console.log(response.data); // Or handle success another way, e.g., show a success message
+    } catch (error) {
+      // If the request fails, handle the error accordingly
+      console.error(error.response || error.message); // Or handle error another way, e.g., show an error message
+    }
+  };
 
   return (
     <>
@@ -70,6 +88,7 @@ const AccountPage = () => {
                   form_fields={form_fields}
                   submit_label="Update"
                   validation_schema={AccountSettingSchema}
+                  on_submit={updateAccountSetting}
                 />
               </Card.Body>
             </Card>
