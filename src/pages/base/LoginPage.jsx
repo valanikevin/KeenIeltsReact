@@ -53,13 +53,6 @@ const LoginPage = () => {
       <Container>
         <Row className="align-items-center justify-content-center ">
           <Col lg={5} md={8} className="">
-            {loginError && (
-              <div className="mt-5">
-                <Alert className="m-0" variant="danger">
-                  {loginError}
-                </Alert>
-              </div>
-            )}
             <Card className="mt-5">
               <Card.Body className="">
                 <div className="mb-4">
@@ -77,7 +70,7 @@ const LoginPage = () => {
                   validation_schema={SignInSchema}
                   on_submit={loginUser}
                   submit_label={"Sign in"}
-                  serverErrors={loginError}
+                  nonFieldErrors={loginError}
                 />
                 <div className="mb-4" />
               </Card.Body>
