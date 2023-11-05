@@ -73,6 +73,7 @@ const AccountSettingForm = () => {
         <BaseForm
           form_fields={form_fields}
           submit_label="Update"
+          successMessage="Your account settings have been updated successfully"
           validation_schema={AccountSettingSchema}
           on_submit={updateAccountSetting}
         />
