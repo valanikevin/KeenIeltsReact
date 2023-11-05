@@ -2,7 +2,7 @@ import React from "react";
 import useAxios from "../../utils/useAxios";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import * as Yup from "yup";
-import BaseForm from "./BaseForm";
+import BaseForm from "../layout/BaseForm";
 import { DJANGO_BASE_URL } from "../../utils/config";
 
 const AccountSettingForm = () => {

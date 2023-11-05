@@ -5,7 +5,8 @@ import * as Yup from "yup";
 import BaseForm from "../../components/layout/BaseForm";
 import useAxios from "../../utils/useAxios";
 import { DJANGO_BASE_URL } from "../../utils/config";
-import AccountSettingForm from "../../components/layout/AccountSettingForm";
+import AccountSettingForm from "../../components/auth/AccountSettingForm";
+import ChangePasswordForm from "../../components/auth/ChangePasswordForm";
 
 const AccountPage = () => {
   return (
@@ -18,8 +19,11 @@ const AccountPage = () => {
       />
       <Container>
         <Row className="justify-content-center">
-          <Col xl={8} lg={10} md={12} className="mt-3">
+          <Col xl={8} lg={10} md={12} className="my-3">
             <AccountSettingForm />
+          </Col>
+          <Col xl={8} lg={10} md={12} className="mb-3">
+            <ChangePasswordForm />
           </Col>
         </Row>
       </Container>
