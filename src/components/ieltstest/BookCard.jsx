@@ -49,14 +49,18 @@ const BookCard = ({
         headers: { "Content-Type": "multipart/form-data" },
       });
       if (response.status === 200) {
-        navigate(
-          "/ieltstest/attempt/" +
-            response.data.module_type +
-            "/" +
-            response.data.selected_module +
-            "/" +
-            response.data.attempt
-        );
+        if (module_slug === "fulltest") {
+          navigate("/ieltstest/attempt/fulltest/" + response.data.attempt);
+        } else {
+          navigate(
+            "/ieltstest/attempt/" +
+              response.data.module_type +
+              "/" +
+              response.data.selected_module +
+              "/" +
+              response.data.attempt
+          );
+        }
       }
     }
   };

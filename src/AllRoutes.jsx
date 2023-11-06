@@ -17,6 +17,7 @@ import WritingResultPage from "./pages/ieltstest/writing/WritingResultPage";
 import AttemptSpeakingModulePage from "./pages/ieltstest/speaking/AttemptSpeakingModulePage";
 import SpeakingResultPage from "./pages/ieltstest/speaking/SpeakingResultPage";
 import AccountPage from "./pages/base/AccountPage";
+import FullTestInfoPage from "./pages/ieltstest/fulltest/FullTestInfoPage";
 
 const AllRoutes = () => {
   return (
@@ -39,6 +40,10 @@ const AllRoutes = () => {
         <Route index element={<TestHomePage />} />
         <Route path={":module_slug"} element={<ModuleHomePage />} />
         <Route path="attempt" element={<PrivateRoutes />}>
+          
+          {/* Full Test */}
+          <Route path="fulltest/:attempt_slug" element={<FullTestInfoPage />} />
+
           {/* Listening Attempt */}
           <Route
             path="listening/:module_slug/:attempt_slug"
