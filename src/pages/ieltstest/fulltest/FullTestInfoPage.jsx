@@ -5,6 +5,7 @@ import { DJANGO_BASE_URL } from "../../../utils/config";
 import { Badge, Card, Col, Container, Row, Stack } from "react-bootstrap";
 import PageHeadingBriefinfo from "../../../components/layout/PageHeadingBriefInfo";
 import { FiArrowRight, FiCheckCircle, FiList } from "react-icons/fi";
+import OverallBandsCard from "../../../components/ieltstest/OverallBandsCard";
 
 const FullTestInfoPage = () => {
   const { attempt_slug } = useParams();
@@ -63,10 +64,10 @@ const FullTestInfoPage = () => {
         pagetitle={"Full Test"}
         briefinfo={"Practice full IELTS test with answers and explanations."}
       />
-      <Container className="mt-3">
+      <Container className="">
         <Row>
           <Col lg={4} className="mb-3">
-            <Row>
+            <Row className="sticky-top pt-3">
               <Col>
                 <Card>
                   <Card.Header className="p-0">
@@ -92,42 +93,81 @@ const FullTestInfoPage = () => {
                   </Card.Footer>
                   {modules.map((module, index) =>
                     fullTest[module.attempt].status === "In Progress" ? (
-                      <Card.Footer key={index}>
-                        <Stack direction="horizontal" gap={3}>
-                          <div className="px-2">
-                            <span className="text-black text-capitalize ">
-                              {module.name}
-                            </span>
-                          </div>
-                          <div className="px-2 ms-auto">
-                            <FiArrowRight size={20} className="text-black" />
-                          </div>
-                        </Stack>
-                      </Card.Footer>
-                    ) : (
-                      <Card.Footer
-                        key={index}
-                        className="bg-success text-white"
+                      <a
+                        href={
+                          "/ieltstest/attempt/" +
+                          module.slug +
+                          "/" +
+                          fullTest[module.attempt].module_slug +
+                          "/" +
+                          fullTest[module.attempt].slug
+                        }
+                        target="_blank"
                       >
-                        <Stack direction="horizontal" gap={3}>
-                          <div className="px-2">
-                            <span className=" text-capitalize ">
-                              {module.name}
-                            </span>
-                          </div>
-                          <div className="px-2 ms-auto">
-                            <FiCheckCircle size={20} className="" />
-                          </div>
-                        </Stack>
-                      </Card.Footer>
+                        <Card.Footer key={index}>
+                          <Stack direction="horizontal" gap={3}>
+                            <div className="px-2">
+                              <span className="text-black text-capitalize ">
+                                {module.name}
+                              </span>
+                            </div>
+                            <div className="px-2 ms-auto">
+                              <FiArrowRight size={20} className="text-black" />
+                            </div>
+                          </Stack>
+                        </Card.Footer>
+                      </a>
+                    ) : (
+                      <a
+                        href={
+                          "/ieltstest/attempt/" +
+                          module.slug +
+                          "/" +
+                          fullTest[module.attempt].module_slug +
+                          "/" +
+                          fullTest[module.attempt].slug +
+                          "/get_result"
+                        }
+                        target="_blank"
+                      >
+                        <Card.Footer
+                          key={index}
+                          className="bg-success text-white"
+                        >
+                          <Stack direction="horizontal" gap={3}>
+                            <div className="px-2">
+                              <span className=" text-capitalize ">
+                                {module.name}
+                              </span>
+                            </div>
+                            <div className="px-2 ms-auto">
+                              <Badge bg="light" className="text-black">
+                                {fullTest[module.attempt].bands}
+                              </Badge>
+                              <FiArrowRight
+                                size={20}
+                                className="text-white ms-2"
+                              />
+                            </div>
+                          </Stack>
+                        </Card.Footer>
+                      </a>
                     )
                   )}
                 </Card>
               </Col>
             </Row>
           </Col>
-          <Col lg={8} className="">
+          <Col lg={8} className="mt-3">
             <Row>
+              {fullTest.status === "Completed" && (
+                <Col lg={12} className="mb-3">
+                  <OverallBandsCard
+                    bands={fullTest.bands}
+                    description={fullTest.bands_description}
+                  />
+                </Col>
+              )}
               {modules.map((module, index) => (
                 <Col lg={6} className="mb-3 d-flex">
                   {fullTest[module.attempt].status === "In Progress" ? (
@@ -135,9 +175,7 @@ const FullTestInfoPage = () => {
                       <Card.Header>
                         <Stack direction="horizontal" gap={3}>
                           <div className="px-2">
-                            <h3 className={`mt-2 fw-bold text-${module.slug}`}>
-                              {module.name}
-                            </h3>
+                            <h3 className={`mt-2 fw-bold `}>{module.name}</h3>
                           </div>
                           <div className="px-2 ms-auto">
                             <Badge bg="light" className="text-black">
@@ -188,9 +226,7 @@ const FullTestInfoPage = () => {
                       <Card.Header>
                         <Stack direction="horizontal" gap={3}>
                           <div className="px-2">
-                            <h3 className={`mt-2 fw-bold text-${module.slug}`}>
-                              {module.name}
-                            </h3>
+                            <h3 className={`mt-2 fw-bold `}>{module.name}</h3>
                           </div>
                           <div className="px-2 ms-auto">
                             <Badge bg="light" className="text-black">
