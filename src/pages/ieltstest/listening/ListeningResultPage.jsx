@@ -11,6 +11,8 @@ import ScoreSection from "../../../components/ieltstest/ScoreSection";
 import ReviewAnswers from "../../../components/ieltstest/ReviewAnswers";
 import LoadingContext from "../../../context/layout/LoadingContext";
 import OverallBandsCard from "../../../components/ieltstest/OverallBandsCard";
+import FullTestInfoPage from "../fulltest/FullTestInfoPage";
+import FullTestNextModule from "../../../components/ieltstest/FullTestNextModule";
 
 const ListeningResultPage = () => {
   const api = useAxios();
@@ -163,6 +165,9 @@ const ListeningResultPage = () => {
                     </div>
                   ))}
               </Row>
+            </Col>
+            <Col xl={8} lg={10} md={12} className="mb-3">
+              <FullTestNextModule attempt={attempt} />
             </Col>
           </Row>
         </Container>
