@@ -26,6 +26,7 @@ import LoadingContext from "../../../context/layout/LoadingContext";
 import OverallBandsCard from "../../../components/ieltstest/OverallBandsCard";
 import EstimatedBandScoreCard from "../../../components/EstimatedBandScoreCard";
 import SuggestionListCard from "../../../components/SuggestionListCard";
+import FullTestNextModule from "../../../components/ieltstest/FullTestNextModule";
 
 const WritingResultPage = () => {
   const { module_slug, attempt_slug } = useParams();
@@ -272,6 +273,10 @@ const WritingResultPage = () => {
                   handleNextSectionButton={handleNextSectionButton}
                   handlePreviousSectionButton={handlePreviousSectionButton}
                 />
+              </Col>
+
+              <Col xl={8} lg={10} md={12} className="my-3">
+                <FullTestNextModule attempt={attempt} />
               </Col>
             </>
           ) : (

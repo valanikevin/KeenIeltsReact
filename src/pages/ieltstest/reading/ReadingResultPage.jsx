@@ -13,6 +13,7 @@ import ReadingSection from "../../../components/ieltstest/reading/ReadingSection
 import ReviewAnswers from "../../../components/ieltstest/ReviewAnswers";
 import PageHeadingBriefinfo from "../../../components/layout/PageHeadingBriefInfo";
 import OverallBandsCard from "../../../components/ieltstest/OverallBandsCard";
+import FullTestNextModule from "../../../components/ieltstest/FullTestNextModule";
 
 const ReadingResultPage = () => {
   const api = useAxios();
@@ -156,6 +157,9 @@ const ReadingResultPage = () => {
                   </Accordion.Item>
                 ))}
               </Accordion>
+            </Col>
+            <Col xl={8} lg={10} md={12} className="my-3">
+              <FullTestNextModule attempt={attempt} />
             </Col>
           </Row>
         </Container>

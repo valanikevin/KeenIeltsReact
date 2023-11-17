@@ -21,6 +21,7 @@ import SuggestionListCard from "../../../components/SuggestionListCard";
 import EstimatedBandScoreCard from "../../../components/EstimatedBandScoreCard";
 import { FiPlayCircle } from "react-icons/fi";
 import SpeakingLoader from "../../../components/ieltstest/speaking/SpeakingLoader";
+import FullTestNextModule from "../../../components/ieltstest/FullTestNextModule";
 
 const SpeakingResultPage = () => {
   const { module_slug, attempt_slug } = useParams();
@@ -237,6 +238,9 @@ const SpeakingResultPage = () => {
                 </Accordion>
               </Card.Body>
             </Card>
+          </Col>
+          <Col xl={8} lg={10} md={12} className="my-3">
+            <FullTestNextModule attempt={attempt} />
           </Col>
         </Row>
       </Container>

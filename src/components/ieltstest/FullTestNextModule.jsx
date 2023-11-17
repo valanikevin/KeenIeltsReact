@@ -28,7 +28,7 @@ const FullTestNextModule = ({ attempt }) => {
                 "/" +
                 attempt.full_test_next_attempt.module_slug +
                 "/" +
-                attempt.full_test_next_attempt.slug
+                attempt.full_test_next_attempt.attempt_slug
               }
               className="btn btn-primary"
               style={{ textTransform: "capitalize" }}

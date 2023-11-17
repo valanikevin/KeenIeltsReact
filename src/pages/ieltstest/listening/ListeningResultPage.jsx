@@ -152,11 +152,11 @@ const ListeningResultPage = () => {
                 )}
               </Accordion>
             </Col>
-            <Col xl={8} lg={10} md={12} className="mb-3">
+            <Col xl={8} lg={10} md={12} className="">
               <Row>
                 {module.sections.length > 0 &&
                   module.sections.map((section) => (
-                    <div key={section.id} className="my-2">
+                    <div key={section.id} className="mt-3">
                       <ListeningSection
                         section={section}
                         user_answers={attempt.evaluation.all_questions}
@@ -166,7 +166,7 @@ const ListeningResultPage = () => {
                   ))}
               </Row>
             </Col>
-            <Col xl={8} lg={10} md={12} className="mb-3">
+            <Col xl={8} lg={10} md={12} className="my-3">
               <FullTestNextModule attempt={attempt} />
             </Col>
           </Row>
