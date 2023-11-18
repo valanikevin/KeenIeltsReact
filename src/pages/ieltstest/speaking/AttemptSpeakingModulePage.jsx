@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { API_URLS } from "../../../utils/config";
 import { useNavigate, useParams } from "react-router-dom";
 import useAxios, { baseURL } from "../../../utils/useAxios";
-import SplitPane from "react-split-pane";
-import "./ReactSplitPane.css";
 import { MiniNavBar } from "../../../components/ieltstest/MiniNavBar";
 import {
   Container,
@@ -16,7 +14,7 @@ import {
 } from "react-bootstrap";
 import SpeakingFooter from "../../../components/ieltstest/speaking/SpeakingFooter";
 import BookInfo from "../../../components/ieltstest/listening/BookInfo";
-import Waves from "../../../components/ieltstest/speaking/Waves";
+
 const AttemptSpeakingModulePage = () => {
   const [deviceType, setDeviceType] = useState("desktop");
   const { module_slug, attempt_slug } = useParams();

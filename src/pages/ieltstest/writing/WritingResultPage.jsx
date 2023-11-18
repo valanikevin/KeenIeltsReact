@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import { json, useParams } from "react-router-dom";
-import useAxiosWithoutLoader from "../../../utils/useAxiosWithoutLoader";
 import { API_URLS } from "../../../utils/config";
 import PageHeadingBriefinfo from "../../../components/layout/PageHeadingBriefInfo";
 import SkeletonLoader from "../../../components/elements/skeleton/SkeletonLoader";
@@ -19,7 +18,6 @@ import {
 import parse from "html-react-parser";
 import "../../../components/ieltstest/writing/WritingModule.css";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
-import SectionCard from "../../../components/ieltstest/SectionCard";
 import useAxios from "../../../utils/useAxios";
 import { LuFileEdit } from "react-icons/lu";
 import LoadingContext from "../../../context/layout/LoadingContext";

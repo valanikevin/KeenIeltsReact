@@ -4,8 +4,6 @@ import useAxios from "../../../utils/useAxios";
 import { API_URLS } from "../../../utils/config";
 import ScoreSection from "../../../components/ieltstest/ScoreSection";
 import { Accordion, Card, Col, Container, Row } from "react-bootstrap";
-import SplitPane from "react-split-pane";
-import "./ReactSplitPane.css";
 import LoadingContext from "../../../context/layout/LoadingContext";
 
 import ReadingPassage from "../../../components/ieltstest/reading/ReadingPassage";
@@ -126,33 +124,11 @@ const ReadingResultPage = () => {
                       </span>
                     </Accordion.Header>
                     <Accordion.Body className="p-0">
-                      <div className="h-100">
-                        <SplitPane
-                          split={
-                            deviceType === "mobile" ? "horizontal" : "vertical"
-                          }
-                          minSize={50}
-                          defaultSize={100} // Ensure SplitPane fills its container
-                        >
-                          <div
-                            className="simulationDiv p-3"
-                            style={paneWithBackgroundColor}
-                          >
-                            <ReadingPassage section={module.sections[item]} />
-                          </div>
-                          <div
-                            className="statisticsDiv p-3 bg-white"
-                            style={paneStyle}
-                          >
-                            <ReadingSection
-                              section={module.sections[item]}
-                              user_answers={
-                                attempt.evaluation.all_sections[item]
-                              }
-                            />
-                          </div>
-                        </SplitPane>
-                      </div>
+                      <ReadingPassage section={module.sections[item]} />
+                      <ReadingSection
+                        section={module.sections[item]}
+                        user_answers={attempt.evaluation.all_sections[item]}
+                      />
                     </Accordion.Body>
                   </Accordion.Item>
                 ))}

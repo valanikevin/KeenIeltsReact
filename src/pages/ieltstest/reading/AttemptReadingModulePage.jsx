@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import SplitPane from "react-split-pane";
 import {
   Stack,
   Navbar,
@@ -71,8 +70,6 @@ const AttemptReadingModulePage = () => {
       const answers = userAnswerBySection[currentSection.id];
       setCurrentUserAnswerBySection(answers);
       window.scrollTo(0, 0);
-      passageSection.current.scrollTop = 0;
-      questionSection.current.scrollTop = 0;
     }
   }, [currentSection]);
 
@@ -265,67 +262,49 @@ const AttemptReadingModulePage = () => {
       <Container style={containerStyle} className="hide-scrollbar px-0">
         <Row style={{ height: "100%" }}>
           <Col sm={12}>
-            <div style={{ width: "100%" }}>
-              <SplitPane
-                split={deviceType === "mobile" ? "horizontal" : "vertical"}
-                style={{ height: "100%" }} // Ensure SplitPane fills its container
-              >
-                <div
-                  className="simulationDiv p-3"
-                  style={paneWithBackgroundColor}
-                  ref={passageSection}
+            <ReadingPassage section={currentSection} />
+            <ReadingSection
+              section={currentSection}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+              formRef={formRef}
+              key={currentSection.id}
+              section_form_values={currentUserAnswerBySection}
+            />
+            <Stack direction="horizontal" className="border-top pt-3">
+              <div className="m-0">
+                <Button
+                  variant="dark"
+                  className="btn-sm"
+                  onClick={handlePreviousSectionButton}
+                  disabled={isFirstSection} // Disable if on the first section
                 >
-                  <ReadingPassage section={currentSection} />
-                </div>
-                <div
-                  className="statisticsDiv p-3 bg-white"
-                  style={paneStyle}
-                  ref={questionSection}
-                >
-                  <ReadingSection
-                    section={currentSection}
-                    handleChange={handleChange}
-                    handleSubmit={handleSubmit}
-                    formRef={formRef}
-                    key={currentSection.id}
-                    section_form_values={currentUserAnswerBySection}
-                  />
-                  <Stack direction="horizontal" className="border-top pt-3">
-                    <div className="m-0">
-                      <Button
-                        variant="dark"
-                        className="btn-sm"
-                        onClick={handlePreviousSectionButton}
-                        disabled={isFirstSection} // Disable if on the first section
-                      >
-                        <FiArrowLeft size={20} /> Previous Section
-                      </Button>
-                    </div>
-                    <div className="m-0 ms-auto">
-                      {isLastSection ? (
-                        <Button
-                          variant="primary"
-                          className="btn-sm"
-                          onClick={() => {
-                            setShowSubmitModal(true);
-                          }}
-                        >
-                          Submit Test <FiCheckCircle size={20} />
-                        </Button>
-                      ) : (
-                        <Button
-                          variant="dark"
-                          className="btn-sm"
-                          onClick={handleNextSectionButton}
-                        >
-                          Next Section <FiArrowRight size={20} />
-                        </Button>
-                      )}
-                    </div>
-                  </Stack>
-                </div>
-              </SplitPane>
-            </div>
+                  <FiArrowLeft size={20} /> Previous Section
+                </Button>
+              </div>
+              <div className="m-0 ms-auto">
+                {isLastSection ? (
+                  <Button
+                    variant="primary"
+                    className="btn-sm"
+                    onClick={() => {
+                      setShowSubmitModal(true);
+                    }}
+                  >
+                    Submit Test <FiCheckCircle size={20} />
+                  </Button>
+                ) : (
+                  <Button
+                    variant="dark"
+                    className="btn-sm"
+                    onClick={handleNextSectionButton}
+                  >
+                    Next Section <FiArrowRight size={20} />
+                  </Button>
+                )}
+              </div>
+            </Stack>
+            <div style={{ width: "100%" }}></div>
           </Col>
         </Row>
       </Container>

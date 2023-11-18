@@ -5,10 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { MiniNavBar } from "../../../components/ieltstest/MiniNavBar";
 import { Modal } from "react-bootstrap";
 import BookInfo from "../../../components/ieltstest/listening/BookInfo";
-import SplitPane from "react-split-pane";
-import "../reading/ReactSplitPane.css";
 import "../../../components/ieltstest/writing/WritingModule.css";
-import parse from "html-react-parser";
 
 import {
   Stack,
@@ -210,41 +207,19 @@ const AttemptWritingModulePage = () => {
         <Row style={{ height: "100%" }}>
           <Col sm={12}>
             <div style={{ width: "100%" }}>
-              <SplitPane
-                split={deviceType === "mobile" ? "horizontal" : "vertical"}
-                style={{ height: "100%" }} // Ensure SplitPane fills its container
-              >
-                <div
-                  className="simulationDiv p-3 writing-questions"
-                  style={{
-                    height: `${deviceType === "mobile" ? "45vh" : "95vh"}`,
-                    backgroundColor: "#ffeae0",
-                  }}
-                  ref={taskSectionRef}
-                >
-                  <WritingTask
-                    currentSection={currentSection}
-                    key={currentSection.id}
-                  />
-                </div>
-                <div
-                  className="statisticsDiv p-3 bg-white"
-                  style={{
-                    height: `${deviceType === "mobile" ? "60vh" : "95vh"}`,
-                  }}
-                  ref={answerSectionRef}
-                >
-                  <WritingSection
-                    currentSection={currentSection}
-                    key={currentSection.id}
-                    deviceType={deviceType}
-                    formRef={formRef}
-                    handleChange={handleChange}
-                    currentFormData={currentFormData}
-                    userAnswerBySection={userAnswerBySection} // Pass this prop
-                  />
-                </div>
-              </SplitPane>
+              <WritingTask
+                currentSection={currentSection}
+                key={currentSection.id}
+              />
+              <WritingSection
+                currentSection={currentSection}
+                key={currentSection.id}
+                deviceType={deviceType}
+                formRef={formRef}
+                handleChange={handleChange}
+                currentFormData={currentFormData}
+                userAnswerBySection={userAnswerBySection} // Pass this prop
+              />
             </div>
           </Col>
         </Row>

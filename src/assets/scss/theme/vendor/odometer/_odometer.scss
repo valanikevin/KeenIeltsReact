@@ -3,9 +3,6 @@
 .odometer.odometer-auto-theme {
   display: inline-block;
   vertical-align: middle;
-  *vertical-align: auto;
-  *zoom: 1;
-  *display: inline;
   position: relative;
   font-family: $font-family-base;
   line-height: 1.1em;
@@ -13,16 +10,12 @@
   .odometer-digit {
     display: inline-block;
     vertical-align: middle;
-    *vertical-align: auto;
-    *zoom: 1;
-    *display: inline;
+
     position: relative;
     .odometer-digit-spacer {
       display: inline-block;
       vertical-align: middle;
-      *vertical-align: auto;
-      *zoom: 1;
-      *display: inline;
+
       visibility: hidden;
     }
     .odometer-digit-inner {
@@ -52,33 +45,27 @@
   }
   .odometer-value {
     text-align: center;
-    color:  var(--#{$prefix}gray-900);
-    font-weight: 600;    
+    color: var(--#{$prefix}gray-900);
+    font-weight: 600;
   }
 }
 
 .odometer.odometer-theme-default {
   display: inline-block;
   vertical-align: middle;
-  *vertical-align: auto;
-  *zoom: 1;
-  *display: inline;
+
   position: relative;
   font-family: $font-family-base;
   line-height: 1.1em;
   .odometer-digit {
     display: inline-block;
     vertical-align: middle;
-    *vertical-align: auto;
-    *zoom: 1;
-    *display: inline;
+
     position: relative;
     .odometer-digit-spacer {
       display: inline-block;
       vertical-align: middle;
-      *vertical-align: auto;
-      *zoom: 1;
-      *display: inline;
+
       visibility: hidden;
     }
     .odometer-digit-inner {
@@ -108,7 +95,7 @@
   }
   .odometer-value {
     text-align: center;
-    color:  var(--#{$prefix}gray-900);
+    color: var(--#{$prefix}gray-900);
     font-weight: 600;
   }
 }
