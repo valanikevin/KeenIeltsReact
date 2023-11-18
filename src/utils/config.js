@@ -10,4 +10,4 @@ export const API_URLS = {
   getSpeakingAttempt: "/ieltstest/get_attempt/speaking/",
 };
 
-export const DJANGO_BASE_URL = "http://192.168.10.55:8000/api";
+export const DJANGO_BASE_URL = "https://api.keenielts.com/api";
