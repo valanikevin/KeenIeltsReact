@@ -226,21 +226,14 @@ const AttemptReadingModulePage = () => {
 
   // CSS
 
-  const paneStyle = {
-    overflow: "auto",
-    height: `${deviceType === "mobile" ? "65vh" : "95vh"}`,
+  const scrollableStyle = {
+    height: `${deviceType === "mobile" ? "42vh" : "calc(100vh - 100px)"}`,
+    overflowY: "auto",
   };
 
-  const paneWithBackgroundColor = {
-    ...paneStyle,
+  const scrollableStyleWithBackground = {
+    ...scrollableStyle,
     backgroundColor: "#F5F5DC",
-  };
-
-  const containerStyle = {
-    paddingTop: "50px",
-    paddingBottom: "50px",
-    height: "calc(100vh - 50px)", // Assuming 50px for NavBar and 50px for Footer
-    overflow: "auto", // Prevent scrollbars on the main layout
   };
 
   useEffect(() => {
@@ -259,52 +252,59 @@ const AttemptReadingModulePage = () => {
         updateCurrentSection={updateCurrentSection}
         setShowTestInfoModal={setShowTestInfoModal}
       />
-      <Container style={containerStyle} className="hide-scrollbar px-0">
-        <Row style={{ height: "100%" }}>
-          <Col sm={12}>
-            <ReadingPassage section={currentSection} />
-            <ReadingSection
-              section={currentSection}
-              handleChange={handleChange}
-              handleSubmit={handleSubmit}
-              formRef={formRef}
-              key={currentSection.id}
-              section_form_values={currentUserAnswerBySection}
-            />
-            <Stack direction="horizontal" className="border-top pt-3">
-              <div className="m-0">
-                <Button
-                  variant="dark"
-                  className="btn-sm"
-                  onClick={handlePreviousSectionButton}
-                  disabled={isFirstSection} // Disable if on the first section
-                >
-                  <FiArrowLeft size={20} /> Previous Section
-                </Button>
-              </div>
-              <div className="m-0 ms-auto">
-                {isLastSection ? (
-                  <Button
-                    variant="primary"
-                    className="btn-sm"
-                    onClick={() => {
-                      setShowSubmitModal(true);
-                    }}
-                  >
-                    Submit Test <FiCheckCircle size={20} />
-                  </Button>
-                ) : (
+      <Container className={deviceType === "mobile" ? "pt-8" : "pt-7"}>
+        <Row className="">
+          <Col sm={12} lg={6} style={scrollableStyle} className="bg-white">
+            {/* Content of the first column */}
+            <div>
+              <ReadingPassage section={currentSection} />
+            </div>
+          </Col>
+          <Col sm={12} lg={6} style={scrollableStyleWithBackground}>
+            {/* Content of the second column */}
+            <div>
+              <ReadingSection
+                section={currentSection}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+                formRef={formRef}
+                key={currentSection.id}
+                section_form_values={currentUserAnswerBySection}
+              />
+              <Stack direction="horizontal" className="border-top pt-3">
+                <div className="m-0">
                   <Button
                     variant="dark"
                     className="btn-sm"
-                    onClick={handleNextSectionButton}
+                    onClick={handlePreviousSectionButton}
+                    disabled={isFirstSection} // Disable if on the first section
                   >
-                    Next Section <FiArrowRight size={20} />
+                    <FiArrowLeft size={20} /> Previous Section
                   </Button>
-                )}
-              </div>
-            </Stack>
-            <div style={{ width: "100%" }}></div>
+                </div>
+                <div className="m-0 ms-auto">
+                  {isLastSection ? (
+                    <Button
+                      variant="primary"
+                      className="btn-sm"
+                      onClick={() => {
+                        setShowSubmitModal(true);
+                      }}
+                    >
+                      Submit Test <FiCheckCircle size={20} />
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="dark"
+                      className="btn-sm"
+                      onClick={handleNextSectionButton}
+                    >
+                      Next Section <FiArrowRight size={20} />
+                    </Button>
+                  )}
+                </div>
+              </Stack>
+            </div>
           </Col>
         </Row>
       </Container>
