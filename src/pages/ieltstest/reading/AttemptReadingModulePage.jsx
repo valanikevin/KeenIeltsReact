@@ -243,6 +243,7 @@ const AttemptReadingModulePage = () => {
       />
       <CustomSplitPane
         deviceType={deviceType}
+        currentSection={currentSection}
         left={
           <>
             <ReadingPassage section={currentSection} />

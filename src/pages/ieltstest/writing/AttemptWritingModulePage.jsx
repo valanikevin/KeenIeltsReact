@@ -202,6 +202,7 @@ const AttemptWritingModulePage = () => {
       />
       <CustomSplitPane
         deviceType={deviceType}
+        currentSection={currentSection}
         left={
           <WritingTask
             currentSection={currentSection}
