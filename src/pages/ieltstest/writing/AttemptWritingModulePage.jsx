@@ -23,6 +23,7 @@ import { FiArrowLeft, FiArrowRight, FiCheckCircle } from "react-icons/fi";
 import WritingSection from "../../../components/ieltstest/writing/WritingSection";
 import WritingTask from "../../../components/ieltstest/writing/WritingTask";
 import WritingFooter from "../../../components/ieltstest/writing/WritingFooter";
+import CustomSplitPane from "../../../components/layout/CustomSplitPane";
 
 const AttemptWritingModulePage = () => {
   // Variables:
@@ -46,8 +47,6 @@ const AttemptWritingModulePage = () => {
   const handleShowSubmitModal = () => setShowSubmitModal(true);
   const handleClosSubmiteModal = () => setShowSubmitModal(false);
   const navigate = useNavigate();
-  const taskSectionRef = useRef(null);
-  const answerSectionRef = useRef(null);
 
   // Functions
   async function getModule() {
@@ -172,8 +171,6 @@ const AttemptWritingModulePage = () => {
   useEffect(() => {
     if (currentSection) {
       window.scrollTo(0, 0);
-      taskSectionRef.current.scrollTop = 0;
-      answerSectionRef.current.scrollTop = 0;
     }
   }, [currentSection]);
 
@@ -203,27 +200,27 @@ const AttemptWritingModulePage = () => {
         updateCurrentSection={updateCurrentSection}
         setShowTestInfoModal={setShowTestInfoModal}
       />
-      <Container style={containerStyle} className="hide-scrollbar px-0">
-        <Row style={{ height: "100%" }}>
-          <Col sm={12}>
-            <div style={{ width: "100%" }}>
-              <WritingTask
-                currentSection={currentSection}
-                key={currentSection.id}
-              />
-              <WritingSection
-                currentSection={currentSection}
-                key={currentSection.id}
-                deviceType={deviceType}
-                formRef={formRef}
-                handleChange={handleChange}
-                currentFormData={currentFormData}
-                userAnswerBySection={userAnswerBySection} // Pass this prop
-              />
-            </div>
-          </Col>
-        </Row>
-      </Container>
+      <CustomSplitPane
+        deviceType={deviceType}
+        left={
+          <WritingTask
+            currentSection={currentSection}
+            key={currentSection.id}
+          />
+        }
+        right={
+          <WritingSection
+            currentSection={currentSection}
+            key={currentSection.id}
+            deviceType={deviceType}
+            formRef={formRef}
+            handleChange={handleChange}
+            currentFormData={currentFormData}
+            userAnswerBySection={userAnswerBySection} // Pass this prop
+          />
+        }
+      />
+
       <WritingFooter
         deviceType={deviceType}
         handleConfirmEndTest={handleConfirmEndTest}
