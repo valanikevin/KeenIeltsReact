@@ -5,7 +5,7 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   build: {
-    sourcemap: true, // Enable source maps
+    // sourcemap: true, // Enable source maps
     outDir: "build", // Specify the output directory (relative to project root).
   },
 });
