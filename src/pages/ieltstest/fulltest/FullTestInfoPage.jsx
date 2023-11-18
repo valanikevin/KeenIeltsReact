@@ -123,7 +123,7 @@ const FullTestInfoPage = () => {
                             </div>
                             <div className="px-2 ms-auto">
                               <Button size="sm" variant="outline-primary">
-                                Start Test{" "}
+                                Start Test
                                 <FiArrowRight size={20} className=" " />
                               </Button>
                             </div>
@@ -147,7 +147,7 @@ const FullTestInfoPage = () => {
                           <Stack direction="horizontal" gap={3}>
                             <div className="px-2">
                               <span className="text-black text-capitalize ">
-                                {module.name}{" "}
+                                {module.name}
                                 <FiCheckCircle
                                   size={20}
                                   className="text-success"
