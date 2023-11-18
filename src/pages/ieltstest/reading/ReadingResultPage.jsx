@@ -12,6 +12,7 @@ import ReviewAnswers from "../../../components/ieltstest/ReviewAnswers";
 import PageHeadingBriefinfo from "../../../components/layout/PageHeadingBriefInfo";
 import OverallBandsCard from "../../../components/ieltstest/OverallBandsCard";
 import FullTestNextModule from "../../../components/ieltstest/FullTestNextModule";
+import CustomSplitPane from "../../../components/layout/CustomSplitPane";
 
 const ReadingResultPage = () => {
   const api = useAxios();
@@ -106,7 +107,7 @@ const ReadingResultPage = () => {
                 color="reading"
               />
             </Col>
-            <Col xl={8} lg={10} md={12}>
+            <Col xl={10} lg={12} md={12}>
               <Accordion defaultActiveKey={"review_answer"}>
                 <Accordion.Item eventKey="review_answer">
                   <Accordion.Header>
@@ -124,10 +125,17 @@ const ReadingResultPage = () => {
                       </span>
                     </Accordion.Header>
                     <Accordion.Body className="p-0">
-                      <ReadingPassage section={module.sections[item]} />
-                      <ReadingSection
-                        section={module.sections[item]}
-                        user_answers={attempt.evaluation.all_sections[item]}
+                      <CustomSplitPane
+                        deviceType={deviceType}
+                        left={
+                          <ReadingPassage section={module.sections[item]} />
+                        }
+                        right={
+                          <ReadingSection
+                            section={module.sections[item]}
+                            user_answers={attempt.evaluation.all_sections[item]}
+                          />
+                        }
                       />
                     </Accordion.Body>
                   </Accordion.Item>

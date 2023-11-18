@@ -23,6 +23,7 @@ import ReadingPassage from "../../../components/ieltstest/reading/ReadingPassage
 import { getFormData } from "../../../utils/moduleUtils";
 import { FiArrowLeft, FiArrowRight, FiCheckCircle } from "react-icons/fi";
 import BookInfo from "../../../components/ieltstest/listening/BookInfo";
+import CustomSplitPane from "../../../components/layout/CustomSplitPane";
 
 const AttemptReadingModulePage = () => {
   const [deviceType, setDeviceType] = useState("desktop");
@@ -224,18 +225,6 @@ const AttemptReadingModulePage = () => {
     handleClosSubmiteModal();
   }
 
-  // CSS
-
-  const scrollableStyle = {
-    height: `${deviceType === "mobile" ? "42vh" : "calc(100vh - 100px)"}`,
-    overflowY: "auto",
-  };
-
-  const scrollableStyleWithBackground = {
-    ...scrollableStyle,
-    backgroundColor: "#F5F5DC",
-  };
-
   useEffect(() => {
     document.title = "Reading Test | KeenIELTS";
   }, []);
@@ -252,62 +241,59 @@ const AttemptReadingModulePage = () => {
         updateCurrentSection={updateCurrentSection}
         setShowTestInfoModal={setShowTestInfoModal}
       />
-      <Container className={deviceType === "mobile" ? "pt-8" : "pt-7"}>
-        <Row className="">
-          <Col sm={12} lg={6} style={scrollableStyle} className="bg-white">
-            {/* Content of the first column */}
-            <div>
-              <ReadingPassage section={currentSection} />
-            </div>
-          </Col>
-          <Col sm={12} lg={6} style={scrollableStyleWithBackground}>
-            {/* Content of the second column */}
-            <div>
-              <ReadingSection
-                section={currentSection}
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-                formRef={formRef}
-                key={currentSection.id}
-                section_form_values={currentUserAnswerBySection}
-              />
-              <Stack direction="horizontal" className="border-top pt-3">
-                <div className="m-0">
+      <CustomSplitPane
+        deviceType={deviceType}
+        left={
+          <>
+            <ReadingPassage section={currentSection} />
+          </>
+        }
+        right={
+          <>
+            <ReadingSection
+              section={currentSection}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+              formRef={formRef}
+              key={currentSection.id}
+              section_form_values={currentUserAnswerBySection}
+            />
+            <Stack direction="horizontal" className="border-top pt-3">
+              <div className="m-0">
+                <Button
+                  variant="dark"
+                  className="btn-sm"
+                  onClick={handlePreviousSectionButton}
+                  disabled={isFirstSection} // Disable if on the first section
+                >
+                  <FiArrowLeft size={20} /> Previous Section
+                </Button>
+              </div>
+              <div className="m-0 ms-auto">
+                {isLastSection ? (
+                  <Button
+                    variant="primary"
+                    className="btn-sm"
+                    onClick={() => {
+                      setShowSubmitModal(true);
+                    }}
+                  >
+                    Submit Test <FiCheckCircle size={20} />
+                  </Button>
+                ) : (
                   <Button
                     variant="dark"
                     className="btn-sm"
-                    onClick={handlePreviousSectionButton}
-                    disabled={isFirstSection} // Disable if on the first section
+                    onClick={handleNextSectionButton}
                   >
-                    <FiArrowLeft size={20} /> Previous Section
+                    Next Section <FiArrowRight size={20} />
                   </Button>
-                </div>
-                <div className="m-0 ms-auto">
-                  {isLastSection ? (
-                    <Button
-                      variant="primary"
-                      className="btn-sm"
-                      onClick={() => {
-                        setShowSubmitModal(true);
-                      }}
-                    >
-                      Submit Test <FiCheckCircle size={20} />
-                    </Button>
-                  ) : (
-                    <Button
-                      variant="dark"
-                      className="btn-sm"
-                      onClick={handleNextSectionButton}
-                    >
-                      Next Section <FiArrowRight size={20} />
-                    </Button>
-                  )}
-                </div>
-              </Stack>
-            </div>
-          </Col>
-        </Row>
-      </Container>
+                )}
+              </div>
+            </Stack>
+          </>
+        }
+      />
       <ReadingFooter
         isExpanded={isFooterExpanded}
         toggleExpanded={setFooterExpanded}
