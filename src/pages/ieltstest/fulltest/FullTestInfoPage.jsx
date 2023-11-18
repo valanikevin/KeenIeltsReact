@@ -2,7 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useHref, useParams } from "react-router-dom";
 import useAxios from "../../../utils/useAxios";
 import { DJANGO_BASE_URL } from "../../../utils/config";
-import { Badge, Card, Col, Container, Row, Stack } from "react-bootstrap";
+import {
+  Badge,
+  Button,
+  Card,
+  Col,
+  Container,
+  Row,
+  Stack,
+} from "react-bootstrap";
 import PageHeadingBriefinfo from "../../../components/layout/PageHeadingBriefInfo";
 import { FiArrowRight, FiCheckCircle, FiList } from "react-icons/fi";
 import OverallBandsCard from "../../../components/ieltstest/OverallBandsCard";
@@ -91,8 +99,10 @@ const FullTestInfoPage = () => {
                       </div>
                     </Stack>
                   </Card.Footer>
+
                   {modules.map((module, index) =>
-                    fullTest[module.attempt].status === "In Progress" ? (
+                    fullTest[module.attempt].status === "In Progress" ||
+                    fullTest[module.attempt].status === "Not Started" ? (
                       <a
                         href={
                           "/ieltstest/attempt/" +
@@ -112,7 +122,10 @@ const FullTestInfoPage = () => {
                               </span>
                             </div>
                             <div className="px-2 ms-auto">
-                              <FiArrowRight size={20} className="text-black" />
+                              <Button size="sm" variant="outline-primary">
+                                Start Test{" "}
+                                <FiArrowRight size={20} className=" " />
+                              </Button>
                             </div>
                           </Stack>
                         </Card.Footer>
@@ -130,24 +143,22 @@ const FullTestInfoPage = () => {
                         }
                         target="_blank"
                       >
-                        <Card.Footer
-                          key={index}
-                          className="bg-success text-white"
-                        >
+                        <Card.Footer key={index}>
                           <Stack direction="horizontal" gap={3}>
                             <div className="px-2">
-                              <span className=" text-capitalize ">
-                                {module.name}
+                              <span className="text-black text-capitalize ">
+                                {module.name}{" "}
+                                <FiCheckCircle
+                                  size={20}
+                                  className="text-success"
+                                />
                               </span>
                             </div>
                             <div className="px-2 ms-auto">
-                              <Badge bg="light" className="text-black">
-                                {fullTest[module.attempt].bands}
-                              </Badge>
-                              <FiArrowRight
-                                size={20}
-                                className="text-white ms-2"
-                              />
+                              <Button size="sm" variant="outline-dark">
+                                View Result{" "}
+                                <FiArrowRight size={20} className=" " />
+                              </Button>
                             </div>
                           </Stack>
                         </Card.Footer>
@@ -170,7 +181,8 @@ const FullTestInfoPage = () => {
               )}
               {modules.map((module, index) => (
                 <Col lg={6} className="mb-3 d-flex">
-                  {fullTest[module.attempt].status === "In Progress" ? (
+                  {fullTest[module.attempt].status === "In Progress" ||
+                  fullTest[module.attempt].status === "Not Started" ? (
                     <Card>
                       <Card.Header>
                         <Stack direction="horizontal" gap={3}>
