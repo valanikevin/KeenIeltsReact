@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [react()],
   build: {
     sourcemap: true, // Enable source maps
-    // ... other build options
+    outDir: "build", // Specify the output directory (relative to project root).
   },
 });
