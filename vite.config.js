@@ -7,4 +7,7 @@ export default defineConfig({
   server: {
     host: true,
   },
+  build: {
+    outDir: "build", // This line sets the output directory to 'build'
+  },
 });
