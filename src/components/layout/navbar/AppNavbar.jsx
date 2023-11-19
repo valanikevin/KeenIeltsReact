@@ -25,32 +25,38 @@ const AppNavbar = ({ fixed = false }) => {
   const NavbarDefaultRoutes = [
     {
       id: uuid(),
-      menuitem: "Dashboard",
-      link: "#",
-      // children: [
-      //   {
-      //     id: uuid(),
-      //     menuitem: "Your Dashboard",
-      //     link: "/dashboard/",
-      //   },
-      //   {
-      //     id: uuid(),
-      //     menuitem: "Your Performance",
-      //     link: "/performance/",
-      //   },
-      // ],
+      menuitem: "Your Dashboard",
+      link: "/dashboard/",
     },
     {
       id: uuid(),
-      menuitem: "Leaderboard",
-      link: "#",
-      children: [
-        {
-          id: uuid(),
-          menuitem: "Leaderboard",
-          link: "/leaderboard/",
-        },
-      ],
+      menuitem: "Listening",
+      link: "/ieltstest/listening/",
+      slug: "listening",
+    },
+    {
+      id: uuid(),
+      menuitem: "Reading",
+      link: "/ieltstest/reading/",
+      slug: "reading",
+    },
+    {
+      id: uuid(),
+      menuitem: "Writing",
+      link: "/ieltstest/writing/",
+      slug: "writing",
+    },
+    {
+      id: uuid(),
+      menuitem: "Speaking",
+      link: "/ieltstest/speaking/",
+      slug: "speaking",
+    },
+    {
+      id: uuid(),
+      menuitem: "Full Test",
+      link: "/ieltstest/fulltest/",
+      slug: "fulltest",
     },
   ];
 
@@ -82,7 +88,7 @@ const AppNavbar = ({ fixed = false }) => {
               {NavbarDefaultRoutes.map((item, index) => {
                 if (item.children === undefined) {
                   return (
-                    <div className="nav-item" key={index}>
+                    <div className="nav-item mx-3" key={index}>
                       <Nav.Link as={Link} to={item.link}>
                         {item.menuitem}
                       </Nav.Link>

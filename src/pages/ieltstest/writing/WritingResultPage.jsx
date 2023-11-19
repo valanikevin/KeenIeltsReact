@@ -25,6 +25,7 @@ import OverallBandsCard from "../../../components/ieltstest/OverallBandsCard";
 import EstimatedBandScoreCard from "../../../components/EstimatedBandScoreCard";
 import SuggestionListCard from "../../../components/SuggestionListCard";
 import FullTestNextModule from "../../../components/ieltstest/FullTestNextModule";
+import SectionCard from "../../../components/ieltstest/SectionCard";
 
 const WritingResultPage = () => {
   const { module_slug, attempt_slug } = useParams();

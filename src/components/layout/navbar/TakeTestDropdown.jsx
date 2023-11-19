@@ -1,17 +1,45 @@
-import { Link } from "react-router-dom";
-import React, { Fragment } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import React, { Fragment, useEffect } from "react";
 import { Badge, Dropdown } from "react-bootstrap";
 import { useMediaQuery } from "react-responsive";
 import { v4 as uuid } from "uuid";
+import { DJANGO_BASE_URL } from "../../../utils/config";
+import useAxios from "../../../utils/useAxios";
 
 const TakeTestDropdown = () => {
+  const navigate = useNavigate();
+  const api = useAxios();
   const isDesktop = useMediaQuery({
     query: "(min-width: 1224px)",
   });
 
+  // Check if user info is present in local storage
+  const isLoggedIn = () => {
+    const user = localStorage.getItem("user");
+    return user != null; // If user info is in local storage, user is logged in
+  };
+
   const getTitle = (item) => {
+    const handleClick = async () => {
+      if (isLoggedIn()) {
+        try {
+          const response = await api.post(
+            `${DJANGO_BASE_URL}/ieltstest/find_smart_test/${item.slug}/`
+          );
+          navigate(
+            `/ieltstest/attempt/${response.data.module_type}/${response.data.selected_module}/${response.data.attempt}`
+          );
+        } catch (error) {
+          console.error("Error fetching data:", error);
+          // Handle error accordingly
+        }
+      } else {
+        navigate("/login");
+      }
+    };
+
     return item.badge ? (
-      <Link to={item.link} className="dropdown-item">
+      <div onClick={handleClick} className="dropdown-item">
         {item.menuitem}
         <Badge
           className="ms-1"
@@ -19,11 +47,11 @@ const TakeTestDropdown = () => {
         >
           {item.badge}
         </Badge>
-      </Link>
+      </div>
     ) : (
-      <Link to={item.link} className="dropdown-item">
+      <div onClick={handleClick} className="dropdown-item">
         {item.menuitem}
-      </Link>
+      </div>
     );
   };
 
@@ -37,31 +65,25 @@ const TakeTestDropdown = () => {
           id: uuid(),
           menuitem: "Listening",
           link: "/ieltstest/listening/",
+          slug: "listening",
         },
         {
           id: uuid(),
           menuitem: "Reading",
           link: "/ieltstest/reading/",
+          slug: "reading",
         },
         {
           id: uuid(),
           menuitem: "Writing",
           link: "/ieltstest/writing/",
+          slug: "writing",
         },
         {
           id: uuid(),
           menuitem: "Speaking",
           link: "/ieltstest/speaking/",
-        },
-        {
-          id: uuid(),
-          menuitem: "Full Test",
-          link: "/ieltstest/fulltest/",
-        },
-        {
-          id: uuid(),
-          menuitem: "Group Test",
-          link: "/ieltstest/grouptest/",
+          slug: "speaking",
         },
       ],
     },
@@ -126,6 +148,7 @@ const TakeTestDropdown = () => {
       </Fragment>
     );
   };
+
   return (
     <Fragment>
       {/* There is only one setting between NavbarDesktop and NavbarMobile component i.e. show property used with <Dropdown.Menu show> tag */}
