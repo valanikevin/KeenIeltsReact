@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, [authTokens, loading]);
 
-  const loginUser = async (values, resetForm, initialValues) => {
+  const loginUser = async (values, handleSuccess) => {
     setLoadingBar(true); // Show loading bar at the start of the request
     try {
       const response = await axios.post(`${DJANGO_BASE_URL}/account/token/`, {
@@ -49,11 +49,8 @@ export const AuthProvider = ({ children }) => {
         "user",
         JSON.stringify(jwt_decode(response.data.access))
       );
-      setNotification({
-        title: "Login Successful",
-        message: "You are now logged in.",
-        color: "success",
-      });
+
+      handleSuccess();
       navigate("/"); // Navigate to the homepage on successful login
     } catch (error) {
       if (error.response) {
@@ -88,7 +85,7 @@ export const AuthProvider = ({ children }) => {
     navigate("/login");
   };
 
-  const registerUser = async (values, resetForm, initialValues) => {
+  const registerUser = async (values, handleSuccess) => {
     axios
       .post(DJANGO_BASE_URL + "/account/register/", {
         first_name: values.first_name,
@@ -99,14 +96,7 @@ export const AuthProvider = ({ children }) => {
       })
       .then(
         (response) => {
-          let message = {
-            title: "Registration Successful",
-            message:
-              "You have successfully registered your account. Please login now.",
-            color: "success",
-          };
-
-          setNotification(message);
+          handleSuccess();
 
           navigate("/verify?email=" + values.email);
         },

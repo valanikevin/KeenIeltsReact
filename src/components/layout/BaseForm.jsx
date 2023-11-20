@@ -47,12 +47,10 @@ const BaseForm = ({
       )}
       <Formik
         initialValues={initialValues}
-        onSubmit={async (values, { setSubmitting, resetForm }) => {
+        onSubmit={async (values, { setSubmitting }) => {
           setLoadingBar(true);
           try {
-            await on_submit(values);
-            handleSuccess();
-            // Do not reset form here, because we want the form to update with new values from the server
+            await on_submit(values, handleSuccess);
           } catch (error) {
             console.error(error);
           } finally {

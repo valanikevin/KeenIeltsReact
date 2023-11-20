@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import BaseForm from "../../components/layout/BaseForm";
 import * as Yup from "yup";
 import { DJANGO_BASE_URL } from "../../utils/config";
 import usePublicAxios from "../../utils/usePublicAxios";
+import AuthContext from "../../context/AuthContext";
 
 const VerifyEmailPage = () => {
   const location = useLocation();
   const [defaultEmail, setDefaultEmail] = useState("");
   const api = usePublicAxios();
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  let { registerUser, registrationError, user } = useContext(AuthContext);
 
   useEffect(() => {
     // Function to parse the URL query string
@@ -20,6 +23,12 @@ const VerifyEmailPage = () => {
       setDefaultEmail(email);
     }
   }, [location]);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  }, []);
 
   const form_fields = [
     {
@@ -48,18 +57,18 @@ const VerifyEmailPage = () => {
       .max(999999, "OTP must be 6 digits"),
   });
 
-  const verifyEmail = async (values) => {
+  const verifyEmail = async (values, handleSuccess) => {
     try {
       const response = await api.post(
         DJANGO_BASE_URL + "/account/verify_email/",
         values
       );
-      // If the request is successful, handle the response accordingly
-      console.log(response);
+      handleSuccess();
+      navigate("/login");
     } catch (error) {
       // Handle error accordingly
       console.error("Error fetching data:", error);
-      setError(error);
+      setError(error.response.data.message);
     }
   };
 
@@ -83,6 +92,7 @@ const VerifyEmailPage = () => {
                   submit_label={"Verify"}
                   validation_schema={VerifySchema}
                   on_submit={verifyEmail}
+                  nonFieldErrors={error}
                   successMessage="Verification Successful"
                 />
 
