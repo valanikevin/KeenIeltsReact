@@ -18,6 +18,7 @@ import AttemptSpeakingModulePage from "./pages/ieltstest/speaking/AttemptSpeakin
 import SpeakingResultPage from "./pages/ieltstest/speaking/SpeakingResultPage";
 import AccountPage from "./pages/base/AccountPage";
 import FullTestInfoPage from "./pages/ieltstest/fulltest/FullTestInfoPage";
+import VerifyEmailPage from "./pages/base/VerifyEmailPage";
 
 const AllRoutes = () => {
   return (
@@ -34,13 +35,13 @@ const AllRoutes = () => {
       <Route path={"/"} element={<HomePage />} />
       <Route path={"/login"} element={<LoginPage />} />
       <Route path={"/register"} element={<RegisterPage />} />
+      <Route path={"/verify"} element={<VerifyEmailPage />} />
 
       {/* IELTS Tests */}
       <Route path={"/ieltstest"}>
         <Route index element={<TestHomePage />} />
         <Route path={":module_slug"} element={<ModuleHomePage />} />
         <Route path="attempt" element={<PrivateRoutes />}>
-          
           {/* Full Test */}
           <Route path="fulltest/:attempt_slug" element={<FullTestInfoPage />} />
 

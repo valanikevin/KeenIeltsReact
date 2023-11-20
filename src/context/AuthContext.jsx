@@ -99,7 +99,6 @@ export const AuthProvider = ({ children }) => {
       })
       .then(
         (response) => {
-          resetForm(initialValues);
           let message = {
             title: "Registration Successful",
             message:
@@ -109,7 +108,7 @@ export const AuthProvider = ({ children }) => {
 
           setNotification(message);
 
-          navigate("/login");
+          navigate("/verify?email=" + values.email);
         },
         (error) => {
           setRegistrationError(error.response.data.errors);
