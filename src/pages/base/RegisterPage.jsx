@@ -105,6 +105,7 @@ const RegisterPage = () => {
                   on_submit={registerUser}
                   serverErrors={registrationError}
                   validation_schema={SignupSchema}
+                  successMessage="Registration Successful"
                 />
 
                 <div className="mb-4" />
