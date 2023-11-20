@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Formik, Field, Form as FormikForm } from "formik";
 import { Col, FormGroup, Form, Button, Alert } from "react-bootstrap";
 import LoadingContext from "../../context/layout/LoadingContext";
+import parse from "html-react-parser";
 
 const BaseForm = ({
   form_fields = [],
@@ -30,7 +31,9 @@ const BaseForm = ({
 
   return (
     <>
-      {nonFieldErrors && <Alert variant="danger">{nonFieldErrors}</Alert>}
+      {nonFieldErrors && (
+        <Alert variant="danger">{parse(nonFieldErrors)}</Alert>
+      )}
       {serverErrors && serverErrors.non_field_errors && (
         <Alert variant="danger">
           {serverErrors.non_field_errors.join(" ")}

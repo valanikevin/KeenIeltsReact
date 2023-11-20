@@ -56,11 +56,7 @@ export const AuthProvider = ({ children }) => {
       if (error.response) {
         // The server responded with a status code outside the 2xx range
         setLoginError(error.response.data.detail || "Invalid Credentials.");
-        setNotification({
-          title: "Login Error",
-          message: error.response.data.detail || "Invalid Credentials.",
-          color: "danger",
-        });
+        
       } else {
         // The request was made but no response was received or error occurred in setting up the request
         setLoginError("There was a problem connecting to the server.");
