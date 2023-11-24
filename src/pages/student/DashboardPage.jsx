@@ -13,6 +13,9 @@ import {
   Table,
 } from "react-bootstrap";
 
+import { Line } from "react-chartjs-2";
+import { Chart as ChartJS } from "chart.js/auto";
+
 const DashboardPage = () => {
   useEffect(() => {
     document.title = "KeenIELTS - The Smart Choice for IELTS Excellence";
@@ -33,6 +36,87 @@ const DashboardPage = () => {
     speaking: "6.5 Bands",
   };
 
+  const data = {
+    labels: [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ],
+    datasets: [
+      {
+        label: "Overall Score",
+        data: [6.5, 6.0, 6.5, 7.0, 7.0, 6.5, 7.0], // Sample overall scores for each day
+        borderColor: "#0052CC",
+        tension: 0.4,
+        fill: false,
+        borderWidth: 6,
+      },
+    ],
+  };
+
+  const additionalData = {
+    Reading: [6.0, 6.5, 6.0, 7.0, 7.5, 6.5, 7.0],
+    Listening: [7.0, 6.0, 6.5, 7.5, 7.0, 6.5, 7.5],
+    Writing: [6.0, 6.5, 7.0, 6.5, 6.5, 6.5, 6.5],
+  };
+  const options = {
+    responsive: true,
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            const label = context.dataset.label || "";
+            const index = context.dataIndex;
+            const value = context.dataset.data[index];
+
+            // Construct additional data string for the tooltip
+            let additionalInfo = `Overall: ${value}\n`;
+            Object.keys(additionalData).forEach((key) => {
+              additionalInfo += `${key}: ${additionalData[key][index]}\n`;
+            });
+
+            return additionalInfo;
+          },
+        },
+      },
+      legend: {
+        display: false,
+        position: "top",
+      },
+    },
+    scales: {
+      y: {
+        display: false,
+        beginAtZero: false, // Change to false to use the automatic scaling
+        suggestedMin: 5.0, // Set a suggested minimum value
+        suggestedMax: 8.0, // Set a suggested maximum value
+        grace: "0%", // Adds a bit of space at the top and bottom of the scale
+        title: {
+          display: false,
+        },
+      },
+      x: {
+        display: false, // Set to true if you want to display the x-axis
+        title: {
+          display: false,
+        },
+      },
+    },
+    elements: {
+      line: {
+        borderWidth: 4, // Adjust the line thickness
+        tension: 0.4, // Smoothens the line
+      },
+      point: {
+        radius: 3, // Adjust the size of points on the line
+      },
+    },
+  };
+
   return (
     <Container className="mt-3">
       <ProfileCover dashboardData={dashboardData} />
@@ -44,6 +128,9 @@ const DashboardPage = () => {
               <h3 className="mt-2 fw-bold">Your Performance</h3>
             </Card.Header>
             <Card.Body>
+              <div style={{ height: "150px" }}>
+                <Line data={data} options={options} style={{ width: "100%" }} />
+              </div>
               <ListGroup>
                 <ListGroup.Item>
                   <Stack direction="horizontal" gap={3}>
@@ -81,6 +168,7 @@ const DashboardPage = () => {
                   })}
               </ListGroup>
             </Card.Body>
+            <Card.Footer></Card.Footer>
           </Card>
         </Col>
       </Row>
