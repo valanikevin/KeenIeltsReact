@@ -21,6 +21,7 @@ import { FiArrowRight } from "react-icons/fi";
 import AccountSettingForm from "../../components/auth/AccountSettingForm";
 import FifteenDaysPerformanceChart from "../../components/layout/student/FifteenDaysPerformanceChart";
 import YourPerformanceCard from "../../components/layout/student/YourPerformanceCard";
+import YourRecentTestsCard from "../../components/layout/student/YourRecentTestsCard";
 
 const DashboardPage = () => {
   useEffect(() => {
@@ -31,6 +32,7 @@ const DashboardPage = () => {
   const navigate = useNavigate();
   const api = useAxios();
   const [overallPerformance, setOverallPerformance] = useState(null);
+  const [userData, setUserData] = useState(null);
 
   function getOverallPerformance() {
     api
@@ -40,7 +42,18 @@ const DashboardPage = () => {
       });
   }
 
+  function getUserDetails() {
+    api
+      .post(DJANGO_BASE_URL + "/account/get_user_details/")
+      .then((response) => {
+        if (response.status === 200) {
+          setUserData(response.data);
+        }
+      });
+  }
+
   useEffect(() => {
+    getUserDetails();
     getOverallPerformance();
   }, []);
   useEffect(() => {
@@ -83,37 +96,15 @@ const DashboardPage = () => {
     }
   }
 
-  if (!overallPerformance) return <div>Loading...</div>;
+  if (!overallPerformance) return null;
 
   return (
     <Container className="mt-3">
-      <ProfileCover dashboardData={dashboardData} />
+      <ProfileCover userData={userData} />
 
-      <Row className="mt-2">
-        <Col sm={12} lg={6} className="my-2">
-          {" "}
-          <Card className="mb-2">
-            <Card.Header>
-              <h3 className="mt-2 fw-bold">15 Days Performance Chart</h3>
-            </Card.Header>
-            <Card.Body>
-              <div
-                className="mb-5"
-                style={{
-                  width: "100%",
-                  height: "150px",
-                }}
-              >
-                <FifteenDaysPerformanceChart
-                  overallPerformance={overallPerformance}
-                />
-              </div>
-            </Card.Body>
-          </Card>
-          <YourPerformanceCard overallPerformance={overallPerformance} />
-        </Col>
-        <Col sm={12} lg={6}>
-          <Card className="my-2">
+      <Row className="mt-2 pt-2">
+        <Col sm={12} lg={6} className="">
+          <Card className="">
             <Card.Header>
               <h3 className="mt-2 fw-bold">Start Practice Test</h3>
             </Card.Header>
@@ -134,55 +125,28 @@ const DashboardPage = () => {
             </Card.Body>
           </Card>
 
-          <Card className="mt-3 mb-2">
+          <YourPerformanceCard overallPerformance={overallPerformance} />
+        </Col>
+        <Col sm={12} lg={6}>
+          <Card className="mb-2 ">
             <Card.Header>
-              <h3 className="mt-2 fw-bold">Your Recent Tests</h3>
+              <h3 className="mt-2 fw-bold">15 Days Performance Chart</h3>
             </Card.Header>
             <Card.Body>
-              <Table striped bordered hover responsive>
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Book</th>
-                    <th>Score</th>
-                    <th>Result</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <Badge bg="listening">L</Badge>
-                    </td>
-                    <td>Cambridge 12</td>
-                    <td>6.5 Bands</td>
-                    <td>
-                      <a href="#">View Result</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <Badge bg="reading">R</Badge>
-                    </td>
-                    <td>Cambridge 12</td>
-                    <td>6.5 Bands</td>
-                    <td>
-                      <a href="#">View Result</a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <Badge bg="writing">W</Badge>
-                    </td>
-                    <td>Cambridge 12</td>
-                    <td>6.5 Bands</td>
-                    <td>
-                      <a href="#">View Result</a>
-                    </td>
-                  </tr>
-                </tbody>
-              </Table>
+              <div
+                className="mb-5"
+                style={{
+                  width: "100%",
+                  height: "150px",
+                }}
+              >
+                <FifteenDaysPerformanceChart
+                  overallPerformance={overallPerformance}
+                />
+              </div>
             </Card.Body>
           </Card>
+          <YourRecentTestsCard overallPerformance={overallPerformance} />
 
           <div className="my-3">
             <AccountSettingForm />
@@ -215,12 +179,5 @@ const TakeTestDropdown = [
     slug: "speaking",
   },
 ];
-
-const dashboardData = {
-  name: "Kevin Valani",
-  email: "valanikevin@gmail.com",
-  linkname: "Account Setting",
-  link: "/account/",
-};
 
 export default DashboardPage;

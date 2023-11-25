@@ -7,7 +7,7 @@ import CheckedMark from "../../assets/images/svg/checked-mark.svg";
 import ProfileBackground from "../../assets/images/background/profile-bg.jpg";
 import { FiUser } from "react-icons/fi";
 
-const ProfileCover = ({ dashboardData }) => {
+const ProfileCover = ({ userData }) => {
   return (
     <Row className="align-items-center">
       <Col xl={12} lg={12} md={12} sm={12}>
@@ -16,18 +16,15 @@ const ProfileCover = ({ dashboardData }) => {
           <div className="d-flex align-items-end justify-content-between  ">
             <div className="d-flex align-items-center">
               <div className="lh-1">
-                <h2 className="mb-0">{dashboardData.name}</h2>
-                <p className="mb-0 d-block">{dashboardData.email}</p>
+                <h2 className="mb-0">
+                  {userData.first_name} {userData.last_name}
+                </h2>
+                <p className="mb-0 d-block">{userData.email}</p>
               </div>
             </div>
             <div>
-              <Link
-                to={dashboardData.link}
-                className={`btn btn${
-                  dashboardData.outlinebutton ? "-outline" : ""
-                }-primary btn-sm d-none d-md-block`}
-              >
-                {dashboardData.linkname}
+              <Link to={"/account/"} className={`btn btn-outline-primary`}>
+                Account Setting
               </Link>
             </div>
           </div>
