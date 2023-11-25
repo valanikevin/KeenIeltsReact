@@ -38,16 +38,17 @@ const FifteenDaysPerformanceChart = ({ overallPerformance }) => {
             const index = context.dataIndex;
             const value = context.dataset.data[index];
 
-            // Construct additional data string for the tooltip
-            let additionalInfo = `Overall: ${value} \n`;
+            // Construct additional data array for the tooltip
+            let additionalInfo = [`Overall: ${value}`];
             Object.keys(additionalData).forEach((key) => {
-              additionalInfo += `${key}: ${additionalData[key][index]}\n`;
+              additionalInfo.push(`${key}: ${additionalData[key][index]}`);
             });
 
             return additionalInfo;
           },
         },
       },
+
       legend: {
         display: false,
         position: "top",
