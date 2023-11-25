@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // import media files
 import Avatar1 from "../../assets/images/avatar/avatar-1.jpg";
 import ProfileCover from "../../components/layout/ProfileCover";
@@ -20,6 +20,8 @@ const DashboardPage = () => {
   useEffect(() => {
     document.title = "KeenIELTS - The Smart Choice for IELTS Excellence";
   }, []);
+
+  const [deviceType, setDeviceType] = useState("desktop");
 
   const dashboardData = {
     name: "Kevin Valani",
@@ -45,26 +47,45 @@ const DashboardPage = () => {
       "Friday",
       "Saturday",
       "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+      "Monday",
     ],
     datasets: [
       {
         label: "Overall Score",
-        data: [6.5, 6.0, 6.5, 7.0, 7.0, 6.5, 7.0], // Sample overall scores for each day
+        data: [
+          6.5, 6.0, 6.5, 7.0, 8.0, 6.5, 7.0, 6.0, 6.5, 6.0, 7.0, 7.5, 6.5, 7.0,
+          6.5,
+        ], // Sample overall scores for each day
         borderColor: "#0052CC",
         tension: 0.4,
         fill: false,
-        borderWidth: 6,
+        borderWidth: 4,
       },
     ],
   };
 
   const additionalData = {
-    Reading: [6.0, 6.5, 6.0, 7.0, 7.5, 6.5, 7.0],
-    Listening: [7.0, 6.0, 6.5, 7.5, 7.0, 6.5, 7.5],
-    Writing: [6.0, 6.5, 7.0, 6.5, 6.5, 6.5, 6.5],
+    Reading: [
+      6.0, 6.5, 6.0, 7.0, 7.5, 6.5, 7.0, 6.0, 6.5, 6.0, 7.0, 7.5, 6.5, 7.0,
+    ],
+    Listening: [
+      7.0, 6.0, 6.5, 7.5, 7.0, 6.5, 7.5, 6.0, 6.5, 6.0, 7.0, 7.5, 6.5, 7.0,
+    ],
+    Writing: [
+      6.0, 6.5, 7.0, 6.5, 6.5, 6.5, 6.5, 6.0, 6.5, 6.0, 7.0, 7.5, 6.5, 7.0,
+    ],
   };
+
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       tooltip: {
         callbacks: {
@@ -92,8 +113,7 @@ const DashboardPage = () => {
       y: {
         display: false,
         beginAtZero: false, // Change to false to use the automatic scaling
-        suggestedMin: 5.0, // Set a suggested minimum value
-        suggestedMax: 8.0, // Set a suggested maximum value
+
         grace: "0%", // Adds a bit of space at the top and bottom of the scale
         title: {
           display: false,
@@ -117,6 +137,23 @@ const DashboardPage = () => {
     },
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setDeviceType("mobile");
+      } else {
+        setDeviceType("desktop");
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <Container className="mt-3">
       <ProfileCover dashboardData={dashboardData} />
@@ -125,11 +162,17 @@ const DashboardPage = () => {
         <Col sm={12} md={6}>
           <Card>
             <Card.Header>
-              <h3 className="mt-2 fw-bold">Your Performance</h3>
+              <h3 className="mt-2 fw-bold">Your Performance Card</h3>
             </Card.Header>
             <Card.Body>
-              <div style={{ height: "150px" }}>
-                <Line data={data} options={options} style={{ width: "100%" }} />
+              <div
+                className="mb-5"
+                style={{
+                  width: "100%",
+                  height: "100px",
+                }}
+              >
+                <Line data={data} options={options} />
               </div>
               <ListGroup>
                 <ListGroup.Item>
@@ -168,7 +211,26 @@ const DashboardPage = () => {
                   })}
               </ListGroup>
             </Card.Body>
-            <Card.Footer></Card.Footer>
+            <Card.Footer>
+              <p>
+                Your score indicates a good proficiency, particularly in
+                understanding complex language and expressing ideas fluently. To
+                further enhance your skills, I recommend focusing on nuanced
+                grammatical structures and expanding your vocabulary range,
+                especially in writing and speaking. Regular practice in these
+                areas, perhaps through engaging in discussions on diverse topics
+                or writing essays, will certainly help in achieving even higher
+                proficiency. Keep up the great work, and I'm confident you'll
+                continue to excel!
+              </p>
+            </Card.Footer>
+          </Card>
+        </Col>
+        <Col sm={12} md={6}>
+          <Card>
+            <Card.Header>
+              <h3 className="mt-2 fw-bold">Your Performance Card</h3>
+            </Card.Header>
           </Card>
         </Col>
       </Row>
