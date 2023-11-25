@@ -9,27 +9,6 @@ import AccountSettingForm from "../../components/auth/AccountSettingForm";
 import ChangePasswordForm from "../../components/auth/ChangePasswordForm";
 
 const AccountPage = () => {
-  const api = useAxios();
-  const [userData, setUserData] = useState(null);
-
-  function getUserDetails() {
-    api
-      .post(DJANGO_BASE_URL + "/account/get_user_details/")
-      .then((response) => {
-        if (response.status === 200) {
-          setUserData(response.data);
-        }
-      });
-  }
-
-  useEffect(() => {
-    getUserDetails();
-  }, []);
-
-  if (!userData) {
-    return null;
-  }
-
   return (
     <>
       <PageHeadingBriefinfo
@@ -41,7 +20,7 @@ const AccountPage = () => {
       <Container>
         <Row className="justify-content-center">
           <Col xl={8} lg={10} md={12} className="my-3">
-            <AccountSettingForm userData={userData} setUserData={setUserData} />
+            <AccountSettingForm />
           </Col>
           <Col xl={8} lg={10} md={12} className="mb-3">
             <ChangePasswordForm />

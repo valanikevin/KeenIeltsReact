@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useAxios from "../../utils/useAxios";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import * as Yup from "yup";
 import BaseForm from "../layout/BaseForm";
 import { DJANGO_BASE_URL } from "../../utils/config";
 
-const AccountSettingForm = ({ userData, setUserData }) => {
+const AccountSettingForm = () => {
   const api = useAxios();
-
+  const [userData, setUserData] = useState(null);
   const form_fields = [
     {
       type: "text",
@@ -51,17 +51,37 @@ const AccountSettingForm = ({ userData, setUserData }) => {
     testType: Yup.string().required("You must select a test type"),
   });
 
-  const updateAccountSetting = async (values) => {
+  const updateAccountSetting = async (values, handleSuccess) => {
     try {
       const response = await api.post(
         DJANGO_BASE_URL + "/account/update_account_settings/",
         values
       );
       setUserData(response.data);
+      handleSuccess();
     } catch (error) {
       console.error(error.response || error.message);
     }
   };
+
+  function getUserDetails() {
+    api
+      .post(DJANGO_BASE_URL + "/account/get_user_details/")
+      .then((response) => {
+        if (response.status === 200) {
+          setUserData(response.data);
+        }
+      });
+  }
+
+  useEffect(() => {
+    getUserDetails();
+  }, []);
+
+  if (!userData) {
+    return null;
+  }
+
   return (
     <Card>
       <Card.Header>
