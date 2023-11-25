@@ -37,6 +37,23 @@ const AccountSettingForm = () => {
         { value: "general", label: "General IELTS" },
       ],
     },
+    {
+      type: "select",
+      label: "Your Target",
+      id: "bandsTarget",
+      invalid_feedback: "How many bands you're targeting?",
+      placeholder: "How many bands you're targeting?",
+      value: userData?.bandsTarget,
+      options: [
+        { value: 6, label: "6 Bands" },
+        { value: 6.5, label: "6.5 Bands" },
+        { value: 7, label: "7 Bands" },
+        { value: 7.5, label: "7.5 Bands" },
+        { value: 8, label: "8 Bands" },
+        { value: 8.5, label: "8.5 Bands" },
+        { value: 9, label: "9 Bands" },
+      ],
+    },
   ];
 
   const AccountSettingSchema = Yup.object().shape({

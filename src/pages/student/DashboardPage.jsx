@@ -223,7 +223,7 @@ const DashboardPage = () => {
             </Card.Body>
           </Card>
 
-          <div className="mt-3 mb-2">
+          <div className="my-3">
             <AccountSettingForm />
           </div>
         </Col>
