@@ -14,13 +14,12 @@ import {
   Table,
 } from "react-bootstrap";
 
-import { Line } from "react-chartjs-2";
-import { Chart as ChartJS } from "chart.js/auto";
 import { useNavigate } from "react-router-dom";
 import useAxios from "../../utils/useAxios";
 import { DJANGO_BASE_URL } from "../../utils/config";
 import { FiArrowRight } from "react-icons/fi";
 import AccountSettingForm from "../../components/auth/AccountSettingForm";
+import FifteenDaysPerformanceChart from "../../components/layout/student/FifteenDaysPerformanceChart";
 
 const DashboardPage = () => {
   useEffect(() => {
@@ -30,7 +29,19 @@ const DashboardPage = () => {
   const [deviceType, setDeviceType] = useState("desktop");
   const navigate = useNavigate();
   const api = useAxios();
+  const [overallPerformance, setOverallPerformance] = useState(null);
 
+  function getOverallPerformance() {
+    api
+      .post(DJANGO_BASE_URL + "/student/overall_performance/")
+      .then((response) => {
+        setOverallPerformance(response.data);
+      });
+  }
+
+  useEffect(() => {
+    getOverallPerformance();
+  }, []);
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
@@ -90,7 +101,12 @@ const DashboardPage = () => {
                   height: "100px",
                 }}
               >
-                <Line data={data} options={options} />
+                {overallPerformance && (
+                  <FifteenDaysPerformanceChart
+                    overallPerformance={overallPerformance}
+                  />
+                )}
+
               </div>
             </Card.Body>
           </Card>
@@ -268,105 +284,6 @@ const performanceBands = {
   reading: "6.5 Bands",
   writing: "6.5 Bands",
   speaking: "6.5 Bands",
-};
-
-const data = {
-  labels: [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-    "Monday",
-  ],
-  datasets: [
-    {
-      label: "Overall Score",
-      data: [
-        6.5, 6.0, 6.5, 7.0, 8.0, 6.5, 7.0, 6.0, 6.5, 6.0, 7.0, 7.5, 6.5, 7.0,
-        6.5,
-      ], // Sample overall scores for each day
-      borderColor: "#0052CC",
-      tension: 0.4,
-      fill: false,
-      borderWidth: 4,
-    },
-  ],
-};
-
-const additionalData = {
-  Reading: [
-    6.0, 6.5, 6.0, 7.0, 7.5, 6.5, 7.0, 6.0, 6.5, 6.0, 7.0, 7.5, 6.5, 7.0,
-  ],
-  Listening: [
-    7.0, 6.0, 6.5, 7.5, 7.0, 6.5, 7.5, 6.0, 6.5, 6.0, 7.0, 7.5, 6.5, 7.0,
-  ],
-  Writing: [
-    6.0, 6.5, 7.0, 6.5, 6.5, 6.5, 6.5, 6.0, 6.5, 6.0, 7.0, 7.5, 6.5, 7.0,
-  ],
-};
-
-const options = {
-  responsive: true,
-  maintainAspectRatio: false,
-  plugins: {
-    tooltip: {
-      callbacks: {
-        label: function (context) {
-          const label = context.dataset.label || "";
-          const index = context.dataIndex;
-          const value = context.dataset.data[index];
-
-          // Construct additional data string for the tooltip
-          let additionalInfo = `Overall: ${value}\n`;
-          Object.keys(additionalData).forEach((key) => {
-            additionalInfo += `${key}: ${additionalData[key][index]}\n`;
-          });
-
-          return additionalInfo;
-        },
-      },
-    },
-    legend: {
-      display: false,
-      position: "top",
-    },
-  },
-  scales: {
-    y: {
-      display: true,
-      beginAtZero: false, // Change to false to use the automatic scaling
-
-      grace: "0%", // Adds a bit of space at the top and bottom of the scale
-      title: {
-        display: false,
-      },
-    },
-    x: {
-      display: false, // Set to true if you want to display the x-axis
-      title: {
-        display: false,
-      },
-    },
-  },
-  elements: {
-    line: {
-      borderWidth: 4, // Adjust the line thickness
-      tension: 0.4, // Smoothens the line
-    },
-    point: {
-      radius: 3, // Adjust the size of points on the line
-    },
-  },
 };
 
 export default DashboardPage;
