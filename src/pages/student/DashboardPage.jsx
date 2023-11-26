@@ -22,6 +22,7 @@ import AccountSettingForm from "../../components/auth/AccountSettingForm";
 import FifteenDaysPerformanceChart from "../../components/layout/student/FifteenDaysPerformanceChart";
 import YourPerformanceCard from "../../components/layout/student/YourPerformanceCard";
 import YourRecentTestsCard from "../../components/layout/student/YourRecentTestsCard";
+import DashboardLoader from "../../components/ieltstest/DashboardLoader";
 
 const DashboardPage = () => {
   useEffect(() => {
@@ -96,7 +97,7 @@ const DashboardPage = () => {
     }
   }
 
-  if (!overallPerformance) return null;
+  if (!overallPerformance) return <DashboardLoader />;
 
   return (
     <Container className="mt-3">
