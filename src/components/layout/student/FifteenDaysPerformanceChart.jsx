@@ -65,7 +65,7 @@ const FifteenDaysPerformanceChart = ({ overallPerformance }) => {
         },
       },
       x: {
-        display: false, // Set to true if you want to display the x-axis
+        display: true, // Set to true if you want to display the x-axis
         title: {
           display: false,
         },

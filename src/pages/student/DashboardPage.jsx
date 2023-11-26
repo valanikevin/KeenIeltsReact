@@ -76,32 +76,9 @@ const DashboardPage = () => {
     };
   }, []);
 
-  const isLoggedIn = () => {
-    const user = localStorage.getItem("user");
-    return user != null; // If user info is in local storage, user is logged in
-  };
-
-  async function startTest(item_slug) {
-    if (isLoggedIn()) {
-      try {
-        const response = await api.post(
-          `${DJANGO_BASE_URL}/ieltstest/find_smart_test/${item_slug}/`
-        );
-        navigate(
-          `/ieltstest/attempt/${response.data.module_type}/${response.data.selected_module}/${response.data.attempt}`
-        );
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        // Handle error accordingly
-      }
-    } else {
-      navigate("/login");
-    }
-  }
-
   if (!overallPerformance) return <DashboardLoader />;
 
-  if (overallPerformance["average_score"].overall.total_attempts >= 0) {
+  if (overallPerformance["average_score"].overall.total_attempts <= 0) {
     return (
       <Container className="mt-3">
         <ProfileCover userData={userData} />
@@ -136,7 +113,7 @@ const DashboardPage = () => {
                   is the cornerstone of success in IELTS. Our data underscores
                   this fact: students who initially scored 6.5 bands and engaged
                   in regular practice on KeenIELTS for at least 15 days have
-                  remarkably improved, often achieving scores as high as 7.5
+                  remarkably improved, often achieving scores as high as 8.0
                   bands. This journey requires dedication, and by practicing
                   regularly with our resources, you too can elevate your IELTS
                   performance. Start now and unlock your full potential with
@@ -160,26 +137,7 @@ const DashboardPage = () => {
 
       <Row className="mt-2 pt-2">
         <Col sm={12} lg={6} className="">
-          <Card className="">
-            <Card.Header>
-              <h3 className="mt-2 fw-bold">Start Practice Test</h3>
-            </Card.Header>
-            <Card.Body>
-              <Row>
-                {TakeTestDropdown.map((item, index) => (
-                  <Col sm={6} key={index}>
-                    <Button
-                      key={index}
-                      onClick={() => startTest(item.slug)}
-                      className="w-100 my-2"
-                    >
-                      {item.menuitem} Test <FiArrowRight size={18} />
-                    </Button>
-                  </Col>
-                ))}
-              </Row>
-            </Card.Body>
-          </Card>
+          <StartPracticeTestCard />
 
           <YourPerformanceCard overallPerformance={overallPerformance} />
         </Col>
@@ -190,7 +148,7 @@ const DashboardPage = () => {
             </Card.Header>
             <Card.Body>
               <div
-                className="mb-5"
+                className="mb-0"
                 style={{
                   width: "100%",
                   height: "150px",
