@@ -4,15 +4,21 @@ import parse from "html-react-parser";
 
 const YourPerformanceCard = ({ overallPerformance }) => {
   const performanceBands = {
-    overall: parseFloat(overallPerformance["average_score"].overall).toFixed(1),
-    listening: parseFloat(
-      overallPerformance["average_score"].listening
+    overall: parseFloat(
+      overallPerformance["average_score"].overall.average_bands
     ).toFixed(1),
-    reading: parseFloat(overallPerformance["average_score"].reading).toFixed(1),
-    writing: parseFloat(overallPerformance["average_score"].writing).toFixed(1),
-    speaking: parseFloat(overallPerformance["average_score"].speaking).toFixed(
-      1
-    ),
+    listening: parseFloat(
+      overallPerformance["average_score"].listening.average_bands
+    ).toFixed(1),
+    reading: parseFloat(
+      overallPerformance["average_score"].reading.average_bands
+    ).toFixed(1),
+    writing: parseFloat(
+      overallPerformance["average_score"].writing.average_bands
+    ).toFixed(1),
+    speaking: parseFloat(
+      overallPerformance["average_score"].speaking.average_bands
+    ).toFixed(1),
   };
 
   return (
@@ -58,6 +64,17 @@ const YourPerformanceCard = ({ overallPerformance }) => {
               }
               return null;
             })}
+          <ListGroup.Item className="py-2">
+            <Stack direction="horizontal">
+              <div className="ms-auto">
+                <p className="m-0 text-capitalize">
+                  Attempted:{" "}
+                  {overallPerformance["average_score"].overall.total_attempts}{" "}
+                  Tests
+                </p>
+              </div>
+            </Stack>
+          </ListGroup.Item>
         </ListGroup>
       </Card.Body>
       <Card.Footer>
