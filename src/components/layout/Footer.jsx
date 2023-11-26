@@ -4,7 +4,7 @@ import { Row, Col } from "react-bootstrap";
 
 // import MDI icons
 import Icon from "@mdi/react";
-import { mdiTwitter, mdiInstagram, mdiYoutube } from "@mdi/js";
+import { mdiInstagram, mdiFacebook } from "@mdi/js";
 
 const Footer = () => {
   return (
@@ -22,14 +22,17 @@ const Footer = () => {
               xs={4}
               className="d-flex justify-content-end"
             >
-              <Link to="#" className="text-muted text-primary-hover me-3">
-                <Icon path={mdiTwitter} size={1} />
-              </Link>
-              <Link to="#" className="text-muted text-primary-hover me-3  ">
+              <Link
+                to="https://www.instagram.com/keenielts"
+                className="text-muted text-primary-hover me-3  "
+              >
                 <Icon path={mdiInstagram} size={1} />
               </Link>
-              <Link to="#" className="text-muted text-primary-hover  ">
-                <Icon path={mdiYoutube} size={1} />
+              <Link
+                to="https://www.facebook.com/keenielts"
+                className="text-muted text-primary-hover me-3"
+              >
+                <Icon path={mdiFacebook} size={1} />
               </Link>
             </Col>
           </Row>
