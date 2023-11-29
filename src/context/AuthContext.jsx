@@ -6,9 +6,11 @@ import useAxios from "../utils/useAxios";
 import axios from "axios";
 import LoadingContext from "./layout/LoadingContext";
 import { DJANGO_BASE_URL } from "../utils/config";
+import usePublicAxios from "../utils/usePublicAxios";
 
 const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
+  const api = usePublicAxios();
   const [loading, setLoading] = useState(true);
   const [loadingBar, setLoadingBar] = useContext(LoadingContext);
   const [registrationError, setRegistrationError] = useState(null);
@@ -37,7 +39,7 @@ export const AuthProvider = ({ children }) => {
   const loginUser = async (values, handleSuccess) => {
     setLoadingBar(true); // Show loading bar at the start of the request
     try {
-      const response = await axios.post(`${DJANGO_BASE_URL}/account/token/`, {
+      const response = await api.post(`${DJANGO_BASE_URL}/account/token/`, {
         email: values.email,
         password: values.password,
       });
@@ -56,7 +58,6 @@ export const AuthProvider = ({ children }) => {
       if (error.response) {
         // The server responded with a status code outside the 2xx range
         setLoginError(error.response.data.detail || "Invalid Credentials.");
-        
       } else {
         // The request was made but no response was received or error occurred in setting up the request
         setLoginError("There was a problem connecting to the server.");
@@ -82,7 +83,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const registerUser = async (values, handleSuccess) => {
-    axios
+    api
       .post(DJANGO_BASE_URL + "/account/register/", {
         first_name: values.first_name,
         last_name: values.last_name,
