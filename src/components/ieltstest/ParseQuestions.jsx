@@ -69,15 +69,20 @@ const ParseQuestions = ({
               : undefined
           }
         >
-          {Array.from(domNode.children || []).map((optionNode, idx) => (
-            <option
-              key={idx}
-              value={optionNode.attribs.value}
-              {...optionNode.attribs}
-            >
-              {optionNode.children[0].data}
-            </option>
-          ))}
+          {Array.from(domNode.children || []).map((optionNode, idx) => {
+            const optionValue = optionNode.children[0]
+              ? optionNode.children[0].data
+              : "";
+            return (
+              <option
+                key={idx}
+                value={optionNode.attribs.value}
+                {...optionNode.attribs}
+              >
+                {optionValue}
+              </option>
+            );
+          })}
         </select>
       );
     }
