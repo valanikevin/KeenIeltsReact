@@ -77,12 +77,14 @@ const YourPerformanceCard = ({ overallPerformance }) => {
           </ListGroup.Item>
         </ListGroup>
       </Card.Body>
-      <Card.Footer>
-        <p className="fw-bold">
-          Updated: {overallPerformance["overall_feedback_date"]}
-        </p>
-        <p>{parse(overallPerformance["overall_feedback"])}</p>
-      </Card.Footer>
+      {overallPerformance["overall_feedback"] && (
+        <Card.Footer>
+          <p className="fw-bold">
+            Updated: {overallPerformance["overall_feedback_date"]}
+          </p>
+          <p>{parse(overallPerformance["overall_feedback"])}</p>
+        </Card.Footer>
+      )}
     </Card>
   );
 };

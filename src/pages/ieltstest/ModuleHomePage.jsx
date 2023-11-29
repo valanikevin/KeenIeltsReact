@@ -70,7 +70,7 @@ const ModuleHomePage = () => {
       <Container className="p-3 app">
         <Row>
           {books.map((book) => (
-            <Col xs={12} md={6} lg={4} key={book.slug}>
+            <Col xs={12} md={4} lg={3} key={book.slug}>
               <BookCard
                 test_type={`${module_slug} test`}
                 module_slug={module_slug}
