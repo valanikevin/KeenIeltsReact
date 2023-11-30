@@ -11,6 +11,7 @@ import {
 import Logo from "../../assets/images/brand/logo/logo.svg";
 import { Link } from "react-router-dom";
 import { FiChevronLeft } from "react-icons/fi";
+import LoadingBar from "../layout/LoadingBar/LoadingBar";
 
 export const MiniNavBar = ({
   module,
@@ -23,6 +24,7 @@ export const MiniNavBar = ({
     return null;
   }
   return (
+    <>
     <Navbar bg="white" fixed="top" style={{ height: "50px" }}>
       <Navbar.Brand as={Link} to="/">
         <Image src={Logo} alt="" />
@@ -65,5 +67,6 @@ export const MiniNavBar = ({
         </Dropdown.Item>
       </DropdownButton>
     </Navbar>
+    <LoadingBar/></>
   );
 };
