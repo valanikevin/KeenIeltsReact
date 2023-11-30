@@ -113,20 +113,21 @@ const AttemptSpeakingModulePage = () => {
     }
 
     try {
-      // Perform the Axios request
       const response = await api.post(
         `/ieltstest/update_attempt/speaking/${attempt_slug}/`,
-        formData // FormData will automatically set the 'Content-Type' to 'multipart/form-data'
+        formData
       );
 
-      // Check the response
       if (response.status === 200) {
         console.log("Attempt updated successfully");
+        return true; // Indicate success
       } else {
         console.log("Failed to update attempt", response);
+        return false; // Indicate failure
       }
     } catch (error) {
       console.error("There was an error sending the request", error);
+      return false; // Indicate failure
     }
   }
 
@@ -166,10 +167,20 @@ const AttemptSpeakingModulePage = () => {
       user_responses
     );
 
-    sendAttemptUpdate("Completed", updatedUserResponses);
-    navigate(
-      `/ieltstest/attempt/speaking/${module_slug}/${attempt_slug}/get_result`
+    const isUpdateSuccessful = await sendAttemptUpdate(
+      "Completed",
+      updatedUserResponses
     );
+
+    if (isUpdateSuccessful) {
+      navigate(
+        `/ieltstest/attempt/speaking/${module_slug}/${attempt_slug}/get_result`
+      );
+    } else {
+      console.error("Failed to update the attempt");
+      // Handle the error appropriately, perhaps show an error message to the user
+    }
+
     handleClosSubmiteModal();
   }
 
