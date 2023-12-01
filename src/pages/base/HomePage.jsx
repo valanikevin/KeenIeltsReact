@@ -6,6 +6,7 @@ import HeroTyped from "../../components/layout/HomePage/HeroTyped";
 import HeroRightImage from "../../components/layout/HomePage/HeroRightImage";
 import EvaluationCard from "../../components/layout/HomePage/EvaluationCard";
 import ExploreBooksCard from "../../components/layout/HomePage/ExploreBooksCard";
+import TestimonialsCTA from "../../components/layout/HomePage/TestimonialsCTA";
 
 const HomePage = () => {
   let api = useAxios();
@@ -29,8 +30,12 @@ const HomePage = () => {
         <EvaluationCard />
       </section>
 
-      <section className="py-lg-16 py-6 border-bottom">
+      <section className="py-lg-16 py-6 bg-white border-bottom ">
         <ExploreBooksCard />
+      </section>
+
+      <section className="py-lg-16 py-6  border-bottom ">
+        <TestimonialsCTA />
       </section>
     </div>
   );
