@@ -14,6 +14,7 @@ import {
 } from "react-bootstrap";
 import SpeakingFooter from "../../../components/ieltstest/speaking/SpeakingFooter";
 import BookInfo from "../../../components/ieltstest/listening/BookInfo";
+import SpeakingLoader from "../../../components/ieltstest/speaking/SpeakingLoader";
 
 const AttemptSpeakingModulePage = () => {
   const [deviceType, setDeviceType] = useState("desktop");
@@ -27,6 +28,7 @@ const AttemptSpeakingModulePage = () => {
   const [userAllResponse, setUserAllResponse] = useState(null);
   const [currentQuestion, setCurrentQuestion] = useState(null);
   const [isEndTest, setIsEndTest] = useState(null);
+  const [showLoader, setShowLoader] = useState(false);
   const [showSubmitModal, setShowSubmitModal] = useState(false);
   const handleShowSubmitModal = () => setShowSubmitModal(true);
   const handleClosSubmiteModal = () => setShowSubmitModal(false);
@@ -167,12 +169,15 @@ const AttemptSpeakingModulePage = () => {
       user_responses
     );
 
+    setShowLoader(true);
+
     const isUpdateSuccessful = await sendAttemptUpdate(
       "Completed",
       updatedUserResponses
     );
 
     if (isUpdateSuccessful) {
+      setShowLoader(false);
       navigate(
         `/ieltstest/attempt/speaking/${module_slug}/${attempt_slug}/get_result`
       );
@@ -203,6 +208,10 @@ const AttemptSpeakingModulePage = () => {
 
   if (!module) {
     return null;
+  }
+
+  if (showLoader) {
+    return <SpeakingLoader />;
   }
 
   return (
