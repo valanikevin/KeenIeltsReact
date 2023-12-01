@@ -496,6 +496,7 @@ $letter-spacing-xxl: 0.25em;
 //
 // Customizes the `.table` component with basic values, each used across all table variations.
 
+$table-bg: transparent !default;
 $table-head-color: $gray-700 !default; // ( pending task)
 $table-cell-padding-y: 0.75rem !default;
 $table-cell-padding-x: 1.5rem !default;

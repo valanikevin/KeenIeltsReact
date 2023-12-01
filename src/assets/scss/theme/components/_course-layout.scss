@@ -4,7 +4,7 @@
   position: fixed;
   width: 100%;
   min-height: 100vh;
-  
+
   @media (max-width: 576px) {
     position: relative;
     min-height: inherit;
@@ -47,7 +47,7 @@
   width: 23.75rem;
   min-height: 100vh;
   z-index: 1;
-  top: 4.2rem;
+  top: 3.6rem;
   border-radius: 0px;
   @media (max-width: 576px) {
     top: 1.25rem;

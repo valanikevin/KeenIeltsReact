@@ -36,11 +36,6 @@
   }
 }
 
-
-
-
-
-
 // table lg
 
 .table-lg {
@@ -51,19 +46,20 @@
 }
 
 // Table centered
-.table-centered td, .table-centered th {
-  vertical-align: middle!important;
+.table-centered td,
+.table-centered th {
+  vertical-align: middle !important;
 }
 
-
 // Table with Checkbox
-.table-with-checkbox > tbody > tr > td:first-child, .table-with-checkbox > thead > tr > th:first-child {
+.table-with-checkbox > tbody > tr > td:first-child,
+.table-with-checkbox > thead > tr > th:first-child {
   width: 1px;
   padding-right: 0px;
 }
 
 // table card for negative margin in body.
-.table-card{
+.table-card {
   margin: -1.5rem;
 }
 
@@ -74,4 +70,39 @@
 
 table tr:last-child td {
   border-bottom-width: 0px;
+}
+
+// Datatables SCSS
+
+header,
+.rdt_TableHeader,
+.rdt_TableRow {
+  background-color: var(--geeks-white) !important;
+}
+
+.rdt_TableRow:hover {
+  background-color: var(--geeks-gray-100) !important;
+  border-color: var(--geeks-border-color) !important;
+  outline-color: var(--geeks-border-color) !important;
+}
+.rdt_TableRow:nth-of-type(n) {
+  border-bottom-color: var(--geeks-border-color) !important;
+}
+
+.rdt_TableHead div,
+.rdt_TableCol {
+  background-color: var(--geeks-white) !important;
+  color: var(--geeks-dark) !important;
+  font-size: "14px";
+}
+.rdt_TableHeader div {
+  padding-right: 10px;
+  background-color: transparent !important;
+  color: var(--geeks-dark) !important;
+}
+
+.rdt_TableHead {
+  font-weight: "bold";
+  font-size: "14px";
+  background-color: "#F1F5FC";
 }

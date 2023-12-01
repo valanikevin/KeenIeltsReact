@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import useAxios from "../../utils/useAxios";
 import AuthContext from "../../context/AuthContext";
 import { Navigate, Outlet } from "react-router-dom";
+import HeroTyped from "../../components/layout/HomePage/HeroTyped";
 
 const HomePage = () => {
   let api = useAxios();
@@ -13,9 +14,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <p>You are logged to the home page!</p>
-
-      <ul></ul>
+      <HeroTyped />
     </div>
   );
 };

@@ -1,0 +1,82 @@
+// Stepper
+
+.bs-stepper {
+  .step-trigger {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--#{$prefix}gray-700);
+    padding: 0;
+
+    &:focus {
+      color: var(--#{$prefix}primary);
+      outline: none;
+    }
+    &:hover {
+      text-decoration: none;
+      background-color: transparent;
+      color: var(--#{$prefix}primary);
+    }
+  }
+
+  .line {
+    background-color: var(--#{$prefix}border-color);
+  }
+  .bs-stepper-content {
+    padding: 0rem;
+  }
+}
+
+.bs-stepper-header {
+  display: flex;
+  align-items: center;
+  background-color: var(--#{$prefix}white);
+  padding: 16px;
+  border-radius: 0rem 0rem 0.5rem 0.5rem;
+}
+
+.bs-stepper-line {
+  flex: 1 0 32px;
+  min-width: 1px;
+  min-height: 1px;
+  margin: auto;
+  background-color: var(--#{$prefix}border-color);
+}
+
+.bs-stepper-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: 0.25rem;
+
+  color: var(--#{$prefix}gray-600);
+  background-color: var(--#{$prefix}gray-300);
+  // border: 1px solid var(--#{$prefix}border-color);
+  border-radius: 50%;
+  font-size: 16px;
+}
+
+.active {
+  .bs-stepper-circle {
+    background-color: var(--#{$prefix}primary);
+    color: var(--#{$prefix}white);
+  }
+}
+
+@media (max-width: 520px) {
+  .bs-stepper-header {
+    overflow: scroll;
+  }
+}
+@media (max-width: 400px) {
+  .bs-stepper-line {
+    flex-basis: 20px;
+  }
+  .bs-stepper {
+    .line {
+      flex-basis: 20px;
+    }
+  }
+}

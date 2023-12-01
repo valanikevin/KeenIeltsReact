@@ -2,7 +2,7 @@
 
 .theme-switch {
     .form-check-input {
-        background-image: url(/src/assets/images/svg/sun.svg);
+        background-image: url(../../../../assets/images/svg/sun.svg);
         background-color: transparent;
         border: none;
         cursor: pointer;
@@ -15,10 +15,10 @@
             background-size: 22px;
             background-position: center;
             background-color: transparent;
-            background-image: url(/src/assets/images/svg/moon.svg) !important;
+            background-image: url(../../../../assets/images/svg/moon.svg) !important;
         }
         &:focus {
-            background-image: url(/src/assets/images/svg/sun.svg);
+            background-image: url(../../../../assets/images/svg/sun.svg);
             box-shadow: none;
             background-size: 22px;
             background-position: center;
