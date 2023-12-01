@@ -190,11 +190,6 @@ const AttemptSpeakingModulePage = () => {
   }
 
   // CSS
-
-  const paneStyle = {
-    overflow: "auto",
-  };
-
   const containerStyle = {
     paddingTop: "50px",
     paddingBottom: "50px",
