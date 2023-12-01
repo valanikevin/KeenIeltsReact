@@ -177,10 +177,7 @@ const AttemptSpeakingModulePage = () => {
     );
 
     if (isUpdateSuccessful) {
-      setShowLoader(false);
-      navigate(
-        `/ieltstest/attempt/speaking/${module_slug}/${attempt_slug}/get_result`
-      );
+      window.location.href = `/ieltstest/attempt/speaking/${module_slug}/${attempt_slug}/get_result`;
     } else {
       console.error("Failed to update the attempt");
       // Handle the error appropriately, perhaps show an error message to the user

@@ -105,7 +105,7 @@ const SpeakingResultPage = () => {
   useEffect(() => {
     getAttempt();
     getModule();
-  }, [loadingBar]);
+  }, []);
 
   useEffect(() => {
     getEvaluation();
@@ -196,7 +196,7 @@ const SpeakingResultPage = () => {
               <Card.Body>
                 <Accordion>
                   {module.sections.map((section, index) => (
-                    <Accordion.Item eventKey={index}>
+                    <Accordion.Item eventKey={index} key={index}>
                       <Accordion.Header>
                         <h4 className="mt-2 fw-bold">
                           {section.section} Questions
