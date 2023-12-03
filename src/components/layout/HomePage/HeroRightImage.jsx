@@ -4,14 +4,7 @@ import { Link } from "react-router-dom";
 
 // import bootstrap icons
 import { CheckCircleFill } from "react-bootstrap-icons";
-import {
-  PatchCheckFill,
-  PencilSquare,
-  Book,
-  Earbuds,
-  ChatLeftQuote,
-  CheckCircleFill,
-} from "react-bootstrap-icons";
+
 // import media files
 import EducationalSkils from "../../../assets/images/education/skils.jpg";
 import SVGgraphics1 from "../../../assets/images/svg/graphics-1.svg";
