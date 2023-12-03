@@ -3,44 +3,44 @@ import { Col, Row, Container, Image } from "react-bootstrap";
 // import bootstrap icons
 import {
   PatchCheckFill,
-  Trophy,
-  Star,
-  Nut,
-  ShieldLock,
+  PencilSquare,
+  Book,
+  Earbuds,
+  ChatLeftQuote,
 } from "react-bootstrap-icons";
 
 // import media files
-import Certificate from "../../../assets/images/education/certificate.jpg";
+import DashboardImage from "../../../assets/images/app/dashboard.webp";
 
 const EvaluationCard = () => {
   const programFeatures = [
     {
       id: 1,
-      icon: <Trophy size={20} />,
-      title: "Learn from Industry Experts",
+      icon: <ChatLeftQuote size={30} />,
+      title: "Speaking Evaluation",
       description:
-        "Lorem ipsum dolor sit amet, conse ctetur adipisc amus ac iaculis arcu.",
+        "Your responses are evaluated by Amrita AI, developed under the guidance of former IELTS examiners. ",
     },
     {
       id: 2,
-      icon: <Star size={20} />,
-      title: "Free Resources",
+      icon: <Earbuds size={30} />,
+      title: "Listening Evaluation",
       description:
-        "Pellentesque sagittis placerat mollii purus onvallis venenatis asapien.",
+        "Our listening tests mirror actual exams, offering you an immersive practice experience. ",
     },
     {
       id: 3,
-      icon: <ShieldLock size={20} />,
-      title: "Learn Anytime, Anywhere",
+      icon: <Book size={30} />,
+      title: "Reading Evaluation",
       description:
-        "Integer ultricies lorem nec erat fau euismod ipsum nislnec leo iaculis.",
+        "Our advanced platform replicates the IELTS reading test environment, providing instant feedback and band scores. ",
     },
     {
       id: 4,
-      icon: <Nut size={20} />,
-      title: "Skill-based Learning",
+      icon: <PencilSquare size={30} />,
+      title: "Writing Evaluation",
       description:
-        "Duis sed sollicitudin narcu mi, faucibus in sapien non, auctor placerat arcu.",
+        "Our Amrita AI algorithm offers detailed, constructive feedback and tailored suggestions, guiding you towards writing excellence.",
     },
   ];
   return (
@@ -55,8 +55,10 @@ const EvaluationCard = () => {
               </u>
             </h2>
             <p className="lead mb-0">
-              Online courses certification section design for showcase your
-              certificate program features.
+              Our evaluation system, intricately aligned with official IELTS
+              criteria, is the brainchild of insights from ex-IELTS examiners.
+              It's designed to provide you with the most realistic and accurate
+              assessment.
             </p>
           </div>
         </Col>
@@ -66,7 +68,7 @@ const EvaluationCard = () => {
           <div className="mb-6 mb-lg-0">
             <div className="mb-2">
               <Image
-                src={Certificate}
+                src={DashboardImage}
                 alt="certificate"
                 className="img-fluid w-100"
               />
@@ -76,16 +78,16 @@ const EvaluationCard = () => {
                 <PatchCheckFill size={12} />
               </span>
               <span className="ms-2">
-                Completion certificate awarded on every course completion
+                Analytical dashboard to track your progress.
               </span>
             </div>
           </div>
         </Col>
         <Col xl={{ offset: 1, span: 6 }} lg={6} md={12} xs={12}>
-          <Row className="row-cols-2">
+          <Row>
             {programFeatures.map((item, index) => {
               return (
-                <Col key={index}>
+                <Col key={index} md={12} lg={6}>
                   <div className="mb-4 mb-xl-6">
                     <div className="mb-4 text-primary">{item.icon}</div>
                     <div>
