@@ -46,7 +46,7 @@ const ExploreBooksCard = () => {
       </Row>
       <Row>
         <Col xl={12} md={12} xs={12}>
-          <div className="mb-6 mb-lg-8 mt-5">
+          <div className=" mt-5">
             <div>
               <h3 className="h2 fw-bold text-center">
                 Explore our complete collection of books
@@ -54,12 +54,13 @@ const ExploreBooksCard = () => {
               <Row className="my-3">
                 {BooksData.map((item, index) => {
                   return (
-                    <Col sm={6} xl={3} className="my-2" key={index}>
+                    <Col sm={6} xl={3} className="mt-2" key={index}>
                       <Button
                         size="lg"
                         className="w-100"
                         as={Link}
                         to={item.href}
+                        variant="outline-primary"
                       >
                         <Stack direction="horizontal" gap={1} className="ms-2">
                           <div>{item.title}</div>

@@ -8,6 +8,7 @@ import EvaluationCard from "../../components/layout/HomePage/EvaluationCard";
 import ExploreBooksCard from "../../components/layout/HomePage/ExploreBooksCard";
 import TestimonialsCTA from "../../components/layout/HomePage/TestimonialsCTA";
 import KeenFeaturesSection from "../../components/layout/HomePage/KeenFeaturesSection";
+import GetStartedSection from "../../components/layout/HomePage/GetStartedSection";
 
 const HomePage = () => {
   let api = useAxios();
@@ -41,6 +42,10 @@ const HomePage = () => {
 
       <section className="py-lg-16 py-6 bg-white border-bottom ">
         <TestimonialsCTA />
+      </section>
+
+      <section className="py-lg-16 py-6  border-bottom ">
+        <GetStartedSection />
       </section>
     </div>
   );
