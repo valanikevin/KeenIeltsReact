@@ -3,8 +3,8 @@ import { Container, Row, Col } from "react-bootstrap";
 // import custom components
 import TestimonialColorCard from "./TestimonialColorCard";
 import SectionHeadingCenter from "./SectionHeadingCenter";
-import Avatar1 from "../../../assets/images/avatar/avatar-1.jpg";
-import Avatar2 from "../../../assets/images/avatar/avatar-2.jpg";
+import Avatar1 from "../../../assets/images/avatar/boy.png";
+import Avatar2 from "../../../assets/images/avatar/woman.png";
 
 const TestimonialsCTA = () => {
   return (
@@ -28,8 +28,8 @@ const TestimonialsCTA = () => {
 const TestimonialsList = [
   {
     id: 1,
-    name: "Barry Watson",
-    designation: "Nigeria",
+    name: "Nguyen Anh Kien",
+    designation: "Vietnam",
     image: Avatar1,
     content:
       "Keen IELTS transformed my test preparation experience. The real test simulations and instant feedback were game-changers for me. I achieved a band score beyond my expectations. Highly recommend it to anyone serious about acing IELTS!",
@@ -38,8 +38,8 @@ const TestimonialsList = [
   },
   {
     id: 2,
-    name: "Linda Shenoy",
-    designation: "Algeria",
+    name: "Sarah Thompson",
+    designation: "Nigeria",
     image: Avatar2,
     content:
       "The level of detail in Keen IELTS's evaluations is incredible. The feedback from Amrita AI on my writing and speaking tests really helped me understand where I needed to focus. It's like having a personal tutor guiding you through the process.",
