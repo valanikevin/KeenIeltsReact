@@ -44,7 +44,7 @@ const HeroRightImage = () => {
                 <span className="ms-2">Instant personalized feedback</span>
               </ListGroup.Item>
             </ListGroup>
-            <Link to="#!" className="btn btn-dark btn-lg">
+            <Link to="/register/" className="btn btn-dark btn-lg">
               Start Practicing
             </Link>
           </div>
