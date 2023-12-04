@@ -25,7 +25,7 @@ const GetStartedSection = () => {
           <h2 className="display-3 mt-4 mb-3 fw-bold">{title}</h2>
           {/* para  */}
           <p className="lead px-lg- 8 mb-6">{description}.</p>
-          <Link to={btnlink} className="btn btn-primary">
+          <Link to={btnlink} className="btn btn-primary btn-lg">
             {btntext}
           </Link>
         </Col>
