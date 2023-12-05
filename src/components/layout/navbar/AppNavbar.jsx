@@ -60,6 +60,10 @@ const AppNavbar = ({ fixed = false }) => {
     },
   ];
 
+  function isActive(route) {
+    return window.location.pathname === route;
+  }
+
   return (
     <>
       <Navbar
@@ -90,7 +94,13 @@ const AppNavbar = ({ fixed = false }) => {
                   return (
                     <div className="nav-item mx-3" key={index}>
                       <Nav.Link as={Link} to={item.link}>
-                        {item.menuitem}
+                        {isActive(item.link) ? (
+                          <span className="text-primary fw-bold">
+                            {item.menuitem}
+                          </span>
+                        ) : (
+                          <span>{item.menuitem}</span>
+                        )}
                       </Nav.Link>
                     </div>
                   );
