@@ -1,3 +1,5 @@
+export const DEBUG = true;
+
 export const API_URLS = {
   getListeningBooks: "/ieltstest/listening/",
   getListeningAttempt: "/ieltstest/get_attempt/listening/",
@@ -10,5 +12,6 @@ export const API_URLS = {
   getSpeakingAttempt: "/ieltstest/get_attempt/speaking/",
 };
 
-export const DJANGO_BASE_URL = "http://192.168.10.55:8000/api";
-// export const DJANGO_BASE_URL = "https://api.keenielts.com/api";
+export const DJANGO_BASE_URL = DEBUG
+  ? "http://192.168.10.55:8000/api"
+  : "https://api.keenielts.com/api";

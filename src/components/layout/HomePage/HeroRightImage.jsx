@@ -9,6 +9,7 @@ import { CheckCircleFill } from "react-bootstrap-icons";
 import EducationalSkils from "../../../assets/images/education/skils.jpg";
 import SVGgraphics1 from "../../../assets/images/svg/graphics-1.svg";
 import SVGgraphics2 from "../../../assets/images/svg/graphics-2.svg";
+import { imgixURL } from "../../../utils/siteUtils";
 
 const HeroRightImage = () => {
   return (
@@ -58,15 +59,15 @@ const HeroRightImage = () => {
         >
           <div className="mt-12 mt-lg-0 position-relative">
             <div className="position-absolute top-0 start-0 translate-middle  d-none d-md-block">
-              <Image src={SVGgraphics2} alt="graphics-2" />
+              <Image src={imgixURL(SVGgraphics2)} alt="graphics-2" />
             </div>
             <Image
-              src={EducationalSkils}
+              src={imgixURL(EducationalSkils)}
               alt="online course"
               className="img-fluid rounded-4 w-100 z-1 position-relative"
             />
             <div className="position-absolute top-100 start-100 translate-middle  d-none d-md-block">
-              <Image src={SVGgraphics1} alt="graphics-1" />
+              <Image src={imgixURL(SVGgraphics1)} alt="graphics-1" />
             </div>
           </div>
         </Col>

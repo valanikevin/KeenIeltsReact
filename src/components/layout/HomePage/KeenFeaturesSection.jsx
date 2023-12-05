@@ -13,6 +13,7 @@ import FeatureIcon1 from "../../../assets/images/svg/feature-icon-1.svg";
 import FeatureIcon2 from "../../../assets/images/svg/feature-icon-2.svg";
 import FeatureIcon3 from "../../../assets/images/svg/feature-icon-3.svg";
 import FeatureIcon4 from "../../../assets/images/svg/feature-icon-4.svg";
+import { imgixURL } from "../../../utils/siteUtils";
 
 const KeenFeaturesSection = () => {
   const title = "Why Choose Keen IELTS?";
@@ -42,28 +43,28 @@ const KeenFeaturesSection = () => {
 const CourseDescriptionList = [
   {
     id: 1,
-    icon: FeatureIcon1,
+    icon: imgixURL(FeatureIcon1),
     title: "Real-World Test Simulations",
     shortdescription:
       "Immerse yourself in an environment that mirrors the actual IELTS exam. Our practice tests are crafted to replicate real test scenarios, giving you a true taste of what to expect on test day.",
   },
   {
     id: 2,
-    icon: FeatureIcon2,
+    icon: imgixURL(FeatureIcon2),
     title: "Instant Personalized Feedback",
     shortdescription:
       "Benefit from the precision of Amrita AI. Our system provides personalized feedback and strategies tailored to your unique strengths and areas for improvement, ensuring a targeted and efficient study approach.",
   },
   {
     id: 3,
-    icon: FeatureIcon3,
+    icon: imgixURL(FeatureIcon3),
     title: "Expert-Curated Content",
     shortdescription:
       "Our content is not just comprehensive; it's curated by former IELTS examiners and top linguistic experts. This ensures that you're studying with the most relevant, up-to-date material that closely aligns with the IELTS standards.",
   },
   {
     id: 4,
-    icon: FeatureIcon4,
+    icon: imgixURL(FeatureIcon4),
     title: "Flexible and Accessible Learning",
     shortdescription:
       "With Keen IELTS, learn at your pace, on your schedule. Our platform is designed for accessibility and flexibility, allowing you to practice anytime, anywhere, on any device.",

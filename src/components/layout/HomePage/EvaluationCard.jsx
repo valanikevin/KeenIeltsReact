@@ -11,6 +11,7 @@ import {
 
 // import media files
 import DashboardImage from "../../../assets/images/app/dashboard.webp";
+import { imgixURL } from "../../../utils/siteUtils";
 
 const EvaluationCard = () => {
   const programFeatures = [
@@ -68,7 +69,7 @@ const EvaluationCard = () => {
           <div className="mb-6 mb-lg-0">
             <div className="mb-2">
               <Image
-                src={DashboardImage}
+                src={imgixURL(DashboardImage)}
                 alt="certificate"
                 className="img-fluid w-100"
               />

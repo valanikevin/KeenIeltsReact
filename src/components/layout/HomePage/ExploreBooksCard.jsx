@@ -15,6 +15,7 @@ import Cambridge18Academic from "../../../assets/images/app/bookcover/Cambridge1
 import Makkar2022 from "../../../assets/images/app/bookcover/MakkarIELTS2022.png";
 import CambridgeOfficial from "../../../assets/images/app/bookcover/Cambridge Official Guide.png";
 import { Link } from "react-router-dom";
+import { imgixURL } from "../../../utils/siteUtils";
 
 const ExploreBooksCard = () => {
   return (
@@ -104,25 +105,25 @@ const BooksData = [
 
 const SkillCoursesData = [
   {
-    image: BarronsIELTSImage,
+    image: imgixURL(BarronsIELTSImage),
     title: "Barron's IELTS",
     rating: 4.6,
     votes: 31,
   },
   {
-    image: Cambridge18Academic,
+    image: imgixURL(Cambridge18Academic),
     title: "Cambridge 18",
     rating: 4.8,
     votes: 129,
   },
   {
-    image: Makkar2022,
+    image: imgixURL(Makkar2022),
     title: "Makkar Speaking 2022",
     rating: 4.5,
     votes: 42,
   },
   {
-    image: CambridgeOfficial,
+    image: imgixURL(CambridgeOfficial),
     title: "Cambridge Official Guide",
     rating: 4.7,
     votes: 114,
