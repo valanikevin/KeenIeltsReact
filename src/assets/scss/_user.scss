@@ -96,3 +96,15 @@ $fulltest: #0052cc;
     background-color: darken($fulltest, 10%);
   }
 }
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+textarea,
+select {
+  font-size: 16px;
+}
