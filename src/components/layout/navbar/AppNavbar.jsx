@@ -27,6 +27,7 @@ const AppNavbar = ({ fixed = false }) => {
       id: uuid(),
       menuitem: "Your Dashboard",
       link: "/dashboard/",
+      slug: "dashboard",
     },
     {
       id: uuid(),
@@ -60,8 +61,9 @@ const AppNavbar = ({ fixed = false }) => {
     },
   ];
 
-  function isActive(route) {
-    return window.location.pathname === route;
+  function isActive(keyword) {
+    const pathArray = window.location.pathname.split("/");
+    return pathArray.includes(keyword);
   }
 
   return (
@@ -94,7 +96,7 @@ const AppNavbar = ({ fixed = false }) => {
                   return (
                     <div className="nav-item mx-3" key={index}>
                       <Nav.Link as={Link} to={item.link}>
-                        {isActive(item.link) ? (
+                        {isActive(item.slug) ? (
                           <span className="text-primary fw-bold">
                             {item.menuitem}
                           </span>
