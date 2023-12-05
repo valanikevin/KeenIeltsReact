@@ -9,6 +9,7 @@ import NavDropdownMain from "./NavDropdownMain";
 import AuthContext from "../../../context/AuthContext";
 import QuickMenu from "./QuickMenu";
 import TakeTestDropdown from "./TakeTestDropdown";
+import { imgixURL } from "../../../utils/siteUtils";
 
 const AppNavbar = ({ fixed = false }) => {
   const isDesktop = useMediaQuery({
@@ -79,7 +80,7 @@ const AppNavbar = ({ fixed = false }) => {
         <Container fluid className="px-0 ps-2">
           <div className="d-flex">
             <Navbar.Brand as={Link} to="/">
-              <Image src={Logo} alt="" />
+              <Image src={imgixURL(Logo)} alt="" />
             </Navbar.Brand>
             <TakeTestDropdown />
           </div>
