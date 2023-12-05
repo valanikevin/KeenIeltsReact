@@ -38,7 +38,7 @@ const YourRecentTestsCard = ({ overallPerformance }) => {
                       test.attempt_slug +
                       "/get_result"
                     }
-                    target="_blank"
+                   
                   >
                     View Result
                   </a>

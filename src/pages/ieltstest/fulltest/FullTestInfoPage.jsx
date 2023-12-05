@@ -112,7 +112,6 @@ const FullTestInfoPage = () => {
                           "/" +
                           fullTest[module.attempt].slug
                         }
-                        target="_blank"
                       >
                         <Card.Footer key={index}>
                           <Stack direction="horizontal" gap={3}>
@@ -141,7 +140,6 @@ const FullTestInfoPage = () => {
                           fullTest[module.attempt].slug +
                           "/get_result"
                         }
-                        target="_blank"
                       >
                         <Card.Footer key={index}>
                           <Stack direction="horizontal" gap={3}>
@@ -216,7 +214,6 @@ const FullTestInfoPage = () => {
                             "/" +
                             fullTest[module.attempt].slug
                           }
-                          target="_blank"
                         >
                           <Stack direction="horizontal">
                             <div className="p-2">
@@ -270,7 +267,6 @@ const FullTestInfoPage = () => {
                             fullTest[module.attempt].slug +
                             "/get_result"
                           }
-                          target="_blank"
                         >
                           <Stack direction="horizontal">
                             <div className="p-2">
