@@ -76,7 +76,7 @@ const DashboardPage = () => {
     };
   }, []);
 
-  if (!overallPerformance) return <DashboardLoader />;
+  if (!overallPerformance || !userData) return <DashboardLoader />;
 
   if (overallPerformance["average_score"].overall.total_attempts <= 0) {
     return (
