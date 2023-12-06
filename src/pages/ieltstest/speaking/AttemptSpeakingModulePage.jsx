@@ -15,6 +15,7 @@ import {
 import SpeakingFooter from "../../../components/ieltstest/speaking/SpeakingFooter";
 import BookInfo from "../../../components/ieltstest/listening/BookInfo";
 import SpeakingLoader from "../../../components/ieltstest/speaking/SpeakingLoader";
+import parse from "html-react-parser";
 
 const AttemptSpeakingModulePage = () => {
   const [deviceType, setDeviceType] = useState("desktop");
@@ -218,7 +219,7 @@ const AttemptSpeakingModulePage = () => {
 
       <Container style={containerStyle} className="hide-scrollbar">
         <Row
-          style={{ height: "100%" }}
+          style={{ height: "80%" }}
           className="d-flex align-items-center justify-content-center"
         >
           <Col sm={8}>
@@ -231,9 +232,12 @@ const AttemptSpeakingModulePage = () => {
                   </span>
                 </Card.Header>
                 <Card.Body>
-                  <p className="fw-bold" style={{ fontSize: "1.7rem" }}>
+                  <p className="fw-bold" style={{ fontSize: "1.4rem" }}>
                     {currentQuestion.question}
                   </p>
+                  {currentQuestion.help_text && (
+                    <p>{parse(currentQuestion.help_text)}</p>
+                  )}
                 </Card.Body>
               </Card>
             </div>
