@@ -11,8 +11,8 @@ const ProfileCover = ({ userData }) => {
   return (
     <Row className="align-items-center">
       <Col xl={12} lg={12} md={12} sm={12}>
-        <div className="pt-4 rounded-top-md bg-primary"> </div>
-        <Card className="px-4 pt-2 pb-4 rounded-0 rounded-bottom shadow-sm">
+        <div className=" bg-primary"> </div>
+        <Card className="px-4 pt-3 pb-4 border">
           <div className="d-flex align-items-end justify-content-between  ">
             <div className="d-flex align-items-center">
               <div className="lh-1">
