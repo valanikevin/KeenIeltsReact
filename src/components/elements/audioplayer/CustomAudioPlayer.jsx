@@ -12,7 +12,7 @@ const CustomAudioPlayer = ({ src, start_time }) => {
   }, [start_time]);
 
   return (
-    <div className="my-2 text-center">
+    <div className=" text-center">
       <AudioPlayer
         ref={audioPlayerRef} // Assign the ref to the AudioPlayer
         src={src}
