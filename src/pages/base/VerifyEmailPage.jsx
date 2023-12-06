@@ -81,7 +81,9 @@ const VerifyEmailPage = () => {
         values
       );
       handleSuccess();
-      navigate("/login");
+      navigate(
+        "/login?alert=Your email has been verified, please login now&variant=success"
+      );
     } catch (error) {
       // Handle error accordingly
       console.error("Error fetching data:", error);

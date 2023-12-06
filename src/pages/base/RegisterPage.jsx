@@ -1,7 +1,7 @@
 import { useEffect, useContext, useState } from "react";
 import AuthContext, { useAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import { Col, Row, Card, Container } from "react-bootstrap";
+import { Col, Row, Card, Container, Button } from "react-bootstrap";
 import BaseForm from "../../components/layout/BaseForm";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
@@ -92,10 +92,7 @@ const RegisterPage = () => {
                 <div className="mb-4">
                   <h1 className="mb-1 fw-bold">Sign up</h1>
                   <span>
-                    Already have an account?{" "}
-                    <Link to="/login/" className="ms-1">
-                      Sign in
-                    </Link>
+                    Enter your personal information to create your account
                   </span>
                 </div>
 
@@ -107,9 +104,31 @@ const RegisterPage = () => {
                   validation_schema={SignupSchema}
                   successMessage="Registration Successful"
                 />
-
-                <div className="mb-4" />
               </Card.Body>
+              <Card.Footer>
+                <Row>
+                  <Col>
+                    <Button
+                      variant="outline-primary"
+                      className="w-100"
+                      as={Link}
+                      to={"/login/"}
+                    >
+                      Sign In
+                    </Button>
+                  </Col>
+                  <Col>
+                    <Button
+                      variant="outline-primary"
+                      className="w-100"
+                      as={Link}
+                      to={"/reset/"}
+                    >
+                      Forgot Password
+                    </Button>
+                  </Col>
+                </Row>
+              </Card.Footer>
             </Card>
           </Col>
         </Row>

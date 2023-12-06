@@ -10,6 +10,7 @@ import Footer from "./components/layout/Footer";
 import AllRoutes from "./AllRoutes";
 import ScrollToTop from "./utils/ScrollToTop";
 import TestTypeState from "./context/layout/TestTypeState";
+import CustomAlert from "./components/layout/CustomAlert";
 export const ErrorContext = createContext();
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
         {/* Website Layout */}
         {!hideNavFooter && <AppNavbar />}
         <LoadingBar />
+        <CustomAlert />
         <div className="app">
           <AllRoutes />
         </div>

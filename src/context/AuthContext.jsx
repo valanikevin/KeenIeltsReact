@@ -78,7 +78,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     localStorage.removeItem("authTokens");
     localStorage.removeItem("user");
-    navigate("/login");
+    navigate("/");
   };
 
   const registerUser = async (values, handleSuccess) => {
@@ -94,7 +94,11 @@ export const AuthProvider = ({ children }) => {
         (response) => {
           handleSuccess();
 
-          navigate("/verify?email=" + values.email);
+          navigate(
+            "/verify?email=" +
+              values.email +
+              "&alert=Registration Successful, Please Verify Your Email Now&variant=success"
+          );
         },
         (error) => {
           setRegistrationError(error.response.data.errors);

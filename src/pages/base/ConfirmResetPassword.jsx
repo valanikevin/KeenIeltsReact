@@ -16,7 +16,7 @@ const ConfirmResetPassword = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const api = usePublicAxios();
-  
+
   useEffect(() => {
     // Function to parse the URL query string
     const queryParams = new URLSearchParams(location.search);
@@ -93,7 +93,9 @@ const ConfirmResetPassword = () => {
         values
       );
       handleSuccess();
-      navigate("/login");
+      navigate(
+        "/login/?alert=Password Reset Successful, Please Login Now&variant=success"
+      );
     } catch (error) {
       console.error("Error fetching data:", error);
       setError(error.response.data.message);

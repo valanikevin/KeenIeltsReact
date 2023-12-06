@@ -15,6 +15,7 @@ import NotificationContext from "../../context/layout/NotificationContext";
 import BaseForm from "../../components/layout/BaseForm";
 import * as Yup from "yup";
 import YupPassword from "yup-password";
+import CustomAlert from "../../components/layout/CustomAlert";
 
 YupPassword(Yup);
 const LoginPage = () => {
@@ -57,12 +58,7 @@ const LoginPage = () => {
               <Card.Body className="">
                 <div className="mb-4">
                   <h1 className="mb-1 fw-bold">Sign in</h1>
-                  <span>
-                    Don’t have an account?{" "}
-                    <Link to="/register/" className="ms-1">
-                      Sign up
-                    </Link>
-                  </span>
+                  <span>Enter your email and password to sign in</span>
                 </div>
                 {/* Form */}
                 <BaseForm
@@ -72,8 +68,31 @@ const LoginPage = () => {
                   submit_label={"Sign in"}
                   nonFieldErrors={loginError}
                 />
-                <div className="mb-4" />
               </Card.Body>
+              <Card.Footer>
+                <Row>
+                  <Col>
+                    <Button
+                      variant="outline-primary"
+                      className="w-100"
+                      as={Link}
+                      to={"/register/"}
+                    >
+                      Create Account
+                    </Button>
+                  </Col>
+                  <Col>
+                    <Button
+                      variant="outline-primary"
+                      className="w-100"
+                      as={Link}
+                      to={"/reset/"}
+                    >
+                      Forgot Password
+                    </Button>
+                  </Col>
+                </Row>
+              </Card.Footer>
             </Card>
           </Col>
         </Row>

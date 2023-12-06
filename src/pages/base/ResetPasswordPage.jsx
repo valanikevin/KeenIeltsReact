@@ -74,7 +74,7 @@ const ResetPasswordPage = () => {
                   <Col>
                     <Button
                       as={Link}
-                      to={"/login"}
+                      to={"/login/"}
                       variant="outline-primary"
                       className="w-100"
                     >
@@ -84,11 +84,11 @@ const ResetPasswordPage = () => {
                   <Col>
                     <Button
                       as={Link}
-                      to={"/register"}
+                      to={"/register/"}
                       variant="outline-primary"
                       className="w-100"
                     >
-                      Sign Up
+                      Create Account
                     </Button>
                   </Col>
                 </Row>
