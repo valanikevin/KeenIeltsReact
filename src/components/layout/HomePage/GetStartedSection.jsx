@@ -7,8 +7,9 @@ const GetStartedSection = () => {
   const subtitle = "Achieve your IELTS goals";
   const description = `Sign up today and embark on your journey towards achieving a higher band score in IELTS. With our state-of-the-art learning system, tailored just for you, success is not just a goal—it's a guarantee. And the best part? It's completely free.`;
   const btntext = "Get Started";
-  const btnlink = "/register/";
-
+  const alertText =
+    "?alert=Create your free account now to begin practicing authentic IELTS tests.";
+  const btnlink = "/register/" + alertText;
   return (
     <Container>
       <Row>

@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 
 const SkillCourseCard = (props) => {
   const { item } = props;
+  const alertText =
+    "?alert=Create your free account now to begin practicing authentic IELTS tests.";
   return (
     <Card className="mb-4 card-hover border">
       <Link to="#!" className="border-bottom">
@@ -39,7 +41,7 @@ const SkillCourseCard = (props) => {
             </span>
           </div>
         </div>
-        <Link to="/register/">
+        <Link to={"/register/" + alertText}>
           Get Started{" "}
           <span className="">
             <svg

@@ -45,7 +45,10 @@ const HeroRightImage = () => {
                 <span className="ms-2">Instant personalized feedback</span>
               </ListGroup.Item>
             </ListGroup>
-            <Link to="/register/" className="btn btn-dark btn-lg">
+            <Link
+              to="/register/?alert=Create your free account now to begin practicing authentic IELTS tests. "
+              className="btn btn-dark btn-lg"
+            >
               Start Practicing
             </Link>
           </div>

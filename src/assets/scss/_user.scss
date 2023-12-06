@@ -97,6 +97,23 @@ $fulltest: #0052cc;
   }
 }
 
+.custom-form-control {
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.custom-form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Apply the custom-form-control class to all input types and textarea */
 input[type="text"],
 input[type="password"],
 input[type="email"],
@@ -104,9 +121,58 @@ input[type="number"],
 input[type="search"],
 input[type="tel"],
 input[type="url"],
-textarea,
-select {
-  font-size: 16px;
+textarea {
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  font-size: 16px; /* Additional styling if needed */
+}
+
+/* For <select> elements, additional styles might be required for cross-browser consistency */
+select.custom-form-control {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* You might want to add a background arrow indicator for <select> elements */
+}
+
+/* Optionally, you can add a class for disabled form controls */
+.custom-form-control:disabled {
+  background-color: #e9ecef;
+  opacity: 1;
+}
+
+.custom-form-select {
+  min-width: 50px;
+  padding: 0rem 0.75rem;
+
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  -webkit-appearance: none; /* Removes default styling for select elements in WebKit browsers */
+  -moz-appearance: none; /* Removes default styling for select elements in Firefox */
+  appearance: none; /* Standard syntax to remove default styling */
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  /* Custom arrow indicator (optional) */
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23495357" d="M2 0L0 2h4z"/><path fill="%23495357" d="M2 5L0 3h4z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 8px 10px;
+}
+
+.custom-form-select:focus {
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* For disabled state */
+.custom-form-select:disabled {
+  background-color: #e9ecef;
+  opacity: 1;
 }
 
 // Audio Player CSS

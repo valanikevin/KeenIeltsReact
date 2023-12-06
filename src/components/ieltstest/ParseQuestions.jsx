@@ -34,7 +34,7 @@ const ParseQuestions = ({
   const renderInput = (domNode, queName) => {
     const commonProps = {
       ...domNode.attribs,
-      className: `${domNode.attribs.className || ""}`,
+
       required: false,
       onChange: moduleType === "Reading" ? handleInputChange : handleChange,
       disabled: !!user_answers,
@@ -45,6 +45,7 @@ const ParseQuestions = ({
         <input
           type="radio"
           {...commonProps}
+          className={`${domNode.attribs.className || ""} custom-form-control`}
           checked={
             user_answers
               ? user_answers["que-" + queName[1]]["user_answer"] ===
@@ -61,6 +62,7 @@ const ParseQuestions = ({
       return (
         <select
           {...commonProps}
+          className={`${domNode.attribs.className || ""} custom-form-select`}
           value={
             user_answers
               ? user_answers["que-" + queName[1]]["user_answer"]
