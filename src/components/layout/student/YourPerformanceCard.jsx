@@ -28,41 +28,27 @@ const YourPerformanceCard = ({ overallPerformance }) => {
       </Card.Header>
       <Card.Body>
         <ListGroup>
-          <ListGroup.Item>
-            <Stack direction="horizontal" gap={3}>
-              <div>
-                <h4 className="display-6 pt-2 ">Overall</h4>
-              </div>
-              <div className="ms-auto">
-                <Badge bg="primary" className="">
-                  <h2 className="display-6 pt-2 text-white">
-                    {performanceBands.overall} Bands
-                  </h2>
-                </Badge>
-              </div>
-            </Stack>
-          </ListGroup.Item>
           {performanceBands &&
             Object.keys(performanceBands).map((key) => {
-              if (key !== "overall") {
-                return (
-                  <ListGroup.Item className="py-2" key={key}>
-                    <Stack direction="horizontal">
-                      <div>
-                        <h3 className="m-0 text-capitalize">{key}</h3>
-                      </div>
-                      <div className="ms-auto">
-                        <Badge bg={key} className="">
-                          <h3 className="m-0 text-white">
-                            {performanceBands[key]} Bands
-                          </h3>
-                        </Badge>
-                      </div>
-                    </Stack>
-                  </ListGroup.Item>
-                );
-              }
-              return null;
+              return (
+                <ListGroup.Item className="py-2" key={key}>
+                  <Stack direction="horizontal">
+                    <div>
+                      <h4 className="m-0 text-capitalize">{key}</h4>
+                    </div>
+                    <div className="ms-auto">
+                      <Badge
+                        bg={key === "overall" ? "primary" : key}
+                        className=""
+                      >
+                        <h4 className="m-0 text-white">
+                          {performanceBands[key]} Bands
+                        </h4>
+                      </Badge>
+                    </div>
+                  </Stack>
+                </ListGroup.Item>
+              );
             })}
           <ListGroup.Item className="py-2">
             <Stack direction="horizontal">
