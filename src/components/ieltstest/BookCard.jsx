@@ -36,7 +36,9 @@ const BookCard = ({
 
   const getSmartTest = async (specific_test = null) => {
     if (user === null) {
-      navigate("/login");
+      navigate(
+        "/register/?alert=Please create an free account or login to start practice test."
+      );
     } else {
       var bodyFormData = new FormData();
       bodyFormData.append("specific_test", specific_test);
@@ -72,6 +74,7 @@ const BookCard = ({
         show={show}
         onHide={handleClose}
         className="bg-light"
+        style={{ zIndex: 9999 }}
       >
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>{card_title}</Offcanvas.Title>

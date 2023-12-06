@@ -43,7 +43,7 @@ function App() {
         <ScrollToTop />
         {/* Website Layout */}
         {!hideNavFooter && <AppNavbar />}
-        <LoadingBar />
+
         <CustomAlert />
         <div className="app">
           <AllRoutes />

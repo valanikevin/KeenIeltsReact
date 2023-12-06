@@ -71,7 +71,7 @@ const ResetPasswordPage = () => {
               </Card.Body>
               <Card.Footer>
                 <Row>
-                  <Col>
+                  <Col sm={12} md={6} className="my-2">
                     <Button
                       as={Link}
                       to={"/login/"}
@@ -81,7 +81,7 @@ const ResetPasswordPage = () => {
                       Sign In
                     </Button>
                   </Col>
-                  <Col>
+                  <Col sm={12} md={6} className="my-2">
                     <Button
                       as={Link}
                       to={"/register/"}

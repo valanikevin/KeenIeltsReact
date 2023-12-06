@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Image, Navbar, Nav, Container, Form } from "react-bootstrap";
 import { useMediaQuery } from "react-responsive";
@@ -10,6 +10,7 @@ import AuthContext from "../../../context/AuthContext";
 import QuickMenu from "./QuickMenu";
 import TakeTestDropdown from "./TakeTestDropdown";
 import { imgixURL } from "../../../utils/siteUtils";
+import LoadingBar from "../LoadingBar/LoadingBar";
 
 const AppNavbar = ({ fixed = false }) => {
   const isDesktop = useMediaQuery({
@@ -22,45 +23,8 @@ const AppNavbar = ({ fixed = false }) => {
   const [expandedMenu, setExpandedMenu] = useState(false);
   let { user, logoutUser } = useContext(AuthContext);
   const login = user ? true : false;
-
-  const NavbarDefaultRoutes = [
-    {
-      id: uuid(),
-      menuitem: "Your Dashboard",
-      link: "/dashboard/",
-      slug: "dashboard",
-    },
-    {
-      id: uuid(),
-      menuitem: "Listening Books",
-      link: "/ieltstest/listening/",
-      slug: "listening",
-    },
-    {
-      id: uuid(),
-      menuitem: "Reading Books",
-      link: "/ieltstest/reading/",
-      slug: "reading",
-    },
-    {
-      id: uuid(),
-      menuitem: "Writing Books",
-      link: "/ieltstest/writing/",
-      slug: "writing",
-    },
-    {
-      id: uuid(),
-      menuitem: "Speaking Books",
-      link: "/ieltstest/speaking/",
-      slug: "speaking",
-    },
-    {
-      id: uuid(),
-      menuitem: "Full Test",
-      link: "/ieltstest/fulltest/",
-      slug: "fulltest",
-    },
-  ];
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   function isActive(keyword) {
     const pathArray = window.location.pathname.split("/");
@@ -68,14 +32,13 @@ const AppNavbar = ({ fixed = false }) => {
   }
 
   return (
-    <>
+    <div className={`navbar-default border-bottom navbar-sticky  `}>
       <Navbar
         onToggle={(collapsed) => setExpandedMenu(collapsed)}
         expanded={expandedMenu}
         expand="lg"
-        className="navbar-default"
+        className="  "
         bg="white"
-        fixed={`${fixed && "top"}`}
       >
         <Container fluid className="px-0 ps-2">
           <div className="d-flex">
@@ -159,8 +122,48 @@ const AppNavbar = ({ fixed = false }) => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-    </>
+      <LoadingBar />
+    </div>
   );
 };
+
+const NavbarDefaultRoutes = [
+  {
+    id: uuid(),
+    menuitem: "Your Dashboard",
+    link: "/dashboard/",
+    slug: "dashboard",
+  },
+  {
+    id: uuid(),
+    menuitem: "Listening Books",
+    link: "/ieltstest/listening/",
+    slug: "listening",
+  },
+  {
+    id: uuid(),
+    menuitem: "Reading Books",
+    link: "/ieltstest/reading/",
+    slug: "reading",
+  },
+  {
+    id: uuid(),
+    menuitem: "Writing Books",
+    link: "/ieltstest/writing/",
+    slug: "writing",
+  },
+  {
+    id: uuid(),
+    menuitem: "Speaking Books",
+    link: "/ieltstest/speaking/",
+    slug: "speaking",
+  },
+  {
+    id: uuid(),
+    menuitem: "Full Test",
+    link: "/ieltstest/fulltest/",
+    slug: "fulltest",
+  },
+];
 
 export default AppNavbar;

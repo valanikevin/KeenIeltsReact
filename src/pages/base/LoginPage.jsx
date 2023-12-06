@@ -71,7 +71,7 @@ const LoginPage = () => {
               </Card.Body>
               <Card.Footer>
                 <Row>
-                  <Col>
+                  <Col sm={12} md={6} className="my-2">
                     <Button
                       variant="outline-primary"
                       className="w-100"
@@ -81,7 +81,7 @@ const LoginPage = () => {
                       Create Account
                     </Button>
                   </Col>
-                  <Col>
+                  <Col sm={12} md={6} className="my-2">
                     <Button
                       variant="outline-primary"
                       className="w-100"
