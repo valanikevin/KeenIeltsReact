@@ -42,7 +42,7 @@ const YourPerformanceCard = ({ overallPerformance }) => {
                         className=""
                       >
                         <h4 className="m-0 text-white">
-                          {performanceBands[key]} Bands
+                          {performanceBands[key]} bands
                         </h4>
                       </Badge>
                     </div>

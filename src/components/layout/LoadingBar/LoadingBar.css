@@ -1,6 +1,7 @@
 .demo-container1 {
   width: 100%;
-  margin: auto;
+
+  height: 4px;
 }
 
 .progress-bar1 {
