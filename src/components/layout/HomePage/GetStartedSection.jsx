@@ -18,11 +18,11 @@ const GetStartedSection = () => {
           xs={12}
           className="text-center"
         >
-          <span className="fs-4 text-warning ls-md text-uppercase fw-semi-bold">
+          <span className="fs-4 text-primary ls-md text-uppercase fw-semi-bold">
             {subtitle}
           </span>
           {/* heading  */}
-          <h2 className="display-3 mt-4 mb-3 fw-bold">{title}</h2>
+          <h2 className="display-4 mt-4 mb-3 fw-bold">{title}</h2>
           {/* para  */}
           <p className="lead px-lg- 8 mb-6">{description}.</p>
           <Link to={btnlink} className="btn btn-primary btn-lg">

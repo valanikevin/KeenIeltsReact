@@ -17,7 +17,7 @@ const HeroRightImage = () => {
       <Row className="d-flex align-items-center">
         <Col xxl={5} xl={6} lg={6} xs={12}>
           <div>
-            <h1 className="display-3 fw-bold mb-3">
+            <h1 className="display-4 fw-bold mb-3">
               Practice <br />
               <u className="text-warning">
                 <span className="text-primary">Real IELTS Tests</span>

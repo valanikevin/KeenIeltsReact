@@ -8,7 +8,7 @@ import { mdiFormatQuoteOpen } from "@mdi/js";
 
 const TestimonialColorCard = ({ item }) => {
   return (
-    <Card className="shadow-lg mb-4">
+    <Card className="shadow-lg mb-4 border">
       <Card.Body className="p-4 p-md-8 text-center">
         <i className="mdi mdi-48px mdi-format-quote-open text-light-info lh-1"></i>
 

@@ -32,13 +32,13 @@ const FeatureDescriptionCard = ({ item }) => {
             />
           </div>
           {/*  Content  */}
-          <div className="ms-md-4">
-            <h2 className="fw-bold mb-1">
+          <div className="ms-md-4 mx-3">
+            <h3 className="fw-bold mb-1">
               {item.title}
               <Badge bg="warning" className="ms-2">
                 {item.badge}
               </Badge>
-            </h2>
+            </h3>
           </div>
         </Stack>
         <p className="mb-4 fs-4">{item.shortdescription}</p>
