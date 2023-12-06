@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router";
 import useAxios from "../../../utils/useAxios";
 import { Modal, Stack } from "react-bootstrap";
+import "../../css/parser-style.css";
 
 import {
   Row,

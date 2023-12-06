@@ -2,7 +2,13 @@ import React from "react";
 import { Badge } from "react-bootstrap";
 import { FiCheckCircle, FiXCircle } from "react-icons/fi";
 
-const QuestionBadge = ({ children, user_answers, queName, form_field }) => {
+const QuestionBadge = ({
+  children,
+  user_answers,
+  queName,
+  form_field,
+  moduleType,
+}) => {
   return (
     <Badge
       className="fw-bold p-1 m-1 "
@@ -15,7 +21,7 @@ const QuestionBadge = ({ children, user_answers, queName, form_field }) => {
           ? "success"
           : user_answers
           ? "danger"
-          : "listening"
+          : moduleType.toLowerCase()
       }
     >
       {queName[1]}

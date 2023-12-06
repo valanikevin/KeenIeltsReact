@@ -103,38 +103,47 @@ const ParseQuestions = ({
     return null;
   }
 
-  return parse(section.questions, {
-    replace: (domNode) => {
-      if (
-        domNode.name === "input" ||
-        domNode.name === "textarea" ||
-        domNode.name === "select"
-      ) {
-        let queName = domNode.attribs.name.split("-");
+  return (
+    <div className="parser-block">
+      {parse(section.questions, {
+        replace: (domNode) => {
+          if (
+            domNode.name === "input" ||
+            domNode.name === "textarea" ||
+            domNode.name === "select"
+          ) {
+            let queName = domNode.attribs.name.split("-");
 
-        return (
-          <span id={`que-${queName[1]}`} className="">
-            {user_answers &&
-              domNode.attribs.type === "radio" &&
-              user_answers["que-" + queName[1]]["user_answer"] ===
-                domNode.attribs.value && (
-                <QuestionBadge user_answers={user_answers} queName={queName} />
-              )}
+            return (
+              <span id={`que-${queName[1]}`} className="">
+                {user_answers &&
+                  domNode.attribs.type === "radio" &&
+                  user_answers["que-" + queName[1]]["user_answer"] ===
+                    domNode.attribs.value && (
+                    <QuestionBadge
+                      user_answers={user_answers}
+                      queName={queName}
+                      moduleType={moduleType}
+                    />
+                  )}
 
-            {domNode.attribs.type !== "radio" ? (
-              <QuestionBadge
-                user_answers={user_answers}
-                queName={queName}
-                form_field={renderInput(domNode, queName)}
-              />
-            ) : (
-              renderInput(domNode, queName)
-            )}
-          </span>
-        );
-      }
-    },
-  });
+                {domNode.attribs.type !== "radio" ? (
+                  <QuestionBadge
+                    user_answers={user_answers}
+                    queName={queName}
+                    form_field={renderInput(domNode, queName)}
+                    moduleType={moduleType}
+                  />
+                ) : (
+                  renderInput(domNode, queName)
+                )}
+              </span>
+            );
+          }
+        },
+      })}
+    </div>
+  );
 };
 
 export default ParseQuestions;
