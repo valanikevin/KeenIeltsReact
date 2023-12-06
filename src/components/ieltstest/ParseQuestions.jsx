@@ -34,7 +34,7 @@ const ParseQuestions = ({
   const renderInput = (domNode, queName) => {
     const commonProps = {
       ...domNode.attribs,
-      className: `my-2 mx-1 ${domNode.attribs.className || ""}`,
+      className: `${domNode.attribs.className || ""}`,
       required: false,
       onChange: moduleType === "Reading" ? handleInputChange : handleChange,
       disabled: !!user_answers,
@@ -111,7 +111,7 @@ const ParseQuestions = ({
         let queName = domNode.attribs.name.split("-");
 
         return (
-          <span id={`que-${queName[1]}`}>
+          <span id={`que-${queName[1]}`} className="">
             {user_answers &&
               domNode.attribs.type === "radio" &&
               user_answers["que-" + queName[1]]["user_answer"] ===
@@ -119,11 +119,15 @@ const ParseQuestions = ({
                 <QuestionBadge user_answers={user_answers} queName={queName} />
               )}
 
-            {domNode.attribs.type !== "radio" && (
-              <QuestionBadge user_answers={user_answers} queName={queName} />
+            {domNode.attribs.type !== "radio" ? (
+              <QuestionBadge
+                user_answers={user_answers}
+                queName={queName}
+                form_field={renderInput(domNode, queName)}
+              />
+            ) : (
+              renderInput(domNode, queName)
             )}
-
-            {renderInput(domNode, queName)}
           </span>
         );
       }

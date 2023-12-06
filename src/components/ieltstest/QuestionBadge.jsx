@@ -2,11 +2,13 @@ import React from "react";
 import { Badge } from "react-bootstrap";
 import { FiCheckCircle, FiXCircle } from "react-icons/fi";
 
-const QuestionBadge = ({ children, user_answers, queName }) => {
+const QuestionBadge = ({ children, user_answers, queName, form_field }) => {
   return (
     <Badge
-      className="fw-bold"
-      style={{ fontSize: "16px" }}
+      className="fw-bold p-1 m-1 "
+      style={{
+        fontSize: "16px",
+      }}
       bg={
         user_answers &&
         user_answers["que-" + queName[1]]["is_user_answer_correct"]
@@ -23,6 +25,7 @@ const QuestionBadge = ({ children, user_answers, queName }) => {
         ) : (
           <FiXCircle size={18} style={{ marginLeft: "5px" }} />
         ))}
+      <span className=""> {form_field}</span>
     </Badge>
   );
 };
