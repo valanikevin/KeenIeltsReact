@@ -36,9 +36,5 @@ const TestimonialColorCard = ({ item }) => {
   );
 };
 
-// Typechecking With PropTypes
-TestimonialColorCard.propTypes = {
-  item: PropTypes.object.isRequired,
-};
 
 export default TestimonialColorCard;
