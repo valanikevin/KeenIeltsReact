@@ -12,13 +12,14 @@ const CustomAudioPlayer = ({ src, start_time }) => {
   }, [start_time]);
 
   return (
-    <div className="my-2">
+    <div className="my-2 text-center">
       <AudioPlayer
         ref={audioPlayerRef} // Assign the ref to the AudioPlayer
         src={src}
         autoPlayAfterSrcChange={false}
         customAdditionalControls={[]}
         customVolumeControls={[]}
+        layout="horizontal-reverse"
       />
     </div>
   );

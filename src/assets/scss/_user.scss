@@ -121,6 +121,7 @@ select {
 /* Progress Bar */
 .rhap_progress-bar {
   background: #e0e0e0; /* Light grey, change as needed */
+  width: 100%;
 }
 
 /* Progress Bar (filled part) */
@@ -147,4 +148,21 @@ select {
 .rhap_container {
   border: none !important;
   box-shadow: none !important; /* Also removing any shadow if present */
+}
+
+.rhap_time {
+  display: none;
+}
+
+.rhap_volume-controls,
+.rhap_additional-controls {
+  display: none;
+}
+
+.rhap_progress-section {
+  flex: 10 1 auto;
+}
+
+.rhap_controls-section {
+  flex: 0 0 auto;
 }
