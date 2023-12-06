@@ -86,6 +86,7 @@ const BaseForm = ({
                       (errors[field.id] && touched[field.id]) ||
                       (serverErrors && serverErrors[field.id])
                     }
+                    disabled={field.disabled}
                   />
                 ) : (
                   <Field
@@ -97,6 +98,7 @@ const BaseForm = ({
                         ? "is-invalid"
                         : ""
                     }`}
+                    disabled={field.disabled}
                   >
                     {field.options.map((option) => (
                       <option key={option.value} value={option.value}>

@@ -19,6 +19,8 @@ import SpeakingResultPage from "./pages/ieltstest/speaking/SpeakingResultPage";
 import AccountPage from "./pages/base/AccountPage";
 import FullTestInfoPage from "./pages/ieltstest/fulltest/FullTestInfoPage";
 import VerifyEmailPage from "./pages/base/VerifyEmailPage";
+import ResetPasswordPage from "./pages/base/ResetPasswordPage";
+import ConfirmResetPassword from "./pages/base/ConfirmResetPassword";
 
 const AllRoutes = () => {
   return (
@@ -36,6 +38,8 @@ const AllRoutes = () => {
       <Route path={"/login"} element={<LoginPage />} />
       <Route path={"/register"} element={<RegisterPage />} />
       <Route path={"/verify"} element={<VerifyEmailPage />} />
+      <Route path={"/reset"} element={<ResetPasswordPage />} />
+      <Route path={"/reset/confirm/"} element={<ConfirmResetPassword />} />
 
       {/* IELTS Tests */}
       <Route path={"/ieltstest"}>
