@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { DJANGO_BASE_URL } from "../../utils/config";
 import { Container, Row, Col, Accordion, Card, Button } from "react-bootstrap";
 import BaseForm from "../../components/layout/BaseForm";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import usePublicAxios from "../../utils/usePublicAxios";
 
 const ConfirmResetPassword = () => {
@@ -14,7 +14,9 @@ const ConfirmResetPassword = () => {
 
   const [error, setError] = useState(null);
   const location = useLocation();
-
+  const navigate = useNavigate();
+  const api = usePublicAxios();
+  
   useEffect(() => {
     // Function to parse the URL query string
     const queryParams = new URLSearchParams(location.search);
@@ -91,6 +93,7 @@ const ConfirmResetPassword = () => {
         values
       );
       handleSuccess();
+      navigate("/login");
     } catch (error) {
       console.error("Error fetching data:", error);
       setError(error.response.data.message);

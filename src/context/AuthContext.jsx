@@ -70,7 +70,6 @@ export const AuthProvider = ({ children }) => {
       }
     } finally {
       setLoadingBar(false); // Hide loading bar after the request is completed
-      resetForm(initialValues); // Reset the form to initial values
     }
   };
 
