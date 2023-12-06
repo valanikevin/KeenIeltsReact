@@ -51,7 +51,9 @@ const StartPracticeTestCard = () => {
         // Handle error accordingly
       }
     } else {
-      navigate("/login");
+      navigate(
+        "/register/?alert=Please create an free account or login to start practice test.&variant=danger"
+      );
     }
   }
 

@@ -127,7 +127,7 @@ const AppNavbar = ({ fixed = false }) => {
   );
 };
 
-const NavbarDefaultRoutes = [
+let NavbarDefaultRoutes = [
   {
     id: uuid(),
     menuitem: "Your Dashboard",

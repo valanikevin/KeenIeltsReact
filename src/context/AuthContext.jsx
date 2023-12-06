@@ -73,14 +73,20 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logoutUser = () => {
+  const logoutUser = async () => {
     setAuthTokens(null);
     setUser(null);
-    localStorage.removeItem("authTokens");
-    localStorage.removeItem("user");
-    navigate("/");
-  };
 
+    // Wrap localStorage removal in a Promise
+    await new Promise((resolve) => {
+      localStorage.removeItem("authTokens");
+      localStorage.removeItem("user");
+      resolve();
+    });
+
+    // Navigate after localStorage operations are complete
+    navigate("/?alert=You're successfully logged out&variant=success");
+  };
   const registerUser = async (values, handleSuccess) => {
     api
       .post(DJANGO_BASE_URL + "/account/register/", {

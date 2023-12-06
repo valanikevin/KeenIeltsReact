@@ -37,7 +37,7 @@ const BookCard = ({
   const getSmartTest = async (specific_test = null) => {
     if (user === null) {
       navigate(
-        "/register/?alert=Please create an free account or login to start practice test."
+        "/register/?alert=Please create an free account or login to start practice test.&variant=danger"
       );
     } else {
       var bodyFormData = new FormData();

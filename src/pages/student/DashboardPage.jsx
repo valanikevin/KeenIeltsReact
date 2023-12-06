@@ -59,6 +59,7 @@ const DashboardPage = () => {
     getUserDetails();
     getOverallPerformance();
   }, []);
+  
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
