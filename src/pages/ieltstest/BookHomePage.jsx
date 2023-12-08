@@ -19,6 +19,7 @@ import usePublicAxios from "../../utils/usePublicAxios";
 import useAxios from "../../utils/useAxios";
 import YourRecentTestsCard from "../../components/layout/student/YourRecentTestsCard";
 import AuthContext from "../../context/AuthContext";
+import useGetSmartTest from "../../components/ieltstest/GetSmartTest";
 
 const BookHomePage = () => {
   const book_slug = useParams().book_slug;
@@ -27,6 +28,7 @@ const BookHomePage = () => {
   const api_public = usePublicAxios();
   const api = useAxios();
   let { registerUser, registrationError, user } = useContext(AuthContext);
+  const getSmartTest = useGetSmartTest();
 
   function getBook() {
     api_public.get("ieltstest/book/" + book_slug + "/").then((response) => {
@@ -126,9 +128,14 @@ const BookHomePage = () => {
                 {/* Card body */}
                 <Card.Body>
                   <div className="d-grid">
-                    <Link to="#" className="btn btn-primary mb-2  ">
+                    <Button
+                      className="btn btn-primary mb-2"
+                      onClick={() => {
+                        getSmartTest("fulltest", book_slug, "");
+                      }}
+                    >
                       Start Full Test
-                    </Link>
+                    </Button>
                   </div>
                 </Card.Body>
               </Card>
@@ -179,6 +186,13 @@ const BookHomePage = () => {
                                                     variant={
                                                       module.split("_")[0]
                                                     }
+                                                    onClick={() => {
+                                                      getSmartTest(
+                                                        module.split("_")[0],
+                                                        book_slug,
+                                                        item.slug
+                                                      );
+                                                    }}
                                                   >
                                                     Start Test
                                                   </Button>
