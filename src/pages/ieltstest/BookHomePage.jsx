@@ -20,6 +20,7 @@ import useAxios from "../../utils/useAxios";
 import YourRecentTestsCard from "../../components/layout/student/YourRecentTestsCard";
 import AuthContext from "../../context/AuthContext";
 import useGetSmartTest from "../../components/ieltstest/GetSmartTest";
+import BookHomePageLoader from "../../components/layout/BookHomePage/BookHomePageLoader";
 
 const BookHomePage = () => {
   const book_slug = useParams().book_slug;
@@ -59,12 +60,8 @@ const BookHomePage = () => {
     }
   }, []);
 
-  if (!book) {
-    return <div>Loading...</div>;
-  }
-
-  if (user && !attempts) {
-    return <div>Loading...</div>;
+  if (!book || (user && !attempts)) {
+    return <BookHomePageLoader />;
   }
 
   const modules_items = [

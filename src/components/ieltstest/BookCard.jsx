@@ -11,7 +11,7 @@ import {
   Badge,
 } from "react-bootstrap";
 
-import { FiList, FiArrowRight } from "react-icons/fi";
+import { FiList, FiArrowRight, FiArrowUpRight } from "react-icons/fi";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import useAxios from "../../utils/useAxios";
 import AuthContext from "../../context/AuthContext";
@@ -84,13 +84,28 @@ const BookCard = ({
         </Offcanvas.Body>
       </Offcanvas>
       <Card className="mb-4">
-        <Card.Img variant="top" src={image_url} />
-        <Card.Body>
-          <Card.Title className="text-dark" style={{ fontSize: "1.0rem" }}>
-            {card_title}
-          </Card.Title>
-          <Card.Text>{card_description}</Card.Text>
-        </Card.Body>
+        <Link to={"/book/" + book.slug}>
+          <Card.Header className="p-0">
+            <Card.Img variant="top" src={image_url} />
+          </Card.Header>
+          <Card.Body>
+            <Card.Title className="text-dark" style={{ fontSize: "1.0rem" }}>
+              {card_title}
+            </Card.Title>
+            <Card.Text>{card_description}</Card.Text>
+          </Card.Body>
+
+          <Card.Footer>
+            <Stack direction="horizontal" gap={3}>
+              <div className="px-2">
+                <span className="text-black text-capitalize">View Book</span>
+              </div>
+              <div className="px-2 ms-auto">
+                <FiArrowUpRight size={20} className="text-black" />
+              </div>
+            </Stack>
+          </Card.Footer>
+        </Link>
         <Card.Footer>
           <Stack direction="horizontal" onClick={handleShow} gap={3}>
             <div className="px-2">
