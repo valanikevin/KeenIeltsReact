@@ -18,34 +18,31 @@ const CustomSplitPane = ({ left, right, deviceType, currentSection }) => {
 
   // CSS
 
-  const scrollableStyle = {
-    height: `${deviceType === "mobile" ? "42vh" : "calc(100vh - 100px)"}`,
+  const scrollableStyle1 = {
+    height: `${deviceType === "mobile" ? "38vh" : "calc(100vh - 100px)"}`,
     overflowY: "auto",
   };
 
-  const scrollableStyleWithBackground = {
-    ...scrollableStyle,
+  const scrollableStyle2 = {
+    height: `${deviceType === "mobile" ? "46vh" : "calc(100vh - 100px)"}`,
+    overflowY: "auto",
     backgroundColor: "#F5F5DC",
   };
+
   return (
-    <Container className={deviceType === "mobile" ? "pt-8" : "pt-7"}>
+    <Container className={deviceType === "mobile" ? "pt-7" : "pt-7"}>
       <Row className="">
         <Col
           sm={12}
           lg={6}
-          style={scrollableStyle}
+          style={scrollableStyle1}
           className="bg-white"
           ref={leftPaneRef}
         >
           {/* Content of the first column */}
           <div className="my-5">{left}</div>
         </Col>
-        <Col
-          sm={12}
-          lg={6}
-          style={scrollableStyleWithBackground}
-          ref={rightPaneRef}
-        >
+        <Col sm={12} lg={6} style={scrollableStyle2} ref={rightPaneRef}>
           {/* Content of the second column */}
           <div className="my-5">{right}</div>
         </Col>
