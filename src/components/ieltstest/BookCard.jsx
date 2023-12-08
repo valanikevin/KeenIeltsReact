@@ -95,7 +95,7 @@ const BookCard = ({
             <Card.Text>{card_description}</Card.Text>
           </Card.Body>
 
-          <Card.Footer>
+          <Card.Footer className="py-2">
             <Stack direction="horizontal" gap={3}>
               <div className="px-2">
                 <span className="text-black text-capitalize">View Book</span>
@@ -106,7 +106,7 @@ const BookCard = ({
             </Stack>
           </Card.Footer>
         </Link>
-        <Card.Footer>
+        <Card.Footer className="py-2">
           <Stack direction="horizontal" onClick={handleShow} gap={3}>
             <div className="px-2">
               <span className="text-black text-capitalize">
