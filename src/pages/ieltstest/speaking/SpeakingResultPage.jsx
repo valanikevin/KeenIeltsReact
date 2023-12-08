@@ -188,10 +188,12 @@ const SpeakingResultPage = () => {
                 {" "}
                 <h3 className="mt-2 fw-bold">Your Responses</h3>
               </Card.Header>
-              <CustomAudioPlayer
-                src={attempt.merged_audio}
-                start_time={currentAudioTime}
-              />
+              <div className="mt-3">
+                <CustomAudioPlayer
+                  src={attempt.merged_audio}
+                  start_time={currentAudioTime}
+                />
+              </div>
               <hr />
               <Card.Body>
                 <Accordion>
@@ -241,6 +243,13 @@ const SpeakingResultPage = () => {
           </Col>
           <Col xl={8} lg={10} md={12} className="my-3">
             <FullTestNextModule attempt={attempt} />
+          </Col>
+          <Col xl={8} lg={10} md={12} className="my-3">
+            <Card>
+              <Card.Header>
+                <h3 className="mt-2 fw-bold">What's Next?</h3>
+              </Card.Header>
+            </Card>
           </Col>
         </Row>
       </Container>
