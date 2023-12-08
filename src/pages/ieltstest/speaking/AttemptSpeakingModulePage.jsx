@@ -34,7 +34,8 @@ const AttemptSpeakingModulePage = () => {
   const handleShowSubmitModal = () => setShowSubmitModal(true);
   const handleClosSubmiteModal = () => setShowSubmitModal(false);
   const navigate = useNavigate();
-
+  const [testStarted, setIsTestStarted] = useState(false);
+  const [micAccessError, setMicAccessError] = useState(null);
   // Effects
 
   useEffect(() => {
@@ -222,26 +223,97 @@ const AttemptSpeakingModulePage = () => {
           style={{ height: "80%" }}
           className="d-flex align-items-center justify-content-center"
         >
-          <Col sm={8}>
-            <div style={{ width: "100%" }}>
-              <Card className="my-3">
-                <Card.Header>
-                  <span className="text-black fw-bold">
-                    {currentSection.section} :{" "}
-                    {currentSection.question_type.name}
-                  </span>
-                </Card.Header>
-                <Card.Body>
-                  <p className="fw-bold" style={{ fontSize: "1.4rem" }}>
-                    {currentQuestion.question}
-                  </p>
-                  {currentQuestion.help_text && (
-                    <p>{parse(currentQuestion.help_text)}</p>
-                  )}
-                </Card.Body>
-              </Card>
-            </div>
-          </Col>
+          {testStarted ? (
+            <Col sm={8}>
+              <div style={{ width: "100%" }}>
+                <Card className="my-3">
+                  <Card.Header>
+                    <span className="text-black fw-bold">
+                      {currentSection.section} :{" "}
+                      {currentSection.question_type.name}
+                    </span>
+                  </Card.Header>
+                  <Card.Body>
+                    <p className="fw-bold" style={{ fontSize: "1.4rem" }}>
+                      {currentQuestion.question}
+                    </p>
+                    {currentQuestion.help_text && (
+                      <p>{parse(currentQuestion.help_text)}</p>
+                    )}
+                  </Card.Body>
+                </Card>
+              </div>
+            </Col>
+          ) : micAccessError ? (
+            <Col sm={8}>
+              <div style={{ width: "100%" }}>
+                <Card className="my-3">
+                  <Card.Header>
+                    <span className="text-black fw-bold">
+                      Microphone Access Needed
+                    </span>
+                  </Card.Header>
+                  <Card.Body>
+                    <p className="fw-bold" style={{ fontSize: "16px" }}>
+                      We noticed an issue accessing your microphone. For the
+                      speaking test, please ensure microphone access is granted.
+                    </p>
+                    <p className="" style={{ fontSize: "16px" }}>
+                      <ul>
+                        <li>
+                          Check your browser's permissions and confirm that your
+                          microphone is not in use by another application.
+                        </li>
+                        <li>
+                          Click on the 'Start Test' button again. When prompted,
+                          select to allow microphone access.
+                        </li>
+                        <li>
+                          If the issue persists, consider restarting your
+                          browser or switching to a different one.
+                        </li>
+                        <li>
+                          Your progress and success in the speaking test matter
+                          to us. We're here to help every step of the way!
+                        </li>
+                      </ul>
+                    </p>
+                  </Card.Body>
+                </Card>
+              </div>
+            </Col>
+          ) : (
+            <Col sm={8}>
+              <div style={{ width: "100%" }}>
+                <Card className="my-3">
+                  <Card.Header>
+                    <span className="text-black fw-bold">
+                      Ready to Begin Your Speaking Test?
+                    </span>
+                  </Card.Header>
+                  <Card.Body>
+                    <p className="" style={{ fontSize: "16px" }}>
+                      <ul>
+                        <li>
+                          Get set for a quick and engaging speaking test,
+                          lasting just 15-20 minutes.
+                        </li>
+                        <li>
+                          We're excited to hear you! But first, we'll need your
+                          permission to access your microphone. Don't worry, a
+                          prompt will appear when you hit "Start Test."
+                        </li>
+                        <li>
+                          Feeling prepared? Great! Simply click "Start Test"
+                          when you're all set to go.
+                        </li>
+                      </ul>
+                    </p>
+                  </Card.Body>
+                </Card>
+              </div>
+            </Col>
+          )}
         </Row>
       </Container>
 
@@ -258,6 +330,9 @@ const AttemptSpeakingModulePage = () => {
         userAllResponse={userAllResponse}
         setUserAllResponse={setUserAllResponse}
         handleConfirmEndTest={handleConfirmEndTest}
+        testStarted={testStarted}
+        setIsTestStarted={setIsTestStarted}
+        setMicAccessError={setMicAccessError}
       />
 
       <Modal

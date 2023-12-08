@@ -31,8 +31,10 @@ const SpeakingFooter = ({
   userAllResponse,
   setUserAllResponse,
   handleConfirmEndTest,
+  testStarted,
+  setIsTestStarted,
+  setMicAccessError,
 }) => {
-  const [testStarted, setIsTestStarted] = useState(false);
   const [audioURL, setAudioURL] = useState("");
   const [mediaRecorder, setMediaRecorder] = useState(null);
   const [isPaused, setIsPaused] = useState(false);
@@ -138,16 +140,16 @@ const SpeakingFooter = ({
     }
   }, [mediaRecorder]);
 
-  function startTest() {
-    setIsRunning(true);
+  const startTest = () => {
+    setMicAccessError(null); // Reset the error message before starting the test
     startRecording();
-  }
+  };
 
   const startRecording = () => {
-    setIsTestStarted(true); // Set testStarted to true
     navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then((stream) => {
+        setIsTestStarted(true); // Set testStarted to true only after getting media stream successfully
         const newMediaRecorder = new MediaRecorder(stream);
         setMediaRecorder(newMediaRecorder);
 
@@ -157,9 +159,13 @@ const SpeakingFooter = ({
         };
 
         newMediaRecorder.start();
+        setIsRunning(true);
       })
       .catch((err) => {
         console.error("Could not get media:", err);
+        setMicAccessError(
+          "Unable to access microphone. Please allow microphone access to start the test."
+        ); // Set error message
       });
   };
 
@@ -330,13 +336,13 @@ const SpeakingFooter = ({
         <Row className="my-2 mb-3 text-black justify-content-center ">
           <Col sm={8}>
             <Row className="">
-              <Col className="col-6 mt-1">
+              <Col className={`col-${testStarted ? 6 : 12} mt-1`}>
                 {!testStarted ? (
                   <Button
                     onClick={startTest}
                     className={`w-100 ${deviceType === "desktop" && "btn-lg"}`}
                   >
-                    <MdMic size={23} /> Start
+                    <MdMic size={23} /> Start Test
                   </Button>
                 ) : isPaused ? (
                   <Button
@@ -359,13 +365,15 @@ const SpeakingFooter = ({
               </Col>
 
               <Col className="col-6 mt-1">
-                <Button
-                  onClick={handleNextQuestion}
-                  className={`w-100 ${deviceType === "desktop" && "btn-lg"}`}
-                  disabled={!testStarted && "disabled"}
-                >
-                  Next <MdKeyboardDoubleArrowRight size={23} />
-                </Button>
+                {testStarted && (
+                  <Button
+                    onClick={handleNextQuestion}
+                    className={`w-100 ${deviceType === "desktop" && "btn-lg"}`}
+                    disabled={!testStarted && "disabled"}
+                  >
+                    Next <MdKeyboardDoubleArrowRight size={23} />
+                  </Button>
+                )}
               </Col>
             </Row>
           </Col>

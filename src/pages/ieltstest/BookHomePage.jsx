@@ -31,6 +31,13 @@ const BookHomePage = () => {
   let { registerUser, registrationError, user } = useContext(AuthContext);
   const getSmartTest = useGetSmartTest();
 
+  useEffect(() => {
+    if (book) {
+      document.title =
+        book.name + " | Practice Real IELTS Tests for Free | KeenIELTS";
+    }
+  }, [book]);
+
   function getBook() {
     api_public.get("ieltstest/book/" + book_slug + "/").then((response) => {
       if (response.status === 200) {
