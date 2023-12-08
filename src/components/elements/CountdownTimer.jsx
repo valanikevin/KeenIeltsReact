@@ -8,28 +8,31 @@ const CountdownTimer = ({
   initialSeconds = 0,
   questionData,
   handleTimesUp,
+  startTimer = true,
 }) => {
   const [minutes, setMinutes] = useState(initialMinutes);
   const [seconds, setSeconds] = useState(initialSeconds);
 
   useEffect(() => {
-    let myInterval = setInterval(() => {
-      if (seconds > 0) {
-        setSeconds(seconds - 1);
-      }
-      if (seconds === 0) {
-        if (minutes === 0) {
-          clearInterval(myInterval);
-          handleTimesUp();
-        } else {
-          setMinutes(minutes - 1);
-          setSeconds(59);
+    if (startTimer) {
+      let myInterval = setInterval(() => {
+        if (seconds > 0) {
+          setSeconds(seconds - 1);
         }
-      }
-    }, 1000);
-    return () => {
-      clearInterval(myInterval);
-    };
+        if (seconds === 0) {
+          if (minutes === 0) {
+            clearInterval(myInterval);
+            handleTimesUp();
+          } else {
+            setMinutes(minutes - 1);
+            setSeconds(59);
+          }
+        }
+      }, 1000);
+      return () => {
+        clearInterval(myInterval);
+      };
+    }
   });
 
   useEffect(() => {
