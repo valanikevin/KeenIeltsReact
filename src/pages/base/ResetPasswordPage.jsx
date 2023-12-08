@@ -47,7 +47,7 @@ const ResetPasswordPage = () => {
 
   return (
     <>
-      <Container>
+      <Container className="mb-5">
         <Row className="align-items-center justify-content-center ">
           <Col lg={5} md={8} className="">
             <Card className="mt-5">

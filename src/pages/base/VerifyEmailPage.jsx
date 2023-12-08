@@ -108,7 +108,7 @@ const VerifyEmailPage = () => {
 
   return (
     <>
-      <Container>
+      <Container className="mb-5">
         <Row className="align-items-center justify-content-center mt-5">
           <Col lg={5} md={8} className="">
             <Accordion activeKey={activeKey}>
