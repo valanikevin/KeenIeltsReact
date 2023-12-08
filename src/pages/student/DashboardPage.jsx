@@ -59,7 +59,7 @@ const DashboardPage = () => {
     getUserDetails();
     getOverallPerformance();
   }, []);
-  
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
@@ -161,7 +161,15 @@ const DashboardPage = () => {
               </div>
             </Card.Body>
           </Card>
-          <YourRecentTestsCard overallPerformance={overallPerformance} />
+
+          <Card className="mt-3 mb-2">
+            <Card.Header>
+              <h3 className="mt-2 fw-bold">Your Recent Attempts</h3>
+            </Card.Header>
+            <Card.Body>
+              <YourRecentTestsCard tests={overallPerformance.recent_tests} />
+            </Card.Body>
+          </Card>
 
           <div className="my-3">
             <AccountSettingForm />

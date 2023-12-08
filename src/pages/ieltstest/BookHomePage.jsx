@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import {
   Col,
   Row,
@@ -16,14 +16,20 @@ import { Link, useParams } from "react-router-dom";
 import { FiKey, FiUpload } from "react-icons/fi";
 import { MdCopyright } from "react-icons/md";
 import usePublicAxios from "../../utils/usePublicAxios";
+import useAxios from "../../utils/useAxios";
+import YourRecentTestsCard from "../../components/layout/student/YourRecentTestsCard";
+import AuthContext from "../../context/AuthContext";
 
 const BookHomePage = () => {
   const book_slug = useParams().book_slug;
   const [book, setBook] = useState(null);
-  const api = usePublicAxios();
+  const [attempts, setAttempts] = useState(null);
+  const api_public = usePublicAxios();
+  const api = useAxios();
+  let { registerUser, registrationError, user } = useContext(AuthContext);
 
   function getBook() {
-    api.get("ieltstest/book/" + book_slug + "/").then((response) => {
+    api_public.get("ieltstest/book/" + book_slug + "/").then((response) => {
       if (response.status === 200) {
         setBook(response.data);
       } else {
@@ -32,11 +38,30 @@ const BookHomePage = () => {
     });
   }
 
+  function getAttempts() {
+    api
+      .post("student/get_attempts_from_book/" + book_slug + "/")
+      .then((response) => {
+        if (response.status === 200) {
+          setAttempts(response.data);
+        } else {
+          console.log(response);
+        }
+      });
+  }
+
   useEffect(() => {
     getBook();
+    if (user) {
+      getAttempts();
+    }
   }, []);
 
   if (!book) {
+    return <div>Loading...</div>;
+  }
+
+  if (user && !attempts) {
     return <div>Loading...</div>;
   }
 
@@ -125,7 +150,7 @@ const BookHomePage = () => {
                   </Nav>
                   <Card.Body className="p-0">
                     <Tab.Content>
-                      <Tab.Pane eventKey="tests" className="pb-4 pt-3 px-4">
+                      <Tab.Pane eventKey="tests" className="my-2">
                         <Accordion defaultActiveKey={0} flush>
                           {book.tests.map((item, index) => (
                             <Accordion.Item eventKey={index} key={index}>
@@ -172,10 +197,29 @@ const BookHomePage = () => {
                         </Accordion>
                       </Tab.Pane>
 
-                      <Tab.Pane
-                        eventKey="your attempts"
-                        className="pb-4 p-4"
-                      ></Tab.Pane>
+                      <Tab.Pane eventKey="your attempts" className="my-2">
+                        {user ? (
+                          <YourRecentTestsCard tests={attempts} />
+                        ) : (
+                          <div className="text-center p-4">
+                            <h3>
+                              Please sign in or create an account to view your
+                              test attempts.
+                            </h3>
+                            <div className="mt-3">
+                              <Link to="/login/" className="btn btn-primary ">
+                                Sign in
+                              </Link>
+                              <Link
+                                to="/register/"
+                                className="btn btn-outline-primary  ms-2"
+                              >
+                                Create Account
+                              </Link>
+                            </div>
+                          </div>
+                        )}
+                      </Tab.Pane>
                     </Tab.Content>
                   </Card.Body>
                 </Card>
