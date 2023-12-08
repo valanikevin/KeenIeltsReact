@@ -277,6 +277,13 @@ const WritingResultPage = () => {
               <Col xl={8} lg={10} md={12} className="my-3">
                 <FullTestNextModule attempt={attempt} />
               </Col>
+              <Col xl={8} lg={10} md={12} className="my-3">
+                <WhatsNextCard />
+              </Col>
+
+              <Col xl={8} lg={10} md={12} className="mb-3">
+                <StartPracticeTestCard />
+              </Col>
             </>
           ) : (
             <Col xl={8} lg={10} md={12} className="">

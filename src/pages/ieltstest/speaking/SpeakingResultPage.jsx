@@ -1,11 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useAxios from "../../../utils/useAxios";
 import { API_URLS } from "../../../utils/config";
 import PageHeadingBriefinfo from "../../../components/layout/PageHeadingBriefInfo";
 import {
   Accordion,
   Badge,
+  Button,
   Card,
   Col,
   Container,
@@ -22,6 +23,8 @@ import EstimatedBandScoreCard from "../../../components/EstimatedBandScoreCard";
 import { FiPlayCircle } from "react-icons/fi";
 import SpeakingLoader from "../../../components/ieltstest/speaking/SpeakingLoader";
 import FullTestNextModule from "../../../components/ieltstest/FullTestNextModule";
+import StartPracticeTestCard from "../../../components/ieltstest/StartPracticeTestCard";
+import WhatsNextCard from "../../../components/ieltstest/WhatsNextCard";
 
 const SpeakingResultPage = () => {
   const { module_slug, attempt_slug } = useParams();
@@ -241,15 +244,18 @@ const SpeakingResultPage = () => {
               </Card.Body>
             </Card>
           </Col>
+          {attempt.full_test_next_attempt && (
+            <Col xl={8} lg={10} md={12} className="my-3">
+              <FullTestNextModule attempt={attempt} />
+            </Col>
+          )}
+
           <Col xl={8} lg={10} md={12} className="my-3">
-            <FullTestNextModule attempt={attempt} />
+            <WhatsNextCard />
           </Col>
-          <Col xl={8} lg={10} md={12} className="my-3">
-            <Card>
-              <Card.Header>
-                <h3 className="mt-2 fw-bold">What's Next?</h3>
-              </Card.Header>
-            </Card>
+
+          <Col xl={8} lg={10} md={12} className="mb-3">
+            <StartPracticeTestCard />
           </Col>
         </Row>
       </Container>
