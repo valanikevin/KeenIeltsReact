@@ -34,7 +34,7 @@ const BookCard = ({
   const handleShow = () => setShow(true);
   const navigate = useNavigate();
   let { user, logoutUser } = useContext(AuthContext);
-  const getSmartTest = useGetSmartTest(module_slug, book);
+  const getSmartTest = useGetSmartTest();
 
   return (
     <>
@@ -64,7 +64,9 @@ const BookCard = ({
                 {book["tests"].map((test) => (
                   <Card.Footer
                     key={test.slug}
-                    onClick={() => getSmartTest(test.slug)}
+                    onClick={() =>
+                      getSmartTest(module_slug, book.slug, test.slug)
+                    }
                   >
                     <Stack direction="horizontal" gap={3}>
                       <div className="">
@@ -103,7 +105,7 @@ const BookCard = ({
         </Card.Footer>
         <Card.Footer
           onClick={() => {
-            getSmartTest("");
+            getSmartTest(module_slug, book.slug, "");
           }}
         >
           <Stack direction="horizontal" gap={3}>
