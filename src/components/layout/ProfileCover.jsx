@@ -1,5 +1,5 @@
 // import node module libraries
-import { Row, Col, Image, Card, Button } from "react-bootstrap";
+import { Row, Col, Image, Card, Button, Stack } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 // import media files
@@ -13,21 +13,21 @@ const ProfileCover = ({ userData }) => {
       <Col xl={12} lg={12} md={12} sm={12}>
         <div className=" bg-primary"> </div>
         <Card className="px-4 pt-3 pb-4 border">
-          <div className="d-flex align-items-end justify-content-between  ">
-            <div className="d-flex align-items-center">
-              <div className="lh-1">
-                <h2 className="mb-0">
-                  {userData.first_name} {userData.last_name}
-                </h2>
-                <p className="mb-0 d-block">{userData.email}</p>
-              </div>
-            </div>
+          <Stack direction="horizontal" gap={2} className="mt-2">
             <div>
-              <Link to={"/account/"} className={`btn btn-outline-primary`}>
+              <h2 className="mb-0">
+                {userData.first_name} {userData.last_name}
+              </h2>
+            </div>
+            <div className="ms-auto">
+              <Link
+                to={"/account/"}
+                className={`btn btn-outline-primary btn-sm`}
+              >
                 Account Setting
               </Link>
             </div>
-          </div>
+          </Stack>
         </Card>
       </Col>
     </Row>

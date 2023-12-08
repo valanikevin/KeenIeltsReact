@@ -25,3 +25,7 @@
 .parser-block table tbody tr:last-child td {
   border-bottom: 1px solid #212529;
 }
+
+.parser-block input[type="text"] {
+  max-width: 100px;
+}

@@ -6,7 +6,7 @@ import { Route, Routes } from "react-router-dom";
 
 import PrivateRoutes from "./utils/PrivateRoutes";
 import DashboardPage from "./pages/student/DashboardPage";
-import TestHomePage from "./pages/ieltstest/TestHomePage";
+
 import AttemptListeningModulePage from "./pages/ieltstest/listening/AttemptListeningModulePage";
 import ListeningResultPage from "./pages/ieltstest/listening/ListeningResultPage";
 import ModuleHomePage from "./pages/ieltstest/ModuleHomePage";
@@ -21,6 +21,7 @@ import FullTestInfoPage from "./pages/ieltstest/fulltest/FullTestInfoPage";
 import VerifyEmailPage from "./pages/base/VerifyEmailPage";
 import ResetPasswordPage from "./pages/base/ResetPasswordPage";
 import ConfirmResetPassword from "./pages/base/ConfirmResetPassword";
+import BookHomePage from "./pages/ieltstest/BookHomePage";
 
 const AllRoutes = () => {
   return (
@@ -43,7 +44,7 @@ const AllRoutes = () => {
 
       {/* IELTS Tests */}
       <Route path={"/ieltstest"}>
-        <Route index element={<TestHomePage />} />
+        <Route path={"book/:book_slug"} element={<BookHomePage />} />
         <Route path={":module_slug"} element={<ModuleHomePage />} />
         <Route path="attempt" element={<PrivateRoutes />}>
           {/* Full Test */}
