@@ -244,6 +244,7 @@ const SpeakingResultPage = () => {
               </Card.Body>
             </Card>
           </Col>
+          
           {attempt.full_test_next_attempt && (
             <Col xl={8} lg={10} md={12} className="my-3">
               <FullTestNextModule attempt={attempt} />

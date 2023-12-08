@@ -13,6 +13,8 @@ import PageHeadingBriefinfo from "../../../components/layout/PageHeadingBriefInf
 import OverallBandsCard from "../../../components/ieltstest/OverallBandsCard";
 import FullTestNextModule from "../../../components/ieltstest/FullTestNextModule";
 import CustomSplitPane from "../../../components/layout/CustomSplitPane";
+import WhatsNextCard from "../../../components/ieltstest/WhatsNextCard";
+import StartPracticeTestCard from "../../../components/ieltstest/StartPracticeTestCard";
 
 const ReadingResultPage = () => {
   const api = useAxios();
@@ -142,9 +144,13 @@ const ReadingResultPage = () => {
                 ))}
               </Accordion>
             </Col>
-            <Col xl={8} lg={10} md={12} className="my-3">
-              <FullTestNextModule attempt={attempt} />
-            </Col>
+
+            {attempt.full_test_next_attempt && (
+              <Col xl={8} lg={10} md={12} className="my-3">
+                <FullTestNextModule attempt={attempt} />
+              </Col>
+            )}
+            
             <Col xl={8} lg={10} md={12} className="my-3">
               <WhatsNextCard />
             </Col>

@@ -26,6 +26,8 @@ import EstimatedBandScoreCard from "../../../components/EstimatedBandScoreCard";
 import SuggestionListCard from "../../../components/SuggestionListCard";
 import FullTestNextModule from "../../../components/ieltstest/FullTestNextModule";
 import SectionCard from "../../../components/ieltstest/SectionCard";
+import WhatsNextCard from "../../../components/ieltstest/WhatsNextCard";
+import StartPracticeTestCard from "../../../components/ieltstest/StartPracticeTestCard";
 
 const WritingResultPage = () => {
   const { module_slug, attempt_slug } = useParams();
@@ -274,9 +276,12 @@ const WritingResultPage = () => {
                 />
               </Col>
 
-              <Col xl={8} lg={10} md={12} className="my-3">
-                <FullTestNextModule attempt={attempt} />
-              </Col>
+              {attempt.full_test_next_attempt && (
+                <Col xl={8} lg={10} md={12} className="my-3">
+                  <FullTestNextModule attempt={attempt} />
+                </Col>
+              )}
+
               <Col xl={8} lg={10} md={12} className="my-3">
                 <WhatsNextCard />
               </Col>

@@ -60,9 +60,15 @@ const StartPracticeTestCard = () => {
   return (
     <Card className="">
       <Card.Header>
-        <h3 className="mt-2 fw-bold">Start Practice Test</h3>
+        <h3 className="mt-2 fw-bold">Start Smart Practice Test</h3>
       </Card.Header>
       <Card.Body>
+        <p>
+          Smart Tests are specially tailored tests you've never attempted before
+          on KeenIELTS. We carefully select each test to match and enhance your
+          current learning abilities, aiming to boost your band score
+          effectively.
+        </p>
         <Row>
           {TakeTestDropdown.map((item, index) => (
             <Col sm={6} key={index}>
