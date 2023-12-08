@@ -89,24 +89,24 @@ const BookHomePage = () => {
               </div>
             </Col>
           </Row>
-          <Row>
-            <Col xs={6} md={2} className="mb-2">
+          <Row className="gy-3 gy-lg-0">
+            {/* Adjust column sizes and add gutters */}
+            <Col xs={12} className="mb-2  text-md-start">
               <span className="text-white">
                 <FiUpload className="text-white-50" />
                 <span className="px-2 text-capitalize">EEC India</span>
               </span>
             </Col>
 
-            <Col xs={6} md={2} className="mb-2">
+            <Col xs={12} className="mb-2  text-md-start">
               <span className="text-white">
                 <MdCopyright className="text-white-50" />
-
                 <span className="px-2 text-capitalize">{book.copyright}</span>
               </span>
             </Col>
 
-            <Col xs={6} md={2} className="mb-2">
-              <span className="text-white ">
+            <Col xs={12} className="mb-2  text-md-start">
+              <span className="text-white">
                 <FiKey className="text-white-50" />
                 <span className="px-2 text-capitalize">{book.difficulty}</span>
               </span>
@@ -118,7 +118,7 @@ const BookHomePage = () => {
       <section className="pb-10">
         <Container>
           <Row>
-            <Col lg={4} md={12} sm={12} className="mt-n10 mb-4 mb-lg-0">
+            <Col lg={4} md={12} sm={12} className="mt-n10 mb-9 mb-lg-0">
               {/* Card */}
               <Card className="mb-3 mb-4">
                 <div className="p-1">

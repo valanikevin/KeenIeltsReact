@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, Table, Badge } from "react-bootstrap";
+import { FiArrowRight } from "react-icons/fi";
 
 const YourRecentTestsCard = ({ tests }) => {
   return (
@@ -8,7 +9,8 @@ const YourRecentTestsCard = ({ tests }) => {
         <tr>
           <th>#</th>
           <th>Book</th>
-          <th>Score</th>
+          <th>Test</th>
+          <th>Bands</th>
           <th>Result</th>
         </tr>
       </thead>
@@ -21,7 +23,8 @@ const YourRecentTestsCard = ({ tests }) => {
               </Badge>
             </td>
             <td>{test.book_name}</td>
-            <td>{test.score} Bands</td>
+            <td>{test.test_name}</td>
+            <td>{parseFloat(test.score).toFixed(1)}</td>
             <td>
               <a
                 href={
@@ -34,7 +37,7 @@ const YourRecentTestsCard = ({ tests }) => {
                   "/get_result"
                 }
               >
-                View Result
+                Result <FiArrowRight />
               </a>
             </td>
           </tr>
