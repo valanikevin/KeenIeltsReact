@@ -41,10 +41,10 @@ const AllRoutes = () => {
       <Route path={"/verify"} element={<VerifyEmailPage />} />
       <Route path={"/reset"} element={<ResetPasswordPage />} />
       <Route path={"/reset/confirm/"} element={<ConfirmResetPassword />} />
-
+      <Route path={"book/:book_slug"} element={<BookHomePage />} />
+      
       {/* IELTS Tests */}
       <Route path={"/ieltstest"}>
-        <Route path={"book/:book_slug"} element={<BookHomePage />} />
         <Route path={":module_slug"} element={<ModuleHomePage />} />
         <Route path="attempt" element={<PrivateRoutes />}>
           {/* Full Test */}
