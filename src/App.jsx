@@ -16,7 +16,7 @@ export const ErrorContext = createContext();
 import TagManager from "react-gtm-module";
 
 const tagManagerArgs = {
-  gtmId: "GTM-PXNGMCKR",
+  gtmId: "G-SEK66NGL7R",
 };
 
 TagManager.initialize(tagManagerArgs);
