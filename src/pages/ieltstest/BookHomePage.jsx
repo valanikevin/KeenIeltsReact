@@ -98,7 +98,9 @@ const BookHomePage = () => {
             <Col xs={12} className="mb-2  text-md-start">
               <span className="text-white">
                 <FiUpload className="text-white-50" />
-                <span className="px-2 text-capitalize">EEC India</span>
+                <span className="px-2 text-capitalize">
+                  {book.institute.name}
+                </span>
               </span>
             </Col>
 
