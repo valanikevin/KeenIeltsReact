@@ -13,14 +13,6 @@ import TestTypeState from "./context/layout/TestTypeState";
 import CustomAlert from "./components/layout/CustomAlert";
 export const ErrorContext = createContext();
 
-import TagManager from "react-gtm-module";
-
-const tagManagerArgs = {
-  gtmId: "G-SEK66NGL7R",
-};
-
-TagManager.initialize(tagManagerArgs);
-
 function App() {
   const compose = (providers) =>
     providers.reduce((Prev, Curr) => ({ children }) => (
