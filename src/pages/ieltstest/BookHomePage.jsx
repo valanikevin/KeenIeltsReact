@@ -138,8 +138,8 @@ const BookHomePage = () => {
             <Col lg={4} md={12} sm={12} className="mt-n10 mb-9 mb-lg-0">
               {/* Card */}
               <Card className=" mb-4">
-                <div className="p-1">
-                  <img src={book.cover} className="w-100" />
+                <div className="p-1 ">
+                  <img src={book.cover} className="w-100 border-bottom" />
                 </div>
 
                 {/* Card body */}
