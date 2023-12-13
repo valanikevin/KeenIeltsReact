@@ -71,9 +71,11 @@ const BookHomePage = () => {
   }
 
   useEffect(() => {
-    getBook();
-    if (user) {
-      getAttempts();
+    if (testType) {
+      getBook();
+      if (user) {
+        getAttempts();
+      }
     }
   }, [testType]);
 
