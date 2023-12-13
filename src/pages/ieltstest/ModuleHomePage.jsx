@@ -64,9 +64,9 @@ const ModuleHomePage = () => {
         briefinfo={module_data[module_slug].page_description}
         color={`bg-${module_slug}`}
       />
-      {(module_slug == "reading" ||
-        module_slug == "writing" ||
-        module_slug == "fulltest") && <TestTypeSwitch />}
+      <div className="border-bottom">
+        <TestTypeSwitch />
+      </div>
       <Container className="p-3 app">
         <Row>
           {books.map((book) => (

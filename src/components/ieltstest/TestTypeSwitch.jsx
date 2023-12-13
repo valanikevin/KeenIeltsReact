@@ -6,7 +6,7 @@ const TestTypeSwitch = () => {
   const [testType, setTestType] = useContext(TestTypeContext);
 
   return (
-    <div className="bg-white py-2 border-bottom">
+    <div className="bg-white py-2 ">
       <Container className="text-center">
         <div className="">
           <ButtonGroup aria-label="Basic mixed styles example">

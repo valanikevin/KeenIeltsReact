@@ -21,6 +21,8 @@ import YourRecentTestsCard from "../../components/layout/student/YourRecentTests
 import AuthContext from "../../context/AuthContext";
 import useGetSmartTest from "../../components/ieltstest/GetSmartTest";
 import BookHomePageLoader from "../../components/layout/BookHomePage/BookHomePageLoader";
+import TestTypeSwitch from "../../components/ieltstest/TestTypeSwitch";
+import TestTypeContext from "../../context/TestTypeContext";
 
 const BookHomePage = () => {
   const book_slug = useParams().book_slug;
@@ -28,6 +30,7 @@ const BookHomePage = () => {
   const [attempts, setAttempts] = useState(null);
   const api_public = usePublicAxios();
   const api = useAxios();
+  const [testType, setTestType] = useContext(TestTypeContext);
   let { registerUser, registrationError, user } = useContext(AuthContext);
   const getSmartTest = useGetSmartTest();
 
@@ -39,13 +42,20 @@ const BookHomePage = () => {
   }, [book]);
 
   function getBook() {
-    api_public.get("ieltstest/book/" + book_slug + "/").then((response) => {
-      if (response.status === 200) {
-        setBook(response.data);
-      } else {
-        console.log(response);
-      }
-    });
+    api_public
+      .get("ieltstest/book/" + book_slug + "/", {
+        params: {
+          // Use the `params` key to include query parameters
+          testType: testType,
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          setBook(response.data);
+        } else {
+          console.log(response);
+        }
+      });
   }
 
   function getAttempts() {
@@ -65,7 +75,7 @@ const BookHomePage = () => {
     if (user) {
       getAttempts();
     }
-  }, []);
+  }, [testType]);
 
   if (!book || (user && !attempts)) {
     return <BookHomePageLoader />;
@@ -93,6 +103,7 @@ const BookHomePage = () => {
               </div>
             </Col>
           </Row>
+
           <Row className="gy-3 gy-lg-0">
             {/* Adjust column sizes and add gutters */}
             <Col xs={12} className="mb-2  text-md-start">
@@ -126,14 +137,19 @@ const BookHomePage = () => {
           <Row>
             <Col lg={4} md={12} sm={12} className="mt-n10 mb-9 mb-lg-0">
               {/* Card */}
-              <Card className="mb-3 mb-4">
+              <Card className=" mb-4">
                 <div className="p-1">
                   <img src={book.cover} className="w-100" />
                 </div>
 
                 {/* Card body */}
-                <Card.Body>
-                  <div className="d-grid">
+                <Card.Body className="py-2">
+                  <div className="  ">
+                    <TestTypeSwitch />
+                  </div>
+                </Card.Body>
+                <Card.Footer>
+                  <div className="d-grid ">
                     <Button
                       className="btn btn-primary mb-2"
                       onClick={() => {
@@ -143,7 +159,7 @@ const BookHomePage = () => {
                       Start Full Test
                     </Button>
                   </div>
-                </Card.Body>
+                </Card.Footer>
               </Card>
             </Col>
             <Col lg={8} md={12} sm={12} className="mt-n10 mb-4 mb-lg-0">
