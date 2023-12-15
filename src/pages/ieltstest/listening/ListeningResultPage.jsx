@@ -17,6 +17,8 @@ import WhatsNextCard from "../../../components/ieltstest/WhatsNextCard";
 import StartPracticeTestCard from "../../../components/ieltstest/StartPracticeTestCard";
 import CommentsCard from "../../../components/CommentsCard";
 
+const module_type = "listening";
+
 const ListeningResultPage = () => {
   const api = useAxios();
   const api1 = useAxiosWithoutLoader();
@@ -185,7 +187,7 @@ const ListeningResultPage = () => {
             </Col>
 
             <Col xl={8} lg={10} md={12} className="mb-3">
-              <CommentsCard unique_id={"test123"} />
+              <CommentsCard unique_id={`${module_type}-${module_slug}`} />
             </Col>
           </Row>
         </Container>

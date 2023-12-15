@@ -12,6 +12,8 @@ const BaseForm = ({
   validation_schema,
   nonFieldErrors,
   successMessage = "Form submitted successfully!",
+  resetForm = false,
+  showSuccessMessage = true,
 }) => {
   const [loadingBar, setLoadingBar] = useContext(LoadingContext);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
@@ -22,11 +24,18 @@ const BaseForm = ({
     return values;
   }, {});
 
-  const handleSuccess = () => {
-    setShowSuccessAlert(true);
-    setTimeout(() => {
-      setShowSuccessAlert(false);
-    }, 5000);
+  const handleSuccess = (formikReset) => {
+    if (resetForm) {
+      formikReset();
+    }
+
+    if (showSuccessMessage) {
+      setShowSuccessAlert(true);
+      setTimeout(() => {
+        setShowSuccessAlert(false);
+        // Check if resetForm prop is true and reset the form
+      }, 5000);
+    }
   };
 
   return (
@@ -50,10 +59,10 @@ const BaseForm = ({
       )}
       <Formik
         initialValues={initialValues}
-        onSubmit={async (values, { setSubmitting }) => {
+        onSubmit={async (values, { setSubmitting, resetForm: formikReset }) => {
           setLoadingBar(true);
           try {
-            await on_submit(values, handleSuccess);
+            await on_submit(values, () => handleSuccess(formikReset));
           } catch (error) {
             console.error(error);
           } finally {
@@ -62,7 +71,7 @@ const BaseForm = ({
           }
         }}
         validationSchema={validation_schema}
-        enableReinitialize // This line is important
+        enableReinitialize
       >
         {({ errors, touched, isValid, dirty }) => (
           <FormikForm>

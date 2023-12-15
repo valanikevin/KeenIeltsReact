@@ -98,9 +98,11 @@ const CommentsCard = ({ unique_id }) => {
             successMessage="Your comment has been added successfully"
             validation_schema={CommentsSchema}
             on_submit={addComment}
+            resetForm={true}
+            showSuccessMessage={false}
           />
         </Card.Body>
-        {comments &&
+        {comments ? (
           comments.map((comment) => (
             <Card.Body className="border-bottom">
               <Row className="d-flex justify-content-between">
@@ -113,7 +115,12 @@ const CommentsCard = ({ unique_id }) => {
                 </Col>
               </Row>
             </Card.Body>
-          ))}
+          ))
+        ) : (
+          <Card.Footer className="pt-3 pb-2">
+            <h4 className="text-center">No comments yet!</h4>
+          </Card.Footer>
+        )}
       </Card>
     </>
   );
