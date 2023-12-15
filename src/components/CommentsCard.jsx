@@ -103,25 +103,27 @@ const CommentsCard = ({ unique_id, title = "Comments", description }) => {
             showSuccessMessage={false}
           />
         </Card.Body>
-        {comments ? (
-          comments.map((comment) => (
-            <Card.Body className="border-bottom">
-              <Row className="d-flex justify-content-between">
-                <Col xs={12}>
-                  <p className="mb-0">
-                    <span className="fw-bold">{comment.name}</span> •{" "}
-                    {comment.short_date}
-                  </p>
-                  <p className="mb-0">{comment.comment}</p>
-                </Col>
-              </Row>
-            </Card.Body>
-          ))
-        ) : (
-          <Card.Footer className="pt-4 pb-3">
-            <h4 className="text-center">No comments yet!</h4>
-          </Card.Footer>
-        )}
+        <div style={{ maxHeight: "300px", overflowY: "auto" }}>
+          {comments ? (
+            comments.map((comment) => (
+              <Card.Body className="border-bottom">
+                <Row className="d-flex justify-content-between">
+                  <Col xs={12}>
+                    <p className="mb-0">
+                      <span className="fw-bold">{comment.name}</span> •{" "}
+                      {comment.short_date}
+                    </p>
+                    <p className="mb-0">{comment.comment}</p>
+                  </Col>
+                </Row>
+              </Card.Body>
+            ))
+          ) : (
+            <Card.Footer className="pt-4 pb-3">
+              <h4 className="text-center">No comments yet!</h4>
+            </Card.Footer>
+          )}
+        </div>
       </Card>
     </>
   );
