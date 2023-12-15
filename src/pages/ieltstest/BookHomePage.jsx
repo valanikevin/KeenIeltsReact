@@ -23,6 +23,7 @@ import useGetSmartTest from "../../components/ieltstest/GetSmartTest";
 import BookHomePageLoader from "../../components/layout/BookHomePage/BookHomePageLoader";
 import TestTypeSwitch from "../../components/ieltstest/TestTypeSwitch";
 import TestTypeContext from "../../context/TestTypeContext";
+import CommentsCard from "../../components/CommentsCard";
 
 const BookHomePage = () => {
   const book_slug = useParams().book_slug;
@@ -165,103 +166,119 @@ const BookHomePage = () => {
               </Card>
             </Col>
             <Col lg={8} md={12} sm={12} className="mt-n10 mb-4 mb-lg-0">
-              <Tab.Container defaultActiveKey="tests">
-                <Card>
-                  <Nav className="nav-lb-tab">
-                    {["Tests", "Your Attempts"].map((item, index) => (
-                      <Nav.Item key={index}>
-                        <Nav.Link
-                          eventKey={item.toLowerCase()}
-                          className="mb-sm-3 mb-md-0"
-                        >
-                          {item}
-                        </Nav.Link>
-                      </Nav.Item>
-                    ))}
-                  </Nav>
-                  <Card.Body className="p-0">
-                    <Tab.Content>
-                      <Tab.Pane eventKey="tests" className="my-2">
-                        <Accordion defaultActiveKey={0} flush>
-                          {book.tests.map((item, index) => (
-                            <Accordion.Item eventKey={index} key={index}>
-                              <Accordion.Header className="">
-                                <span className="text-black fw-bold">
-                                  {item.name}
-                                </span>
-                              </Accordion.Header>
-                              <Accordion.Body className="p-0">
-                                <Table striped className="text-nowrap">
-                                  <tbody>
-                                    {modules_items.map((module, index) =>
-                                      item[module].map(
-                                        (module_item, moduleIndex) => (
-                                          <tr key={`${index}-${moduleIndex}`}>
-                                            <td>
-                                              <Stack
-                                                direction="horizontal"
-                                                gap={1}
+              <Row>
+                <Col xs={12}>
+                  <Tab.Container defaultActiveKey="tests">
+                    <Card>
+                      <Nav className="nav-lb-tab">
+                        {["Tests", "Your Attempts"].map((item, index) => (
+                          <Nav.Item key={index}>
+                            <Nav.Link
+                              eventKey={item.toLowerCase()}
+                              className="mb-sm-3 mb-md-0"
+                            >
+                              {item}
+                            </Nav.Link>
+                          </Nav.Item>
+                        ))}
+                      </Nav>
+                      <Card.Body className="p-0">
+                        <Tab.Content>
+                          <Tab.Pane eventKey="tests" className="my-2">
+                            <Accordion defaultActiveKey={0} flush>
+                              {book.tests.map((item, index) => (
+                                <Accordion.Item eventKey={index} key={index}>
+                                  <Accordion.Header className="">
+                                    <span className="text-black fw-bold">
+                                      {item.name}
+                                    </span>
+                                  </Accordion.Header>
+                                  <Accordion.Body className="p-0">
+                                    <Table striped className="text-nowrap">
+                                      <tbody>
+                                        {modules_items.map((module, index) =>
+                                          item[module].map(
+                                            (module_item, moduleIndex) => (
+                                              <tr
+                                                key={`${index}-${moduleIndex}`}
                                               >
-                                                <div>{module_item.name}</div>{" "}
-                                                {/* Replace this with actual data if needed */}
-                                                <div className="ms-auto">
-                                                  <Button
-                                                    className="btn-sm "
-                                                    variant={
-                                                      module.split("_")[0]
-                                                    }
-                                                    onClick={() => {
-                                                      getSmartTest(
-                                                        module.split("_")[0],
-                                                        book_slug,
-                                                        item.slug
-                                                      );
-                                                    }}
+                                                <td>
+                                                  <Stack
+                                                    direction="horizontal"
+                                                    gap={1}
                                                   >
-                                                    Start Test
-                                                  </Button>
-                                                </div>
-                                              </Stack>
-                                            </td>
-                                          </tr>
-                                        )
-                                      )
-                                    )}
-                                  </tbody>
-                                </Table>
-                              </Accordion.Body>
-                            </Accordion.Item>
-                          ))}
-                        </Accordion>
-                      </Tab.Pane>
+                                                    <div>
+                                                      {module_item.name}
+                                                    </div>{" "}
+                                                    {/* Replace this with actual data if needed */}
+                                                    <div className="ms-auto">
+                                                      <Button
+                                                        className="btn-sm "
+                                                        variant={
+                                                          module.split("_")[0]
+                                                        }
+                                                        onClick={() => {
+                                                          getSmartTest(
+                                                            module.split(
+                                                              "_"
+                                                            )[0],
+                                                            book_slug,
+                                                            item.slug
+                                                          );
+                                                        }}
+                                                      >
+                                                        Start Test
+                                                      </Button>
+                                                    </div>
+                                                  </Stack>
+                                                </td>
+                                              </tr>
+                                            )
+                                          )
+                                        )}
+                                      </tbody>
+                                    </Table>
+                                  </Accordion.Body>
+                                </Accordion.Item>
+                              ))}
+                            </Accordion>
+                          </Tab.Pane>
 
-                      <Tab.Pane eventKey="your attempts" className="my-2">
-                        {user ? (
-                          <YourRecentTestsCard tests={attempts} />
-                        ) : (
-                          <div className="text-center p-4">
-                            <h3>
-                              Please sign in or create an account to view your
-                              test attempts.
-                            </h3>
-                            <div className="mt-3">
-                              <Link to="/login/" className="btn btn-primary ">
-                                Sign in
-                              </Link>
-                              <Link
-                                to="/register/"
-                                className="btn btn-outline-primary  ms-2"
-                              >
-                                Create Account
-                              </Link>
-                            </div>
-                          </div>
-                        )}
-                      </Tab.Pane>
-                    </Tab.Content>
-                  </Card.Body>
-                </Card>
-              </Tab.Container>
+                          <Tab.Pane eventKey="your attempts" className="my-2">
+                            {user ? (
+                              <YourRecentTestsCard tests={attempts} />
+                            ) : (
+                              <div className="text-center p-4">
+                                <h3>
+                                  Please sign in or create an account to view
+                                  your test attempts.
+                                </h3>
+                                <div className="mt-3">
+                                  <Link
+                                    to="/login/"
+                                    className="btn btn-primary "
+                                  >
+                                    Sign in
+                                  </Link>
+                                  <Link
+                                    to="/register/"
+                                    className="btn btn-outline-primary  ms-2"
+                                  >
+                                    Create Account
+                                  </Link>
+                                </div>
+                              </div>
+                            )}
+                          </Tab.Pane>
+                        </Tab.Content>
+                      </Card.Body>
+                    </Card>
+                  </Tab.Container>
+                </Col>
+                <Col xs={12} className="my-3">
+                  <CommentsCard unique_id={`book-${book_slug}`} />
+                </Col>
+              </Row>
             </Col>
           </Row>
         </Container>

@@ -14,7 +14,7 @@ import useAxios from "../utils/useAxios";
 import BaseForm from "./layout/BaseForm";
 import { DJANGO_BASE_URL } from "../utils/config";
 
-const CommentsCard = ({ unique_id }) => {
+const CommentsCard = ({ unique_id, title = "Comments", description }) => {
   const [error, setError] = useState(null);
   const [comments, setComments] = useState(null);
 
@@ -83,7 +83,7 @@ const CommentsCard = ({ unique_id }) => {
         <Card.Header>
           <Stack direction="horizontal" gap={3}>
             <div>
-              <h3 className="mt-2 fw-bold">Comments</h3>
+              <h3 className="mt-2 fw-bold">{title}</h3>
             </div>
             <div className="ms-auto">
               <FiMessageCircle size={25} className="text-black" />
@@ -91,6 +91,7 @@ const CommentsCard = ({ unique_id }) => {
           </Stack>
         </Card.Header>
         <Card.Body className="border-bottom">
+          {description && <p>{description}</p>}
           <BaseForm
             form_fields={form_fields}
             form_schema={CommentsSchema}
@@ -117,7 +118,7 @@ const CommentsCard = ({ unique_id }) => {
             </Card.Body>
           ))
         ) : (
-          <Card.Footer className="pt-3 pb-2">
+          <Card.Footer className="pt-4 pb-3">
             <h4 className="text-center">No comments yet!</h4>
           </Card.Footer>
         )}

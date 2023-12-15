@@ -25,6 +25,8 @@ import YourPerformanceCard from "../../components/layout/student/YourPerformance
 import YourRecentTestsCard from "../../components/layout/student/YourRecentTestsCard";
 import DashboardLoader from "../../components/ieltstest/DashboardLoader";
 import StartPracticeTestCard from "../../components/ieltstest/StartPracticeTestCard";
+import CommentsCard from "../../components/CommentsCard";
+import DashboardCommunityChat from "../../components/DashboardCommunityChat";
 
 const DashboardPage = () => {
   useEffect(() => {
@@ -170,6 +172,10 @@ const DashboardPage = () => {
               <YourRecentTestsCard tests={overallPerformance.recent_tests} />
             </Card.Body>
           </Card>
+
+          <div className="my-3">
+            <DashboardCommunityChat />
+          </div>
 
           <div className="my-3">
             <AccountSettingForm />
