@@ -102,7 +102,7 @@ const ReadingResultPage = () => {
       <div className="my-4">
         <Container>
           <Row className="justify-content-center">
-            <Col xl={8} lg={10} md={12} className="mt-3 mb-3">
+            <Col xl={10} lg={12} md={12} className="mt-3 mb-3">
               <OverallBandsCard
                 bands={attempt.bands}
                 description={attempt.bands_description}
@@ -146,16 +146,16 @@ const ReadingResultPage = () => {
             </Col>
 
             {attempt.full_test_next_attempt && (
-              <Col xl={8} lg={10} md={12} className="my-3">
+              <Col xl={10} lg={12} md={12} className="my-3">
                 <FullTestNextModule attempt={attempt} />
               </Col>
             )}
-            
-            <Col xl={8} lg={10} md={12} className="my-3">
+
+            <Col xl={10} lg={12} md={12} className="my-3">
               <WhatsNextCard />
             </Col>
 
-            <Col xl={8} lg={10} md={12} className="mb-3">
+            <Col xl={10} lg={12} md={12} className="mb-3">
               <StartPracticeTestCard />
             </Col>
           </Row>

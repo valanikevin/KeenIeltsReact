@@ -75,7 +75,20 @@ const BaseForm = ({
                 key={field.id}
               >
                 <Form.Label htmlFor={field.id}>{field.label}</Form.Label>
-                {field.type !== "select" ? (
+                {field.type === "textarea" ? (
+                  <Field
+                    as="textarea"
+                    id={field.id}
+                    name={field.id}
+                    placeholder={field.placeholder}
+                    className="form-control"
+                    isInvalid={
+                      (errors[field.id] && touched[field.id]) ||
+                      (serverErrors && serverErrors[field.id])
+                    }
+                    disabled={field.disabled}
+                  />
+                ) : field.type !== "select" ? (
                   <Field
                     as={Form.Control}
                     type={field.type}

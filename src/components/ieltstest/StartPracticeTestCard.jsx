@@ -1,6 +1,6 @@
 import React from "react";
-import { Card, Row, Col, Button } from "react-bootstrap";
-import { FiArrowRight } from "react-icons/fi";
+import { Card, Row, Col, Button, Stack } from "react-bootstrap";
+import { FiArrowRight, FiHome } from "react-icons/fi";
 import useAxios from "../../utils/useAxios";
 import { DJANGO_BASE_URL } from "../../utils/config";
 import { useNavigate } from "react-router-dom";
@@ -76,8 +76,14 @@ const StartPracticeTestCard = () => {
                 key={index}
                 onClick={() => startTest(item.slug)}
                 className="w-100 my-2"
+                variant="outline-primary"
               >
-                {item.menuitem} Test <FiArrowRight size={18} />
+                <Stack direction="horizontal" gap={1}>
+                  <div>{item.menuitem} Test</div>
+                  <div className="ms-auto">
+                    <FiArrowRight size={18} />
+                  </div>
+                </Stack>
               </Button>
             </Col>
           ))}

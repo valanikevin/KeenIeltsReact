@@ -15,6 +15,7 @@ import FullTestInfoPage from "../fulltest/FullTestInfoPage";
 import FullTestNextModule from "../../../components/ieltstest/FullTestNextModule";
 import WhatsNextCard from "../../../components/ieltstest/WhatsNextCard";
 import StartPracticeTestCard from "../../../components/ieltstest/StartPracticeTestCard";
+import CommentsCard from "../../../components/CommentsCard";
 
 const ListeningResultPage = () => {
   const api = useAxios();
@@ -181,6 +182,10 @@ const ListeningResultPage = () => {
 
             <Col xl={8} lg={10} md={12} className="mb-3">
               <StartPracticeTestCard />
+            </Col>
+
+            <Col xl={8} lg={10} md={12} className="mb-3">
+              <CommentsCard unique_id={"test123"} />
             </Col>
           </Row>
         </Container>
