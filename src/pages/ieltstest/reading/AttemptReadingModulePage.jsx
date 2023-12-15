@@ -25,7 +25,6 @@ import { FiArrowLeft, FiArrowRight, FiCheckCircle } from "react-icons/fi";
 import BookInfo from "../../../components/ieltstest/listening/BookInfo";
 import CustomSplitPane from "../../../components/layout/CustomSplitPane";
 
-
 const AttemptReadingModulePage = () => {
   const [deviceType, setDeviceType] = useState("desktop");
   const [isFooterExpanded, setFooterExpanded] = useState(false);
@@ -205,24 +204,30 @@ const AttemptReadingModulePage = () => {
       attempt_type: attempt_type,
     };
 
-    const response = api.post(
+    return api.post(
       "/ieltstest/update_attempt/reading/" + attempt_slug + "/",
       data
     );
-    if (response.status === 200) {
-      console.log("Attempt Updated");
-    }
   }
 
   function endTest() {
     handleShowModal();
   }
+  
   function handleConfirmEndTest() {
     getFormDataLocal();
-    sendAttemptUpdate("Completed");
-    navigate(
-      `/ieltstest/attempt/reading/${module_slug}/${attempt_slug}/get_result`
-    );
+    sendAttemptUpdate("Completed")
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("Attempt Updated");
+          navigate(
+            `/ieltstest/attempt/reading/${module_slug}/${attempt_slug}/get_result`
+          );
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating attempt: ", error);
+      });
     handleClosSubmiteModal();
   }
 

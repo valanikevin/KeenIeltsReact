@@ -44,34 +44,6 @@ const SpeakingResultPage = () => {
     : false;
   const api = useAxios();
 
-  function handlePreviousSectionButton() {
-    let current_section_id = currentSection.id;
-    let new_section_id = current_section_id - 1;
-    const newSection = module.sections.find(
-      (section) => section.id === new_section_id
-    );
-    if (newSection) {
-      setCurrentSection(newSection);
-    } else {
-      const lastElement = module.sections[module.sections.length - 1];
-      setCurrentSection(lastElement);
-    }
-  }
-
-  function handleNextSectionButton() {
-    let current_section_id = currentSection.id;
-    let new_section_id = current_section_id + 1;
-    const newSection = module.sections.find(
-      (section) => section.id === new_section_id
-    );
-    if (newSection) {
-      setCurrentSection(newSection);
-    } else {
-      const lastElement = module.sections[0];
-      setCurrentSection(lastElement);
-    }
-  }
-
   async function getAttempt() {
     const response = await api.post(
       API_URLS.getSpeakingAttempt + attempt_slug + "/"
@@ -244,7 +216,7 @@ const SpeakingResultPage = () => {
               </Card.Body>
             </Card>
           </Col>
-          
+
           {attempt.full_test_next_attempt && (
             <Col xl={8} lg={10} md={12} className="my-3">
               <FullTestNextModule attempt={attempt} />

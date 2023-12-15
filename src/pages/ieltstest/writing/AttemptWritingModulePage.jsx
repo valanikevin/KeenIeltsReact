@@ -70,21 +70,26 @@ const AttemptWritingModulePage = () => {
       attempt_type: attempt_type,
     };
 
-    const response = api.post(
+    return api.post(
       "/ieltstest/update_attempt/writing/" + attempt_slug + "/",
       data
     );
-    if (response.status === 200) {
-      console.log("Attempt Updated");
-    }
   }
-
+  
   function handleConfirmEndTest() {
     getFormDataLocal();
-    sendAttemptUpdate("Completed");
-    navigate(
-      `/ieltstest/attempt/writing/${module_slug}/${attempt_slug}/get_result`
-    );
+    sendAttemptUpdate("Completed")
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("Attempt Updated");
+          navigate(
+            `/ieltstest/attempt/writing/${module_slug}/${attempt_slug}/get_result`
+          );
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating attempt: ", error);
+      });
     handleClosSubmiteModal();
   }
 

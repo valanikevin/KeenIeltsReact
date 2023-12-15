@@ -48,7 +48,7 @@ const ListeningResultPage = () => {
   useEffect(() => {
     getAttempt();
     getModule();
-  }, [loadingBar]);
+  }, []);
 
   useEffect(() => {
     document.title = "Listening Test Result  | KeenIELTS";

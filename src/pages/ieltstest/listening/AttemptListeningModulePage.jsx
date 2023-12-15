@@ -72,13 +72,10 @@ const AttemptListeningModulePage = () => {
       attempt_type: attempt_type,
     };
 
-    const response = api.post(
+    return api.post(
       "/ieltstest/update_attempt/listening/" + attempt_slug + "/",
       data
     );
-    if (response.status === 200) {
-      console.log("Attempt Updated");
-    }
   }
 
   function scrollToElement(elementId) {
@@ -109,12 +106,21 @@ const AttemptListeningModulePage = () => {
   function endTest() {
     handleShowModal();
   }
+
   function handleConfirmEndTest() {
     getFormDataLocal();
-    sendAttemptUpdate("Completed");
-    navigate(
-      `/ieltstest/attempt/listening/${module_slug}/${attempt_slug}/get_result`
-    );
+    sendAttemptUpdate("Completed")
+      .then((response) => {
+        if (response.status === 200) {
+          console.log("Attempt Updated");
+          navigate(
+            `/ieltstest/attempt/listening/${module_slug}/${attempt_slug}/get_result`
+          );
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating attempt: ", error);
+      });
     handleCloseModal();
   }
 
