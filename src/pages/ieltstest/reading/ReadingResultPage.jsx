@@ -15,6 +15,9 @@ import FullTestNextModule from "../../../components/ieltstest/FullTestNextModule
 import CustomSplitPane from "../../../components/layout/CustomSplitPane";
 import WhatsNextCard from "../../../components/ieltstest/WhatsNextCard";
 import StartPracticeTestCard from "../../../components/ieltstest/StartPracticeTestCard";
+import CommentsCard from "../../../components/CommentsCard";
+
+const module_type = "reading";
 
 const ReadingResultPage = () => {
   const api = useAxios();
@@ -157,6 +160,10 @@ const ReadingResultPage = () => {
 
             <Col xl={10} lg={12} md={12} className="mb-3">
               <StartPracticeTestCard />
+            </Col>
+
+            <Col xl={8} lg={10} md={12} className="mb-3">
+              <CommentsCard unique_id={`${module_type}-${module_slug}`} />
             </Col>
           </Row>
         </Container>
