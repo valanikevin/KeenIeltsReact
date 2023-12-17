@@ -2,7 +2,10 @@ import React from "react";
 import { Card, ListGroup, Stack, Badge } from "react-bootstrap";
 import parse from "html-react-parser";
 
-const YourPerformanceCard = ({ overallPerformance }) => {
+const YourPerformanceCard = ({
+  overallPerformance,
+  overallPerformanceFeedback,
+}) => {
   const performanceBands = {
     overall: parseFloat(
       overallPerformance["average_score"].overall.average_bands
@@ -63,14 +66,15 @@ const YourPerformanceCard = ({ overallPerformance }) => {
           </ListGroup.Item>
         </ListGroup>
       </Card.Body>
-      {overallPerformance["overall_feedback"] && (
-        <Card.Footer>
-          <p className="fw-bold">
-            Updated: {overallPerformance["overall_feedback_date"]}
-          </p>
-          <p>{parse(overallPerformance["overall_feedback"])}</p>
-        </Card.Footer>
-      )}
+      {overallPerformanceFeedback &&
+        overallPerformanceFeedback["overall_feedback"] && (
+          <Card.Footer>
+            <p className="fw-bold">
+              Updated: {overallPerformanceFeedback["overall_feedback_date"]}
+            </p>
+            <p>{parse(overallPerformanceFeedback["overall_feedback"])}</p>
+          </Card.Footer>
+        )}
     </Card>
   );
 };

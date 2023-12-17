@@ -27,6 +27,7 @@ import DashboardLoader from "../../components/ieltstest/DashboardLoader";
 import StartPracticeTestCard from "../../components/ieltstest/StartPracticeTestCard";
 import CommentsCard from "../../components/CommentsCard";
 import DashboardCommunityChat from "../../components/DashboardCommunityChat";
+import SkeletonLoader from "../../components/elements/skeleton/SkeletonLoader";
 
 const DashboardPage = () => {
   useEffect(() => {
@@ -37,6 +38,8 @@ const DashboardPage = () => {
   const navigate = useNavigate();
   const api = useAxios();
   const [overallPerformance, setOverallPerformance] = useState(null);
+  const [overallPerformanceFeedback, setOverallPerformanceFeedback] =
+    useState(null);
   const [userData, setUserData] = useState(null);
 
   function getOverallPerformance() {
@@ -44,6 +47,14 @@ const DashboardPage = () => {
       .post(DJANGO_BASE_URL + "/student/overall_performance/")
       .then((response) => {
         setOverallPerformance(response.data);
+      });
+  }
+
+  function getOverallPerformanceFeedback() {
+    api
+      .post(DJANGO_BASE_URL + "/student/overall_performance_feedback/")
+      .then((response) => {
+        setOverallPerformanceFeedback(response.data);
       });
   }
 
@@ -60,6 +71,7 @@ const DashboardPage = () => {
   useEffect(() => {
     getUserDetails();
     getOverallPerformance();
+    getOverallPerformanceFeedback();
   }, []);
 
   useEffect(() => {
@@ -142,7 +154,17 @@ const DashboardPage = () => {
         <Col sm={12} lg={6} className="">
           <StartPracticeTestCard />
 
-          <YourPerformanceCard overallPerformance={overallPerformance} />
+          <YourPerformanceCard
+            overallPerformance={overallPerformance}
+            overallPerformanceFeedback={overallPerformanceFeedback}
+          />
+
+          {(overallPerformanceFeedback == null ||
+            overallPerformanceFeedback["overall_feedback"] == null) && (
+            <div className="mb-3">
+              <SkeletonLoader title={"Performance Feedback"} />
+            </div>
+          )}
         </Col>
         <Col sm={12} lg={6}>
           <Card className="mb-2 ">
