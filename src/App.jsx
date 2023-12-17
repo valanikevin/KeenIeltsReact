@@ -11,8 +11,7 @@ import AllRoutes from "./AllRoutes";
 import ScrollToTop from "./utils/ScrollToTop";
 import TestTypeState from "./context/layout/TestTypeState";
 import CustomAlert from "./components/layout/CustomAlert";
-export const ErrorContext = createContext();
-
+import ErrorState from "./context/layout/ErrorState";
 
 function App() {
   const compose = (providers) =>
@@ -33,6 +32,7 @@ function App() {
 
   const GlobalProvider = compose([
     NotificationState,
+    ErrorState,
     LoadingState,
     AuthProvider,
     TestTypeState,

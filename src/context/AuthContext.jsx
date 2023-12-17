@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
   const [loadingBar, setLoadingBar] = useContext(LoadingContext);
   const [registrationError, setRegistrationError] = useState(null);
   const [loginError, setLoginError] = useState(null);
+
   const [user, setUser] = useState(() =>
     localStorage.getItem("user")
       ? JSON.parse(localStorage.getItem("user"))

@@ -105,8 +105,8 @@ const CommentsCard = ({ unique_id, title = "Comments", description }) => {
         </Card.Body>
         <div style={{ maxHeight: "300px", overflowY: "auto" }}>
           {comments ? (
-            comments.map((comment) => (
-              <Card.Body className="border-bottom">
+            comments.map((comment, index) => (
+              <Card.Body className="border-bottom" key={index}>
                 <Row className="d-flex justify-content-between">
                   <Col xs={12}>
                     <p className="mb-0">

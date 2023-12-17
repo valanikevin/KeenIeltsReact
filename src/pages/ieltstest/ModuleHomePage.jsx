@@ -23,8 +23,9 @@ const ModuleHomePage = () => {
     api = usePublicAxios();
   }
   const { module_slug } = useParams();
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState(null);
   const [testType, setTestType] = useContext(TestTypeContext);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     if (testType) {
@@ -50,6 +51,20 @@ const ModuleHomePage = () => {
     }
   };
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredBooks =
+    books &&
+    books.filter((book) => {
+      const bookWords = book.name.toLowerCase().split(/\s+/);
+      const searchWords = searchQuery.toLowerCase().split(/\s+/);
+      return searchWords.every((searchWord) =>
+        bookWords.some((bookWord) => bookWord.includes(searchWord))
+      );
+    });
+
   useEffect(() => {
     document.title = module_data[module_slug].page_title + " | KeenIELTS";
   }, []);
@@ -64,12 +79,26 @@ const ModuleHomePage = () => {
         briefinfo={module_data[module_slug].page_description}
         color={`bg-${module_slug}`}
       />
-      <div className="border-bottom">
-        <TestTypeSwitch />
+      <div className="border-bottom bg-white">
+        <Container>
+          <Stack direction="horizontal" gap={2}>
+            <div className="">
+              <TestTypeSwitch />
+            </div>
+            <div className="ms-auto w-100">
+              <input
+                type="text"
+                className="form-control w-100"
+                placeholder="Search Books"
+                onChange={handleSearchChange}
+              />
+            </div>
+          </Stack>
+        </Container>
       </div>
       <Container className="p-3 app">
         <Row>
-          {books.map((book) => (
+          {filteredBooks.map((book) => (
             <Col xs={12} md={4} lg={3} key={book.slug}>
               <BookCard
                 test_type={`${module_slug} test`}
@@ -83,6 +112,11 @@ const ModuleHomePage = () => {
               />
             </Col>
           ))}
+          {books && filteredBooks.length === 0 && (
+            <Col xs={12} className="text-center">
+              <h1>No Books Found</h1>
+            </Col>
+          )}
         </Row>
       </Container>
     </div>
@@ -100,21 +134,21 @@ const module_data = {
     title: "Reading Test",
     page_title: "Reading Books",
     page_description:
-      "Improve your English reading skills by practicing with mock tests that closely resemble the actual IELTS listening tests.",
+      "Improve your English reading skills by practicing with mock tests that closely resemble the actual IELTS reading tests.",
     api_url: "/ieltstest/reading/",
   },
   writing: {
     title: "Writing Test",
     page_title: "Writing Books",
     page_description:
-      "Improve your English writing skills by practicing with mock tests that closely resemble the actual IELTS listening tests.",
+      "Improve your English writing skills by practicing with mock tests that closely resemble the actual IELTS writing tests.",
     api_url: "/ieltstest/writing/",
   },
   speaking: {
     title: "Speaking Test",
     page_title: "Speaking Books",
     page_description:
-      "Improve your English speaking skills by practicing with mock tests that closely resemble the actual IELTS listening tests.",
+      "Improve your English speaking skills by practicing with mock tests that closely resemble the actual IELTS speaking tests.",
     api_url: "/ieltstest/speaking/",
   },
   fulltest: {

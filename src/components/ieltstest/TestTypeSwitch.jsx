@@ -1,15 +1,33 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Container, Button, ButtonGroup } from "react-bootstrap";
 import TestTypeContext from "../../context/TestTypeContext";
 
 const TestTypeSwitch = () => {
   const [testType, setTestType] = useContext(TestTypeContext);
+  const [deviceType, setDeviceType] = useState("desktop");
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setDeviceType("mobile");
+      } else {
+        setDeviceType("desktop");
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
-    <div className="bg-white py-2 ">
-      <Container className="text-center">
+    <div className="bg-white py-2">
+      <Container className="text-center px-1">
         <div className="">
-          <ButtonGroup aria-label="Basic mixed styles example">
+          <ButtonGroup className="p-0 m-0">
             <Button
               variant="outline-dark"
               active={testType === "academic" ? true : false}
@@ -17,7 +35,7 @@ const TestTypeSwitch = () => {
                 setTestType("academic");
               }}
             >
-              Academic
+              {deviceType === "desktop" ? "Academic " : "AC"}
             </Button>
             <Button
               variant="outline-dark"
@@ -26,7 +44,7 @@ const TestTypeSwitch = () => {
                 setTestType("general");
               }}
             >
-              General
+              {deviceType === "desktop" ? "General " : "GT"}
             </Button>
           </ButtonGroup>
         </div>
