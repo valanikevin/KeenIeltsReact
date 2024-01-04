@@ -43,9 +43,17 @@ const AttemptSpeakingModulePage = () => {
   }, []);
 
   useEffect(() => {
-    if (isEndTest) {
-      if (userAllResponse["3"]["audio"]) {
-        handleConfirmEndTest(userAllResponse);
+    if (module) {
+      console.log("isEndTest", isEndTest);
+      console.log("userAllResponse", userAllResponse);
+      const last_section = module.sections[module.sections.length - 1];
+      if (isEndTest) {
+        if (
+          userAllResponse[last_section["id"]] &&
+          userAllResponse[last_section["id"]]["audio"]
+        ) {
+          handleConfirmEndTest(userAllResponse);
+        }
       }
     }
   }, [isEndTest, userAllResponse]);
