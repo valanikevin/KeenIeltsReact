@@ -240,13 +240,12 @@ const AttemptSpeakingModulePage = () => {
     );
 
     console.log("isUpdateSuccessful", isUpdateSuccessful);
-    // if (isUpdateSuccessful) {
-    //   window.location.href = `/ieltstest/attempt/speaking/${module_slug}/${attempt_slug}/completed`;
-    // } else {
-    //   console.error("Failed to update the attempt");
-    //   // Handle the error appropriately, perhaps show an error message to the user
-    // }
-    // Log the merged audio URL
+    if (isUpdateSuccessful) {
+      window.location.href = `/ieltstest/attempt/speaking/${module_slug}/${attempt_slug}/completed`;
+    } else {
+      console.error("Failed to update the attempt");
+      // Handle the error appropriately, perhaps show an error message to the user
+    }
 
     handleClosSubmiteModal();
   }
