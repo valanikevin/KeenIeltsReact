@@ -105,21 +105,28 @@ const AttemptSpeakingModulePage = () => {
 
     // Loop through user_responses
     for (const key in user_responses) {
-      const response = user_responses[key];
+      if (key === "merged_audio") {
+        console.log("Merged Audio", user_responses[key]);
+        const audioBuffer = user_responses[key];
+        const blob = new Blob([audioBuffer], { type: "audio/wav" });
+        formData.append(key, blob);
+      } else {
+        const response = user_responses[key];
 
-      // Convert the ArrayBuffer audio data to a Blob and add it to FormData
-      const audioBuffer = response.audio;
-      const blob = new Blob([audioBuffer], { type: "audio/wav" });
-      formData.append(`${key}`, blob);
+        // Convert the ArrayBuffer audio data to a Blob and add it to FormData
+        const audioBuffer = response.audio;
+        const blob = new Blob([audioBuffer], { type: "audio/wav" });
+        formData.append(`${key}`, blob);
 
-      // Loop through the rest of the keys in each response object
-      for (const nestedKey in response) {
-        if (nestedKey !== "audio") {
-          // Skip 'audio' as it's already added
-          formData.append(
-            `${key},${nestedKey}`,
-            JSON.stringify(response[nestedKey])
-          );
+        // Loop through the rest of the keys in each response object
+        for (const nestedKey in response) {
+          if (nestedKey !== "audio") {
+            // Skip 'audio' as it's already added
+            formData.append(
+              `${key},${nestedKey}`,
+              JSON.stringify(response[nestedKey])
+            );
+          }
         }
       }
     }
@@ -142,7 +149,6 @@ const AttemptSpeakingModulePage = () => {
       return false; // Indicate failure
     }
   }
-
   async function blobToBytes(blob) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -154,29 +160,76 @@ const AttemptSpeakingModulePage = () => {
     });
   }
 
+  async function mergeAudioBlobWithBytes(user_responses) {
+    let merge_audio_bytes = new Uint8Array();
+
+    for (const key in user_responses) {
+      if (user_responses[key].audio) {
+        const audioBlobUrl = user_responses[key].audio;
+        const blob = await fetch(audioBlobUrl).then((r) => r.blob());
+
+        const audioBytes = new Uint8Array(await blobToBytes(blob));
+
+        // Combine the current bytes with the merged bytes
+        let combined = new Uint8Array(
+          merge_audio_bytes.length + audioBytes.length
+        );
+        combined.set(merge_audio_bytes);
+        combined.set(audioBytes, merge_audio_bytes.length);
+
+        // Update the merged bytes
+        merge_audio_bytes = combined;
+      }
+    }
+
+    // Create a Blob from the merged bytes
+    const mergedAudioBlob = new Blob([merge_audio_bytes], {
+      type: "audio/wav",
+    });
+
+    const mergedAudioUrl = URL.createObjectURL(mergedAudioBlob);
+    const blob1 = await fetch(mergedAudioUrl).then((r) => r.blob());
+    const mergeAudioBytes = await blobToBytes(blob1);
+
+    // Store the Blob directly
+    user_responses = {
+      ...user_responses,
+      merged_audio: mergeAudioBytes,
+      // Store the Blob itself
+    };
+    return user_responses;
+  }
+
   async function replaceAudioBlobWithBytes(user_responses) {
     console.log("Inside replace audio");
 
     for (const key in user_responses) {
-      const audioBlobUrl = user_responses[key].audio;
+      if (key !== "merged_audio") {
+        const audioBlobUrl = user_responses[key].audio;
 
-      const blob = await fetch(audioBlobUrl).then((r) => r.blob());
+        const blob = await fetch(audioBlobUrl).then((r) => r.blob());
 
-      const audioBytes = await blobToBytes(blob);
+        const audioBytes = await blobToBytes(blob);
 
-      // This will replace the "audio" key with the new value, while keeping the rest of the properties the same.
-      user_responses[key] = {
-        ...user_responses[key],
-        audio: audioBytes,
-      };
+        // This will replace the "audio" key with the new value, while keeping the rest of the properties the same.
+        user_responses[key] = {
+          ...user_responses[key],
+          audio: audioBytes,
+        };
+      }
     }
     return user_responses;
   }
 
   async function handleConfirmEndTest(user_responses) {
     console.log("Handle Confirm End Test");
-    const updatedUserResponses = await replaceAudioBlobWithBytes(
+
+    const updatedUserResponsesMergedAudio = await mergeAudioBlobWithBytes(
       user_responses
+    );
+
+    const updatedUserResponses = await replaceAudioBlobWithBytes(
+      updatedUserResponsesMergedAudio
     );
 
     setShowLoader(true);
@@ -186,12 +239,14 @@ const AttemptSpeakingModulePage = () => {
       updatedUserResponses
     );
 
-    if (isUpdateSuccessful) {
-      window.location.href = `/ieltstest/attempt/speaking/${module_slug}/${attempt_slug}/get_result`;
-    } else {
-      console.error("Failed to update the attempt");
-      // Handle the error appropriately, perhaps show an error message to the user
-    }
+    console.log("isUpdateSuccessful", isUpdateSuccessful);
+    // if (isUpdateSuccessful) {
+    //   window.location.href = `/ieltstest/attempt/speaking/${module_slug}/${attempt_slug}/completed`;
+    // } else {
+    //   console.error("Failed to update the attempt");
+    //   // Handle the error appropriately, perhaps show an error message to the user
+    // }
+    // Log the merged audio URL
 
     handleClosSubmiteModal();
   }

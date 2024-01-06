@@ -22,6 +22,7 @@ import VerifyEmailPage from "./pages/base/VerifyEmailPage";
 import ResetPasswordPage from "./pages/base/ResetPasswordPage";
 import ConfirmResetPassword from "./pages/base/ConfirmResetPassword";
 import BookHomePage from "./pages/ieltstest/BookHomePage";
+import SpeakingCompletedPage from "./pages/ieltstest/speaking/SpeakingCompletedPage";
 
 const AllRoutes = () => {
   return (
@@ -42,7 +43,7 @@ const AllRoutes = () => {
       <Route path={"/reset"} element={<ResetPasswordPage />} />
       <Route path={"/reset/confirm/"} element={<ConfirmResetPassword />} />
       <Route path={"book/:book_slug"} element={<BookHomePage />} />
-      
+
       {/* IELTS Tests */}
       <Route path={"/ieltstest"}>
         <Route path={":module_slug"} element={<ModuleHomePage />} />
@@ -84,6 +85,11 @@ const AllRoutes = () => {
           <Route
             path="speaking/:module_slug/:attempt_slug"
             element={<AttemptSpeakingModulePage />}
+          />
+
+          <Route
+            path="speaking/:module_slug/:attempt_slug/completed"
+            element={<SpeakingCompletedPage />}
           />
 
           <Route
