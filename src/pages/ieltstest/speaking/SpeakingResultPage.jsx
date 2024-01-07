@@ -26,6 +26,7 @@ import FullTestNextModule from "../../../components/ieltstest/FullTestNextModule
 import StartPracticeTestCard from "../../../components/ieltstest/StartPracticeTestCard";
 import WhatsNextCard from "../../../components/ieltstest/WhatsNextCard";
 import CommentsCard from "../../../components/CommentsCard";
+import SpeakingResponsesCard from "../../../components/ieltstest/speaking/SpeakingResponsesCard";
 
 const module_type = "speaking";
 
@@ -35,8 +36,8 @@ const SpeakingResultPage = () => {
   const [module, setModule] = useState(null);
   const [evaluation, setEvaluation] = useState(null);
   const [currentAudioTime, setCurrentAudioTime] = useState(0.0);
+  const [deviceType, setDeviceType] = useState("desktop");
 
- 
   const api = useAxios();
 
   async function getAttempt() {
@@ -133,7 +134,6 @@ const SpeakingResultPage = () => {
           <Col xl={8} lg={10} md={12} className="mt-3">
             <SuggestionListCard
               title={"Test Suggestions"}
-    
               array={evaluation.grammar_vocabulary_fluency_accuracy_suggestions}
             />
           </Col>
@@ -151,63 +151,11 @@ const SpeakingResultPage = () => {
             </Card>
           </Col>
           <Col xl={8} lg={10} md={12} className="mt-3">
-            <Card>
-              <Card.Header>
-                {" "}
-                <h3 className="mt-2 fw-bold">Your Responses</h3>
-              </Card.Header>
-              <div className="mt-3">
-                <CustomAudioPlayer
-                  src={attempt.merged_audio}
-                  start_time={currentAudioTime}
-                />
-              </div>
-              <hr />
-              <Card.Body>
-                <Accordion>
-                  {module.sections.map((section, index) => (
-                    <Accordion.Item eventKey={index} key={index}>
-                      <Accordion.Header>
-                        <h4 className="mt-2 fw-bold">
-                          {section.section} Questions
-                        </h4>
-                      </Accordion.Header>
-                      <Accordion.Body className="">
-                        <div className="">
-                          <Table bordered striped responsive>
-                            <thead>
-                              <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Question Asked</th>
-                                <th scope="col">Play</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {section.questions.map((question, index) => (
-                                <tr key={index}>
-                                  <th scope="row">{index + 1}</th>
-                                  <td>{question.question}</td>
-                                  <td>
-                                    <FiPlayCircle
-                                      size={20}
-                                      onClick={() => {
-                                        setCurrentAudioTime(
-                                          attempt.merged_timestamps[question.id]
-                                        );
-                                      }}
-                                    />
-                                  </td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </Table>
-                        </div>
-                      </Accordion.Body>
-                    </Accordion.Item>
-                  ))}
-                </Accordion>
-              </Card.Body>
-            </Card>
+            <SpeakingResponsesCard
+              attempt={attempt}
+              currentAudioTime={currentAudioTime}
+              module={module}
+            />
           </Col>
 
           {attempt.full_test_next_attempt && (
