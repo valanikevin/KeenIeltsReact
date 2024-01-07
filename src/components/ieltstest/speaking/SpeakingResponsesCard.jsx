@@ -3,9 +3,10 @@ import { Accordion, Card, Table } from "react-bootstrap";
 import CustomAudioPlayer from "../../elements/audioplayer/CustomAudioPlayer";
 import { FiPlayCircle } from "react-icons/fi";
 
-const SpeakingResponsesCard = ({ attempt, currentAudioTime, module }) => {
+const SpeakingResponsesCard = ({ attempt, module }) => {
   const [currentAudioQuestionId, setCurrentAudioQuestionId] = useState(0);
   const [currentAudioQuestion, setCurrentAudioQuestion] = useState(null);
+    const [currentAudioTime, setCurrentAudioTime] = useState(0.0);
   const handleTimeUpdate = (currentTime) => {
     Object.entries(attempt.merged_timestamps).forEach(([key, value]) => {
       const timestamp = parseFloat(value);

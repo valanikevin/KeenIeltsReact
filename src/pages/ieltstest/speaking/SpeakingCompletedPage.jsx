@@ -27,7 +27,6 @@ const SpeakingCompletedPage = () => {
   const [attempt, setAttempt] = useState(null);
   const [module, setModule] = useState(null);
   const [evaluation, setEvaluation] = useState(null);
-  const [currentAudioTime, setCurrentAudioTime] = useState(0.0);
 
   const api = useAxios();
 
@@ -62,8 +61,6 @@ const SpeakingCompletedPage = () => {
       console.error("Unable to fetch attempt at ListeningResult.jsx");
     }
   }
-
-  
 
   useEffect(() => {
     getAttempt();
@@ -117,11 +114,7 @@ const SpeakingCompletedPage = () => {
           </Col>
 
           <Col xl={8} lg={10} md={12} className="mt-3">
-            <SpeakingResponsesCard
-              attempt={attempt}
-              currentAudioTime={currentAudioTime}
-              module={module}
-            />
+            <SpeakingResponsesCard attempt={attempt} module={module} />
           </Col>
 
           {attempt.full_test_next_attempt && (
