@@ -33,18 +33,10 @@ const SpeakingResultPage = () => {
   const { module_slug, attempt_slug } = useParams();
   const [attempt, setAttempt] = useState(null);
   const [module, setModule] = useState(null);
-  const [currentSection, setCurrentSection] = useState(null);
-  const [deviceType, setDeviceType] = useState("desktop");
-  const [loadingBar, setLoadingBar] = useContext(LoadingContext);
   const [evaluation, setEvaluation] = useState(null);
   const [currentAudioTime, setCurrentAudioTime] = useState(0.0);
 
-  const isFirstSection = currentSection
-    ? currentSection.id === module.sections[0].id
-    : false;
-  const isLastSection = currentSection
-    ? currentSection.id === module.sections[module.sections.length - 1].id
-    : false;
+ 
   const api = useAxios();
 
   async function getAttempt() {
@@ -64,7 +56,6 @@ const SpeakingResultPage = () => {
     );
     if (response.status === 200) {
       setModule(response.data);
-      setCurrentSection(response.data.sections[0]);
     }
   }
 
@@ -142,8 +133,7 @@ const SpeakingResultPage = () => {
           <Col xl={8} lg={10} md={12} className="mt-3">
             <SuggestionListCard
               title={"Test Suggestions"}
-              evaluation={evaluation}
-              currentSection={currentSection}
+    
               array={evaluation.grammar_vocabulary_fluency_accuracy_suggestions}
             />
           </Col>

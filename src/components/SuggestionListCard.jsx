@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Table } from "react-bootstrap";
 
-const SuggestionListCard = ({ title, evaluation, currentSection, array }) => {
+const SuggestionListCard = ({ title, array }) => {
   return (
     <Card>
       <Card.Header>

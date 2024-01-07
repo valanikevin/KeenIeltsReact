@@ -2,8 +2,17 @@ import React, { useRef, useEffect } from "react";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 
-const CustomAudioPlayer = ({ src, start_time, auto_play = false }) => {
+const CustomAudioPlayer = ({
+  src,
+  start_time,
+  auto_play = false,
+  handleTimeUpdate,
+}) => {
   const audioPlayerRef = useRef(); // Create a ref for the audio player
+
+  const handleListen = (event) => {
+    handleTimeUpdate(event.target.currentTime);
+  };
 
   useEffect(() => {
     if (audioPlayerRef.current) {
@@ -23,6 +32,7 @@ const CustomAudioPlayer = ({ src, start_time, auto_play = false }) => {
         customAdditionalControls={[]}
         customVolumeControls={[]}
         layout="horizontal-reverse"
+        onListen={handleListen}
       />
     </div>
   );
