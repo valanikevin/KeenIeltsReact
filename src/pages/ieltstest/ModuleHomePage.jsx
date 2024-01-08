@@ -6,6 +6,7 @@ import {
   ButtonGroup,
   Col,
   Container,
+  Form,
   Row,
   Stack,
 } from "react-bootstrap";
@@ -86,12 +87,19 @@ const ModuleHomePage = () => {
               <TestTypeSwitch />
             </div>
             <div className="ms-auto w-100">
-              <input
-                type="text"
-                className="form-control w-100"
-                placeholder="Search Books"
-                onChange={handleSearchChange}
-              />
+              <div className="  d-lg-block">
+                <Form className="d-flex align-items-center">
+                  <span className="position-absolute ps-3 search-icon">
+                    <i className="fe fe-search text-muted"></i>
+                  </span>
+                  <Form.Control
+                    type="search"
+                    placeholder="Search Books"
+                    className="form-control form-control-sm ps-6 py-2"
+                    onChange={handleSearchChange}
+                  />
+                </Form>
+              </div>
             </div>
           </Stack>
         </Container>
