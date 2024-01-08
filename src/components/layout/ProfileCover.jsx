@@ -68,7 +68,7 @@ const ProfileCover = ({ page = "dashboard" }) => {
                     as={Link}
                     to={"/dashboard/tests/"}
                   >
-                    Your Tests
+                    Your Attempts
                   </Nav.Link>
                 </Nav.Item>
 

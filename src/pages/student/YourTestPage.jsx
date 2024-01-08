@@ -33,7 +33,7 @@ const YourTestPage = () => {
       <Tab.Container defaultActiveKey={currentModule}>
         <Card>
           <Card.Header>
-            <h3 className="mt-2 fw-bold">Your Tests</h3>
+            <h3 className="mt-2 fw-bold">Your Attempts</h3>
           </Card.Header>
           <Card.Header className="border-bottom-0 p-0">
             <Nav className="nav-lb-tab">
