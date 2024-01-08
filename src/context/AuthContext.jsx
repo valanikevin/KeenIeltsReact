@@ -74,6 +74,24 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const loginUserWithToken = (token) => {
+    const decodedToken = jwt_decode(token.access);
+
+    // Assuming the token contains the user's email
+    const userData = {
+      ...decodedToken,
+      email: token.email, // Set the email from the token
+      first_name: token.first_name,
+      last_name: token.last_name,
+      coaching_institute_slug: token.coaching_institute_slug,
+    };
+
+    setAuthTokens(token);
+    setUser(userData); // Update the user state with the new userData including email
+    localStorage.setItem("authTokens", JSON.stringify(token));
+    localStorage.setItem("user", JSON.stringify(userData)); // Store the updated userData in localStorage
+  };
+
   const logoutUser = async () => {
     setAuthTokens(null);
     setUser(null);
@@ -89,6 +107,8 @@ export const AuthProvider = ({ children }) => {
     navigate("/?alert=You're successfully logged out&variant=success");
   };
   const registerUser = async (values, handleSuccess) => {
+    setLoadingBar(true);
+
     api
       .post(DJANGO_BASE_URL + "/account/register/", {
         first_name: values.first_name,
@@ -126,6 +146,7 @@ export const AuthProvider = ({ children }) => {
     loginUser: loginUser,
     logoutUser: logoutUser,
     registerUser: registerUser,
+    loginUserWithToken: loginUserWithToken,
   };
 
   return (

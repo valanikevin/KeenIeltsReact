@@ -134,7 +134,7 @@ const SpeakingResultPage = () => {
           <Col xl={8} lg={10} md={12} className="mt-3">
             <SuggestionListCard
               title={"Test Suggestions"}
-              array={evaluation.grammar_vocabulary_fluency_accuracy_suggestions}
+              array={evaluation.word_choice_suggestions}
             />
           </Col>
           <Col xl={8} lg={10} md={12} className="mt-3">

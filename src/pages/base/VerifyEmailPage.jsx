@@ -15,6 +15,7 @@ const VerifyEmailPage = () => {
   const navigate = useNavigate();
   let { registerUser, registrationError, user } = useContext(AuthContext);
   const [activeKey, setActiveKey] = useState("0"); // New state for accordion active key
+  const { loginUserWithToken } = useContext(AuthContext);
 
   useEffect(() => {
     // Function to parse the URL query string
@@ -80,13 +81,15 @@ const VerifyEmailPage = () => {
         DJANGO_BASE_URL + "/account/verify_email/",
         values
       );
-      handleSuccess();
-      navigate(
-        "/login?alert=Your email has been verified, please login now&variant=success"
-      );
+
+      // If verification is successful, use the token to log in the user
+      if (response.data.token) {
+        loginUserWithToken(response.data.token); // This function will be defined in AuthContext
+        handleSuccess();
+        navigate("/"); // Navigate to home or dashboard
+      }
     } catch (error) {
-      // Handle error accordingly
-      console.error("Error fetching data:", error);
+      console.error("Error verifying email:", error);
       setError(error.response.data.message);
     }
   };

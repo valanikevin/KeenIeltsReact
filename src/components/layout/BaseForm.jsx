@@ -66,7 +66,6 @@ const BaseForm = ({
           } catch (error) {
             console.error(error);
           } finally {
-            setLoadingBar(false);
             setSubmitting(false);
           }
         }}
