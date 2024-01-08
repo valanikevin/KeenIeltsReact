@@ -100,7 +100,7 @@ const TakeTestDropdown = () => {
                 className="text-white"
                 id="category-dropdown-menu-button-mobile"
               >
-                Take Test{" "}
+                Start Test{" "}
                 <i className="fe fe-plus m-1 align-middle text-white "></i>
               </Dropdown.Toggle>
               <Dropdown.Menu as="ul" show>
@@ -131,7 +131,7 @@ const TakeTestDropdown = () => {
                 className="text-white"
                 id="category-dropdown-menu-button-mobile"
               >
-                Take Test <i className="fe fe-plus ms-1 align-middle "></i>
+                Start Test <i className="fe fe-plus ms-1 align-middle "></i>
               </Dropdown.Toggle>
               <Dropdown.Menu as="ul">
                 {item.children.map((submenu, submenuindex) => {

@@ -7,19 +7,17 @@ import useAxios from "../../utils/useAxios";
 import { DJANGO_BASE_URL } from "../../utils/config";
 import AccountSettingForm from "../../components/auth/AccountSettingForm";
 import ChangePasswordForm from "../../components/auth/ChangePasswordForm";
+import ProfileCover from "../../components/layout/ProfileCover";
 
 const AccountPage = () => {
   return (
     <>
-      <PageHeadingBriefinfo
-        pagetitle={"Account Settings"}
-        briefinfo={
-          "Manage your personal information and other account settings."
-        }
-      />
       <Container>
         <Row className="justify-content-center">
-          <Col xl={8} lg={10} md={12} className="my-3">
+          <Col xl={12} lg={12} md={12} className="mt-3">
+            <ProfileCover page="account" />
+          </Col>
+          <Col xl={8} lg={10} md={12} className="mb-3">
             <AccountSettingForm />
           </Col>
           <Col xl={8} lg={10} md={12} className="mb-3">
