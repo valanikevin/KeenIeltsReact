@@ -26,7 +26,6 @@ const SpeakingCompletedPage = () => {
   const { module_slug, attempt_slug } = useParams();
   const [attempt, setAttempt] = useState(null);
   const [module, setModule] = useState(null);
-  const [evaluation, setEvaluation] = useState(null);
 
   const api = useAxios();
 
@@ -50,28 +49,12 @@ const SpeakingCompletedPage = () => {
     }
   }
 
-  async function getEvaluation() {
-    const response = await api.post(
-      "/ieltstest/get_speaking_evaluation/" + attempt_slug + "/"
-    );
-    if (response.status === 200) {
-      setEvaluation(response.data);
-      getAttempt();
-    } else {
-      console.error("Unable to fetch attempt at ListeningResult.jsx");
-    }
-  }
-
   useEffect(() => {
     getAttempt();
     getModule();
   }, []);
 
-  useEffect(() => {
-    getEvaluation();
-  }, []);
-
-  if (!module || !attempt || !evaluation) {
+  if (!module || !attempt) {
     return <SpeakingLoader />; // Replace with your preferred loading component
   }
 
@@ -135,33 +118,5 @@ const SpeakingCompletedPage = () => {
     </>
   );
 };
-
-const evaluation_keys = [
-  {
-    name: "Fluency and Coherence",
-    short: "FC",
-    key: "fluency_and_coherence_bands",
-  },
-  {
-    name: "Grammatical Range Accuracy",
-    short: "GRA",
-    key: "grammatical_range_and_accuracy_bands",
-  },
-  {
-    name: "Lexical Resource",
-    short: "LR",
-    key: "lexical_resource_bands",
-  },
-  {
-    name: "Pronunciation",
-    short: "PR",
-    key: "pronunciation_bands",
-  },
-  // {
-  //   name: null,
-  //   short: "Overall",
-  //   key: "overall_band_score",
-  // },
-];
 
 export default SpeakingCompletedPage;
