@@ -8,15 +8,14 @@ const QuestionPallete = ({ module, currentFormData }) => {
         <Badge
           style={{ fontSize: "20px" }}
           key={index}
-          className="m-1"
-          onClick={() => scrollToElement("que-" + (index + 1))}
-          bg={
+          className={
             currentFormData["que-" + (index + 1)] !== undefined
               ? currentFormData["que-" + (index + 1)] === ""
-                ? "warning"
-                : "success"
-              : "warning"
+                ? "m-1 bg-light text-black"
+                : "m-1 bg-secondary"
+              : "m-1 bg-light text-black"
           }
+          onClick={() => scrollToElement("que-" + (index + 1))}
         >
           {index + 1}
         </Badge>
