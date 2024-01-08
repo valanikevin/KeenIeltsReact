@@ -59,10 +59,6 @@ const DashboardCards = ({ overallPerformance, overallPerformanceFeedback }) => {
         <div className="my-3">
           <DashboardCommunityChat />
         </div>
-
-        <div className="my-3">
-          <AccountSettingForm />
-        </div>
       </Col>
     </Row>
   );

@@ -23,6 +23,7 @@ import ResetPasswordPage from "./pages/base/ResetPasswordPage";
 import ConfirmResetPassword from "./pages/base/ConfirmResetPassword";
 import BookHomePage from "./pages/ieltstest/BookHomePage";
 import SpeakingCompletedPage from "./pages/ieltstest/speaking/SpeakingCompletedPage";
+import YourTestPage from "./pages/student/YourTestPage";
 
 const AllRoutes = () => {
   return (
@@ -30,6 +31,7 @@ const AllRoutes = () => {
       {/* Private Routes */}
       <Route path={"/dashboard"} element={<PrivateRoutes />}>
         <Route index element={<DashboardPage />} />
+        <Route path={"/dashboard/tests"} element={<YourTestPage />} />
       </Route>
 
       <Route path={"/account"} element={<PrivateRoutes />}>
