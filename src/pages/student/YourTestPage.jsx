@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Container, Nav, Tab, Table } from "react-bootstrap";
+import { Card, Container, Nav, Spinner, Tab, Table } from "react-bootstrap";
 import ProfileCover from "../../components/layout/ProfileCover";
 import { Link } from "react-router-dom";
 import useAxios from "../../utils/useAxios";
@@ -87,7 +87,9 @@ const YourTestPage = () => {
             {tests === false ? (
               <div className="text-center my-2">
                 <h3 className="text-capitalize">
-                  Fetching Your {currentModule} Attempts
+                  <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </Spinner>
                 </h3>
               </div>
             ) : tests && tests.length === 0 ? (
