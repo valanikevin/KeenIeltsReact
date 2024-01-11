@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Col, Row, Stack } from "react-bootstrap";
+import { Badge, Button, Card, Col, Row, Stack } from "react-bootstrap";
 import StartPracticeTestCard from "./StartPracticeTestCard";
 import Logo from "../../assets/images/brand/logo/logo-small.svg";
 import AccountSettingForm from "../auth/AccountSettingForm";
@@ -8,11 +8,37 @@ import FifteenDaysPerformanceChart from "../layout/student/FifteenDaysPerformanc
 import YourRecentTestsCard from "../layout/student/YourRecentTestsCard";
 import DashboardCommunityChat from "../DashboardCommunityChat";
 import SkeletonLoader from "../elements/skeleton/SkeletonLoader";
+import { Bell } from "react-bootstrap-icons";
+import { FiArrowRight, FiBell } from "react-icons/fi";
 
 const DashboardCards = ({ overallPerformance, overallPerformanceFeedback }) => {
   return (
     <Row className="mt-0 pt-0">
       <Col sm={12} lg={6} className="">
+        <Card className="mb-3 ">
+          <Card.Header>
+            <Stack direction="horizontal" gap={2}>
+              <div>
+                <h3 className="mt-2 fw-bold">Notifications</h3>
+              </div>
+
+              <Badge pill bg="primary ms-auto">
+                <FiBell size={25} className="" />
+              </Badge>
+            </Stack>
+          </Card.Header>
+          <Card.Body>
+            <h3 className="m-0">
+              Your recent speaking test result has been published.
+            </h3>
+          </Card.Body>
+          <Card.Footer>
+            <Button variant="primary" className="ms-auto">
+              View Result <FiArrowRight size={20} />
+            </Button>
+          </Card.Footer>
+        </Card>
+
         <StartPracticeTestCard />
 
         <YourPerformanceCard
