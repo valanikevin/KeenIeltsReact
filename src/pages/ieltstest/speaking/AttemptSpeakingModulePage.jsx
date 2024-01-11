@@ -248,7 +248,7 @@ const AttemptSpeakingModulePage = () => {
 
   async function handleConfirmEndTest(user_responses) {
     console.log("Handle Confirm End Test");
-
+    setShowLoader(true);
     const updatedUserResponsesMergedAudio = await mergeAudioBlobWithBytes(
       user_responses
     );
@@ -280,12 +280,6 @@ const AttemptSpeakingModulePage = () => {
     height: "calc(100vh - 50px)", // Assuming 50px for NavBar and 50px for Footer
     overflow: "auto", // Prevent scrollbars on the main layout
   };
-
-  useEffect(() => {
-    if (isEndTest) {
-      setShowLoader(true);
-    }
-  }, [isEndTest]);
 
   useEffect(() => {
     document.title = "Speaking Test | KeenIELTS";
