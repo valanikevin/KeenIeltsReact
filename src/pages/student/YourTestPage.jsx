@@ -6,6 +6,7 @@ import useAxios from "../../utils/useAxios";
 import { DJANGO_BASE_URL } from "../../utils/config";
 import { FiArrowRight } from "react-icons/fi";
 import { CheckCircleFill, ExclamationCircleFill } from "react-bootstrap-icons";
+import YourRecentTestsCard from "../../components/layout/student/YourRecentTestsCard";
 
 const YourTestPage = () => {
   const [currentModule, setCurrentModule] = useState("listening");
@@ -99,86 +100,7 @@ const YourTestPage = () => {
                 </h3>
               </div>
             ) : (
-              <Table hover bordered responsive>
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Book</th>
-                    <th>Bands</th>
-                    <th>Result</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {tests &&
-                    tests.map(
-                      (test, index) =>
-                        (test.status === "Evaluated" ||
-                          test.status === "Ready" ||
-                          test.status === "Completed") && (
-                          <tr key={index}>
-                            {" "}
-                            {/* Added key for list rendering */}
-                            <td>{test.updated_at}</td>
-                            <td>
-                              {test.status === "Evaluated" ||
-                              test.status === "Ready" ? (
-                                <CheckCircleFill
-                                  size={20}
-                                  className="text-success"
-                                />
-                              ) : (
-                                test.status === "Completed" && (
-                                  <CheckCircleFill
-                                    size={20}
-                                    className="text-warning"
-                                  />
-                                )
-                              )}
-                            </td>
-                            <td>
-                              {test.book_name} - {test.module_name}
-                            </td>
-                            <td>{test.bands}</td>
-                            <td>
-                              {test.status === "Evaluated" ||
-                              test.status === "Ready" ? (
-                                <a
-                                  href={
-                                    "/ieltstest/attempt/" +
-                                    test.module_type +
-                                    "/" +
-                                    test.module_slug +
-                                    "/" +
-                                    test.slug +
-                                    "/get_result"
-                                  }
-                                >
-                                  Result
-                                  <FiArrowRight />
-                                </a>
-                              ) : (
-                                <Link
-                                  to={
-                                    "/ieltstest/attempt/" +
-                                    test.module_type +
-                                    "/" +
-                                    test.module_slug +
-                                    "/" +
-                                    test.slug +
-                                    "/completed"
-                                  }
-                                >
-                                  Attempt
-                                  <FiArrowRight />
-                                </Link>
-                              )}
-                            </td>
-                          </tr>
-                        )
-                    )}
-                </tbody>
-              </Table>
+              <YourRecentTestsCard tests={tests} />
             )}
           </Card.Body>
         </Card>

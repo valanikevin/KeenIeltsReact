@@ -10,34 +10,36 @@ import DashboardCommunityChat from "../DashboardCommunityChat";
 import SkeletonLoader from "../elements/skeleton/SkeletonLoader";
 import { Bell } from "react-bootstrap-icons";
 import { FiArrowRight, FiBell } from "react-icons/fi";
+import NotificationCard from "../layout/NotificationCard";
 
 const DashboardCards = ({ overallPerformance, overallPerformanceFeedback }) => {
   return (
     <Row className="mt-0 pt-0">
       <Col sm={12} lg={6} className="">
-        <Card className="mb-3 ">
-          <Card.Header>
-            <Stack direction="horizontal" gap={2}>
-              <div>
-                <h3 className="mt-2 fw-bold">Notifications</h3>
-              </div>
-
-              <Badge pill bg="primary ms-auto">
-                <FiBell size={25} className="" />
-              </Badge>
-            </Stack>
-          </Card.Header>
-          <Card.Body>
-            <h3 className="m-0">
-              Your recent speaking test result has been published.
-            </h3>
-          </Card.Body>
-          <Card.Footer>
-            <Button variant="primary" className="ms-auto">
-              View Result <FiArrowRight size={20} />
-            </Button>
-          </Card.Footer>
-        </Card>
+        {overallPerformance.recent_tests &&
+        overallPerformance.recent_tests.length > 0
+          ? overallPerformance.recent_tests.map(
+              (test, index) =>
+                test.status === "Ready" &&
+                test.module === "speaking" && (
+                  <NotificationCard
+                    title={
+                      "Your recent speaking test result has been published."
+                    }
+                    button_title={"View Result"}
+                    button_url={
+                      "/ieltstest/attempt/" +
+                      test.module +
+                      "/" +
+                      test.module_slug +
+                      "/" +
+                      test.attempt_slug +
+                      "/get_result"
+                    }
+                  />
+                )
+            )
+          : "None"}
 
         <StartPracticeTestCard />
 
@@ -53,6 +55,7 @@ const DashboardCards = ({ overallPerformance, overallPerformanceFeedback }) => {
           </div>
         )}
       </Col>
+
       <Col sm={12} lg={6}>
         <Card className="mb-2 ">
           <Card.Header>
