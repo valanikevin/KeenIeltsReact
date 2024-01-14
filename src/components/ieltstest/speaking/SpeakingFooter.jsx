@@ -52,11 +52,13 @@ const SpeakingFooter = ({
     // Update timeToThink based on the current section
     switch (audioCurrentSection.section) {
       case "Part 1":
-        setTimeToThink(60);
+        setTimeToThink(0);
         break;
       case "Part 2":
+        setTimeToThink(60);
+        break;
       case "Part 3":
-        setTimeToThink(30);
+        setTimeToThink(0);
         break;
       default:
         setTimeToThink(0);
@@ -345,7 +347,16 @@ const SpeakingFooter = ({
           <Col sm={8} className="">
             <div className="mt-2  text-center">
               {isPaused ? (
-                <div className="text-danger">On pause</div>
+                timeToThink > 0 ? (
+                  <p
+                    className="text-dark fw-bold m-0"
+                    style={{ fontSize: "1.4rem" }}
+                  >
+                    {timeToThink} secs
+                  </p>
+                ) : (
+                  <div className="text-danger">On pause</div>
+                )
               ) : (
                 <div>
                   <Badge
@@ -383,14 +394,27 @@ const SpeakingFooter = ({
                   </Button>
                 </Col>
               ) : isPaused ? (
-                <Col className={`col-12 mt-1`}>
-                  <Button
-                    onClick={resumeRecording}
-                    className={`w-100 ${deviceType === "desktop" && "btn-lg"}`}
-                  >
-                    <MdMic size={23} /> Continue
-                  </Button>
-                </Col>
+                timeToThink > 0 ? (
+                  <Col className={`col-12 mt-1 text-center`}>
+                    <p
+                      className="text-dark  m-0"
+                      style={{ fontSize: "1.4rem" }}
+                    >
+                      Time to think
+                    </p>
+                  </Col>
+                ) : (
+                  <Col className={`col-12 mt-1`}>
+                    <Button
+                      onClick={resumeRecording}
+                      className={`w-100 ${
+                        deviceType === "desktop" && "btn-lg"
+                      }`}
+                    >
+                      <MdMic size={23} /> Continue
+                    </Button>
+                  </Col>
+                )
               ) : (
                 <Col className={`col-${testStarted ? 6 : 12} mt-1`}>
                   <Button
