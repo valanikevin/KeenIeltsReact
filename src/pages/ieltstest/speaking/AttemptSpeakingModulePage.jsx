@@ -176,7 +176,8 @@ const AttemptSpeakingModulePage = () => {
         const blob = new Blob([audioBuffer], { type: "audio/wav" });
         formData.append(key, blob);
       } else if (key === "merged_audio_duration") {
-        formData.append(key, user_responses[key]);
+        const durationString = JSON.stringify(user_responses[key]);
+        formData.append(key, durationString);
       } else {
         const response = user_responses[key];
 
@@ -253,6 +254,7 @@ const AttemptSpeakingModulePage = () => {
     let audioContext = new (window.AudioContext || window.webkitAudioContext)();
     let totalDuration = 0;
     let audioBuffers = [];
+    let durations = {}; // Object to store individual durations
 
     for (const key in user_responses) {
       if (user_responses[key].audio) {
@@ -262,7 +264,9 @@ const AttemptSpeakingModulePage = () => {
         const audioBuffer = await audioContext.decodeAudioData(buffer);
 
         audioBuffers.push(audioBuffer);
-        totalDuration += audioBuffer.duration;
+        let duration = audioBuffer.duration;
+        totalDuration += duration;
+        durations[key] = duration; // Store duration with key
       }
     }
 
@@ -285,7 +289,7 @@ const AttemptSpeakingModulePage = () => {
     user_responses = {
       ...user_responses,
       merged_audio: mergedAudioWAVBlob,
-      merged_audio_duration: totalDuration,
+      merged_audio_duration: durations, // Use the durations object
     };
 
     return user_responses;
@@ -294,6 +298,7 @@ const AttemptSpeakingModulePage = () => {
   async function replaceAudioBlobWithBytes(user_responses) {
     for (const key in user_responses) {
       if (key !== "merged_audio" && key !== "merged_audio_duration") {
+        console.log("Key", key);
         const audioBlobUrl = user_responses[key].audio;
         const blob = await fetch(audioBlobUrl).then((r) => r.blob());
         const audioBuffer = await blobToAudioBuffer(blob); // Convert Blob to AudioBuffer
