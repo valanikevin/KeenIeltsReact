@@ -46,6 +46,43 @@ const SpeakingFooter = ({
 
   const [audioCurrentSection, setAudioCurrentSection] =
     useState(currentSection);
+  const [timeToThink, setTimeToThink] = useState(0);
+
+  useEffect(() => {
+    // Update timeToThink based on the current section
+    switch (audioCurrentSection.section) {
+      case "Part 1":
+        setTimeToThink(60);
+        break;
+      case "Part 2":
+      case "Part 3":
+        setTimeToThink(30);
+        break;
+      default:
+        setTimeToThink(0);
+    }
+  }, [audioCurrentSection]);
+
+  useEffect(() => {
+    let timerId;
+
+    if (testStarted && timeToThink > 0) {
+      // Test is paused when timeToThink is active
+      pauseRecording();
+
+      // Start a timer that decreases timeToThink every second
+      timerId = setInterval(() => {
+        setTimeToThink((prevTime) => prevTime - 1);
+        console.log("Time to think: ", timeToThink);
+      }, 1000);
+    } else if (timeToThink === 0) {
+      // Resume the test when timeToThink is over
+      resumeRecording();
+    }
+
+    // Clear the interval when component unmounts or timeToThink changes
+    return () => clearInterval(timerId);
+  }, [timeToThink]);
 
   useEffect(() => {
     // Calculate total questions
@@ -336,22 +373,26 @@ const SpeakingFooter = ({
         <Row className="my-2 mb-3 text-black justify-content-center ">
           <Col sm={8}>
             <Row className="">
-              <Col className={`col-${testStarted ? 6 : 12} mt-1`}>
-                {!testStarted ? (
+              {!testStarted ? (
+                <Col className={`col-${testStarted ? 6 : 12} mt-1`}>
                   <Button
                     onClick={startTest}
                     className={`w-100 ${deviceType === "desktop" && "btn-lg"}`}
                   >
                     <MdMic size={23} /> Start Test
                   </Button>
-                ) : isPaused ? (
+                </Col>
+              ) : isPaused ? (
+                <Col className={`col-12 mt-1`}>
                   <Button
                     onClick={resumeRecording}
                     className={`w-100 ${deviceType === "desktop" && "btn-lg"}`}
                   >
                     <MdMic size={23} /> Continue
                   </Button>
-                ) : (
+                </Col>
+              ) : (
+                <Col className={`col-${testStarted ? 6 : 12} mt-1`}>
                   <Button
                     variant=""
                     onClick={pauseRecording}
@@ -361,11 +402,11 @@ const SpeakingFooter = ({
                   >
                     <MdPause size={23} /> Pause
                   </Button>
-                )}
-              </Col>
+                </Col>
+              )}
 
               <Col className="col-6 mt-1">
-                {testStarted && (
+                {testStarted && !isPaused && (
                   <Button
                     onClick={handleNextQuestion}
                     className={`w-100 ${deviceType === "desktop" && "btn-lg"}`}
