@@ -218,6 +218,8 @@ const AttemptSpeakingModulePage = () => {
     }
   }
 
+
+
   async function mergeAudioBlobWithBytes(user_responses) {
     let audioContext = new (window.AudioContext || window.webkitAudioContext)();
     let totalDuration = 0;
@@ -283,11 +285,13 @@ const AttemptSpeakingModulePage = () => {
   async function handleConfirmEndTest(user_responses) {
     console.log("Handle Confirm End Test");
     setShowLoader(true);
-    const updatedUserResponses = await mergeAudioBlobWithBytes(user_responses);
+    const updatedUserResponsesMergedAudio = await mergeAudioBlobWithBytes(
+      user_responses
+    );
 
-    // const updatedUserResponses = await replaceAudioBlobWithBytes(
-    //   updatedUserResponsesMergedAudio
-    // );
+    const updatedUserResponses = await replaceAudioBlobWithBytes(
+      updatedUserResponsesMergedAudio
+    );
 
     console.log("Encoded Audio File URL:", updatedUserResponses.merged_audio); // Add this line to print the URL
 
