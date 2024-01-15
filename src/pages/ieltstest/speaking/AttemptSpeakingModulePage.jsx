@@ -218,10 +218,11 @@ const AttemptSpeakingModulePage = () => {
     }
   }
 
-
-
   async function mergeAudioBlobWithBytes(user_responses) {
-    let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    let audioContext = new (window.AudioContext ||
+      window.webkitAudioContext ||
+      window.OfflineAudioContext)();
+
     let totalDuration = 0;
     let audioBuffers = [];
     let durations = {}; // Object to store individual durations
