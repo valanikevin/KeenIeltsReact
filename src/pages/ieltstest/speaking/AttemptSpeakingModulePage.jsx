@@ -218,38 +218,6 @@ const AttemptSpeakingModulePage = () => {
     }
   }
 
-  async function blobToBytes(blob) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        resolve(reader.result);
-      };
-      reader.onerror = reject;
-      reader.readAsArrayBuffer(blob);
-    });
-  }
-
-  async function getAudioDuration(blob) {
-    return new Promise((resolve, reject) => {
-      let audioContext = new (window.AudioContext ||
-        window.webkitAudioContext)();
-      let reader = new FileReader();
-
-      reader.onloadend = function () {
-        audioContext.decodeAudioData(
-          reader.result,
-          function (buffer) {
-            resolve(buffer.duration);
-          },
-          reject
-        );
-      };
-
-      reader.onerror = reject;
-      reader.readAsArrayBuffer(blob);
-    });
-  }
-
   async function mergeAudioBlobWithBytes(user_responses) {
     let audioContext = new (window.AudioContext || window.webkitAudioContext)();
     let totalDuration = 0;

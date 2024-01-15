@@ -12,6 +12,7 @@ import ScrollToTop from "./utils/ScrollToTop";
 import TestTypeState from "./context/layout/TestTypeState";
 import CustomAlert from "./components/layout/CustomAlert";
 import ErrorState from "./context/layout/ErrorState";
+import ErrorBoundary from "./components/ErrorBoundry";
 
 function App() {
   const compose = (providers) =>
@@ -39,7 +40,7 @@ function App() {
   ]);
 
   return (
-    <>
+    <ErrorBoundary>
       <GlobalProvider>
         <ScrollToTop />
         {/* Website Layout */}
@@ -53,7 +54,7 @@ function App() {
         {!hideNavFooter && <Footer />}
         {/* Website Layout Ends */}
       </GlobalProvider>
-    </>
+    </ErrorBoundary>
   );
 }
 
