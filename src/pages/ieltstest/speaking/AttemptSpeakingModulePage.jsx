@@ -94,70 +94,6 @@ const AttemptSpeakingModulePage = () => {
     setCurrentSection(newSection);
   }
 
-  async function blobToAudioBuffer(blob) {
-    return new Promise((resolve, reject) => {
-      let audioContext = new (window.AudioContext ||
-        window.webkitAudioContext)();
-      let reader = new FileReader();
-      reader.onloadend = function () {
-        audioContext.decodeAudioData(reader.result, resolve, reject);
-      };
-      reader.onerror = reject;
-      reader.readAsArrayBuffer(blob);
-    });
-  }
-
-  function writeUTFBytes(view, offset, string) {
-    for (let i = 0; i < string.length; i++) {
-      view.setUint8(offset + i, string.charCodeAt(i));
-    }
-  }
-
-  async function encodeWAV(audioBuffer) {
-    // Create a WAV header
-    let buffer = new ArrayBuffer(44 + audioBuffer.length * 2);
-    let view = new DataView(buffer);
-
-    // RIFF chunk descriptor
-    writeUTFBytes(view, 0, "RIFF");
-    view.setUint32(4, 44 + audioBuffer.length * 2 - 8, true);
-    writeUTFBytes(view, 8, "WAVE");
-
-    // FMT sub-chunk
-    writeUTFBytes(view, 12, "fmt ");
-    view.setUint32(16, 16, true); // Subchunk1Size (16 for PCM)
-    view.setUint16(20, 1, true); // AudioFormat (PCM = 1)
-    view.setUint16(22, audioBuffer.numberOfChannels, true); // NumChannels
-    view.setUint32(24, audioBuffer.sampleRate, true); // SampleRate
-    view.setUint32(
-      28,
-      audioBuffer.sampleRate * audioBuffer.numberOfChannels * 2,
-      true
-    ); // ByteRate
-    view.setUint16(32, audioBuffer.numberOfChannels * 2, true); // BlockAlign
-    view.setUint16(34, 16, true); // BitsPerSample
-
-    // Data sub-chunk
-    writeUTFBytes(view, 36, "data");
-    view.setUint32(40, audioBuffer.length * 2, true);
-
-    // Write the PCM samples
-    let lng = audioBuffer.length;
-    let index = 44;
-    let volume = 1;
-    for (let i = 0; i < lng; i++) {
-      view.setInt16(
-        index,
-        audioBuffer.getChannelData(0)[i] * (0x7fff * volume),
-        true
-      );
-      index += 2;
-    }
-
-    // Return the Blob
-    return new Blob([view], { type: "audio/wav" });
-  }
-
   async function sendAttemptUpdate(
     attempt_type = "In Progress",
     user_responses
@@ -176,8 +112,7 @@ const AttemptSpeakingModulePage = () => {
         const blob = new Blob([audioBuffer], { type: "audio/wav" });
         formData.append(key, blob);
       } else if (key === "merged_audio_duration") {
-        const durationString = JSON.stringify(user_responses[key]);
-        formData.append(key, durationString);
+        formData.append(key, user_responses[key]);
       } else {
         const response = user_responses[key];
 
@@ -217,66 +152,95 @@ const AttemptSpeakingModulePage = () => {
       return false; // Indicate failure
     }
   }
+  async function blobToBytes(blob) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
+      reader.onerror = reject;
+      reader.readAsArrayBuffer(blob);
+    });
+  }
+
+  async function getAudioDuration(blob) {
+    return new Promise((resolve, reject) => {
+      let audioContext = new (window.AudioContext ||
+        window.webkitAudioContext)();
+      let reader = new FileReader();
+
+      reader.onloadend = function () {
+        audioContext.decodeAudioData(
+          reader.result,
+          function (buffer) {
+            resolve(buffer.duration);
+          },
+          reject
+        );
+      };
+
+      reader.onerror = reject;
+      reader.readAsArrayBuffer(blob);
+    });
+  }
 
   async function mergeAudioBlobWithBytes(user_responses) {
-    let audioContext = new (window.AudioContext ||
-      window.webkitAudioContext ||
-      window.OfflineAudioContext)();
-
-    let totalDuration = 0;
-    let audioBuffers = [];
-    let durations = {}; // Object to store individual durations
-
+    let merge_audio_bytes = new Uint8Array();
+    let merged_audio_duration = "";
     for (const key in user_responses) {
       if (user_responses[key].audio) {
         const audioBlobUrl = user_responses[key].audio;
         const blob = await fetch(audioBlobUrl).then((r) => r.blob());
-        const buffer = await blob.arrayBuffer();
-        const audioBuffer = await audioContext.decodeAudioData(buffer);
+        const seconds = await getAudioDuration(blob);
+        const audioBytes = new Uint8Array(await blobToBytes(blob));
 
-        audioBuffers.push(audioBuffer);
-        let duration = audioBuffer.duration;
-        totalDuration += duration;
-        durations[key] = duration; // Store duration with key
+        // Combine the current bytes with the merged bytes
+        let combined = new Uint8Array(
+          merge_audio_bytes.length + audioBytes.length
+        );
+        combined.set(merge_audio_bytes);
+        combined.set(audioBytes, merge_audio_bytes.length);
+
+        // Update the merged bytes
+        merge_audio_bytes = combined;
+        merged_audio_duration += key + ":" + seconds + ";";
       }
     }
-
-    // Create a single buffer for the merged audio
-    let mergedBuffer = audioContext.createBuffer(
-      audioBuffers[0].numberOfChannels,
-      audioContext.sampleRate * totalDuration,
-      audioContext.sampleRate
-    );
-
-    let offset = 0;
-    audioBuffers.forEach((buffer) => {
-      for (let i = 0; i < buffer.numberOfChannels; i++) {
-        mergedBuffer.getChannelData(i).set(buffer.getChannelData(i), offset);
-      }
-      offset += buffer.length;
+    console.log("merged_audio_duration", merged_audio_duration);
+    // Create a Blob from the merged bytes
+    const mergedAudioBlob = new Blob([merge_audio_bytes], {
+      type: "audio/wav",
     });
 
-    const mergedAudioWAVBlob = await encodeWAV(mergedBuffer);
+    const mergedAudioUrl = URL.createObjectURL(mergedAudioBlob);
+    const blob1 = await fetch(mergedAudioUrl).then((r) => r.blob());
+    const mergeAudioBytes = await blobToBytes(blob1);
+
+    // Store the Blob directly
     user_responses = {
       ...user_responses,
-      merged_audio: mergedAudioWAVBlob,
-      merged_audio_duration: durations, // Use the durations object
+      merged_audio: mergeAudioBytes,
+      merged_audio_duration: merged_audio_duration,
+      // Store the Blob itself
     };
-
     return user_responses;
   }
 
   async function replaceAudioBlobWithBytes(user_responses) {
+    console.log("Inside replace audio");
+
     for (const key in user_responses) {
       if (key !== "merged_audio" && key !== "merged_audio_duration") {
-        console.log("Key", key);
         const audioBlobUrl = user_responses[key].audio;
+
         const blob = await fetch(audioBlobUrl).then((r) => r.blob());
-        const audioBuffer = await blobToAudioBuffer(blob); // Convert Blob to AudioBuffer
-        const audioWAVBlob = await encodeWAV(audioBuffer); // Encode to WAV with metadata
+
+        const audioBytes = await blobToBytes(blob);
+
+        // This will replace the "audio" key with the new value, while keeping the rest of the properties the same.
         user_responses[key] = {
           ...user_responses[key],
-          audio: audioWAVBlob,
+          audio: audioBytes,
         };
       }
     }
@@ -286,14 +250,13 @@ const AttemptSpeakingModulePage = () => {
   async function handleConfirmEndTest(user_responses) {
     console.log("Handle Confirm End Test");
     setShowLoader(true);
-    // const updatedUserResponsesMergedAudio = await mergeAudioBlobWithBytes(
-    //   user_responses
-    // );
-
-    const updatedUserResponses = await replaceAudioBlobWithBytes(
+    const updatedUserResponsesMergedAudio = await mergeAudioBlobWithBytes(
       user_responses
     );
 
+    const updatedUserResponses = await replaceAudioBlobWithBytes(
+      updatedUserResponsesMergedAudio
+    );
 
     const isUpdateSuccessful = await sendAttemptUpdate(
       "Completed",
