@@ -250,12 +250,12 @@ const AttemptSpeakingModulePage = () => {
   async function handleConfirmEndTest(user_responses) {
     console.log("Handle Confirm End Test");
     setShowLoader(true);
-    const updatedUserResponsesMergedAudio = await mergeAudioBlobWithBytes(
-      user_responses
-    );
+    // const updatedUserResponsesMergedAudio = await mergeAudioBlobWithBytes(
+    //   user_responses
+    // );
 
     const updatedUserResponses = await replaceAudioBlobWithBytes(
-      updatedUserResponsesMergedAudio
+      user_responses
     );
 
     const isUpdateSuccessful = await sendAttemptUpdate(
