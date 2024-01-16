@@ -17,7 +17,6 @@ import {
   MdPauseCircleFilled,
 } from "react-icons/md";
 import Waves from "./Waves";
-import { AudioContext } from "standardized-audio-context";
 
 const SpeakingFooter = ({
   deviceType,
@@ -194,7 +193,7 @@ const SpeakingFooter = ({
         setMediaRecorder(newMediaRecorder);
 
         newMediaRecorder.ondataavailable = (event) => {
-          const audioBlob = new Blob([event.data], { type: "audio/wav" });
+          const audioBlob = new Blob([event.data], { type: "audio/mp3" });
           setAudioURL(URL.createObjectURL(audioBlob));
         };
 
@@ -263,6 +262,7 @@ const SpeakingFooter = ({
         elapsedTime;
 
       // If we're changing sections or at the end of the section, store the audio blob URL
+      console.log("AUDIO: ", audioSection);
       if (audioBlobUrl) {
         newUserAllResponse[audioSection] =
           newUserAllResponse[audioSection] ?? {};
