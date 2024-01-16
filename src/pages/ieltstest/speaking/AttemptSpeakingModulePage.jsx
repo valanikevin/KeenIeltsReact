@@ -97,11 +97,10 @@ const AttemptSpeakingModulePage = () => {
   async function blobToAudioBuffer(blob) {
     return new Promise((resolve, reject) => {
       let audioContext = new (window.AudioContext ||
-        window.webkitAudioContext ||
-        window.OfflineAudioContext)();
+        window.webkitAudioContext)();
       let reader = new FileReader();
       reader.onloadend = function () {
-        audioContext.decodeAudioData(reader.result).then(resolve).catch(reject); // Add this line to catch decoding errors
+        audioContext.decodeAudioData(reader.result, resolve, reject);
       };
       reader.onerror = reject;
       reader.readAsArrayBuffer(blob);
@@ -219,11 +218,40 @@ const AttemptSpeakingModulePage = () => {
     }
   }
 
-  async function mergeAudioBlobWithBytes(user_responses) {
-    let audioContext = new (window.AudioContext ||
-      window.webkitAudioContext ||
-      window.OfflineAudioContext)();
+  async function blobToBytes(blob) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        resolve(reader.result);
+      };
+      reader.onerror = reject;
+      reader.readAsArrayBuffer(blob);
+    });
+  }
 
+  async function getAudioDuration(blob) {
+    return new Promise((resolve, reject) => {
+      let audioContext = new (window.AudioContext ||
+        window.webkitAudioContext)();
+      let reader = new FileReader();
+
+      reader.onloadend = function () {
+        audioContext.decodeAudioData(
+          reader.result,
+          function (buffer) {
+            resolve(buffer.duration);
+          },
+          reject
+        );
+      };
+
+      reader.onerror = reject;
+      reader.readAsArrayBuffer(blob);
+    });
+  }
+
+  async function mergeAudioBlobWithBytes(user_responses) {
+    let audioContext = new (window.AudioContext || window.webkitAudioContext)();
     let totalDuration = 0;
     let audioBuffers = [];
     let durations = {}; // Object to store individual durations
@@ -287,13 +315,15 @@ const AttemptSpeakingModulePage = () => {
   async function handleConfirmEndTest(user_responses) {
     console.log("Handle Confirm End Test");
     setShowLoader(true);
-    // const updatedUserResponsesMergedAudio = await mergeAudioBlobWithBytes(
-    //   user_responses
-    // );
-
-    const updatedUserResponses = await replaceAudioBlobWithBytes(
+    const updatedUserResponsesMergedAudio = await mergeAudioBlobWithBytes(
       user_responses
     );
+
+    const updatedUserResponses = await replaceAudioBlobWithBytes(
+      updatedUserResponsesMergedAudio
+    );
+
+    console.log("Encoded Audio File URL:", updatedUserResponses.merged_audio); // Add this line to print the URL
 
     const isUpdateSuccessful = await sendAttemptUpdate(
       "Completed",
