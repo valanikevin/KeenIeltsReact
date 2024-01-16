@@ -193,7 +193,7 @@ const SpeakingFooter = ({
         setMediaRecorder(newMediaRecorder);
 
         newMediaRecorder.ondataavailable = (event) => {
-          const audioBlob = new Blob([event.data], { type: "audio/mp3" });
+          const audioBlob = new Blob([event.data], { type: "audio/wav" });
           setAudioURL(URL.createObjectURL(audioBlob));
         };
 
