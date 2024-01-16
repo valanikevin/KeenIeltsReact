@@ -286,15 +286,14 @@ const AttemptSpeakingModulePage = () => {
   async function handleConfirmEndTest(user_responses) {
     console.log("Handle Confirm End Test");
     setShowLoader(true);
-    const updatedUserResponsesMergedAudio = await mergeAudioBlobWithBytes(
+    // const updatedUserResponsesMergedAudio = await mergeAudioBlobWithBytes(
+    //   user_responses
+    // );
+
+    const updatedUserResponses = await replaceAudioBlobWithBytes(
       user_responses
     );
 
-    const updatedUserResponses = await replaceAudioBlobWithBytes(
-      updatedUserResponsesMergedAudio
-    );
-
-    console.log("Encoded Audio File URL:", updatedUserResponses.merged_audio); // Add this line to print the URL
 
     const isUpdateSuccessful = await sendAttemptUpdate(
       "Completed",
