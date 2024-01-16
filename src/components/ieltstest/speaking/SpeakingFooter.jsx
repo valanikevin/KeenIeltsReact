@@ -17,6 +17,7 @@ import {
   MdPauseCircleFilled,
 } from "react-icons/md";
 import Waves from "./Waves";
+import { AudioContext } from "standardized-audio-context";
 
 const SpeakingFooter = ({
   deviceType,

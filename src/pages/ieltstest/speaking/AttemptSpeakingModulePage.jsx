@@ -16,6 +16,7 @@ import SpeakingFooter from "../../../components/ieltstest/speaking/SpeakingFoote
 import BookInfo from "../../../components/ieltstest/listening/BookInfo";
 import SpeakingLoader from "../../../components/ieltstest/speaking/SpeakingLoader";
 import parse from "html-react-parser";
+import { AudioContext } from "standardized-audio-context";
 
 const AttemptSpeakingModulePage = () => {
   const [deviceType, setDeviceType] = useState("desktop");
@@ -96,12 +97,10 @@ const AttemptSpeakingModulePage = () => {
 
   async function blobToAudioBuffer(blob) {
     return new Promise((resolve, reject) => {
-      let audioContext = new (window.AudioContext ||
-        window.webkitAudioContext ||
-        window.OfflineAudioContext)();
+      let audioContext = new AudioContext();
       let reader = new FileReader();
       reader.onloadend = function () {
-        audioContext.decodeAudioData(reader.result).then(resolve).catch(reject); // Add this line to catch decoding errors
+        audioContext.decodeAudioData(reader.result).then(resolve).catch(reject);
       };
       reader.onerror = reject;
       reader.readAsArrayBuffer(blob);
@@ -226,9 +225,7 @@ const AttemptSpeakingModulePage = () => {
   }
 
   async function mergeAudioBlobWithBytes(user_responses) {
-    let audioContext = new (window.AudioContext ||
-      window.webkitAudioContext ||
-      window.OfflineAudioContext)();
+    let audioContext = new AudioContext();
 
     let totalDuration = 0;
     let audioBuffers = [];
