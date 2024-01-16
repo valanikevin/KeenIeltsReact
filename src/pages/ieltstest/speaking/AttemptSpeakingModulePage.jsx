@@ -96,8 +96,7 @@ const AttemptSpeakingModulePage = () => {
 
   async function blobToAudioBuffer(blob) {
     return new Promise((resolve, reject) => {
-      let audioContext = new (window.AudioContext ||
-        window.webkitAudioContext)();
+      let audioContext = new AudioContext();
       let reader = new FileReader();
       reader.onloadend = function () {
         audioContext.decodeAudioData(reader.result, resolve, reject);
@@ -231,8 +230,7 @@ const AttemptSpeakingModulePage = () => {
 
   async function getAudioDuration(blob) {
     return new Promise((resolve, reject) => {
-      let audioContext = new (window.AudioContext ||
-        window.webkitAudioContext)();
+      let audioContext = new AudioContext();
       let reader = new FileReader();
 
       reader.onloadend = function () {
@@ -251,7 +249,7 @@ const AttemptSpeakingModulePage = () => {
   }
 
   async function mergeAudioBlobWithBytes(user_responses) {
-    let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    let audioContext = new AudioContext();
     let totalDuration = 0;
     let audioBuffers = [];
     let durations = {}; // Object to store individual durations
