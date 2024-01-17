@@ -261,12 +261,8 @@ const SpeakingFooter = ({
       newUserAllResponse[currentSection.id][currentQuestion.id]["elapsedTime"] =
         elapsedTime;
 
-      // If we're changing sections or at the end of the section, store the audio blob URL
-      console.log("AUDIO: ", audioSection);
       if (audioBlobUrl) {
-        newUserAllResponse[audioSection] =
-          newUserAllResponse[audioSection] ?? {};
-        newUserAllResponse[audioSection]["audio"] = audioBlobUrl;
+        newUserAllResponse["fullAudio"] = audioBlobUrl;
       }
 
       setUserAllResponse(newUserAllResponse);
@@ -297,9 +293,6 @@ const SpeakingFooter = ({
     }
     // If it's the last question in the current section
     else if (currentQuestionIndex === currentSection.questions.length - 1) {
-      stopRecording();
-
-      updateUserResponses(audioURL);
       // Find the index of the current section in the module
       const currentSectionIndex = module.sections.findIndex(
         (sec) => sec === currentSection
@@ -320,6 +313,8 @@ const SpeakingFooter = ({
       else if (currentSectionIndex === module.sections.length - 1) {
         // Set isEndTest to true
         setIsEndTest(true);
+        stopRecording();
+        updateUserResponses(audioURL);
       }
     } else {
       console.log("Question not found or already at the end.");
