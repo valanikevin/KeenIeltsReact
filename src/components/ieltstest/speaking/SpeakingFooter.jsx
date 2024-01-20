@@ -142,14 +142,6 @@ const SpeakingFooter = ({
   }, [isRunning]);
 
   useEffect(() => {
-    // Clear audio URL and start a new recording when section changes
-    setAudioURL("");
-    if (testStarted) {
-      startRecording(); // startRecording should take care of creating a new MediaRecorder instance
-    }
-  }, [currentSection]);
-
-  useEffect(() => {
     setElapsedTime(0);
   }, [currentQuestion]);
 
@@ -185,16 +177,21 @@ const SpeakingFooter = ({
   };
 
   const startRecording = () => {
+    console.log("Running startRecording");
     navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then((stream) => {
-        setIsTestStarted(true); // Set testStarted to true only after getting media stream successfully
+        setIsTestStarted(true); // Flag to indicate the test has started
         const newMediaRecorder = new MediaRecorder(stream);
         setMediaRecorder(newMediaRecorder);
 
         newMediaRecorder.ondataavailable = (event) => {
-          const audioBlob = new Blob([event.data], { type: "audio/wav" });
-          setAudioURL(URL.createObjectURL(audioBlob));
+          if (event.data.size > 0) {
+            const audioBlob = new Blob([event.data], { type: "audio/wav" });
+            const _audio_url = URL.createObjectURL(audioBlob);
+            setAudioURL(_audio_url);
+            updateUserResponses(_audio_url); // Handle this asynchronously
+          }
         };
 
         newMediaRecorder.start();
@@ -204,31 +201,33 @@ const SpeakingFooter = ({
         console.error("Could not get media:", err);
         setMicAccessError(
           "Unable to access microphone. Please allow microphone access to start the test."
-        ); // Set error message
+        );
       });
   };
 
   const pauseRecording = () => {
     if (mediaRecorder && mediaRecorder.state === "recording") {
-      setIsRunning(false);
       mediaRecorder.pause();
+      setIsRunning(false);
       setIsPaused(true);
     }
   };
 
   const resumeRecording = () => {
     if (mediaRecorder && mediaRecorder.state === "paused") {
-      setIsRunning(true);
       mediaRecorder.resume();
+      setIsRunning(true);
       setIsPaused(false);
     }
   };
 
   const stopRecording = () => {
+    console.log("Running stopRecording");
     if (mediaRecorder) {
-      mediaRecorder.stream.getTracks().forEach((track) => track.stop());
-      mediaRecorder.stop();
+      mediaRecorder.stop(); // First, stop the MediaRecorder
+      mediaRecorder.stream.getTracks().forEach((track) => track.stop()); // Then stop each track
       setMediaRecorder(null); // Reset the MediaRecorder
+      // Do not set audioURL or call updateUserResponses here; handle it in ondataavailable
     }
   };
 
@@ -314,7 +313,6 @@ const SpeakingFooter = ({
         // Set isEndTest to true
         setIsEndTest(true);
         stopRecording();
-        updateUserResponses(audioURL);
       }
     } else {
       console.log("Question not found or already at the end.");
