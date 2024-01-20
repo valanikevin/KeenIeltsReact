@@ -234,7 +234,6 @@ const SpeakingFooter = ({
 
   function updateUserResponses(audioSection = null, audioBlobUrl = null) {
     // Check that currentSection and currentQuestion are not null or undefined
-    console.log("Before User Responses: ", userAllResponse);
     if (
       currentSection &&
       currentQuestion &&
@@ -264,7 +263,7 @@ const SpeakingFooter = ({
       }
 
       setUserAllResponse(newUserAllResponse);
-      console.log("After User Responses: ", newUserAllResponse);
+
       return newUserAllResponse;
     } else {
       console.error(
