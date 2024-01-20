@@ -190,7 +190,6 @@ const SpeakingFooter = ({
             const audioBlob = new Blob([event.data], { type: "audio/wav" });
             const _audio_url = URL.createObjectURL(audioBlob);
             setAudioURL(_audio_url);
-            updateUserResponses(_audio_url); // Handle this asynchronously
           }
         };
 
@@ -227,7 +226,6 @@ const SpeakingFooter = ({
       mediaRecorder.stop(); // First, stop the MediaRecorder
       mediaRecorder.stream.getTracks().forEach((track) => track.stop()); // Then stop each track
       setMediaRecorder(null); // Reset the MediaRecorder
-      // Do not set audioURL or call updateUserResponses here; handle it in ondataavailable
     }
   };
 
@@ -236,6 +234,7 @@ const SpeakingFooter = ({
 
   function updateUserResponses(audioSection = null, audioBlobUrl = null) {
     // Check that currentSection and currentQuestion are not null or undefined
+    console.log("Before User Responses: ", userAllResponse);
     if (
       currentSection &&
       currentQuestion &&
@@ -265,6 +264,7 @@ const SpeakingFooter = ({
       }
 
       setUserAllResponse(newUserAllResponse);
+      console.log("After User Responses: ", newUserAllResponse);
       return newUserAllResponse;
     } else {
       console.error(

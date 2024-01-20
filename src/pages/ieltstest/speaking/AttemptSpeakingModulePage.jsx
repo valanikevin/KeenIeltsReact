@@ -46,8 +46,6 @@ const AttemptSpeakingModulePage = () => {
   useEffect(() => {
     if (module) {
       console.log("isEndTest", isEndTest);
-      console.log("userAllResponse", userAllResponse);
-      const last_section = module.sections[module.sections.length - 1];
       if (isEndTest) {
         if (userAllResponse["fullAudio"]) {
           handleConfirmEndTest(userAllResponse);
@@ -166,7 +164,6 @@ const AttemptSpeakingModulePage = () => {
         const blob = await fetch(audioBlobUrl).then((r) => r.blob());
 
         const audioBytes = await blobToBytes(blob);
-
         // This will replace the "audio" key with the new value, while keeping the rest of the properties the same.
         user_responses = {
           ...user_responses,
