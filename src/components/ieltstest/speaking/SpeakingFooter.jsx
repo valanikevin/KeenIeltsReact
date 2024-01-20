@@ -56,10 +56,10 @@ const SpeakingFooter = ({
         setTimeToThink(5);
         break;
       case "Part 2":
-        setTimeToThink(10);
+        setTimeToThink(60);
         break;
       case "Part 3":
-        setTimeToThink(5);
+        setTimeToThink(10);
         break;
       default:
         setTimeToThink(5);
