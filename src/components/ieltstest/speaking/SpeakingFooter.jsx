@@ -46,24 +46,25 @@ const SpeakingFooter = ({
 
   const [audioCurrentSection, setAudioCurrentSection] =
     useState(currentSection);
-  const [timeToThink, setTimeToThink] = useState(0);
+  const [timeToThink, setTimeToThink] = useState(5);
 
   useEffect(() => {
     // Update timeToThink based on the current section
-    switch (audioCurrentSection.section) {
+    console.log("audioCurrent Section", currentSection.section);
+    switch (currentSection.section) {
       case "Part 1":
-        setTimeToThink(0);
+        setTimeToThink(5);
         break;
       case "Part 2":
         setTimeToThink(10);
         break;
       case "Part 3":
-        setTimeToThink(0);
+        setTimeToThink(5);
         break;
       default:
-        setTimeToThink(0);
+        setTimeToThink(5);
     }
-  }, [audioCurrentSection]);
+  }, [currentQuestion]);
 
   useEffect(() => {
     let timerId;
@@ -75,7 +76,6 @@ const SpeakingFooter = ({
       // Start a timer that decreases timeToThink every second
       timerId = setInterval(() => {
         setTimeToThink((prevTime) => prevTime - 1);
-        console.log("Time to think: ", timeToThink);
       }, 1000);
     } else if (timeToThink === 0) {
       // Resume the test when timeToThink is over
@@ -84,7 +84,7 @@ const SpeakingFooter = ({
 
     // Clear the interval when component unmounts or timeToThink changes
     return () => clearInterval(timerId);
-  }, [timeToThink]);
+  }, [timeToThink, currentQuestion]);
 
   useEffect(() => {
     // Calculate total questions
