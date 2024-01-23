@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios"; // Import Axios
 import { DJANGO_BASE_URL } from "../utils/config";
+import ErrorPage from "../pages/ErrorPage";
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -55,7 +56,7 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       // You can render any custom fallback UI
-      return <h1>Something went wrong.</h1>;
+      return <ErrorPage />;
     }
 
     return this.props.children;
