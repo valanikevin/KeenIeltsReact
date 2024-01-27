@@ -1,0 +1,2 @@
+import{j as s,C as e,B as d}from"./index-8f03038e.js";const c=({bands:a,description:r,color:l="primary"})=>s.jsxs(e,{children:[s.jsx(e.Header,{children:s.jsx("h3",{className:"mt-2 fw-bold",children:"Overall Score"})}),s.jsxs(e.Body,{className:"",children:[s.jsx(d,{bg:l,children:s.jsxs("h4",{className:"display-5 mt-2 mx-3 text-white",children:[a," Bands"]})}),s.jsx("p",{style:{fontSize:"1.1rem"},className:"mt-4",children:r})]})]});export{c as O};
+//# sourceMappingURL=OverallBandsCard-bd0f8fa4.js.map

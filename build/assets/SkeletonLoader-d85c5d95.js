@@ -1,2 +1,0 @@
-import{j as e,C as s}from"./index-e388c6e0.js";/* empty css                 */const t=({title:o})=>e.jsxs(s,{className:"skeleton-card",children:[e.jsx(s.Header,{children:o?e.jsx("h3",{className:"mt-2 fw-bold",children:o}):e.jsx("div",{className:"skeleton-header"})}),e.jsxs(s.Body,{children:[e.jsx("div",{className:"skeleton-content"}),e.jsx("div",{className:"skeleton-content"}),e.jsx("div",{className:"skeleton-content"})]}),e.jsx(s.Footer,{children:e.jsx("div",{className:"skeleton-footer my-3"})})]});export{t as S};
-//# sourceMappingURL=SkeletonLoader-d85c5d95.js.map
