@@ -6,7 +6,6 @@ import { Route, Routes } from "react-router-dom";
 
 import PrivateRoutes from "./utils/PrivateRoutes";
 import LoadingPage from "./pages/LoadingPage";
-import LoadingContext from "./context/layout/LoadingContext";
 
 const DashboardPage = lazy(() => import("./pages/student/DashboardPage"));
 const AttemptListeningModulePage = lazy(() =>
@@ -50,11 +49,9 @@ const SpeakingCompletedPage = lazy(() =>
 const YourTestPage = lazy(() => import("./pages/student/YourTestPage"));
 
 const AllRoutes = () => {
-  const [loadingBar, setLoadingBar] = useContext(LoadingContext);
-  
+
   return (
     <>
-      {loadingBar && <LoadingPage />}
       <Suspense fallback={<LoadingPage />}>
         <Routes>
           {/* Private Routes */}

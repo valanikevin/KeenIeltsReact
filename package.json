@@ -53,6 +53,7 @@
     "react-flatpickr": "^3.10.13",
     "react-ga4": "^2.1.0",
     "react-h5-audio-player": "^3.9.0",
+    "react-helmet": "^6.1.0",
     "react-icons": "^4.10.1",
     "react-input-mask": "^2.0.4",
     "react-modal-video": "^2.0.0",

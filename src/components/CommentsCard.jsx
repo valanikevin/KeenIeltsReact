@@ -35,6 +35,14 @@ const CommentsCard = ({ unique_id, title = "Comments", description }) => {
     comment: Yup.string().required("Comment is required"),
   });
 
+  function getUser() {
+    if (localStorage.getItem("authTokens")) {
+      const user = JSON.parse(localStorage.getItem("authTokens"));
+      return user;
+    }
+    return null;
+  }
+
   async function getComments() {
     try {
       const response = await api.post(
@@ -74,8 +82,14 @@ const CommentsCard = ({ unique_id, title = "Comments", description }) => {
   }
 
   useEffect(() => {
-    getComments();
+    if (getUser()) {
+      getComments();
+    }
   }, []);
+
+  if (!getUser()) {
+    return null;
+  }
 
   return (
     <>

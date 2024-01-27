@@ -15,6 +15,7 @@ import usePublicAxios from "../../utils/usePublicAxios";
 import useAxios from "../../utils/useAxios";
 import TestTypeContext from "../../context/TestTypeContext";
 import TestTypeSwitch from "../../components/ieltstest/TestTypeSwitch";
+import { Helmet } from "react-helmet";
 
 const ModuleHomePage = () => {
   let api;
@@ -66,18 +67,21 @@ const ModuleHomePage = () => {
       );
     });
 
-  useEffect(() => {
-    document.title = module_data[module_slug].page_title + " | KeenIELTS";
-  }, []);
-
   if (!books) {
     return null;
   }
   return (
     <div>
+      <Helmet>
+        <title>{module_data[module_slug].seo_title}</title>
+        <meta
+          name="description"
+          content={module_data[module_slug].seo_description}
+        />
+      </Helmet>
       <PageHeadingBriefinfo
         pagetitle={module_data[module_slug].page_title}
-        briefinfo={module_data[module_slug].page_description}
+        briefinfo={module_data[module_slug].seo_description}
         color={`bg-${module_slug}`}
       />
       <div className="border-bottom bg-white">
@@ -137,6 +141,9 @@ const module_data = {
     page_description:
       "Improve your English listening skills by practicing with mock tests that closely resemble the actual IELTS listening tests.",
     api_url: "/ieltstest/listening/",
+    seo_title: "Free Real IELTS Listening Practice Tests | KeenIELTS",
+    seo_description:
+      "Boost your IELTS Listening skills with KeenIELTS! Access a variety of authentic IELTS Listening tests for free. Experience real test conditions, get instant results, and improve your score. Start your effective IELTS preparation journey today and achieve the score you need!",
   },
   reading: {
     title: "Reading Test",
@@ -144,6 +151,9 @@ const module_data = {
     page_description:
       "Improve your English reading skills by practicing with mock tests that closely resemble the actual IELTS reading tests.",
     api_url: "/ieltstest/reading/",
+    seo_title: "Free Real IELTS Reading Practice Tests | KeenIELTS",
+    seo_description:
+      "Boost your IELTS Reading skills with KeenIELTS! Access a variety of authentic IELTS Reading tests for free. Experience real test conditions, get instant results, and improve your score. Start your effective IELTS preparation journey today and achieve the score you need!",
   },
   writing: {
     title: "Writing Test",
@@ -151,6 +161,9 @@ const module_data = {
     page_description:
       "Improve your English writing skills by practicing with mock tests that closely resemble the actual IELTS writing tests.",
     api_url: "/ieltstest/writing/",
+    seo_title: "Free Real IELTS Writing Practice Tests | KeenIELTS",
+    seo_description:
+      "Boost your IELTS Writing skills with KeenIELTS! Access a variety of authentic IELTS Writing tests for free. Experience real test conditions, get instant results, and improve your score. Start your effective IELTS preparation journey today and achieve the score you need!",
   },
   speaking: {
     title: "Speaking Test",
@@ -158,12 +171,18 @@ const module_data = {
     page_description:
       "Improve your English speaking skills by practicing with mock tests that closely resemble the actual IELTS speaking tests.",
     api_url: "/ieltstest/speaking/",
+    seo_title: "Free Real IELTS Speaking Practice Tests | KeenIELTS",
+    seo_description:
+      "Boost your IELTS Speaking skills with KeenIELTS! Access a variety of authentic IELTS Speaking tests for free. Experience real test conditions, get instant results, and improve your score. Start your effective IELTS preparation journey today and achieve the score you need!",
   },
   fulltest: {
     title: "Full Test",
     page_title: "Full Test Books",
     page_description: "Practice full IELTS test with answers and explanations.",
     api_url: "/ieltstest/fulltest/",
+    seo_title: "Free Real IELTS Complete Practice Tests | KeenIELTS",
+    seo_description:
+      "Boost your IELTS exam skills with KeenIELTS! Access a variety of authentic IELTS practice tests for free. Experience real test conditions, get instant results, and improve your score. Start your effective IELTS preparation journey today and achieve the score you need!",
   },
 };
 

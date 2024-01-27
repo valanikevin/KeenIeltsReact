@@ -24,6 +24,7 @@ import BookHomePageLoader from "../../components/layout/BookHomePage/BookHomePag
 import TestTypeSwitch from "../../components/ieltstest/TestTypeSwitch";
 import TestTypeContext from "../../context/TestTypeContext";
 import CommentsCard from "../../components/CommentsCard";
+import { Helmet } from "react-helmet";
 
 const BookHomePage = () => {
   const book_slug = useParams().book_slug;
@@ -34,13 +35,6 @@ const BookHomePage = () => {
   const [testType, setTestType] = useContext(TestTypeContext);
   let { registerUser, registrationError, user } = useContext(AuthContext);
   const getSmartTest = useGetSmartTest();
-
-  useEffect(() => {
-    if (book) {
-      document.title =
-        book.name + " | Practice Real IELTS Tests for Free | KeenIELTS";
-    }
-  }, [book]);
 
   function getBook() {
     api_public
@@ -93,6 +87,12 @@ const BookHomePage = () => {
 
   return (
     <>
+      <Helmet>
+        <title>
+          Practice {book.name} book for Free: Instant Feedback & Evaluation |
+          KeenIELTS
+        </title>
+      </Helmet>
       <section className="pt-lg-8 pb-lg-16 pt-8 pb-12 bg-primary">
         <Container>
           <Row className="align-items-center">
