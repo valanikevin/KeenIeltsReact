@@ -1,106 +1,134 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import HomePage from "./pages/base/HomePage";
 import LoginPage from "./pages/base/LoginPage";
 import RegisterPage from "./pages/base/RegisterPage";
 import { Route, Routes } from "react-router-dom";
 
 import PrivateRoutes from "./utils/PrivateRoutes";
-import DashboardPage from "./pages/student/DashboardPage";
 
-import AttemptListeningModulePage from "./pages/ieltstest/listening/AttemptListeningModulePage";
-import ListeningResultPage from "./pages/ieltstest/listening/ListeningResultPage";
-import ModuleHomePage from "./pages/ieltstest/ModuleHomePage";
-import AttemptReadingModulePage from "./pages/ieltstest/reading/AttemptReadingModulePage";
-import ReadingResultPage from "./pages/ieltstest/reading/ReadingResultPage";
-import AttemptWritingModulePage from "./pages/ieltstest/writing/AttemptWritingModulePage";
-import WritingResultPage from "./pages/ieltstest/writing/WritingResultPage";
-import AttemptSpeakingModulePage from "./pages/ieltstest/speaking/AttemptSpeakingModulePage";
-import SpeakingResultPage from "./pages/ieltstest/speaking/SpeakingResultPage";
-import AccountPage from "./pages/base/AccountPage";
-import FullTestInfoPage from "./pages/ieltstest/fulltest/FullTestInfoPage";
-import VerifyEmailPage from "./pages/base/VerifyEmailPage";
-import ResetPasswordPage from "./pages/base/ResetPasswordPage";
-import ConfirmResetPassword from "./pages/base/ConfirmResetPassword";
-import BookHomePage from "./pages/ieltstest/BookHomePage";
-import SpeakingCompletedPage from "./pages/ieltstest/speaking/SpeakingCompletedPage";
-import YourTestPage from "./pages/student/YourTestPage";
+const DashboardPage = lazy(() => import("./pages/student/DashboardPage"));
+const AttemptListeningModulePage = lazy(() =>
+  import("./pages/ieltstest/listening/AttemptListeningModulePage")
+);
+const ListeningResultPage = lazy(() =>
+  import("./pages/ieltstest/listening/ListeningResultPage")
+);
+const ModuleHomePage = lazy(() => import("./pages/ieltstest/ModuleHomePage"));
+const AttemptReadingModulePage = lazy(() =>
+  import("./pages/ieltstest/reading/AttemptReadingModulePage")
+);
+const ReadingResultPage = lazy(() =>
+  import("./pages/ieltstest/reading/ReadingResultPage")
+);
+const AttemptWritingModulePage = lazy(() =>
+  import("./pages/ieltstest/writing/AttemptWritingModulePage")
+);
+const WritingResultPage = lazy(() =>
+  import("./pages/ieltstest/writing/WritingResultPage")
+);
+const AttemptSpeakingModulePage = lazy(() =>
+  import("./pages/ieltstest/speaking/AttemptSpeakingModulePage")
+);
+const SpeakingResultPage = lazy(() =>
+  import("./pages/ieltstest/speaking/SpeakingResultPage")
+);
+const AccountPage = lazy(() => import("./pages/base/AccountPage"));
+const FullTestInfoPage = lazy(() =>
+  import("./pages/ieltstest/fulltest/FullTestInfoPage")
+);
+const VerifyEmailPage = lazy(() => import("./pages/base/VerifyEmailPage"));
+const ResetPasswordPage = lazy(() => import("./pages/base/ResetPasswordPage"));
+const ConfirmResetPassword = lazy(() =>
+  import("./pages/base/ConfirmResetPassword")
+);
+const BookHomePage = lazy(() => import("./pages/ieltstest/BookHomePage"));
+const SpeakingCompletedPage = lazy(() =>
+  import("./pages/ieltstest/speaking/SpeakingCompletedPage")
+);
+const YourTestPage = lazy(() => import("./pages/student/YourTestPage"));
 
 const AllRoutes = () => {
   return (
-    <Routes>
-      {/* Private Routes */}
-      <Route path={"/dashboard"} element={<PrivateRoutes />}>
-        <Route index element={<DashboardPage />} />
-        <Route path={"/dashboard/tests"} element={<YourTestPage />} />
-      </Route>
+    <Suspense fallback={<h1>Loading...</h1>}>
+      <Routes>
+        {/* Private Routes */}
 
-      <Route path={"/account"} element={<PrivateRoutes />}>
-        <Route index element={<AccountPage />} />
-      </Route>
-
-      <Route path={"/"} element={<HomePage />} />
-      <Route path={"/login"} element={<LoginPage />} />
-      <Route path={"/register"} element={<RegisterPage />} />
-      <Route path={"/verify"} element={<VerifyEmailPage />} />
-      <Route path={"/reset"} element={<ResetPasswordPage />} />
-      <Route path={"/reset/confirm/"} element={<ConfirmResetPassword />} />
-      <Route path={"book/:book_slug"} element={<BookHomePage />} />
-
-      {/* IELTS Tests */}
-      <Route path={"/ieltstest"}>
-        <Route path={":module_slug"} element={<ModuleHomePage />} />
-        <Route path="attempt" element={<PrivateRoutes />}>
-          {/* Full Test */}
-          <Route path="fulltest/:attempt_slug" element={<FullTestInfoPage />} />
-
-          {/* Listening Attempt */}
-          <Route
-            path="listening/:module_slug/:attempt_slug"
-            element={<AttemptListeningModulePage />}
-          />
-          <Route
-            path="listening/:module_slug/:attempt_slug/get_result"
-            element={<ListeningResultPage />}
-          />
-          {/* Reading Attempt */}
-          <Route
-            path="reading/:module_slug/:attempt_slug"
-            element={<AttemptReadingModulePage />}
-          />
-          <Route
-            path="reading/:module_slug/:attempt_slug/get_result"
-            element={<ReadingResultPage />}
-          />
-
-          {/* Writing Attempt */}
-          <Route
-            path="writing/:module_slug/:attempt_slug"
-            element={<AttemptWritingModulePage />}
-          />
-
-          <Route
-            path="writing/:module_slug/:attempt_slug/get_result"
-            element={<WritingResultPage />}
-          />
-
-          {/* Speaking Attempt */}
-          <Route
-            path="speaking/:module_slug/:attempt_slug"
-            element={<AttemptSpeakingModulePage />}
-          />
-
-          <Route
-            path="speaking/:module_slug/:attempt_slug/completed"
-            element={<SpeakingCompletedPage />}
-          />
-
-          <Route
-            path="speaking/:module_slug/:attempt_slug/get_result"
-            element={<SpeakingResultPage />}
-          />
+        <Route path={"/dashboard"} element={<PrivateRoutes />}>
+          <Route index element={<DashboardPage />} />
+          <Route path={"/dashboard/tests"} element={<YourTestPage />} />
         </Route>
-      </Route>
-    </Routes>
+
+        <Route path={"/account"} element={<PrivateRoutes />}>
+          <Route index element={<AccountPage />} />
+        </Route>
+
+        <Route path={"/"} element={<HomePage />} />
+        <Route path={"/login"} element={<LoginPage />} />
+        <Route path={"/register"} element={<RegisterPage />} />
+        <Route path={"/verify"} element={<VerifyEmailPage />} />
+        <Route path={"/reset"} element={<ResetPasswordPage />} />
+        <Route path={"/reset/confirm/"} element={<ConfirmResetPassword />} />
+        <Route path={"book/:book_slug"} element={<BookHomePage />} />
+
+        {/* IELTS Tests */}
+        <Route path={"/ieltstest"}>
+          <Route path={":module_slug"} element={<ModuleHomePage />} />
+          <Route path="attempt" element={<PrivateRoutes />}>
+            {/* Full Test */}
+            <Route
+              path="fulltest/:attempt_slug"
+              element={<FullTestInfoPage />}
+            />
+
+            {/* Listening Attempt */}
+            <Route
+              path="listening/:module_slug/:attempt_slug"
+              element={<AttemptListeningModulePage />}
+            />
+            <Route
+              path="listening/:module_slug/:attempt_slug/get_result"
+              element={<ListeningResultPage />}
+            />
+            {/* Reading Attempt */}
+            <Route
+              path="reading/:module_slug/:attempt_slug"
+              element={<AttemptReadingModulePage />}
+            />
+            <Route
+              path="reading/:module_slug/:attempt_slug/get_result"
+              element={<ReadingResultPage />}
+            />
+
+            {/* Writing Attempt */}
+            <Route
+              path="writing/:module_slug/:attempt_slug"
+              element={<AttemptWritingModulePage />}
+            />
+
+            <Route
+              path="writing/:module_slug/:attempt_slug/get_result"
+              element={<WritingResultPage />}
+            />
+
+            {/* Speaking Attempt */}
+            <Route
+              path="speaking/:module_slug/:attempt_slug"
+              element={<AttemptSpeakingModulePage />}
+            />
+
+            <Route
+              path="speaking/:module_slug/:attempt_slug/completed"
+              element={<SpeakingCompletedPage />}
+            />
+
+            <Route
+              path="speaking/:module_slug/:attempt_slug/get_result"
+              element={<SpeakingResultPage />}
+            />
+          </Route>
+        </Route>
+      </Routes>
+    </Suspense>
   );
 };
 
