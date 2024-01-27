@@ -49,7 +49,6 @@ const SpeakingCompletedPage = lazy(() =>
 const YourTestPage = lazy(() => import("./pages/student/YourTestPage"));
 
 const AllRoutes = () => {
-
   return (
     <>
       <Suspense fallback={<LoadingPage />}>
