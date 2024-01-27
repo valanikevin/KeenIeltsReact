@@ -1,10 +1,12 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useContext, useState } from "react";
 import HomePage from "./pages/base/HomePage";
 import LoginPage from "./pages/base/LoginPage";
 import RegisterPage from "./pages/base/RegisterPage";
 import { Route, Routes } from "react-router-dom";
 
 import PrivateRoutes from "./utils/PrivateRoutes";
+import LoadingPage from "./pages/LoadingPage";
+import LoadingContext from "./context/layout/LoadingContext";
 
 const DashboardPage = lazy(() => import("./pages/student/DashboardPage"));
 const AttemptListeningModulePage = lazy(() =>
@@ -48,87 +50,92 @@ const SpeakingCompletedPage = lazy(() =>
 const YourTestPage = lazy(() => import("./pages/student/YourTestPage"));
 
 const AllRoutes = () => {
+  const [loadingBar, setLoadingBar] = useContext(LoadingContext);
+  
   return (
-    <Suspense fallback={<h1>Loading...</h1>}>
-      <Routes>
-        {/* Private Routes */}
+    <>
+      {loadingBar && <LoadingPage />}
+      <Suspense fallback={<LoadingPage />}>
+        <Routes>
+          {/* Private Routes */}
 
-        <Route path={"/dashboard"} element={<PrivateRoutes />}>
-          <Route index element={<DashboardPage />} />
-          <Route path={"/dashboard/tests"} element={<YourTestPage />} />
-        </Route>
-
-        <Route path={"/account"} element={<PrivateRoutes />}>
-          <Route index element={<AccountPage />} />
-        </Route>
-
-        <Route path={"/"} element={<HomePage />} />
-        <Route path={"/login"} element={<LoginPage />} />
-        <Route path={"/register"} element={<RegisterPage />} />
-        <Route path={"/verify"} element={<VerifyEmailPage />} />
-        <Route path={"/reset"} element={<ResetPasswordPage />} />
-        <Route path={"/reset/confirm/"} element={<ConfirmResetPassword />} />
-        <Route path={"book/:book_slug"} element={<BookHomePage />} />
-
-        {/* IELTS Tests */}
-        <Route path={"/ieltstest"}>
-          <Route path={":module_slug"} element={<ModuleHomePage />} />
-          <Route path="attempt" element={<PrivateRoutes />}>
-            {/* Full Test */}
-            <Route
-              path="fulltest/:attempt_slug"
-              element={<FullTestInfoPage />}
-            />
-
-            {/* Listening Attempt */}
-            <Route
-              path="listening/:module_slug/:attempt_slug"
-              element={<AttemptListeningModulePage />}
-            />
-            <Route
-              path="listening/:module_slug/:attempt_slug/get_result"
-              element={<ListeningResultPage />}
-            />
-            {/* Reading Attempt */}
-            <Route
-              path="reading/:module_slug/:attempt_slug"
-              element={<AttemptReadingModulePage />}
-            />
-            <Route
-              path="reading/:module_slug/:attempt_slug/get_result"
-              element={<ReadingResultPage />}
-            />
-
-            {/* Writing Attempt */}
-            <Route
-              path="writing/:module_slug/:attempt_slug"
-              element={<AttemptWritingModulePage />}
-            />
-
-            <Route
-              path="writing/:module_slug/:attempt_slug/get_result"
-              element={<WritingResultPage />}
-            />
-
-            {/* Speaking Attempt */}
-            <Route
-              path="speaking/:module_slug/:attempt_slug"
-              element={<AttemptSpeakingModulePage />}
-            />
-
-            <Route
-              path="speaking/:module_slug/:attempt_slug/completed"
-              element={<SpeakingCompletedPage />}
-            />
-
-            <Route
-              path="speaking/:module_slug/:attempt_slug/get_result"
-              element={<SpeakingResultPage />}
-            />
+          <Route path={"/dashboard"} element={<PrivateRoutes />}>
+            <Route index element={<DashboardPage />} />
+            <Route path={"/dashboard/tests"} element={<YourTestPage />} />
           </Route>
-        </Route>
-      </Routes>
-    </Suspense>
+
+          <Route path={"/account"} element={<PrivateRoutes />}>
+            <Route index element={<AccountPage />} />
+          </Route>
+
+          <Route path={"/"} element={<HomePage />} />
+          <Route path={"/login"} element={<LoginPage />} />
+          <Route path={"/register"} element={<RegisterPage />} />
+          <Route path={"/verify"} element={<VerifyEmailPage />} />
+          <Route path={"/reset"} element={<ResetPasswordPage />} />
+          <Route path={"/reset/confirm/"} element={<ConfirmResetPassword />} />
+          <Route path={"book/:book_slug"} element={<BookHomePage />} />
+
+          {/* IELTS Tests */}
+          <Route path={"/ieltstest"}>
+            <Route path={":module_slug"} element={<ModuleHomePage />} />
+            <Route path="attempt" element={<PrivateRoutes />}>
+              {/* Full Test */}
+              <Route
+                path="fulltest/:attempt_slug"
+                element={<FullTestInfoPage />}
+              />
+
+              {/* Listening Attempt */}
+              <Route
+                path="listening/:module_slug/:attempt_slug"
+                element={<AttemptListeningModulePage />}
+              />
+              <Route
+                path="listening/:module_slug/:attempt_slug/get_result"
+                element={<ListeningResultPage />}
+              />
+              {/* Reading Attempt */}
+              <Route
+                path="reading/:module_slug/:attempt_slug"
+                element={<AttemptReadingModulePage />}
+              />
+              <Route
+                path="reading/:module_slug/:attempt_slug/get_result"
+                element={<ReadingResultPage />}
+              />
+
+              {/* Writing Attempt */}
+              <Route
+                path="writing/:module_slug/:attempt_slug"
+                element={<AttemptWritingModulePage />}
+              />
+
+              <Route
+                path="writing/:module_slug/:attempt_slug/get_result"
+                element={<WritingResultPage />}
+              />
+
+              {/* Speaking Attempt */}
+              <Route
+                path="speaking/:module_slug/:attempt_slug"
+                element={<AttemptSpeakingModulePage />}
+              />
+
+              <Route
+                path="speaking/:module_slug/:attempt_slug/completed"
+                element={<SpeakingCompletedPage />}
+              />
+
+              <Route
+                path="speaking/:module_slug/:attempt_slug/get_result"
+                element={<SpeakingResultPage />}
+              />
+            </Route>
+          </Route>
+        </Routes>
+      </Suspense>
+    </>
   );
 };
 

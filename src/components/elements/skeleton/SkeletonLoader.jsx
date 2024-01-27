@@ -9,7 +9,7 @@ const SkeletonLoader = ({ title }) => {
         {title ? (
           <h3 className="mt-2 fw-bold">{title}</h3>
         ) : (
-          <div className="skeleton-header"></div>
+          <div className="skeleton-header my-2"></div>
         )}
       </Card.Header>
       <Card.Body>
