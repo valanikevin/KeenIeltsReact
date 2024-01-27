@@ -47,6 +47,7 @@ const SpeakingFooter = ({
   const [audioCurrentSection, setAudioCurrentSection] =
     useState(currentSection);
   const [timeToThink, setTimeToThink] = useState(5);
+  const [questionInstruction, setQuestionInstruction] = useState(null);
 
   useEffect(() => {
     // Update timeToThink based on the current section
@@ -54,15 +55,19 @@ const SpeakingFooter = ({
     switch (currentSection.section) {
       case "Part 1":
         setTimeToThink(5);
+        setQuestionInstruction(null);
         break;
       case "Part 2":
         setTimeToThink(60);
+        setQuestionInstruction("Speak for approximately 2 minutes.");
         break;
       case "Part 3":
         setTimeToThink(10);
+        setQuestionInstruction(null);
         break;
       default:
         setTimeToThink(5);
+        setQuestionInstruction(null);
     }
   }, [currentQuestion]);
 
@@ -350,22 +355,30 @@ const SpeakingFooter = ({
                   <div className="text-danger">On pause</div>
                 )
               ) : (
-                <div>
-                  <Badge
-                    bg="dark"
-                    className=""
-                    style={{ fontSize: "20px", width: "125px" }}
-                  >
-                    <Stack direction="horizontal" className="">
-                      <div className="mx-2">
-                        <Waves isSpeaking={isSpeaking} background="dark" />
-                      </div>
-                      <div className="mx-2">
-                        {secondsToMinutes(elapsedTime)}
-                      </div>
-                    </Stack>
-                  </Badge>
-                </div>
+                <>
+                  <div>
+                    <Badge
+                      bg="dark"
+                      className=""
+                      style={{ fontSize: "20px", width: "125px" }}
+                    >
+                      <Stack direction="horizontal" className="">
+                        <div className="mx-2">
+                          <Waves isSpeaking={isSpeaking} background="dark" />
+                        </div>
+                        <div className="mx-2">
+                          {secondsToMinutes(elapsedTime)}
+                        </div>
+                      </Stack>
+                    </Badge>
+                  </div>
+                  {questionInstruction && (
+                    <>
+                      <hr />
+                      <p className="m-0 p-0">{questionInstruction}</p>
+                    </>
+                  )}
+                </>
               )}
             </div>
           </Col>
