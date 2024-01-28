@@ -67,9 +67,11 @@ const ParseQuestions = ({
             className={`${domNode.attribs.className || ""} custom-form-select`}
             value={
               user_answers
-                ? user_answers["que-" + queName[1]]["user_answer"].toUpperCase()
+                ? String(
+                    user_answers["que-" + queName[1]]["user_answer"]
+                  ).toUpperCase() // Convert to lowercase
                 : moduleType === "Reading"
-                ? formValues["que-" + queName[1]]
+                ? String(formValues["que-" + queName[1]]).toUpperCase() // Convert to lowercase
                 : undefined
             }
           >
@@ -79,11 +81,11 @@ const ParseQuestions = ({
                 : "";
               return (
                 <option
-                  key={idx}
-                  value={optionNode.attribs.value.toUpperCase()}
                   {...optionNode.attribs}
+                  key={idx}
+                  value={String(optionNode.attribs.value).toUpperCase()} // Convert to lowercase
                 >
-                  {optionValue}
+                  {optionValue.toUpperCase()}
                 </option>
               );
             })}
