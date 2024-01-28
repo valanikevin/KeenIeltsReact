@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 
 import PrivateRoutes from "./utils/PrivateRoutes";
 import LoadingPage from "./pages/LoadingPage";
+import "../src/assets/scss/_user.scss";
 
 const DashboardPage = lazy(() => import("./pages/student/DashboardPage"));
 const AttemptListeningModulePage = lazy(() =>

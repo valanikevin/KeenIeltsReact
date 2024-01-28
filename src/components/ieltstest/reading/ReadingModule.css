@@ -9,13 +9,6 @@
   font-size: 16px;
   color: black;
 }
-/* 
-.reading-passage blockquote {
-  margin: 20px 0;
-  padding-left: 20px;
-  border-left: 3px solid #ccc;
-  font-style: italic;
-} */
 
 .highlighted-text {
   background-color: #b0e0e6; /* You can choose the highlight color */

@@ -1,0 +1,60 @@
+/* CustomAudioPlayer.css */
+
+/* Play/Pause button */
+.rhap_play-pause-button {
+  color: #0052cc; /* Green, change as needed */
+}
+
+/* Progress Bar */
+.rhap_progress-bar {
+  background: #e0e0e0; /* Light grey, change as needed */
+  width: 100%;
+}
+
+/* Progress Bar (filled part) */
+.rhap_progress-filled {
+  background: #0052cc; /* Sky blue, change as needed */
+}
+
+/* Progress Bar handle */
+.rhap_progress-indicator {
+  background: #0052cc; /* Amber, change as needed */
+}
+
+/* Time (current time and total time) */
+.rhap_time {
+  color: #000; /* Dark grey, change as needed */
+}
+
+/* Volume control */
+.rhap_volume-indicator,
+.rhap_volume-bar {
+  background: #9c27b0; /* Purple, change as needed */
+}
+
+.rhap_container {
+  border: none !important;
+  box-shadow: none !important; /* Also removing any shadow if present */
+}
+
+.rhap_time {
+  display: none;
+}
+
+.rhap_volume-controls,
+.rhap_additional-controls {
+  display: none;
+}
+
+.rhap_progress-section {
+  flex: 10 1 auto;
+}
+
+.rhap_controls-section {
+  flex: 0 0 auto;
+}
+
+.navbar-default {
+  padding-top: calc(1rem - 10px);
+  box-shadow: none !important;
+}
