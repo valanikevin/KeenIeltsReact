@@ -54,19 +54,19 @@ const SpeakingFooter = ({
     console.log("audioCurrent Section", currentSection.section);
     switch (currentSection.section) {
       case "Part 1":
-        setTimeToThink(0);
+        setTimeToThink(5);
         setQuestionInstruction(null);
         break;
       case "Part 2":
-        setTimeToThink(0);
+        setTimeToThink(60);
         setQuestionInstruction("Speak for approximately 2 minutes.");
         break;
       case "Part 3":
-        setTimeToThink(0);
+        setTimeToThink(10);
         setQuestionInstruction(null);
         break;
       default:
-        setTimeToThink(0);
+        setTimeToThink(5);
         setQuestionInstruction(null);
     }
   }, [currentQuestion]);
