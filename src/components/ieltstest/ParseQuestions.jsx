@@ -48,8 +48,9 @@ const ParseQuestions = ({
           className={`${domNode.attribs.className || ""} custom-form-control`}
           checked={
             user_answers
-              ? user_answers["que-" + queName[1]]["user_answer"] ===
-                domNode.attribs.value
+              ? user_answers["que-" + queName[1]][
+                  "user_answer"
+                ].toUpperCase() === domNode.attribs.value.toUpperCase()
               : moduleType === "Reading"
               ? formValues["que-" + queName[1]] === domNode.attribs.value
               : undefined
@@ -60,32 +61,34 @@ const ParseQuestions = ({
 
     if (domNode.name === "select") {
       return (
-        <select
-          {...commonProps}
-          className={`${domNode.attribs.className || ""} custom-form-select`}
-          value={
-            user_answers
-              ? user_answers["que-" + queName[1]]["user_answer"]
-              : moduleType === "Reading"
-              ? formValues["que-" + queName[1]]
-              : undefined
-          }
-        >
-          {Array.from(domNode.children || []).map((optionNode, idx) => {
-            const optionValue = optionNode.children[0]
-              ? optionNode.children[0].data
-              : "";
-            return (
-              <option
-                key={idx}
-                value={optionNode.attribs.value}
-                {...optionNode.attribs}
-              >
-                {optionValue}
-              </option>
-            );
-          })}
-        </select>
+        <>
+          <select
+            {...commonProps}
+            className={`${domNode.attribs.className || ""} custom-form-select`}
+            value={
+              user_answers
+                ? user_answers["que-" + queName[1]]["user_answer"].toUpperCase()
+                : moduleType === "Reading"
+                ? formValues["que-" + queName[1]]
+                : undefined
+            }
+          >
+            {Array.from(domNode.children || []).map((optionNode, idx) => {
+              const optionValue = optionNode.children[0]
+                ? optionNode.children[0].data
+                : "";
+              return (
+                <option
+                  key={idx}
+                  value={optionNode.attribs.value.toUpperCase()}
+                  {...optionNode.attribs}
+                >
+                  {optionValue}
+                </option>
+              );
+            })}
+          </select>
+        </>
       );
     }
 
@@ -135,7 +138,12 @@ const ParseQuestions = ({
                     moduleType={moduleType}
                   />
                 ) : (
-                  renderInput(domNode, queName)
+                  <QuestionBadge
+                    user_answers={user_answers}
+                    queName={queName}
+                    form_field={renderInput(domNode, queName)}
+                    moduleType={moduleType}
+                  />
                 )}
               </span>
             );
