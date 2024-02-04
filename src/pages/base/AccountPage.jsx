@@ -13,14 +13,14 @@ const AccountPage = () => {
   return (
     <>
       <Container>
-        <Row className="justify-content-center">
-          <Col xl={12} lg={12} md={12} className="mt-3">
+        <Row className="justify-content-center ">
+          <Col xl={12} lg={12} md={12} className="mt-3 ">
             <ProfileCover page="account" />
           </Col>
-          <Col xl={8} lg={10} md={12} className="mb-3">
+          <Col xl={6} lg={6} md={12} className="mb-3">
             <AccountSettingForm />
           </Col>
-          <Col xl={8} lg={10} md={12} className="mb-3">
+          <Col xl={6} lg={6} md={12} className="mb-3">
             <ChangePasswordForm />
           </Col>
         </Row>
