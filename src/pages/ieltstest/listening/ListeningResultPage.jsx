@@ -78,7 +78,7 @@ const ListeningResultPage = () => {
         <Container>
           <Row className="justify-content-center">
             <Col xl={8} lg={10} md={12} className="">
-              <UserTestInfoCard attempt={attempt} />
+              <UserTestInfoCard attempt={attempt} module_type={module_type} />
             </Col>
           </Row>
         </Container>

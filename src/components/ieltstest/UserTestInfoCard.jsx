@@ -2,11 +2,13 @@ import React from "react";
 import { Card, Row, Col, Stack, Button, Table } from "react-bootstrap";
 import { FiInfo } from "react-icons/fi";
 
-const UserTestInfoCard = ({ attempt }) => {
+const UserTestInfoCard = ({ attempt, module_type }) => {
   return (
     <Card>
-      <Card.Header className="bg-listening py-2 text-white fw-bold">
-        Listening Test Result
+      <Card.Header
+        className={`bg-${module_type} py-2 text-white fw-bold text-capitalize`}
+      >
+        {module_type} Test Result
       </Card.Header>
       <Card.Header>
         <Stack direction="horizontal" gap={1}>
