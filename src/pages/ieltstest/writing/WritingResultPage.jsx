@@ -29,6 +29,9 @@ import SectionCard from "../../../components/ieltstest/SectionCard";
 import WhatsNextCard from "../../../components/ieltstest/WhatsNextCard";
 import StartPracticeTestCard from "../../../components/ieltstest/StartPracticeTestCard";
 import CommentsCard from "../../../components/CommentsCard";
+import usePublicAxios from "../../../utils/usePublicAxios";
+import UserTestInfoCard from "../../../components/ieltstest/UserTestInfoCard";
+import TestReactionCard from "../../../components/ieltstest/TestReactionCard";
 
 const module_type = "writing";
 
@@ -48,7 +51,7 @@ const WritingResultPage = () => {
     : false;
   const [deviceType, setDeviceType] = useState("desktop");
 
-  const api = useAxios();
+  const api = usePublicAxios();
 
   async function getAttempt() {
     const response = await api.post(
@@ -170,11 +173,15 @@ const WritingResultPage = () => {
 
   return (
     <>
-      <PageHeadingBriefinfo
-        pagetitle={attempt.book.name}
-        briefinfo={"Writing Test Result"}
-        color="bg-writing"
-      />
+      <div className="mt-4">
+        <Container>
+          <Row className="justify-content-center">
+            <Col xl={8} lg={10} md={12} className="">
+              <UserTestInfoCard attempt={attempt} module_type={module_type} />
+            </Col>
+          </Row>
+        </Container>
+      </div>
 
       <Container className="mb-3">
         <Row className="justify-content-center">
@@ -277,6 +284,10 @@ const WritingResultPage = () => {
                   handleNextSectionButton={handleNextSectionButton}
                   handlePreviousSectionButton={handlePreviousSectionButton}
                 />
+              </Col>
+
+              <Col xl={8} lg={10} md={12} className="mt-3">
+                <TestReactionCard />
               </Col>
 
               {attempt.full_test_next_attempt && (

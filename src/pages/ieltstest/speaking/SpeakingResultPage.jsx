@@ -27,6 +27,9 @@ import StartPracticeTestCard from "../../../components/ieltstest/StartPracticeTe
 import WhatsNextCard from "../../../components/ieltstest/WhatsNextCard";
 import CommentsCard from "../../../components/CommentsCard";
 import SpeakingResponsesCard from "../../../components/ieltstest/speaking/SpeakingResponsesCard";
+import TestReactionCard from "../../../components/ieltstest/TestReactionCard";
+import usePublicAxios from "../../../utils/usePublicAxios";
+import UserTestInfoCard from "../../../components/ieltstest/UserTestInfoCard";
 
 const module_type = "speaking";
 
@@ -38,7 +41,7 @@ const SpeakingResultPage = () => {
   const [currentAudioTime, setCurrentAudioTime] = useState(0.0);
   const [deviceType, setDeviceType] = useState("desktop");
 
-  const api = useAxios();
+  const api = usePublicAxios();
 
   async function getAttempt() {
     const response = await api.post(
@@ -108,11 +111,15 @@ const SpeakingResultPage = () => {
 
   return (
     <>
-      <PageHeadingBriefinfo
-        pagetitle={attempt.book.name}
-        briefinfo={"Speaking Test Result"}
-        color="bg-speaking"
-      />
+      <div className="mt-4">
+        <Container>
+          <Row className="justify-content-center">
+            <Col xl={8} lg={10} md={12} className="">
+              <UserTestInfoCard attempt={attempt} module_type={module_type} />
+            </Col>
+          </Row>
+        </Container>
+      </div>
 
       <Container className="mb-3">
         <Row className="justify-content-center">
@@ -156,6 +163,10 @@ const SpeakingResultPage = () => {
               currentAudioTime={currentAudioTime}
               module={module}
             />
+          </Col>
+
+          <Col xl={8} lg={10} md={12} className="mt-3">
+            <TestReactionCard />
           </Col>
 
           {attempt.full_test_next_attempt && (

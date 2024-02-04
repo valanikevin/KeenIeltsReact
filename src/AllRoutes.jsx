@@ -76,10 +76,28 @@ const AllRoutes = () => {
           {/* IELTS Tests */}
           <Route path={"/ieltstest"}>
             <Route path={":module_slug"} element={<ModuleHomePage />} />
-            <Route
-              path="attempt/listening/:module_slug/:attempt_slug/get_result"
-              element={<ListeningResultPage />}
-            />
+            <Route path="attempt">
+              <Route
+                path="listening/:module_slug/:attempt_slug/get_result"
+                element={<ListeningResultPage />}
+              />
+              
+              <Route
+                path="reading/:module_slug/:attempt_slug/get_result"
+                element={<ReadingResultPage />}
+              />
+
+              <Route
+                path="writing/:module_slug/:attempt_slug/get_result"
+                element={<WritingResultPage />}
+              />
+
+              <Route
+                path="speaking/:module_slug/:attempt_slug/get_result"
+                element={<SpeakingResultPage />}
+              />
+            </Route>
+
             <Route path="attempt" element={<PrivateRoutes />}>
               {/* Full Test */}
               <Route
@@ -98,20 +116,11 @@ const AllRoutes = () => {
                 path="reading/:module_slug/:attempt_slug"
                 element={<AttemptReadingModulePage />}
               />
-              <Route
-                path="reading/:module_slug/:attempt_slug/get_result"
-                element={<ReadingResultPage />}
-              />
 
               {/* Writing Attempt */}
               <Route
                 path="writing/:module_slug/:attempt_slug"
                 element={<AttemptWritingModulePage />}
-              />
-
-              <Route
-                path="writing/:module_slug/:attempt_slug/get_result"
-                element={<WritingResultPage />}
               />
 
               {/* Speaking Attempt */}
@@ -123,11 +132,6 @@ const AllRoutes = () => {
               <Route
                 path="speaking/:module_slug/:attempt_slug/completed"
                 element={<SpeakingCompletedPage />}
-              />
-
-              <Route
-                path="speaking/:module_slug/:attempt_slug/get_result"
-                element={<SpeakingResultPage />}
               />
             </Route>
           </Route>

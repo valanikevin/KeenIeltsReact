@@ -16,11 +16,14 @@ import CustomSplitPane from "../../../components/layout/CustomSplitPane";
 import WhatsNextCard from "../../../components/ieltstest/WhatsNextCard";
 import StartPracticeTestCard from "../../../components/ieltstest/StartPracticeTestCard";
 import CommentsCard from "../../../components/CommentsCard";
+import usePublicAxios from "../../../utils/usePublicAxios";
+import UserTestInfoCard from "../../../components/ieltstest/UserTestInfoCard";
+import TestReactionCard from "../../../components/ieltstest/TestReactionCard";
 
 const module_type = "reading";
 
 const ReadingResultPage = () => {
-  const api = useAxios();
+  const api = usePublicAxios();
   const { module_slug, attempt_slug } = useParams();
   const [module, setModule] = useState(null);
   const [attempt, setAttempt] = useState(null);
@@ -96,13 +99,17 @@ const ReadingResultPage = () => {
 
   return (
     <>
-      <PageHeadingBriefinfo
-        pagetitle={attempt.book.name}
-        briefinfo={"Reading" + " Test Result"}
-        color="bg-reading"
-      />
+      <div className="mt-4">
+        <Container>
+          <Row className="justify-content-center">
+            <Col xl={10} lg={12} md={12} className="">
+              <UserTestInfoCard attempt={attempt} module_type={module_type} />
+            </Col>
+          </Row>
+        </Container>
+      </div>
 
-      <div className="my-4">
+      <div className="mb-4">
         <Container>
           <Row className="justify-content-center">
             <Col xl={10} lg={12} md={12} className="mt-3 mb-3">
@@ -153,6 +160,10 @@ const ReadingResultPage = () => {
                 <FullTestNextModule attempt={attempt} />
               </Col>
             )}
+
+            <Col xl={10} lg={12} md={12} className="mt-3">
+              <TestReactionCard />
+            </Col>
 
             <Col xl={10} lg={12} md={12} className="my-3">
               <WhatsNextCard />

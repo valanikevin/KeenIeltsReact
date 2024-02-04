@@ -70,11 +70,7 @@ const ListeningResultPage = () => {
 
   return (
     <>
-      {/* <PageHeadingBriefinfo
-        pagetitle={attempt.book.name}
-        briefinfo={"Listening" + " Test Result"}
-        color="bg-listening"
-      /> */}
+
       <div className="mt-4">
         <Container>
           <Row className="justify-content-center">

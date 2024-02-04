@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Row, Col, Stack, Button, Table } from "react-bootstrap";
-import { FiInfo } from "react-icons/fi";
+import { FiCheckCircle, FiInfo } from "react-icons/fi";
 import { InlineShareButtons } from "sharethis-reactjs";
 
 const UserTestInfoCard = ({ attempt, module_type }) => {
@@ -17,9 +17,7 @@ const UserTestInfoCard = ({ attempt, module_type }) => {
             <h3 className="mt-2 fw-bold">{attempt.user_test_info.name}</h3>
           </div>
           <div className="ms-auto">
-            <Button variant="outline-primary" size="sm">
-              Share
-            </Button>
+            <FiCheckCircle size={24} className="text-black" />
           </div>
         </Stack>
       </Card.Header>
