@@ -76,6 +76,10 @@ const AllRoutes = () => {
           {/* IELTS Tests */}
           <Route path={"/ieltstest"}>
             <Route path={":module_slug"} element={<ModuleHomePage />} />
+            <Route
+              path="attempt/listening/:module_slug/:attempt_slug/get_result"
+              element={<ListeningResultPage />}
+            />
             <Route path="attempt" element={<PrivateRoutes />}>
               {/* Full Test */}
               <Route
@@ -88,10 +92,7 @@ const AllRoutes = () => {
                 path="listening/:module_slug/:attempt_slug"
                 element={<AttemptListeningModulePage />}
               />
-              <Route
-                path="listening/:module_slug/:attempt_slug/get_result"
-                element={<ListeningResultPage />}
-              />
+
               {/* Reading Attempt */}
               <Route
                 path="reading/:module_slug/:attempt_slug"

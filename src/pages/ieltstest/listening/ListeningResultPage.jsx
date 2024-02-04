@@ -16,11 +16,13 @@ import FullTestNextModule from "../../../components/ieltstest/FullTestNextModule
 import WhatsNextCard from "../../../components/ieltstest/WhatsNextCard";
 import StartPracticeTestCard from "../../../components/ieltstest/StartPracticeTestCard";
 import CommentsCard from "../../../components/CommentsCard";
+import UserTestInfoCard from "../../../components/ieltstest/UserTestInfoCard";
+import usePublicAxios from "../../../utils/usePublicAxios";
 
 const module_type = "listening";
 
 const ListeningResultPage = () => {
-  const api = useAxios();
+  const api = usePublicAxios();
   const api1 = useAxiosWithoutLoader();
   const { module_slug, attempt_slug } = useParams();
   const [attempt, setAttempt] = useState(null);
@@ -40,7 +42,7 @@ const ListeningResultPage = () => {
   }
 
   async function getModule() {
-    const response = await api1.post(
+    const response = await api.post(
       API_URLS.getListeningModule + module_slug + "/"
     );
     if (response.status === 200) {
@@ -67,13 +69,22 @@ const ListeningResultPage = () => {
 
   return (
     <>
-      <PageHeadingBriefinfo
+      {/* <PageHeadingBriefinfo
         pagetitle={attempt.book.name}
         briefinfo={"Listening" + " Test Result"}
         color="bg-listening"
-      />
+      /> */}
+      <div className="mt-4">
+        <Container>
+          <Row className="justify-content-center">
+            <Col xl={8} lg={10} md={12} className="">
+              <UserTestInfoCard attempt={attempt} />
+            </Col>
+          </Row>
+        </Container>
+      </div>
 
-      <div className="my-4">
+      <div className="mb-4">
         <Container>
           <Row className="justify-content-center">
             <Col xl={8} lg={10} md={12} className="mt-3 mb-3">
