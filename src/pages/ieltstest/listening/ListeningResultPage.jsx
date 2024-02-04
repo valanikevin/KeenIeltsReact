@@ -18,6 +18,7 @@ import StartPracticeTestCard from "../../../components/ieltstest/StartPracticeTe
 import CommentsCard from "../../../components/CommentsCard";
 import UserTestInfoCard from "../../../components/ieltstest/UserTestInfoCard";
 import usePublicAxios from "../../../utils/usePublicAxios";
+import TestReactionCard from "../../../components/ieltstest/TestReactionCard";
 
 const module_type = "listening";
 
@@ -181,6 +182,10 @@ const ListeningResultPage = () => {
                     </div>
                   ))}
               </Row>
+            </Col>
+
+            <Col xl={8} lg={10} md={12} className="mt-3">
+              <TestReactionCard />
             </Col>
 
             {attempt.full_test_next_attempt && (

@@ -73,6 +73,7 @@
     "react-youtube": "^10.1.0",
     "sass": "^1.64.0",
     "sass-loader": "^13.3.1",
+    "sharethis-reactjs": "^1.6.0",
     "simplebar": "^6.2.5",
     "simplebar-react": "^3.2.4",
     "standardized-audio-context": "^25.3.62",

@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Row, Col, Stack, Button, Table } from "react-bootstrap";
 import { FiInfo } from "react-icons/fi";
+import { InlineShareButtons } from "sharethis-reactjs";
 
 const UserTestInfoCard = ({ attempt, module_type }) => {
   return (
@@ -45,7 +46,28 @@ const UserTestInfoCard = ({ attempt, module_type }) => {
         </Table>
       </div>
       <Card.Footer>
-        <div className="sharethis-inline-share-buttons"></div>
+        <InlineShareButtons
+          config={{
+            alignment: "center", // alignment of buttons (left, center, right)
+            color: "social", // set the color of buttons (social, white)
+            enabled: true, // show/hide buttons (true, false)
+
+            labels: "cta", // button labels (cta, counts, null)
+            language: "en", // which language to use (see LANGUAGES)
+            networks: [
+              // which networks to include (see SHARING NETWORKS)
+              "whatsapp",
+              "facebook",
+              "messenger",
+              "telegram",
+              "sharethis",
+            ],
+            padding: 12, // padding within buttons (INTEGER)
+            radius: 4, // the corner radius on each button (INTEGER)
+            show_total: false,
+            size: 40, // the size of each button (INTEGER)
+          }}
+        />
       </Card.Footer>
     </Card>
   );
