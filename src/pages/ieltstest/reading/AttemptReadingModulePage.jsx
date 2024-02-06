@@ -145,30 +145,28 @@ const AttemptReadingModulePage = () => {
   };
 
   function handlePreviousSectionButton() {
-    let current_section_id = currentSection.id;
-    let new_section_id = current_section_id - 1;
-    const newSection = module.sections.find(
-      (section) => section.id === new_section_id
+    const currentIndex = module.sections.findIndex(
+      (section) => section.id === currentSection.id
     );
-    if (newSection) {
-      setCurrentSection(newSection);
+    const previousIndex = currentIndex - 1;
+    if (previousIndex >= 0) {
+      setCurrentSection(module.sections[previousIndex]);
     } else {
-      const lastElement = module.sections[module.sections.length - 1];
-      setCurrentSection(lastElement);
+      // Move to the last section if currently at the first section
+      setCurrentSection(module.sections[module.sections.length - 1]);
     }
   }
 
   function handleNextSectionButton() {
-    let current_section_id = currentSection.id;
-    let new_section_id = current_section_id + 1;
-    const newSection = module.sections.find(
-      (section) => section.id === new_section_id
+    const currentIndex = module.sections.findIndex(
+      (section) => section.id === currentSection.id
     );
-    if (newSection) {
-      setCurrentSection(newSection);
+    const nextIndex = currentIndex + 1;
+    if (nextIndex < module.sections.length) {
+      setCurrentSection(module.sections[nextIndex]);
     } else {
-      const lastElement = module.sections[0];
-      setCurrentSection(lastElement);
+      // Circle back to the first section if currently at the last section
+      setCurrentSection(module.sections[0]);
     }
   }
 
@@ -213,7 +211,7 @@ const AttemptReadingModulePage = () => {
   function endTest() {
     handleShowModal();
   }
-  
+
   function handleConfirmEndTest() {
     getFormDataLocal();
     sendAttemptUpdate("Completed")
