@@ -9,8 +9,11 @@ const QuestionBadge = ({
   form_field,
   moduleType,
 }) => {
+  // Added validation to ensure form_field and form_field.props are defined
+  const isFormFieldDefined = form_field && form_field.props;
+
   // Check if the field is a radio button
-  const isRadioButton = form_field.props.type === "radio";
+  const isRadioButton = isFormFieldDefined && form_field.props.type === "radio";
 
   // Determine if the radio button is selected
   const isRadioButtonSelected = isRadioButton && form_field.props.checked;
