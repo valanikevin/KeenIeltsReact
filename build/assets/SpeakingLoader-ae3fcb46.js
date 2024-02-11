@@ -1,2 +1,0 @@
-import{j as e}from"./index-5df064db.js";import{E as s}from"./EvaluationLoader-6e9d5ae2.js";const o=()=>e.jsx(s,{title:"Please Hold On, Your IELTS Speaking Analysis is Underway!",description:"We're currently processing your speech to provide you with the most accurate IELTS speaking assessment. This process involves advanced algorithms and expert evaluations, so it may take a few moments. Please note that the analysis could take up to 3-4 minutes. Thank you for your patience."});export{o as S};
-//# sourceMappingURL=SpeakingLoader-ae3fcb46.js.map
