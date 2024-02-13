@@ -86,8 +86,7 @@ const SpeakingCompletedPage = () => {
                 <p style={{ fontSize: "1.1rem" }} className="">
                   We have received your test responses. We will evaluate your
                   test and send you the result within 24 hours. You will receive
-                  an email with your result as well as you will be able to see
-                  your result from your dashboard.
+                  notification on your Dashboard page once the result is ready.
                 </p>
                 <p style={{ fontSize: "1.1rem" }}>
                   Meanwhile, you can check your test responses below.
