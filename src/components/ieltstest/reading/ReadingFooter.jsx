@@ -55,7 +55,7 @@ const ReadingFooter = ({
           </Col>
           <Col className="col-4 text-center mt-1">
             <CountdownTimer
-              initialMinutes={40}
+              initialMinutes={60}
               initialSeconds={0}
               handleTimesUp={handleConfirmEndTest}
             />
