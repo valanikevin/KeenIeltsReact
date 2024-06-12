@@ -1,7 +1,5 @@
 import axios from "axios";
-import jwt_decode from "jwt-decode";
-import dayjs from "dayjs";
-import AuthContext from "../context/AuthContext";
+
 import { useContext, useEffect } from "react";
 import LoadingContext from "../context/layout/LoadingContext";
 import { DJANGO_BASE_URL } from "./config";
