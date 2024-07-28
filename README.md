@@ -26,13 +26,25 @@ This repository contains the React frontend for the KeenIELTS platform, which pr
 ## Screenshots
 
 Include screenshots of the application here to give users a visual overview.
-
+### Home Page
 ![Home Page](https://raw.githubusercontent.com/valanikevin/KeenIeltsReact/main/src/assets/images/screenshots/Home.png)
+
+### Books Page
 ![Books](https://raw.githubusercontent.com/valanikevin/KeenIeltsReact/main/src/assets/images/screenshots/Books.png)
+
+### User Dashboard Page
 ![User Dashboard](https://raw.githubusercontent.com/valanikevin/KeenIeltsReact/main/src/assets/images/screenshots/Dashboard.png)
+
+### Listening Test Page
 ![Listening Test](https://raw.githubusercontent.com/valanikevin/KeenIeltsReact/main/src/assets/images/screenshots/ListeningTest.png)
+
+### Reading Test Page
 ![Reading Test](https://raw.githubusercontent.com/valanikevin/KeenIeltsReact/main/src/assets/images/screenshots/ReadingTest.png)
+
+### Writing Test Page
 ![Writing Test](https://raw.githubusercontent.com/valanikevin/KeenIeltsReact/main/src/assets/images/screenshots/WritingTest.png)
+
+### Speaking Test Page
 ![Speaking Test](https://raw.githubusercontent.com/valanikevin/KeenIeltsReact/main/src/assets/images/screenshots/SpeakingTest.png)
 
 ## Tech Stack
