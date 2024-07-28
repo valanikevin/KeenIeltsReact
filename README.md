@@ -25,7 +25,6 @@ This repository contains the React frontend for the KeenIELTS platform, which pr
 
 ## Screenshots
 
-Include screenshots of the application here to give users a visual overview.
 ### Home Page
 ![Home Page](https://raw.githubusercontent.com/valanikevin/KeenIeltsReact/main/src/assets/images/screenshots/Home.png)
 
